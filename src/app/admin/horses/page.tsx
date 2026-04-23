@@ -1,5 +1,6 @@
 import { getHorses } from '@/app/actions/horse'
 import { Plus } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function AdminHorsesPage() {
   let horses = [];
@@ -13,10 +14,10 @@ export default async function AdminHorsesPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Horses Inventory</h1>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors text-sm font-medium">
+        <Link href="/admin/horses/new" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors text-sm font-medium">
           <Plus size={16} />
           Add Horse
-        </button>
+        </Link>
       </div>
 
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
