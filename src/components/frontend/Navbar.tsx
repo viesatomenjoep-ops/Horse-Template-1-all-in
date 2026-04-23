@@ -15,8 +15,8 @@ export default async function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-3 text-2xl font-serif font-bold text-primary dark:text-white tracking-wide">
-              <div className="relative w-10 h-10">
-                <Image src="/logo.png" alt="Equivest Logo" fill className="object-contain" />
+              <div className="relative w-12 h-12 flex-shrink-0">
+                <Image src="/logo.png" alt="Equivest Logo" fill className="object-contain dark:invert" />
               </div>
               <div className="flex flex-col justify-center">
                 <span>Equivest</span>
