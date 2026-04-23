@@ -2,80 +2,87 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { logout } from '@/app/actions/auth'
-import { LogIn, LogOut, Menu, UserCircle } from 'lucide-react'
+import { Menu } from 'lucide-react'
 
 export default async function Navbar() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#0A192F]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center gap-3 text-2xl font-serif font-bold text-primary dark:text-white tracking-wide">
-              <div className="relative w-12 h-12 flex-shrink-0 animate-[spin_15s_linear_infinite]">
-                <Image src="/logo.png" alt="Equivest Logo" fill className="object-contain dark:invert" />
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#e6e6e6]/95 backdrop-blur-md border-b border-gray-100 transition-colors duration-300">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-24 relative w-full">
+          
+          {/* Logo Left */}
+          <div className="flex items-center space-x-4 z-[110]">
+            <Link href="/" className="group relative block">
+              <div className="flex items-center justify-center">
+                <Image 
+                  src="/logo.png" 
+                  alt="Equivest Logo" 
+                  width={56} 
+                  height={56} 
+                  className="w-14 h-14 object-contain transition-transform duration-500 group-hover:scale-110 animate-[spin_15s_linear_infinite]" 
+                />
               </div>
-              <div className="flex flex-col justify-center">
-                <span>Equivest</span>
-                <span className="text-xs font-sans font-light tracking-[0.2em] text-accent uppercase -mt-1">Since 1995</span>
-              </div>
+            </Link>
+            <Link href="/" className="flex flex-col text-left justify-center shrink-0">
+              <span className="text-2xl font-serif font-bold tracking-tight text-primary uppercase leading-none">Equivest</span>
+              <span className="text-[10px] font-bold tracking-[0.3em] text-primary/90 uppercase mt-1 self-end">Since 1995</span>
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 items-center">
-            <Link href="/about" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-              About Us
-            </Link>
-            <Link href="/horses" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-              Portfolio
-            </Link>
-            <Link href="/references" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-              References
-            </Link>
-            <Link href="/roi" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-              ROI
-            </Link>
-            <Link href="/news" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-              News
-            </Link>
-            <Link href="/contact" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-              Contact
-            </Link>
-
-            {/* Auth State */}
-            <div className="pl-4 border-l border-gray-300 dark:border-gray-700 flex items-center space-x-4">
+          {/* Desktop Navigation Center */}
+          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-[110]">
+            <nav className="flex items-center space-x-4 xl:space-x-6">
               {user ? (
-                <>
-                  <Link href="/admin" className="flex items-center gap-2 text-sm font-medium text-primary dark:text-white hover:text-accent transition-colors">
-                    <UserCircle size={18} />
-                    Admin
-                  </Link>
-                  <form action={logout}>
-                    <button type="submit" className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">
-                      <LogOut size={18} />
-                      Logout
-                    </button>
-                  </form>
-                </>
+                <form action={logout}>
+                  <button type="submit" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors py-2">
+                    Logout
+                  </button>
+                </form>
               ) : (
-                <Link href="/admin/login" className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">
-                  <LogIn size={18} />
+                <Link href="/admin/login" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors py-2">
                   Login
                 </Link>
               )}
-            </div>
-          </nav>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button className="text-gray-700 dark:text-gray-300 hover:text-accent focus:outline-none">
-              <Menu size={24} />
-            </button>
+              
+              <Link href="/about" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors py-2">
+                About Us
+              </Link>
+              <Link href="/horses" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors py-2">
+                Portfolio
+              </Link>
+              <Link href="/references" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors py-2">
+                References
+              </Link>
+              <Link href="/roi" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors py-2">
+                ROI
+              </Link>
+              <Link href="/news" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors py-2">
+                News
+              </Link>
+              <Link href="/contact" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors py-2">
+                Contact
+              </Link>
+            </nav>
           </div>
+
+          {/* Right side controls & Mobile menu button */}
+          <div className="flex items-center space-x-2 md:space-x-4 ml-auto z-[110]">
+            {user && (
+              <Link href="/admin" className="hidden md:flex items-center text-sm font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors">
+                Admin
+              </Link>
+            )}
+
+            <div className="lg:hidden flex items-center relative">
+              <button className="text-primary hover:text-accent p-2 transition-colors focus:outline-none" aria-label="Toggle menu">
+                <Menu size={28} />
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </header>
