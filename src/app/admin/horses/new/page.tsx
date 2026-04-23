@@ -129,8 +129,8 @@ export default function NewHorsePage() {
             {/* Media Upload */}
             <div className="col-span-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cover Image</label>
-              <CloudinaryUploader onUploadSuccess={setCoverImageUrl} label="Upload Cover Image" />
-              {/* Note: Additional media (gallery/video) can be handled in a separate component or tab, keeping this MVP focused on the core horse record and cover image. */}
+              {/* <CloudinaryUploader onUploadSuccess={setCoverImageUrl} label="Upload Cover Image" /> */}
+              <p className="text-sm text-gray-500">Image upload temporarily disabled for debugging.</p>
             </div>
           </div>
 
