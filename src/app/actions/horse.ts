@@ -40,7 +40,7 @@ export async function createHorse(formData: FormData) {
   if (error) throw new Error(error.message)
   
   revalidatePath('/admin/horses')
-  revalidatePath('/(frontend)/horses')
+  revalidatePath('/horses')
   
   return data
 }
@@ -52,5 +52,5 @@ export async function updateHorseStatus(id: string, status: string) {
   if (error) throw new Error(error.message)
   
   revalidatePath('/admin/horses')
-  revalidatePath(`/(frontend)/horses/${id}`)
+  revalidatePath(`/horses/${id}`)
 }
