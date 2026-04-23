@@ -2,8 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { logout } from '@/app/actions/auth'
-import { Menu } from 'lucide-react'
 import ScrollLogo from './ScrollLogo'
+import MobileMenu from './MobileMenu'
 
 export default async function Navbar() {
   const supabase = await createClient()
@@ -77,11 +77,7 @@ export default async function Navbar() {
               </Link>
             )}
 
-            <div className="lg:hidden flex items-center relative">
-              <button className="text-primary hover:text-accent p-2 transition-colors focus:outline-none" aria-label="Toggle menu">
-                <Menu size={28} />
-              </button>
-            </div>
+            <MobileMenu user={user} />
           </div>
 
         </div>
