@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { getLeads } from '@/app/actions/lead'
 
 export default async function AdminLeadsPage() {

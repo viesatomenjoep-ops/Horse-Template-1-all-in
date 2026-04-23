@@ -3,6 +3,8 @@ export const metadata = {
   description: 'Latest updates, sales, and competition results from Antigravity.',
 }
 
+export const dynamic = 'force-dynamic'
+
 import { getNewsArticles } from '@/app/actions/news'
 import Image from 'next/image'
 

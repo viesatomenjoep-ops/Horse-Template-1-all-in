@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { getNewsArticles } from '@/app/actions/news'
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
