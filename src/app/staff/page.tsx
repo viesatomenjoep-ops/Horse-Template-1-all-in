@@ -158,41 +158,81 @@ export default function StaffPortal() {
       <main className="max-w-4xl mx-auto px-4 pt-8 space-y-8">
         
         {/* Time Clock Widget */}
-        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 text-center">
-          <h2 className="text-lg font-serif font-semibold text-gray-900 dark:text-white mb-6">Time Clock</h2>
+        <section className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700 p-8 text-center relative overflow-hidden">
+          {isClockedIn && (
+            <div className="absolute inset-0 bg-green-50 dark:bg-green-900/10 opacity-50 animate-pulse pointer-events-none"></div>
+          )}
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Current Status</h2>
+          
+          <div className="mb-8">
+            {isClockedIn ? (
+              <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-4 py-1.5 rounded-full text-sm font-bold animate-fade-in">
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                ACTIVELY WORKING
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 px-4 py-1.5 rounded-full text-sm font-bold">
+                <span className="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+                OFF THE CLOCK
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative z-10">
             {!isClockedIn ? (
               <button 
                 onClick={handleClockIn}
-                className="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white py-6 px-10 rounded-2xl text-xl font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 w-full sm:w-auto"
+                className="group flex flex-col items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-white p-8 rounded-3xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-2 w-full sm:w-64"
               >
-                <LogIn size={28} />
-                CLOCK IN
+                <LogIn size={48} className="group-hover:scale-110 transition-transform" />
+                <span className="text-2xl font-black tracking-widest">CLOCK IN</span>
               </button>
             ) : (
               <button 
                 onClick={handleClockOut}
-                className="flex items-center justify-center gap-3 bg-red-600 hover:bg-red-700 text-white py-6 px-10 rounded-2xl text-xl font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 w-full sm:w-auto"
+                className="group flex flex-col items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white p-8 rounded-3xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-2 w-full sm:w-64"
               >
-                <Clock size={28} />
-                CLOCK OUT
+                <Clock size={48} className="group-hover:scale-110 transition-transform" />
+                <span className="text-2xl font-black tracking-widest">CLOCK OUT</span>
               </button>
             )}
           </div>
           
-          <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700/50 flex flex-col items-center justify-center gap-2">
-            <div className="flex items-center gap-2 text-primary dark:text-primary-light bg-primary/5 dark:bg-primary/10 px-4 py-2 rounded-full">
-              <Timer size={18} />
-              <span className="font-semibold text-sm uppercase tracking-wider">Today's Hours</span>
-              <span className="font-mono font-bold text-lg">{hours}h {minutes}m</span>
-            </div>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-100 dark:border-gray-700/50 pt-8 relative z-10">
             
-            {lastAction && (
-              <p className="text-xs text-gray-500 mt-2">
-                Last action: {lastAction.action === 'clock_in' ? 'Clocked IN' : 'Clocked OUT'} at {new Date(lastAction.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-              </p>
-            )}
+            {/* Today's Hours */}
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-1">
+                <Timer size={14} /> Total Time Today
+              </span>
+              <div className="text-5xl font-mono font-black text-primary dark:text-white tracking-tight">
+                {hours}<span className="text-2xl text-gray-400">h</span> {minutes.toString().padStart(2, '0')}<span className="text-2xl text-gray-400">m</span>
+              </div>
+            </div>
+
+            {/* Last Action Detail */}
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+                Last Activity
+              </span>
+              {lastAction ? (
+                <div className="text-center">
+                  <div className={`text-xl font-bold mb-1 ${lastAction.action === 'clock_in' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                    {lastAction.action === 'clock_in' ? 'Clocked In' : 'Clocked Out'}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+                    {new Date(lastAction.timestamp).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
+                  </div>
+                  <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white mt-1">
+                    {new Date(lastAction.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-gray-400 italic">No activity yet</div>
+              )}
+            </div>
+
           </div>
         </section>
 
