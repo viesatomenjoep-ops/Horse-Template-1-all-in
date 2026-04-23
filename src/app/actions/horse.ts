@@ -20,6 +20,11 @@ export async function getHorse(id: string) {
 export async function createHorse(formData: FormData) {
   const supabase = await createClient()
   
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    return { error: 'You must be logged in to create a horse.' }
+  }
+  
   const rawData = {
     name: formData.get('name') as string,
     price_category: formData.get('price_category') as string,
