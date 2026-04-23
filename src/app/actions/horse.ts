@@ -56,8 +56,61 @@ export async function updateHorseStatus(id: string, status: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('horses').update({ status }).eq('id', id)
   
-  if (error) throw new Error(error.message)
+  if (error) return { error: error.message }
   
   revalidatePath('/admin/horses')
   revalidatePath(`/horses/${id}`)
+  return { success: true }
+}
+
+export async function updateHorse(id: string, formData: FormData) {
+  const supabase = await createClient()
+  
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'You must be logged in to update a horse.' }
+  
+  const rawData: any = {
+    name: formData.get('name') as string,
+    price_category: formData.get('price_category') as string,
+    birth_year: parseInt(formData.get('birth_year') as string),
+    gender: formData.get('gender') as string,
+    height_cm: parseInt(formData.get('height_cm') as string) || null,
+    discipline: formData.get('discipline') as string,
+    experience_level: formData.get('experience_level') as string,
+    sire: formData.get('sire') as string,
+    dam_sire: formData.get('dam_sire') as string,
+    description: formData.get('description') as string,
+    status: formData.get('status') as string,
+  }
+
+  const coverImageUrl = formData.get('cover_image_url') as string
+  if (coverImageUrl) {
+    rawData.cover_image_url = coverImageUrl
+  }
+
+  const { data, error } = await supabase.from('horses').update(rawData).eq('id', id).select().single()
+  
+  if (error) return { error: error.message || 'Unknown database error' }
+  
+  revalidatePath('/admin/horses')
+  revalidatePath('/horses')
+  revalidatePath(`/horses/${id}`)
+  
+  return { success: true, data }
+}
+
+export async function deleteHorse(id: string) {
+  const supabase = await createClient()
+  
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'You must be logged in to delete a horse.' }
+  
+  const { error } = await supabase.from('horses').delete().eq('id', id)
+  
+  if (error) return { error: error.message }
+  
+  revalidatePath('/admin/horses')
+  revalidatePath('/horses')
+  
+  return { success: true }
 }
