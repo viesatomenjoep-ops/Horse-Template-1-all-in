@@ -48,7 +48,16 @@ export default async function AdminHorsesPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#" className="text-primary hover:text-secondary">Edit</a>
+                    <div className="flex justify-end gap-3">
+                      <Link href={`/admin/horses/${horse.id}/edit`} className="text-primary hover:text-secondary">Edit</Link>
+                      <form action={async () => {
+                        'use server';
+                        const { deleteHorse } = await import('@/app/actions/horse');
+                        await deleteHorse(horse.id);
+                      }}>
+                        <button type="submit" className="text-red-600 hover:text-red-900">Delete</button>
+                      </form>
+                    </div>
                   </td>
                 </tr>
               ))
