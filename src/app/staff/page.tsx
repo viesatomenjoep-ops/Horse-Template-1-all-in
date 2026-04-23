@@ -219,15 +219,18 @@ export default function StaffPortal() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 pt-8 space-y-8">
-        
-        {/* Time Clock Widget */}
-        <section className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700 p-8 text-center relative overflow-hidden">
-          {isClockedIn && (
-            <div className="absolute inset-0 bg-green-50 dark:bg-green-900/10 opacity-50 animate-pulse pointer-events-none"></div>
-          )}
+      <main className="max-w-6xl mx-auto px-4 pt-8 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Current Status</h2>
+          {/* LEFT COLUMN: Clock Interface */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            {/* Clock Widget */}
+            <section className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700 p-8 text-center relative overflow-hidden flex-1 flex flex-col items-center justify-center min-h-[400px]">
+              {isClockedIn && (
+                <div className="absolute inset-0 bg-green-50 dark:bg-green-900/10 opacity-50 animate-pulse pointer-events-none"></div>
+              )}
+              
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">Current Status</h2>
           
           <div className="mb-8">
             {isClockedIn ? (
@@ -271,46 +274,49 @@ export default function StaffPortal() {
               </button>
             )}
           </div>
-          
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-100 dark:border-gray-700/50 pt-8 relative z-10">
-            
-            {/* Today's Hours */}
-            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-1">
-                <Timer size={14} /> Total Time Today
-              </span>
-              <div className="text-5xl font-mono font-black text-primary dark:text-white tracking-tight">
-                {hours}<span className="text-2xl text-gray-400">h</span> {minutes.toString().padStart(2, '0')}<span className="text-2xl text-gray-400">m</span>
-              </div>
-            </div>
-
-            {/* Last Action Detail */}
-            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                Last Activity
-              </span>
-              {lastAction ? (
-                <div className="text-center">
-                  <div className={`text-xl font-bold mb-1 ${lastAction.action === 'clock_in' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                    {lastAction.action === 'clock_in' ? 'Clocked In' : 'Clocked Out'}
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">
-                    {new Date(lastAction.timestamp).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
-                  </div>
-                  <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white mt-1">
-                    {new Date(lastAction.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-gray-400 italic">No activity yet</div>
-              )}
-            </div>
-
-          </div>
         </section>
 
+        <div className="grid grid-cols-2 gap-4">
+          {/* Today's Hours */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-1">
+              <Timer size={14} /> Total Time Today
+            </span>
+            <div className="text-4xl font-mono font-black text-primary dark:text-white tracking-tight">
+              {hours}<span className="text-xl text-gray-400">h</span> {minutes.toString().padStart(2, '0')}<span className="text-xl text-gray-400">m</span>
+            </div>
+          </div>
+
+          {/* Last Action Detail */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
+              Last Activity
+            </span>
+            {lastAction ? (
+              <div className="text-center">
+                <div className={`text-xl font-bold mb-1 ${lastAction.action === 'clock_in' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                  {lastAction.action === 'clock_in' ? 'Clocked In' : 'Clocked Out'}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+                  {new Date(lastAction.timestamp).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
+                </div>
+                <div className="text-xl font-mono font-bold text-gray-900 dark:text-white mt-1">
+                  {new Date(lastAction.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                </div>
+              </div>
+            ) : (
+              <div className="text-gray-400 italic text-sm">No activity</div>
+            )}
+          </div>
+        </div>
+
+      </div>
+
+      {/* RIGHT COLUMN: Tasks & History */}
+      <div className="lg:col-span-7 flex flex-col gap-6">
+        
         {/* Daily Tasks */}
-        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden flex-1 flex flex-col min-h-[300px]">
           <div className="bg-gray-50 dark:bg-gray-900/50 p-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-lg font-serif font-semibold text-gray-900 dark:text-white flex items-center gap-2">
               <CheckCircle2 className="text-primary" size={20} />
@@ -369,7 +375,7 @@ export default function StaffPortal() {
                     <div className="font-medium text-gray-900 dark:text-white">
                       {new Date(day.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
                     </div>
-                    <div className="font-mono font-bold text-primary dark:text-primary-light">
+                    <div className="font-mono font-bold text-primary dark:text-primary-light bg-primary/10 px-3 py-1 rounded-full">
                       {dayHours}h {dayMins.toString().padStart(2, '0')}m
                     </div>
                   </li>
@@ -379,6 +385,8 @@ export default function StaffPortal() {
           </ul>
         </section>
 
+          </div>
+        </div>
       </main>
     </div>
   )
