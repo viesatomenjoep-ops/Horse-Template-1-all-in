@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createHorse } from '@/app/actions/horse'
-import dynamic from 'next/dynamic'
-const CloudinaryUploader = dynamic(() => import('@/components/admin/CloudinaryUploader'), { ssr: false })
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
