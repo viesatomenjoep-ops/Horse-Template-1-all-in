@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete } from '@/app/actions/staff'
-import { LogIn, LogOut, CheckCircle2, Circle, Clock } from 'lucide-react'
+import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete, getTodayHours } from '@/app/actions/staff'
+import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer } from 'lucide-react'
 
 export default function StaffPortal() {
   const [employees, setEmployees] = useState<any[]>([])
@@ -13,6 +13,7 @@ export default function StaffPortal() {
   
   const [lastAction, setLastAction] = useState<any | null>(null)
   const [tasks, setTasks] = useState<any[]>([])
+  const [todayMs, setTodayMs] = useState(0)
 
   // Load basic data
   useEffect(() => {
@@ -29,9 +30,23 @@ export default function StaffPortal() {
     }).catch(console.error)
   }, [])
 
+  // Live timer for currently working employees
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    if (loggedInEmp && lastAction?.action === 'clock_in') {
+      interval = setInterval(() => {
+        setTodayMs(prev => prev + 60000) // add a minute every minute
+      }, 60000)
+    }
+    return () => clearInterval(interval)
+  }, [loggedInEmp, lastAction])
+
   const fetchDashboardData = async (empId: string) => {
     const action = await getLastAction(empId)
     setLastAction(action)
+
+    const ms = await getTodayHours(empId)
+    setTodayMs(ms)
 
     const today = new Date().toISOString().split('T')[0]
     const todaysTasks = await getTasks(today)
@@ -78,6 +93,10 @@ export default function StaffPortal() {
     await fetchDashboardData(loggedInEmp.id)
   }
 
+  const isClockedIn = lastAction?.action === 'clock_in'
+  const hours = Math.floor(todayMs / (1000 * 60 * 60))
+  const minutes = Math.floor((todayMs % (1000 * 60 * 60)) / (1000 * 60))
+
   if (!loggedInEmp) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
@@ -112,8 +131,6 @@ export default function StaffPortal() {
       </div>
     )
   }
-
-  const isClockedIn = lastAction?.action === 'clock_in'
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
@@ -164,12 +181,19 @@ export default function StaffPortal() {
             )}
           </div>
           
-          {lastAction && (
-            <p className="mt-6 text-sm text-gray-500 flex justify-center items-center gap-2">
-              <Clock size={14} />
-              Last action: {lastAction.action === 'clock_in' ? 'Clocked IN' : 'Clocked OUT'} at {new Date(lastAction.timestamp).toLocaleTimeString()}
-            </p>
-          )}
+          <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700/50 flex flex-col items-center justify-center gap-2">
+            <div className="flex items-center gap-2 text-primary dark:text-primary-light bg-primary/5 dark:bg-primary/10 px-4 py-2 rounded-full">
+              <Timer size={18} />
+              <span className="font-semibold text-sm uppercase tracking-wider">Today's Hours</span>
+              <span className="font-mono font-bold text-lg">{hours}h {minutes}m</span>
+            </div>
+            
+            {lastAction && (
+              <p className="text-xs text-gray-500 mt-2">
+                Last action: {lastAction.action === 'clock_in' ? 'Clocked IN' : 'Clocked OUT'} at {new Date(lastAction.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </p>
+            )}
+          </div>
         </section>
 
         {/* Daily Tasks */}

@@ -97,6 +97,42 @@ export async function getLastAction(employeeId: string) {
   return data
 }
 
+export async function getTodayHours(employeeId: string) {
+  const supabase = await createClient()
+  const todayStart = new Date()
+  todayStart.setHours(0, 0, 0, 0)
+  const todayEnd = new Date()
+  todayEnd.setHours(23, 59, 59, 999)
+
+  const { data, error } = await supabase
+    .from('employee_logs')
+    .select('*')
+    .eq('employee_id', employeeId)
+    .gte('timestamp', todayStart.toISOString())
+    .lte('timestamp', todayEnd.toISOString())
+    .order('timestamp', { ascending: true })
+
+  if (error || !data) return 0
+
+  let totalMs = 0
+  let lastIn: Date | null = null
+
+  data.forEach((log: any) => {
+    if (log.action === 'clock_in') {
+      lastIn = new Date(log.timestamp)
+    } else if (log.action === 'clock_out' && lastIn) {
+      totalMs += new Date(log.timestamp).getTime() - lastIn.getTime()
+      lastIn = null
+    }
+  })
+
+  if (lastIn) {
+    totalMs += new Date().getTime() - lastIn.getTime()
+  }
+
+  return totalMs
+}
+
 // --- TASKS ---
 
 export async function getTasks(date: string) {
