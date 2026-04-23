@@ -69,7 +69,7 @@ export default function NewHorsePage() {
 
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="gender" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Gender *</label>
-              <select required name="gender" id="gender" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
+              <select required name="gender" id="gender" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
                 <option value="Mare">Mare</option>
                 <option value="Gelding">Gelding</option>
                 <option value="Stallion">Stallion</option>
@@ -83,7 +83,7 @@ export default function NewHorsePage() {
 
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="discipline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Discipline *</label>
-              <select required name="discipline" id="discipline" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
+              <select required name="discipline" id="discipline" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
                 <option value="Dressage">Dressage</option>
                 <option value="Showjumping">Showjumping</option>
                 <option value="Hunter">Hunter</option>
@@ -98,7 +98,7 @@ export default function NewHorsePage() {
 
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="price_category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Price Category *</label>
-              <select required name="price_category" id="price_category" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
+              <select required name="price_category" id="price_category" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
                 <option value="Price on Request">Price on Request</option>
                 <option value="€10k-25k">€10k-25k</option>
                 <option value="€25k-50k">€25k-50k</option>
@@ -108,7 +108,7 @@ export default function NewHorsePage() {
 
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
-              <select name="status" id="status" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
+              <select name="status" id="status" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
                 <option value="Available">Available</option>
                 <option value="Under Offer / Vet Check">Under Offer / Vet Check</option>
                 <option value="Sold">Sold</option>
