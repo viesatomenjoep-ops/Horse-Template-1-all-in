@@ -23,7 +23,12 @@ export default function NewHorsePage() {
     }
 
     try {
-      await createHorse(formData)
+      const result = await createHorse(formData)
+      if (result.error) {
+        setError(result.error)
+        setIsSubmitting(false)
+        return
+      }
       router.push('/admin/horses')
     } catch (err: any) {
       setError(err.message || "Failed to create horse")

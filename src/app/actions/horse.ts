@@ -37,12 +37,14 @@ export async function createHorse(formData: FormData) {
 
   const { data, error } = await supabase.from('horses').insert([rawData]).select().single()
   
-  if (error) throw new Error(error.message)
+  if (error) {
+    return { error: error.message || 'Unknown database error' }
+  }
   
   revalidatePath('/admin/horses')
   revalidatePath('/horses')
   
-  return data
+  return { success: true, data }
 }
 
 export async function updateHorseStatus(id: string, status: string) {
