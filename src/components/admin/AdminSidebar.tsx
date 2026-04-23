@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X } from 'lucide-react'
+import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Instagram } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
 
@@ -14,6 +14,7 @@ export default function AdminSidebar() {
   const navItems = [
     { href: '/admin', icon: LayoutDashboard, label: 'Overview' },
     { href: '/admin/horses', icon: Database, label: 'Horses' },
+    { href: '/admin/references', icon: Instagram, label: 'References' },
     { href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { href: '/admin/team', icon: UserCircle, label: 'Team' },
     { href: '/admin/news', icon: Newspaper, label: 'News' },
