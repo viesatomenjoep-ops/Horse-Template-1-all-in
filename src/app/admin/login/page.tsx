@@ -1,4 +1,5 @@
 import { login } from '@/app/actions/auth'
+import Image from 'next/image'
 
 export default async function LoginPage(props: {
   searchParams: Promise<{ error?: string }>
@@ -8,8 +9,9 @@ export default async function LoginPage(props: {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-xl">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-serif font-bold text-gray-900 dark:text-white">
+        <div className="flex flex-col items-center">
+          <Image src="/logo.png" alt="Equivest Logo" width={80} height={80} className="w-20 h-20 object-contain mb-4" />
+          <h2 className="mt-2 text-center text-3xl font-serif font-bold text-gray-900 dark:text-white">
             Equivest CMS platform
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">

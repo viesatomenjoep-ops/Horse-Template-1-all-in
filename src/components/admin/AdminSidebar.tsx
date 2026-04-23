@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
@@ -23,7 +24,10 @@ export default function AdminSidebar() {
     <>
       {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sticky top-0 z-40">
-        <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
+        <div className="flex items-center gap-2">
+          <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain" />
+          <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
+        </div>
         <button onClick={() => setIsOpen(true)} className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white">
           <Menu size={24} />
         </button>
@@ -44,7 +48,10 @@ export default function AdminSidebar() {
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
-          <span className="text-xl font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
+          <div className="flex items-center gap-2">
+            <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain" />
+            <span className="text-xl font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
+          </div>
           <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary">
             <X size={24} />
           </button>
