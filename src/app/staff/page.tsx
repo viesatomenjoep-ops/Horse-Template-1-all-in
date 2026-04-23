@@ -243,22 +243,31 @@ export default function StaffPortal() {
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative z-10">
+          <div className="flex justify-center items-center relative z-10 py-4">
             {!isClockedIn ? (
               <button 
                 onClick={handleClockIn}
-                className="group flex flex-col items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-white p-8 rounded-3xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-2 w-full sm:w-64"
+                className="group flex flex-col items-center justify-center gap-6 transition-all hover:scale-105 active:scale-95"
               >
-                <LogIn size={48} className="group-hover:scale-110 transition-transform" />
-                <span className="text-2xl font-black tracking-widest">CLOCK IN</span>
+                <div className="w-48 h-48 rounded-full bg-white dark:bg-gray-800 shadow-xl border-4 border-gray-100 dark:border-gray-700 flex items-center justify-center p-6 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:border-primary group-hover:shadow-2xl transition-all duration-300">
+                  <Image src="/logo.png" alt="Clock In Logo" width={120} height={120} className="object-contain" />
+                </div>
+                <div className="bg-primary text-white px-8 py-3 rounded-full font-black tracking-widest shadow-lg group-hover:bg-secondary transition-colors">
+                  TAP TO CLOCK IN
+                </div>
               </button>
             ) : (
               <button 
                 onClick={handleClockOut}
-                className="group flex flex-col items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white p-8 rounded-3xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-2 w-full sm:w-64"
+                className="group flex flex-col items-center justify-center gap-6 transition-all hover:scale-105 active:scale-95"
               >
-                <Clock size={48} className="group-hover:scale-110 transition-transform" />
-                <span className="text-2xl font-black tracking-widest">CLOCK OUT</span>
+                <div className="w-48 h-48 rounded-full bg-white dark:bg-gray-800 shadow-[0_0_40px_rgba(34,197,94,0.3)] border-4 border-green-500 flex items-center justify-center p-6 animate-pulse group-hover:border-red-500 group-hover:shadow-[0_0_40px_rgba(239,68,68,0.4)] transition-all duration-300">
+                  <Image src="/logo.png" alt="Clock Out Logo" width={120} height={120} className="object-contain" />
+                </div>
+                <div className="bg-green-600 group-hover:bg-red-600 text-white px-8 py-3 rounded-full font-black tracking-widest shadow-lg transition-colors">
+                  <span className="group-hover:hidden">ACTIVELY LOGGING</span>
+                  <span className="hidden group-hover:inline">TAP TO CLOCK OUT</span>
+                </div>
               </button>
             )}
           </div>
