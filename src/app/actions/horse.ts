@@ -38,6 +38,12 @@ export async function createHorse(formData: FormData) {
     description: formData.get('description') as string,
     status: formData.get('status') as string,
     cover_image_url: formData.get('cover_image_url') as string || null,
+    doc_vet_check: formData.get('doc_vet_check') as string || null,
+    doc_xrays: formData.get('doc_xrays') as string || null,
+    doc_passport: formData.get('doc_passport') as string || null,
+    link_fei: formData.get('link_fei') as string || null,
+    link_horsetelex: formData.get('link_horsetelex') as string || null,
+    link_video: formData.get('link_video') as string || null,
   }
 
   const { data, error } = await supabase.from('horses').insert([rawData]).select().single()
@@ -81,6 +87,12 @@ export async function updateHorse(id: string, formData: FormData) {
     dam_sire: formData.get('dam_sire') as string,
     description: formData.get('description') as string,
     status: formData.get('status') as string,
+    doc_vet_check: formData.get('doc_vet_check') as string || null,
+    doc_xrays: formData.get('doc_xrays') as string || null,
+    doc_passport: formData.get('doc_passport') as string || null,
+    link_fei: formData.get('link_fei') as string || null,
+    link_horsetelex: formData.get('link_horsetelex') as string || null,
+    link_video: formData.get('link_video') as string || null,
   }
 
   const coverImageUrl = formData.get('cover_image_url') as string

@@ -1,5 +1,5 @@
 import { getHorse } from '@/app/actions/horse'
-import { ArrowLeft, Ruler, Calendar, Shield, Trophy } from 'lucide-react'
+import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon, Video, FileCheck, Stethoscope } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -83,6 +83,90 @@ export default async function HorseDetailPage(props: {
                 <div className="w-1/2 pl-6">
                   <span className="text-sm text-gray-500 uppercase tracking-widest block mb-1">Dam Sire</span>
                   <span className="text-xl font-medium text-primary dark:text-white">{horse.dam_sire || 'Unknown'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Documents & Links */}
+            <div>
+              <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-6">Horse Documents & Links</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Vet Check */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex items-center shadow-sm">
+                  <Stethoscope className="w-8 h-8 text-accent mr-4" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary dark:text-white">Vet Check / Keuring</span>
+                    {horse.doc_vet_check ? (
+                      <a href={horse.doc_vet_check} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Document</a>
+                    ) : (
+                      <span className="text-sm text-gray-400">Pending</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* X-Rays */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex items-center shadow-sm">
+                  <FileText className="w-8 h-8 text-accent mr-4" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary dark:text-white">X-Rays</span>
+                    {horse.doc_xrays ? (
+                      <a href={horse.doc_xrays} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Document</a>
+                    ) : (
+                      <span className="text-sm text-gray-400">Pending</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Passport Scan */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex items-center shadow-sm">
+                  <FileCheck className="w-8 h-8 text-accent mr-4" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary dark:text-white">Passport Scan</span>
+                    {horse.doc_passport ? (
+                      <a href={horse.doc_passport} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Document</a>
+                    ) : (
+                      <span className="text-sm text-gray-400">Pending</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* FEI / Lifescore */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex items-center shadow-sm">
+                  <LinkIcon className="w-8 h-8 text-accent mr-4" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary dark:text-white">FEI / Lifescore</span>
+                    {horse.link_fei ? (
+                      <a href={horse.link_fei} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Profile</a>
+                    ) : (
+                      <span className="text-sm text-gray-400">Pending</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* HorseTelex */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex items-center shadow-sm">
+                  <LinkIcon className="w-8 h-8 text-accent mr-4" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary dark:text-white">HorseTelex</span>
+                    {horse.link_horsetelex ? (
+                      <a href={horse.link_horsetelex} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Pedigree</a>
+                    ) : (
+                      <span className="text-sm text-gray-400">Pending</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Video */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex items-center shadow-sm">
+                  <Video className="w-8 h-8 text-accent mr-4" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-primary dark:text-white">Video</span>
+                    {horse.link_video ? (
+                      <a href={horse.link_video} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">Watch Video</a>
+                    ) : (
+                      <span className="text-sm text-gray-400">Pending</span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
