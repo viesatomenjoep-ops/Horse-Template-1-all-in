@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@custom-variant dark (&:where(.dark, .dark *));
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -19,12 +19,7 @@
   --foreground: #111111; /* Deep dark text */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #111111; /* Dark Background */
-    --foreground: #fdfdfd; /* Crisp white text */
-  }
-}
+/* Dark mode disabled to force pure white theme everywhere */
 
 @layer base {
   body {
