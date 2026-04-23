@@ -13,8 +13,8 @@ export default function AdminSidebar() {
   const navItems = [
     { href: '/admin', icon: LayoutDashboard, label: 'Overview' },
     { href: '/admin/horses', icon: Database, label: 'Horses' },
+    { href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { href: '/admin/team', icon: UserCircle, label: 'Team' },
-    { href: '/admin/leads', icon: Users, label: 'Leads' },
     { href: '/admin/news', icon: Newspaper, label: 'News' },
     { href: '/admin/settings', icon: Settings, label: 'Settings' },
   ]
