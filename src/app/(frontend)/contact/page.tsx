@@ -45,32 +45,55 @@ export default function ContactPage() {
           <div>
             <h3 className="text-2xl font-serif font-semibold text-primary dark:text-white mb-6">Contact Information</h3>
             <div className="space-y-6">
-              <div className="flex items-start">
-                <MapPin className="text-accent mt-1 mr-4" size={24} />
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Headquarters</p>
-                  <p className="text-gray-600 dark:text-gray-400">Amsterdam, The Netherlands</p>
+              <a href="https://wa.me/15613010984" target="_blank" rel="noopener noreferrer" className="flex items-start group">
+                <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-accent group-hover:text-white transition-colors text-accent">
+                   <Phone size={20} />
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Phone className="text-accent mt-1 mr-4" size={24} />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Phone</p>
-                  <p className="text-gray-600 dark:text-gray-400">+31 (0) 6 1234 5678</p>
+                  <p className="font-medium text-gray-900 dark:text-white group-hover:text-accent transition-colors">Chat via WhatsApp</p>
+                  <p className="text-gray-600 dark:text-gray-400">+1 (561) 301-0984</p>
                 </div>
-              </div>
-              <div className="flex items-start">
-                <Mail className="text-accent mt-1 mr-4" size={24} />
+              </a>
+              <a href="mailto:equivestbv@gmail.com" className="flex items-start group">
+                <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-accent group-hover:text-white transition-colors text-accent">
+                   <Mail size={20} />
+                </div>
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">Email</p>
-                  <p className="text-gray-600 dark:text-gray-400">info@antigravityhorses.com</p>
+                  <p className="font-medium text-gray-900 dark:text-white group-hover:text-accent transition-colors">Send an Email</p>
+                  <p className="text-gray-600 dark:text-gray-400">equivestbv@gmail.com</p>
+                </div>
+              </a>
+              <a href="https://www.instagram.com/nomoregrayarea36" target="_blank" rel="noopener noreferrer" className="flex items-start group">
+                <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-accent group-hover:text-white transition-colors text-accent">
+                   {/* Fallback to MapPin if Instagram icon is not imported, but let's use a simple SVG or generic icon */}
+                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white group-hover:text-accent transition-colors">Instagram</p>
+                  <p className="text-gray-600 dark:text-gray-400">Follow Us</p>
+                </div>
+              </a>
+              <div className="flex items-start">
+                <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-4 text-accent shrink-0">
+                   <MapPin size={20} />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">Location</p>
+                  <p className="text-gray-600 dark:text-gray-400">Huikvenweg 8<br/>2990 Wuustwezel<br/><span className="italic text-sm">(on the premises of APG Stables)</span></p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="h-64 w-full bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden relative">
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400">Stable Image</div>
+          <div className="h-64 w-full bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden relative shadow-inner">
+            <iframe 
+               src="https://maps.google.com/maps?q=Huikvenweg%208,%202990%20Wuustwezel&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+               style={{ border: 0 }} 
+               allowFullScreen={false} 
+               loading="lazy" 
+               referrerPolicy="no-referrer-when-downgrade"
+               className="absolute inset-0 w-full h-full grayscale-[20%] contrast-[1.1] opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+            ></iframe>
           </div>
         </div>
 
