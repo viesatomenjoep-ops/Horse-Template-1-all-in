@@ -115,19 +115,19 @@ export async function getTodayHours(employeeId: string) {
   if (error || !data) return 0
 
   let totalMs = 0
-  let lastIn: Date | null = null
+  let lastIn: any = null
 
   data.forEach((log: any) => {
     if (log.action === 'clock_in') {
       lastIn = new Date(log.timestamp)
     } else if (log.action === 'clock_out' && lastIn) {
-      totalMs += new Date(log.timestamp).getTime() - lastIn.getTime()
+      totalMs += new Date(log.timestamp).getTime() - new Date(lastIn).getTime()
       lastIn = null
     }
   })
 
   if (lastIn) {
-    totalMs += new Date().getTime() - lastIn.getTime()
+    totalMs += new Date().getTime() - new Date(lastIn).getTime()
   }
 
   return totalMs
