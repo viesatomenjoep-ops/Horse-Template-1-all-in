@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { LayoutDashboard, Database, Users, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Database, Users, Newspaper, Settings, LogOut } from 'lucide-react'
 
 export default function AdminLayout({
   children,
@@ -24,6 +24,10 @@ export default function AdminLayout({
           <Link href="/admin/leads" className="flex items-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
             <Users className="mr-3 h-5 w-5 text-gray-500" />
             Leads
+          </Link>
+          <Link href="/admin/news" className="flex items-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+            <Newspaper className="mr-3 h-5 w-5 text-gray-500" />
+            News
           </Link>
           <Link href="/admin/settings" className="flex items-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
             <Settings className="mr-3 h-5 w-5 text-gray-500" />
