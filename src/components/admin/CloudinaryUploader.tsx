@@ -25,7 +25,7 @@ export default function CloudinaryUploader({ onUploadSuccess, label = "Upload Im
           <button
             type="button"
             onClick={() => open()}
-            className="w-full flex justify-center items-center gap-2 px-4 py-6 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="w-full flex justify-center items-center gap-2 px-4 py-6 border-2 border-dashed border-gray-300  rounded-lg text-gray-600  hover:bg-white :bg-gray-800 transition-colors"
           >
             <UploadCloud size={24} />
             <span className="font-medium">{label}</span>

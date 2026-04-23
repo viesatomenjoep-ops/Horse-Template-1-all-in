@@ -71,15 +71,15 @@ export default function EditNewsPage(props: { params: Promise<{ id: string }> })
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/news" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+        <Link href="/admin/news" className="p-2 hover:bg-gray-100 :bg-gray-800 rounded-full transition-colors">
           <ArrowLeft size={20} className="text-gray-500" />
         </Link>
-        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Edit Article</h1>
+        <h1 className="text-3xl font-serif font-bold text-gray-900 ">Edit Article</h1>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+      <div className="bg-white  shadow rounded-lg p-6 border border-gray-200 ">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-md text-sm font-medium">
+          <div className="mb-6 p-4 bg-red-50  text-red-600 rounded-md text-sm font-medium">
             {error}
           </div>
         )}
@@ -87,26 +87,26 @@ export default function EditNewsPage(props: { params: Promise<{ id: string }> })
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title *</label>
-              <input required defaultValue={article.title} type="text" name="title" id="title" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700 ">Title *</label>
+              <input required defaultValue={article.title} type="text" name="title" id="title" className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
             </div>
 
             <div>
-              <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Short Excerpt</label>
-              <textarea name="excerpt" defaultValue={article.excerpt || ''} id="excerpt" rows={2} className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+              <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 ">Short Excerpt</label>
+              <textarea name="excerpt" defaultValue={article.excerpt || ''} id="excerpt" rows={2} className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
             </div>
 
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Content *</label>
-              <textarea required name="content" defaultValue={article.content} id="content" rows={10} className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+              <label htmlFor="content" className="block text-sm font-medium text-gray-700 ">Full Content *</label>
+              <textarea required name="content" defaultValue={article.content} id="content" rows={10} className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
             </div>
 
             {/* Media Upload */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Article Image</label>
+              <label className="block text-sm font-medium text-gray-700  mb-2">Article Image</label>
               <div className="mb-4">
                 {imageUrl && (
-                  <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 mb-4">
+                  <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200  mb-4">
                     <Image src={imageUrl} alt="Current image preview" fill className="object-cover" />
                     <button type="button" onClick={() => setImageUrl(null)} className="absolute top-2 right-2 bg-white text-red-600 px-2 py-1 rounded text-xs shadow">Remove</button>
                   </div>
@@ -118,7 +118,7 @@ export default function EditNewsPage(props: { params: Promise<{ id: string }> })
             </div>
           </div>
 
-          <div className="flex justify-end border-t border-gray-200 dark:border-gray-700 pt-6">
+          <div className="flex justify-end border-t border-gray-200  pt-6">
             <button
               type="submit"
               disabled={isSubmitting}
