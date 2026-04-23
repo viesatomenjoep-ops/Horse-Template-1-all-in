@@ -74,7 +74,7 @@ export default async function StaffAdminPage({
                 <li key={emp.id} className="py-3 flex justify-between items-center">
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">{emp.full_name}</p>
-                    <p className="text-xs text-gray-500">PIN: {emp.pin_code}</p>
+                    <p className="text-xs text-gray-500">PIN: ••••</p>
                   </div>
                   <form action={async () => {
                     'use server'
