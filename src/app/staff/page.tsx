@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete, getTodayHours } from '@/app/actions/staff'
-import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer } from 'lucide-react'
+import Image from 'next/image'
+import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete, getTodayHours, getEmployeeMonthlyHistory } from '@/app/actions/staff'
+import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer, CalendarDays } from 'lucide-react'
 
 export default function StaffPortal() {
   const [employees, setEmployees] = useState<any[]>([])
@@ -14,6 +15,7 @@ export default function StaffPortal() {
   const [lastAction, setLastAction] = useState<any | null>(null)
   const [tasks, setTasks] = useState<any[]>([])
   const [todayMs, setTodayMs] = useState(0)
+  const [history, setHistory] = useState<any[]>([])
 
   // Load basic data
   useEffect(() => {
@@ -51,6 +53,9 @@ export default function StaffPortal() {
     const today = new Date().toISOString().split('T')[0]
     const todaysTasks = await getTasks(today)
     setTasks(todaysTasks)
+
+    const monthlyHistory = await getEmployeeMonthlyHistory(empId)
+    setHistory(monthlyHistory)
   }
 
   const handleLogin = async (e: React.FormEvent, pinArg?: string) => {
@@ -103,7 +108,8 @@ export default function StaffPortal() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-          <div className="bg-primary p-8 text-center relative">
+          <div className="bg-primary p-8 text-center relative flex flex-col items-center">
+            <Image src="/logo.png" alt="Equivest Logo" width={64} height={64} className="w-16 h-16 object-contain mb-4" />
             <h1 className="text-3xl font-serif font-bold text-white uppercase tracking-widest">Staff Terminal</h1>
             <p className="text-primary-light mt-2 font-medium">Enter your 4-digit PIN</p>
           </div>
@@ -331,6 +337,39 @@ export default function StaffPortal() {
             )}
           </ul>
         </section>
+
+        {/* History Widget */}
+        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-gray-50 dark:bg-gray-900/50 p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-serif font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+              <CalendarDays className="text-primary" size={20} />
+              Recent Work History (30 Days)
+            </h2>
+          </div>
+          
+          <ul className="divide-y divide-gray-100 dark:divide-gray-700/50 max-h-64 overflow-y-auto">
+            {history.length === 0 ? (
+              <li className="p-8 text-center text-gray-500">No recent shifts found.</li>
+            ) : (
+              history.map((day, idx) => {
+                const dayHours = Math.floor(day.totalMs / (1000 * 60 * 60))
+                const dayMins = Math.floor((day.totalMs % (1000 * 60 * 60)) / (1000 * 60))
+                
+                return (
+                  <li key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <div className="font-medium text-gray-900 dark:text-white">
+                      {new Date(day.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
+                    </div>
+                    <div className="font-mono font-bold text-primary dark:text-primary-light">
+                      {dayHours}h {dayMins.toString().padStart(2, '0')}m
+                    </div>
+                  </li>
+                )
+              })
+            )}
+          </ul>
+        </section>
+
       </main>
     </div>
   )

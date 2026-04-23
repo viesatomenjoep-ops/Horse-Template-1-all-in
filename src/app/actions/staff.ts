@@ -133,6 +133,65 @@ export async function getTodayHours(employeeId: string) {
   return totalMs
 }
 
+export async function getEmployeeMonthlyHistory(employeeId: string) {
+  const supabase = await createClient()
+  
+  // Get logs for the last 30 days
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+  thirtyDaysAgo.setHours(0, 0, 0, 0)
+
+  const { data, error } = await supabase
+    .from('employee_logs')
+    .select('*')
+    .eq('employee_id', employeeId)
+    .gte('timestamp', thirtyDaysAgo.toISOString())
+    .order('timestamp', { ascending: true })
+
+  if (error || !data) return []
+
+  // Group by date
+  const grouped: Record<string, { totalMs: number, logs: any[] }> = {}
+  
+  data.forEach((log: any) => {
+    const dateStr = log.timestamp.split('T')[0]
+    if (!grouped[dateStr]) grouped[dateStr] = { totalMs: 0, logs: [] }
+    grouped[dateStr].logs.push(log)
+  })
+
+  // Calculate hours for each day
+  const history = Object.keys(grouped).map(dateStr => {
+    let dayTotalMs = 0
+    let lastIn: any = null
+    const dayLogs = grouped[dateStr].logs
+
+    dayLogs.forEach((log: any) => {
+      if (log.action === 'clock_in') {
+        lastIn = new Date(log.timestamp)
+      } else if (log.action === 'clock_out' && lastIn) {
+        dayTotalMs += new Date(log.timestamp).getTime() - new Date(lastIn).getTime()
+        lastIn = null
+      }
+    })
+
+    // If still clocked in on that day and it's today, add up to now
+    if (lastIn && dateStr === new Date().toISOString().split('T')[0]) {
+      dayTotalMs += new Date().getTime() - new Date(lastIn).getTime()
+    } else if (lastIn) {
+      // If they forgot to clock out on a previous day, auto clock out at end of day (23:59)
+      const endOfDay = new Date(dateStr + 'T23:59:59Z')
+      dayTotalMs += endOfDay.getTime() - new Date(lastIn).getTime()
+    }
+
+    return {
+      date: dateStr,
+      totalMs: dayTotalMs
+    }
+  }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+  return history
+}
+
 // --- TASKS ---
 
 export async function getTasks(date: string) {
