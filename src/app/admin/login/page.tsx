@@ -10,7 +10,7 @@ export default async function LoginPage(props: {
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-xl">
         <div>
           <h2 className="mt-6 text-center text-3xl font-serif font-bold text-gray-900 dark:text-white">
-            Antigravity CMS
+            Equivest CMS platform
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
             Log in to manage the platform
