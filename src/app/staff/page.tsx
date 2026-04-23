@@ -53,12 +53,14 @@ export default function StaffPortal() {
     setTasks(todaysTasks)
   }
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent, pinArg?: string) => {
     e.preventDefault()
     setError('')
-    const res = await staffLogin(pin)
+    const loginPin = pinArg || pin
+    const res = await staffLogin(loginPin)
     if (res.error) {
       setError(res.error)
+      setPin('') // Clear pin on error for quick retry
     } else if (res.success && res.employee) {
       setLoggedInEmp(res.employee)
       localStorage.setItem('equivest_staff_session', JSON.stringify(res.employee))
@@ -100,33 +102,89 @@ export default function StaffPortal() {
   if (!loggedInEmp) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-          <div className="bg-primary p-6 text-center">
-            <h1 className="text-2xl font-serif font-bold text-white uppercase tracking-widest">Equivest Staff</h1>
-            <p className="text-primary-light mt-2 text-sm">Enter your PIN to log in</p>
+        <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+          <div className="bg-primary p-8 text-center relative">
+            <h1 className="text-3xl font-serif font-bold text-white uppercase tracking-widest">Staff Terminal</h1>
+            <p className="text-primary-light mt-2 font-medium">Enter your 4-digit PIN</p>
           </div>
-          <form onSubmit={handleLogin} className="p-8 space-y-6">
-            {error && <div className="p-3 bg-red-100 text-red-700 rounded-lg text-sm text-center">{error}</div>}
+          
+          <div className="p-8">
+            {error && <div className="mb-6 p-3 bg-red-100 text-red-700 rounded-lg text-sm font-bold text-center animate-pulse">{error}</div>}
             
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">PIN Code</label>
-              <input 
-                type="password" 
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={4}
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                className="w-full text-center text-4xl tracking-[0.5em] font-mono py-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                placeholder="••••"
-                required
-              />
+            {/* PIN Dots */}
+            <div className="flex justify-center gap-4 mb-8">
+              {[0, 1, 2, 3].map((index) => (
+                <div 
+                  key={index} 
+                  className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-all duration-200 ${
+                    pin.length > index 
+                      ? 'bg-primary text-white scale-110 shadow-md' 
+                      : 'bg-gray-100 dark:bg-gray-700 text-transparent'
+                  }`}
+                >
+                  {pin.length > index ? '•' : ''}
+                </div>
+              ))}
             </div>
 
-            <button type="submit" className="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-xl transition-colors uppercase tracking-widest text-sm">
-              Login
-            </button>
-          </form>
+            {/* Numpad */}
+            <div className="grid grid-cols-3 gap-4">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                <button
+                  key={num}
+                  type="button"
+                  onClick={() => {
+                    if (pin.length < 4) {
+                      const newPin = pin + num
+                      setPin(newPin)
+                      if (newPin.length === 4) {
+                        setTimeout(() => handleLogin({ preventDefault: () => {} } as any, newPin), 100)
+                      }
+                    }
+                  }}
+                  className="h-20 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-2xl text-2xl font-bold text-gray-900 dark:text-white transition-transform active:scale-95 shadow-sm"
+                >
+                  {num}
+                </button>
+              ))}
+              
+              <button
+                type="button"
+                onClick={() => setPin('')}
+                className="h-20 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-2xl text-sm font-bold text-red-600 transition-transform active:scale-95 shadow-sm flex items-center justify-center"
+              >
+                CLEAR
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  if (pin.length < 4) {
+                    const newPin = pin + '0'
+                    setPin(newPin)
+                    if (newPin.length === 4) {
+                      setTimeout(() => handleLogin({ preventDefault: () => {} } as any, newPin), 100)
+                    }
+                  }
+                }}
+                className="h-20 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-2xl text-2xl font-bold text-gray-900 dark:text-white transition-transform active:scale-95 shadow-sm"
+              >
+                0
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => setPin(pin.slice(0, -1))}
+                className="h-20 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-2xl text-xl font-bold text-gray-600 dark:text-gray-300 transition-transform active:scale-95 shadow-sm flex items-center justify-center"
+              >
+                ⌫
+              </button>
+            </div>
+            
+            <div className="text-center mt-8">
+              <a href="/" className="text-xs text-gray-400 hover:text-primary transition-colors font-medium tracking-wider uppercase">Return to Website</a>
+            </div>
+          </div>
         </div>
       </div>
     )
