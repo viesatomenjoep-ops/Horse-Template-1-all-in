@@ -1,4 +1,5 @@
 import { getHorses } from '@/app/actions/horse'
+import Link from 'next/link'
 
 export default async function CollectionPage() {
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
@@ -35,10 +36,10 @@ export default async function CollectionPage() {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-lg text-primary font-serif font-semibold">
-                    <a href={`/horses/${horse.id}`}>
+                    <Link href={`/horses/${horse.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {horse.name}
-                    </a>
+                    </Link>
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{horse.discipline} &bull; {horse.birth_year}</p>
                 </div>
