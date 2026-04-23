@@ -44,7 +44,7 @@ export default function MobileMenu({ user }: { user: any }) {
               </Link>
             </>
           ) : (
-            <Link onClick={() => setIsOpen(false)} href="/admin/login" className="text-2xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
+            <Link onClick={() => setIsOpen(false)} href="/staff" className="text-2xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
               Login
             </Link>
           )}

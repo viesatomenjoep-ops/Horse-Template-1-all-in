@@ -43,7 +43,7 @@ export default async function Navbar() {
                   </button>
                 </form>
               ) : (
-                <Link href="/admin/login" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors py-2">
+                <Link href="/staff" className="text-sm xl:text-base font-bold uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors py-2">
                   Login
                 </Link>
               )}
