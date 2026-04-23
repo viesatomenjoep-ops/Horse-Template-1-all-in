@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import ScrollLogo from './ScrollLogo';
 
 export default function Footer() {
   const whatsappNumber = "+115613010984";
@@ -112,13 +113,15 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center space-x-4">
-              <Image 
-                src="/logo.png" 
-                alt="Equivest Logo" 
-                width={48}
-                height={48}
-                className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert animate-[spin_15s_linear_infinite]" 
-              />
+              <ScrollLogo>
+                <Image 
+                  src="/logo.png" 
+                  alt="Equivest Logo" 
+                  width={48}
+                  height={48}
+                  className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert" 
+                />
+              </ScrollLogo>
               <div className="flex flex-col text-left">
                 <span className="text-lg md:text-xl font-serif font-bold tracking-tight text-white uppercase leading-none">Equivest</span>
                 <span className="text-xs md:text-sm font-bold tracking-[0.2em] text-accent-light uppercase mt-1">Elite Investments</span>

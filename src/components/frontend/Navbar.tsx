@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { logout } from '@/app/actions/auth'
 import { Menu } from 'lucide-react'
+import ScrollLogo from './ScrollLogo'
 
 export default async function Navbar() {
   const supabase = await createClient()
@@ -16,15 +17,15 @@ export default async function Navbar() {
           {/* Logo Left */}
           <div className="flex items-center space-x-4 z-[110]">
             <Link href="/" className="group relative block">
-              <div className="flex items-center justify-center">
+              <ScrollLogo>
                 <Image 
                   src="/logo.png" 
                   alt="Equivest Logo" 
                   width={56} 
                   height={56} 
-                  className="w-14 h-14 object-contain transition-transform duration-500 group-hover:scale-110 animate-[spin_15s_linear_infinite]" 
+                  className="w-14 h-14 object-contain transition-transform duration-500 group-hover:scale-110" 
                 />
-              </div>
+              </ScrollLogo>
             </Link>
             <Link href="/" className="flex flex-col text-left justify-center shrink-0">
               <span className="text-2xl font-serif font-bold tracking-tight text-primary uppercase leading-none">Equivest</span>
