@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,10 +12,10 @@ export default function Home() {
           The premier platform for sourcing and managing world-class sport horses.
         </p>
         <div className="pt-8">
-          <button className="flex items-center gap-2 mx-auto px-8 py-4 bg-primary text-background uppercase tracking-widest text-sm hover:bg-secondary transition-colors duration-300">
+          <Link href="/horses" className="inline-flex items-center gap-2 mx-auto px-8 py-4 bg-primary text-background uppercase tracking-widest text-sm hover:bg-secondary transition-colors duration-300">
             View Collection
             <ArrowRight size={16} />
-          </button>
+          </Link>
         </div>
       </div>
     </main>
