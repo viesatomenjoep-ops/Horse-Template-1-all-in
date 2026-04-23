@@ -20,7 +20,10 @@ export async function addEmployee(formData: FormData) {
   if (!fullName || !pinCode) return { error: 'Name and PIN are required' }
 
   const { error } = await supabase.from('employees').insert([{ full_name: fullName, pin_code: pinCode }])
-  if (error) return { error: error.message }
+  if (error) {
+    console.error("Error adding employee:", error)
+    return { error: error.message }
+  }
 
   revalidatePath('/admin/staff')
   return { success: true }

@@ -1,6 +1,7 @@
 import { getEmployees, getLogs, getTasks } from '@/app/actions/staff'
 import Link from 'next/link'
 import { Plus, Clock, CheckCircle2, UserPlus, Trash2 } from 'lucide-react'
+import AddStaffForm from '@/components/admin/AddStaffForm'
 
 export default async function StaffAdminPage({
   searchParams,
@@ -66,15 +67,7 @@ export default async function StaffAdminPage({
           <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-6 border border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center"><UserPlus className="mr-2" size={20}/> Manage Staff</h2>
             
-            <form action={async (formData) => {
-              'use server'
-              const { addEmployee } = await import('@/app/actions/staff')
-              await addEmployee(formData)
-            }} className="flex gap-4 mb-6">
-              <input type="text" name="full_name" placeholder="Full Name" required className="flex-1 rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
-              <input type="text" name="pin_code" placeholder="4-Digit PIN" required pattern="[0-9]{4}" title="Four digit PIN code" className="w-32 rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
-              <button type="submit" className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors text-sm font-medium">Add</button>
-            </form>
+            <AddStaffForm />
 
             <ul className="divide-y divide-gray-200 dark:divide-gray-700">
               {employees.map((emp: any) => (
