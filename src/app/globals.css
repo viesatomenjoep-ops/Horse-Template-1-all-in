@@ -4,24 +4,24 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --color-primary: #0A192F; /* Deep Navy */
-  --color-secondary: #4A5568; /* Slate Grey */
-  --color-accent: #D4AF37; /* Gold */
-  --color-accent-light: #F3E5AB; /* Soft Gold */
-  --color-silver: #C0C0C0; /* Silver Accent */
+  --color-primary: #111111; /* Deep Navy to Equivest Dark */
+  --color-secondary: #3A3A3A; /* Slate Grey to Equivest Grey */
+  --color-accent: #08704D; /* Gold to Equivest Green */
+  --color-accent-light: #E0E0E0; /* Soft Gold to Equivest Light Grey */
+  --color-silver: #FAFAFA; /* Silver Accent to Equivest BG Subtle */
   
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-sans: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-quicksand), ui-serif, Georgia, serif;
 }
 
 :root {
   --background: #fdfdfd; /* Crisp white/off-white */
-  --foreground: #0A192F; /* Deep navy text for luxury feel */
+  --foreground: #111111; /* Deep dark text */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0A192F; /* Deep Navy Background */
+    --background: #111111; /* Dark Background */
     --foreground: #fdfdfd; /* Crisp white text */
   }
 }
