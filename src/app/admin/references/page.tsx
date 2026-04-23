@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { getReferences, addReference, deleteReference } from '@/app/actions/reference'
-import { Plus, Trash2, Instagram } from 'lucide-react'
+import { Plus, Trash2, Camera } from 'lucide-react'
 
 export default function AdminReferences() {
   const [references, setReferences] = useState<any[]>([])
@@ -57,7 +57,7 @@ export default function AdminReferences() {
         <div className="lg:col-span-1">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
-              <Instagram className="text-pink-600" />
+              <Camera className="text-pink-600" />
               Add Reference
             </h2>
             
@@ -119,7 +119,7 @@ export default function AdminReferences() {
                       <tr key={ref.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                         <td className="p-4">
                           <a href={ref.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm flex items-center gap-1">
-                            <Instagram size={16} /> View Post
+                            <Camera size={16} /> View Post
                           </a>
                         </td>
                         <td className="p-4 font-medium text-gray-900 dark:text-white">
