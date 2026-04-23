@@ -105,14 +105,15 @@ export default function EditNewsPage(props: { params: Promise<{ id: string }> })
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Article Image</label>
               <div className="mb-4">
-                {imageUrl ? (
-                  <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                {imageUrl && (
+                  <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 mb-4">
                     <Image src={imageUrl} alt="Current image preview" fill className="object-cover" />
                     <button type="button" onClick={() => setImageUrl(null)} className="absolute top-2 right-2 bg-white text-red-600 px-2 py-1 rounded text-xs shadow">Remove</button>
                   </div>
-                ) : (
-                  <CloudinaryUploader onUploadSuccess={setImageUrl} label="Upload New Image" />
                 )}
+                <div className={imageUrl ? "hidden" : "block"}>
+                  <CloudinaryUploader onUploadSuccess={setImageUrl} label="Upload New Image" />
+                </div>
               </div>
             </div>
           </div>

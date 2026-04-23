@@ -165,14 +165,15 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
             <div className="col-span-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cover Image</label>
               <div className="mb-4">
-                {coverImageUrl ? (
-                  <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                {coverImageUrl && (
+                  <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 mb-4">
                     <Image src={coverImageUrl} alt="Current cover preview" fill className="object-cover" />
                     <button type="button" onClick={() => setCoverImageUrl(null)} className="absolute top-2 right-2 bg-white text-red-600 px-2 py-1 rounded text-xs shadow">Remove</button>
                   </div>
-                ) : (
-                  <CloudinaryUploader onUploadSuccess={setCoverImageUrl} label="Upload New Cover Image" />
                 )}
+                <div className={coverImageUrl ? "hidden" : "block"}>
+                  <CloudinaryUploader onUploadSuccess={setCoverImageUrl} label="Upload New Cover Image" />
+                </div>
               </div>
             </div>
           </div>
