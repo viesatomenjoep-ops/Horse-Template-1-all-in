@@ -42,15 +42,15 @@ export default function NewTeamMemberPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/team" className="p-2 hover:bg-gray-100 :bg-gray-800 rounded-full transition-colors">
+        <Link href="/admin/team" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
           <ArrowLeft size={20} className="text-gray-500" />
         </Link>
-        <h1 className="text-3xl font-serif font-bold text-gray-900 ">Add Team Member</h1>
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Add Team Member</h1>
       </div>
 
-      <div className="bg-white  shadow rounded-lg p-6 border border-gray-200 ">
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         {error && (
-          <div className="mb-6 p-4 bg-red-50  text-red-600 rounded-md text-sm font-medium">
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-md text-sm font-medium">
             {error}
           </div>
         )}
@@ -59,33 +59,33 @@ export default function NewTeamMemberPage() {
           <div className="space-y-6">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="col-span-2 sm:col-span-1">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 ">Name *</label>
-                <input required type="text" name="name" id="name" className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Name *</label>
+                <input required type="text" name="name" id="name" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
               </div>
 
               <div className="col-span-2 sm:col-span-1">
-                <label htmlFor="role" className="block text-sm font-medium text-gray-700 ">Role / Title *</label>
-                <input required type="text" name="role" id="role" placeholder="e.g. Head Trainer" className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
+                <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Role / Title *</label>
+                <input required type="text" name="role" id="role" placeholder="e.g. Head Trainer" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
               </div>
             </div>
 
             <div>
-              <label htmlFor="sort_order" className="block text-sm font-medium text-gray-700 ">Sort Order</label>
-              <input type="number" name="sort_order" id="sort_order" defaultValue={0} className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
+              <label htmlFor="sort_order" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sort Order</label>
+              <input type="number" name="sort_order" id="sort_order" defaultValue={0} className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
               <p className="mt-1 text-xs text-gray-500">Lower numbers appear first. (0 is default)</p>
             </div>
 
             <div>
-              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 ">Biography</label>
-              <textarea name="bio" id="bio" rows={4} className="mt-1 block w-full rounded-md border border-gray-300  px-3 py-2 bg-white  text-gray-900  focus:border-primary focus:ring-primary sm:text-sm" />
+              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Biography</label>
+              <textarea name="bio" id="bio" rows={4} className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
             </div>
 
             {/* Media Upload */}
             <div>
-              <label className="block text-sm font-medium text-gray-700  mb-2">Profile Photo</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Profile Photo</label>
               <div className="mb-4">
                 {imageUrl && (
-                  <div className="relative w-48 h-48 rounded-lg overflow-hidden border border-gray-200  mb-4 mx-auto">
+                  <div className="relative w-48 h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 mb-4 mx-auto">
                     <Image src={imageUrl} alt="Profile preview" fill className="object-cover" />
                     <button type="button" onClick={() => setImageUrl(null)} className="absolute top-2 right-2 bg-white text-red-600 px-2 py-1 rounded text-xs shadow">Remove</button>
                   </div>
@@ -97,7 +97,7 @@ export default function NewTeamMemberPage() {
             </div>
           </div>
 
-          <div className="flex justify-end border-t border-gray-200  pt-6">
+          <div className="flex justify-end border-t border-gray-200 dark:border-gray-700 pt-6">
             <button
               type="submit"
               disabled={isSubmitting}

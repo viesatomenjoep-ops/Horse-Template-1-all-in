@@ -16,24 +16,24 @@ export default async function AdminTeamPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-serif font-bold text-gray-900 ">Team Members</h1>
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Team Members</h1>
         <Link href="/admin/team/new" className="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:w-auto transition-colors">
           <Plus className="-ml-1 mr-2 h-5 w-5" />
           Add Team Member
         </Link>
       </div>
 
-      <div className="bg-white  shadow rounded-lg overflow-hidden border border-gray-200 ">
-        <table className="min-w-full divide-y divide-gray-200 ">
-          <thead className="bg-white ">
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-50 dark:bg-gray-900/50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider">Photo</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider">Name & Role</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider">Bio Preview</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Photo</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name & Role</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Bio Preview</th>
               <th scope="col" className="relative px-6 py-3"><span className="sr-only">Actions</span></th>
             </tr>
           </thead>
-          <tbody className="bg-white  divide-y divide-gray-200 ">
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             {team.length === 0 ? (
               <tr>
                 <td colSpan={4} className="px-6 py-4 text-center text-sm text-gray-500">
@@ -42,9 +42,9 @@ export default async function AdminTeamPage() {
               </tr>
             ) : (
               team.map((member: any) => (
-                <tr key={member.id} className="hover:bg-white :bg-gray-700/50 transition-colors">
+                <tr key={member.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-12 w-12 rounded-full bg-gray-200  overflow-hidden relative">
+                    <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden relative">
                       {member.image_url ? (
                         <Image src={member.image_url} alt={member.name} fill className="object-cover" />
                       ) : (
@@ -53,10 +53,10 @@ export default async function AdminTeamPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <p className="text-sm font-medium text-gray-900 ">{member.name}</p>
-                    <p className="text-sm text-gray-500 ">{member.role}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{member.name}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{member.role}</p>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500  max-w-xs truncate">
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs truncate">
                     {member.bio}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

@@ -99,8 +99,8 @@ export default function StaffPortal() {
 
   if (!loggedInEmp) {
     return (
-      <div className="min-h-screen bg-white  flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white  rounded-2xl shadow-xl overflow-hidden">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-primary p-6 text-center">
             <h1 className="text-2xl font-serif font-bold text-white uppercase tracking-widest">Equivest Staff</h1>
             <p className="text-primary-light mt-2 text-sm">Enter your PIN to log in</p>
@@ -109,7 +109,7 @@ export default function StaffPortal() {
             {error && <div className="p-3 bg-red-100 text-red-700 rounded-lg text-sm text-center">{error}</div>}
             
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 ">PIN Code</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">PIN Code</label>
               <input 
                 type="password" 
                 inputMode="numeric"
@@ -117,7 +117,7 @@ export default function StaffPortal() {
                 maxLength={4}
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                className="w-full text-center text-4xl tracking-[0.5em] font-mono py-4 rounded-xl border border-gray-300  bg-white  text-gray-900  focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-full text-center text-4xl tracking-[0.5em] font-mono py-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                 placeholder="••••"
                 required
               />
@@ -133,23 +133,23 @@ export default function StaffPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-white  pb-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
       {/* Header */}
-      <header className="bg-white  shadow-sm sticky top-0 z-10">
+      <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-lg">
               {loggedInEmp.full_name.charAt(0)}
             </div>
             <div>
-              <h1 className="font-bold text-gray-900  leading-tight">{loggedInEmp.full_name}</h1>
+              <h1 className="font-bold text-gray-900 dark:text-white leading-tight">{loggedInEmp.full_name}</h1>
               <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
                 <span className={`w-2 h-2 rounded-full ${isClockedIn ? 'bg-green-500' : 'bg-red-500'}`}></span>
                 {isClockedIn ? 'Clocked In' : 'Clocked Out'}
               </p>
             </div>
           </div>
-          <button onClick={handleLogout} className="text-gray-500 hover:text-gray-900 :text-white p-2">
+          <button onClick={handleLogout} className="text-gray-500 hover:text-gray-900 dark:hover:text-white p-2">
             <LogOut size={24} />
           </button>
         </div>
@@ -158,21 +158,21 @@ export default function StaffPortal() {
       <main className="max-w-4xl mx-auto px-4 pt-8 space-y-8">
         
         {/* Time Clock Widget */}
-        <section className="bg-white  rounded-3xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100  p-8 text-center relative overflow-hidden">
+        <section className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700 p-8 text-center relative overflow-hidden">
           {isClockedIn && (
-            <div className="absolute inset-0 bg-green-50  opacity-50 animate-pulse pointer-events-none"></div>
+            <div className="absolute inset-0 bg-green-50 dark:bg-green-900/10 opacity-50 animate-pulse pointer-events-none"></div>
           )}
           
-          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400  mb-2">Current Status</h2>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">Current Status</h2>
           
           <div className="mb-8">
             {isClockedIn ? (
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-700   px-4 py-1.5 rounded-full text-sm font-bold animate-fade-in">
+              <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-4 py-1.5 rounded-full text-sm font-bold animate-fade-in">
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                 ACTIVELY WORKING
               </div>
             ) : (
-              <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-600   px-4 py-1.5 rounded-full text-sm font-bold">
+              <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 px-4 py-1.5 rounded-full text-sm font-bold">
                 <span className="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
                 OFF THE CLOCK
               </div>
@@ -199,32 +199,32 @@ export default function StaffPortal() {
             )}
           </div>
           
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-100  pt-8 relative z-10">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-100 dark:border-gray-700/50 pt-8 relative z-10">
             
             {/* Today's Hours */}
-            <div className="bg-white  rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 ">
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
               <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-1">
                 <Timer size={14} /> Total Time Today
               </span>
-              <div className="text-5xl font-mono font-black text-primary  tracking-tight">
+              <div className="text-5xl font-mono font-black text-primary dark:text-white tracking-tight">
                 {hours}<span className="text-2xl text-gray-400">h</span> {minutes.toString().padStart(2, '0')}<span className="text-2xl text-gray-400">m</span>
               </div>
             </div>
 
             {/* Last Action Detail */}
-            <div className="bg-white  rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 ">
+            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 flex flex-col items-center justify-center border border-gray-100 dark:border-gray-700">
               <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
                 Last Activity
               </span>
               {lastAction ? (
                 <div className="text-center">
-                  <div className={`text-xl font-bold mb-1 ${lastAction.action === 'clock_in' ? 'text-green-600 ' : 'text-red-600 '}`}>
+                  <div className={`text-xl font-bold mb-1 ${lastAction.action === 'clock_in' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                     {lastAction.action === 'clock_in' ? 'Clocked In' : 'Clocked Out'}
                   </div>
-                  <div className="text-sm text-gray-600  font-medium">
+                  <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">
                     {new Date(lastAction.timestamp).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
                   </div>
-                  <div className="text-2xl font-mono font-bold text-gray-900  mt-1">
+                  <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white mt-1">
                     {new Date(lastAction.timestamp).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                   </div>
                 </div>
@@ -237,15 +237,15 @@ export default function StaffPortal() {
         </section>
 
         {/* Daily Tasks */}
-        <section className="bg-white  rounded-2xl shadow-sm border border-gray-200  overflow-hidden">
-          <div className="bg-white  p-4 border-b border-gray-200 ">
-            <h2 className="text-lg font-serif font-semibold text-gray-900  flex items-center gap-2">
+        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-gray-50 dark:bg-gray-900/50 p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-serif font-semibold text-gray-900 dark:text-white flex items-center gap-2">
               <CheckCircle2 className="text-primary" size={20} />
               Today's Tasks
             </h2>
           </div>
           
-          <ul className="divide-y divide-gray-100 ">
+          <ul className="divide-y divide-gray-100 dark:divide-gray-700/50">
             {tasks.length === 0 ? (
               <li className="p-8 text-center text-gray-500">No tasks for today. Have a great day!</li>
             ) : (
@@ -253,17 +253,17 @@ export default function StaffPortal() {
                 <li 
                   key={task.id} 
                   onClick={() => handleToggleTask(task.id, task.is_completed)}
-                  className={`p-4 flex items-center gap-4 cursor-pointer hover:bg-white :bg-gray-700/50 transition-colors ${task.is_completed ? 'opacity-60' : ''}`}
+                  className={`p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${task.is_completed ? 'opacity-60' : ''}`}
                 >
-                  <button className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${task.is_completed ? 'bg-green-500 border-green-500' : 'border-gray-300  text-transparent'}`}>
+                  <button className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${task.is_completed ? 'bg-green-500 border-green-500' : 'border-gray-300 dark:border-gray-600 text-transparent'}`}>
                     <CheckCircle2 className="w-5 h-5 text-white" />
                   </button>
                   <div className="flex-1">
-                    <p className={`font-medium ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-900 '}`}>
+                    <p className={`font-medium ${task.is_completed ? 'text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>
                       {task.description}
                     </p>
                     {task.is_completed && task.completed_by_emp && (
-                      <p className="text-xs text-green-600  mt-1">
+                      <p className="text-xs text-green-600 dark:text-green-400 mt-1">
                         Completed by {task.completed_by_emp.full_name}
                       </p>
                     )}
