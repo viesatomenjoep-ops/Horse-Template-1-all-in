@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { logout } from '@/app/actions/auth'
 import { LogIn, LogOut, Menu, UserCircle } from 'lucide-react'
@@ -13,8 +14,14 @@ export default async function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-2xl font-serif font-bold text-primary dark:text-white tracking-wide">
-              Antigravity <span className="text-accent italic font-medium">Sport Horses</span>
+            <Link href="/" className="flex items-center gap-3 text-2xl font-serif font-bold text-primary dark:text-white tracking-wide">
+              <div className="relative w-10 h-10">
+                <Image src="/logo.png" alt="Equivest Logo" fill className="object-contain" />
+              </div>
+              <div className="flex flex-col justify-center">
+                <span>Equivest</span>
+                <span className="text-xs font-sans font-light tracking-[0.2em] text-accent uppercase -mt-1">Since 1995</span>
+              </div>
             </Link>
           </div>
 
