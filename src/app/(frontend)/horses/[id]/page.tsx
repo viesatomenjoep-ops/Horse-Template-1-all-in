@@ -2,6 +2,7 @@ import { getHorse } from '@/app/actions/horse'
 import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon, Video, FileCheck, Stethoscope } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import ViewTracker from '@/components/frontend/ViewTracker'
 
 export default async function HorseDetailPage(props: {
   params: Promise<{ id: string }>
@@ -19,6 +20,7 @@ export default async function HorseDetailPage(props: {
 
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen">
+      <ViewTracker horseId={horse.id} />
       {/* Hero Cover Image */}
       <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh]">
         <img 
