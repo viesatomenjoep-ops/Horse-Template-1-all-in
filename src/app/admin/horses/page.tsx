@@ -72,9 +72,7 @@ export default async function AdminHorsesPage() {
                     const { deleteHorse } = await import('@/app/actions/horse');
                     await deleteHorse(horse.id);
                   }} className="flex-none">
-                    <button type="submit" className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm" onClick={(e) => {
-                      if(!confirm("Weet je zeker dat je dit paard wilt verwijderen?")) e.preventDefault()
-                    }}>
+                    <button type="submit" className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm">
                       Verwijder
                     </button>
                   </form>
