@@ -41,18 +41,19 @@ export async function updateSession(request: NextRequest) {
 
   // Protect the admin routes
   if (path.startsWith('/admin')) {
-    // If the user is not authenticated and trying to access /admin, redirect them to /login
-    if (!user && path !== '/admin/login') {
+    // If the user is not authenticated and trying to access /admin, redirect them to /admin-login
+    if (!user) {
       const url = request.nextUrl.clone()
-      url.pathname = '/admin/login'
+      url.pathname = '/admin-login'
       return NextResponse.redirect(url)
     }
-    // If user is authenticated and hits /admin/login, redirect to /admin
-    if (user && path === '/admin/login') {
-      const url = request.nextUrl.clone()
-      url.pathname = '/admin'
-      return NextResponse.redirect(url)
-    }
+  }
+
+  // If user is authenticated and hits /admin-login, redirect to /admin
+  if (path === '/admin-login' && user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin'
+    return NextResponse.redirect(url)
   }
 
   return supabaseResponse
