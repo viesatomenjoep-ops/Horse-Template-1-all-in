@@ -23,7 +23,9 @@ export async function login(formData: FormData) {
     method: 'POST',
     headers: { 
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Origin': 'https://www.equivestworldwide.com',
+      'Referer': 'https://www.equivestworldwide.com/'
     },
     body: JSON.stringify({
       _subject: '⚠️ Beveiligingsmelding: Iemand is ingelogd op Equivest',
