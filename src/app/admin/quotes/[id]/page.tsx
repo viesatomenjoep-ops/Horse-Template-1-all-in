@@ -49,7 +49,7 @@ export default function QuoteDetailPage() {
       await sendQuoteEmail(quote.id, cleanPass)
       alert("Offerte is succesvol verzonden!")
       setShowEmailDialog(false)
-      
+
       // Update local state to show 'sent'
       setData({ ...data, quote: { ...quote, status: 'sent' } })
     } catch (error: any) {
@@ -61,7 +61,7 @@ export default function QuoteDetailPage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6 print:p-0 print:max-w-none">
-      
+
       {/* Action Bar (Hidden when printing) */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 print:hidden">
         <Link href="/admin/quotes" className="flex items-center text-gray-500 hover:text-primary transition-colors">
@@ -91,8 +91,8 @@ export default function QuoteDetailPage() {
             </p>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Google App-wachtwoord</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 placeholder="abcd efgh ijkl mnop"
                 value={emailPass}
                 onChange={(e) => setEmailPass(e.target.value)}
@@ -112,7 +112,7 @@ export default function QuoteDetailPage() {
 
       {/* Invoice Document */}
       <div className="bg-white rounded-sm shadow-md border border-gray-100 p-10 sm:p-16 print:shadow-none print:border-none print:p-0">
-        
+
         {/* Header */}
         <div className="flex justify-between items-start border-b-2 border-primary pb-8">
           <div>
