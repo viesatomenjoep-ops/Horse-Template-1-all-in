@@ -12,6 +12,7 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
     { href: '/references', label: 'References' },
     { href: '/roi', label: 'ROI' },
     { href: '/news', label: 'News' },
+    { href: '/book', label: 'Plan Bezoek' },
     { href: '/contact', label: 'Contact' },
   ]
 
