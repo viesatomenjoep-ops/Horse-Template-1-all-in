@@ -17,6 +17,7 @@ export default function StaffPortal() {
   const [tasks, setTasks] = useState<any[]>([])
   const [todayMs, setTodayMs] = useState(0)
   const [history, setHistory] = useState<any[]>([])
+  const [schedules, setSchedules] = useState<any[]>([])
   const [activeTab, setActiveTab] = useState('dashboard')
 
   // Load basic data
@@ -57,6 +58,10 @@ export default function StaffPortal() {
 
     const monthlyHistory = await getEmployeeMonthlyHistory(empId)
     setHistory(monthlyHistory)
+
+    const actions = await import('@/app/actions/staff')
+    const empSchedules = await actions.getEmployeeSchedules(empId)
+    setSchedules(empSchedules || [])
   }
 
   const handleLogin = async (e: React.FormEvent, pinArg?: string) => {
@@ -363,31 +368,26 @@ export default function StaffPortal() {
               <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <CalendarRange className="text-primary" /> Mijn Rooster (Deze Week)
               </h2>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                  <div>
-                    <p className="font-bold text-gray-900 dark:text-white">Maandag 26 April</p>
-                    <p className="text-sm text-gray-500">Stallen & Voeren</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono font-bold text-primary">07:00 - 15:30</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                  <div>
-                    <p className="font-bold text-gray-900 dark:text-white">Woensdag 28 April</p>
-                    <p className="text-sm text-gray-500">Longeren & Rijden</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono font-bold text-primary">08:00 - 17:00</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl opacity-50">
-                  <div>
-                    <p className="font-bold text-gray-900 dark:text-white">Vrijdag 30 April</p>
-                    <p className="text-sm text-gray-500">Vrij</p>
-                  </div>
-                </div>
+              <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
+                {schedules.length === 0 ? (
+                  <p className="text-sm text-gray-500">Je hebt momenteel geen ingeplande diensten voor de komende dagen.</p>
+                ) : (
+                  schedules.map((schedule: any) => (
+                    <div key={schedule.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800">
+                      <div>
+                        <p className="font-bold text-gray-900 dark:text-white">
+                          {new Date(schedule.shift_date).toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' })}
+                        </p>
+                        <p className="text-sm text-gray-500">{schedule.shift_type}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-mono font-bold text-primary">
+                          {schedule.start_time.substring(0,5)} - {schedule.end_time.substring(0,5)}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
 

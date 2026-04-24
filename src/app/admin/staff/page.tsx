@@ -18,11 +18,14 @@ export default async function StaffAdminPage({
   let employees = []
   let logs = []
   let tasks = []
+  let schedules = []
 
   try {
-    employees = await getEmployees() || []
-    logs = await getLogs(currentMonth, currentYear) || []
-    tasks = await getTasks(selectedDate) || []
+    const actions = await import('@/app/actions/staff')
+    employees = await actions.getEmployees() || []
+    logs = await actions.getLogs(currentMonth, currentYear) || []
+    tasks = await actions.getTasks(selectedDate) || []
+    schedules = await actions.getUpcomingSchedules() || []
   } catch (error) {
     console.error("Staff tables not configured in Supabase yet.", error)
   }
@@ -170,14 +173,15 @@ export default async function StaffAdminPage({
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center"><Calendar className="mr-2" size={20}/> Schedule Builder (Roosters)</h2>
             <p className="text-sm text-gray-500 mb-6">Create and assign shifts to staff members.</p>
             
-            <form className="space-y-4" action={async () => {
+            <form className="space-y-4" action={async (formData) => {
               'use server'
-              // Placeholder for future database implementation
+              const { addSchedule } = await import('@/app/actions/staff')
+              await addSchedule(formData)
             }}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee</label>
-                  <select className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm">
+                  <select name="employee_id" className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm">
                     {employees.map((emp: any) => (
                       <option key={emp.id} value={emp.id}>{emp.full_name}</option>
                     ))}
@@ -186,22 +190,22 @@ export default async function StaffAdminPage({
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
-                  <input type="date" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                  <input type="date" name="shift_date" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Time</label>
-                  <input type="time" defaultValue="08:00" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                  <input type="time" name="start_time" defaultValue="08:00" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Time</label>
-                  <input type="time" defaultValue="17:00" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                  <input type="time" name="end_time" defaultValue="17:00" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Shift Type / Location</label>
-                <input type="text" placeholder="e.g. Stallen & Voeren" className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                <input type="text" name="shift_type" placeholder="e.g. Stallen & Voeren" className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
               </div>
               <button type="submit" className="w-full bg-primary hover:bg-secondary text-white font-bold py-2 rounded-lg transition-colors">
                 Add Shift to Schedule
@@ -210,14 +214,28 @@ export default async function StaffAdminPage({
             
             <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
               <h3 className="font-medium text-gray-900 dark:text-white mb-3">Upcoming Shifts</h3>
-              <div className="space-y-3">
-                <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-700 flex justify-between items-center opacity-50">
-                  <div>
-                    <p className="font-medium text-sm text-gray-900 dark:text-white">Example Shift: John Doe</p>
-                    <p className="text-xs text-gray-500">Tommorrow • 08:00 - 17:00</p>
-                  </div>
-                  <button className="text-red-500 hover:text-red-700"><Trash2 size={16} /></button>
-                </div>
+              <div className="space-y-3 max-h-64 overflow-y-auto pr-2">
+                {schedules.length === 0 ? (
+                  <p className="text-sm text-gray-500">No upcoming shifts scheduled.</p>
+                ) : (
+                  schedules.map((schedule: any) => (
+                    <div key={schedule.id} className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                      <div>
+                        <p className="font-medium text-sm text-gray-900 dark:text-white">{schedule.employee?.full_name} <span className="text-gray-500 font-normal">({schedule.shift_type})</span></p>
+                        <p className="text-xs text-gray-500">
+                          {new Date(schedule.shift_date).toLocaleDateString('en-GB')} • {schedule.start_time.substring(0,5)} - {schedule.end_time.substring(0,5)}
+                        </p>
+                      </div>
+                      <form action={async () => {
+                        'use server'
+                        const { removeSchedule } = await import('@/app/actions/staff')
+                        await removeSchedule(schedule.id)
+                      }}>
+                        <button type="submit" className="text-red-500 hover:text-red-700"><Trash2 size={16} /></button>
+                      </form>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

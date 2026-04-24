@@ -267,3 +267,77 @@ export async function toggleTaskComplete(taskId: string, employeeId: string, isC
   revalidatePath('/admin/staff')
   return { success: true }
 }
+
+// --- SCHEDULES (ROOSTERS) ---
+
+export async function getUpcomingSchedules() {
+  const supabase = await createClient()
+  const today = new Date().toISOString().split('T')[0]
+  
+  const { data, error } = await supabase
+    .from('staff_schedules')
+    .select('*, employee:employees(full_name)')
+    .gte('shift_date', today)
+    .order('shift_date', { ascending: true })
+    .order('start_time', { ascending: true })
+
+  if (error) {
+    console.error("Error fetching schedules:", error)
+    return []
+  }
+  return data
+}
+
+export async function getEmployeeSchedules(employeeId: string) {
+  const supabase = await createClient()
+  const today = new Date().toISOString().split('T')[0]
+  
+  const { data, error } = await supabase
+    .from('staff_schedules')
+    .select('*')
+    .eq('employee_id', employeeId)
+    .gte('shift_date', today)
+    .order('shift_date', { ascending: true })
+    .order('start_time', { ascending: true })
+
+  if (error) return []
+  return data
+}
+
+export async function addSchedule(formData: FormData) {
+  const supabase = await createClient()
+  
+  const employeeId = formData.get('employee_id') as string
+  const shiftDate = formData.get('shift_date') as string
+  const startTime = formData.get('start_time') as string
+  const endTime = formData.get('end_time') as string
+  const shiftType = formData.get('shift_type') as string
+
+  if (!employeeId || !shiftDate || !startTime || !endTime) {
+    return { error: 'Missing required fields' }
+  }
+
+  const { error } = await supabase.from('staff_schedules').insert([{
+    employee_id: employeeId,
+    shift_date: shiftDate,
+    start_time: startTime,
+    end_time: endTime,
+    shift_type: shiftType || null
+  }])
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/admin/staff')
+  revalidatePath('/staff')
+  return { success: true }
+}
+
+export async function removeSchedule(id: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('staff_schedules').delete().eq('id', id)
+  if (error) return { error: error.message }
+
+  revalidatePath('/admin/staff')
+  revalidatePath('/staff')
+  return { success: true }
+}
