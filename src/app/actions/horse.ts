@@ -12,8 +12,18 @@ export async function getHorses() {
 
 export async function getHorse(id: string) {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('horses').select('*, media(*)').eq('id', id).single()
+  // We use maybeSingle() and gracefully handle media in case it's not present
+  const { data, error } = await supabase.from('horses').select('*, media(*)').eq('id', id).maybeSingle()
+  
+  // If it fails because of media relation, try without media
+  if (error && error.code === 'PGRST200') {
+     const fallback = await supabase.from('horses').select('*').eq('id', id).single()
+     if (fallback.error) throw new Error(fallback.error.message)
+     return { ...fallback.data, media: [] }
+  }
+
   if (error) throw new Error(error.message)
+  if (!data) throw new Error("Horse not found")
   return data
 }
 
@@ -49,7 +59,8 @@ export async function createHorse(formData: FormData) {
   const { data, error } = await supabase.from('horses').insert([rawData]).select().single()
   
   if (error) {
-    return { error: error.message || 'Unknown database error' }
+    console.error("Supabase insert error details:", error)
+    return { error: `Database error: ${error.message} (Code: ${error.code})` }
   }
   
   revalidatePath('/admin/horses')
