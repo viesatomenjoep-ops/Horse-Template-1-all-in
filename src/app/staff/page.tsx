@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete, getTodayHours, getEmployeeMonthlyHistory } from '@/app/actions/staff'
-import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer, CalendarDays, Megaphone, CalendarRange, Umbrella, FileEdit, UserCheck, Calendar, AlertCircle } from 'lucide-react'
+import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete, getTodayHours, getEmployeeMonthlyHistory, updateEmployeeProfile } from '@/app/actions/staff'
+import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer, CalendarDays, Megaphone, CalendarRange, Umbrella, FileEdit, UserCheck, Calendar, AlertCircle, User, Settings } from 'lucide-react'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import CloudinaryUploader from '@/components/admin/CloudinaryUploader'
 
 export default function StaffPortal() {
   const [employees, setEmployees] = useState<any[]>([])
@@ -161,7 +162,7 @@ export default function StaffPortal() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 relative">
         <div className="absolute top-4 right-4 z-50">
-          <LanguageSwitcher />
+          <LanguageSwitcher expandDirection="left" />
         </div>
         <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
           <div className="bg-primary p-8 text-center relative flex flex-col items-center">
@@ -252,9 +253,13 @@ export default function StaffPortal() {
       <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-lg">
-              {loggedInEmp.full_name.charAt(0)}
-            </div>
+            {loggedInEmp.profile_picture ? (
+              <Image src={loggedInEmp.profile_picture} alt={loggedInEmp.full_name} width={40} height={40} className="w-10 h-10 rounded-full object-cover border-2 border-primary shrink-0" />
+            ) : (
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-lg shrink-0">
+                {loggedInEmp.full_name.charAt(0)}
+              </div>
+            )}
             <div>
               <h1 className="font-bold text-gray-900 dark:text-white leading-tight">{loggedInEmp.full_name}</h1>
               <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
@@ -264,7 +269,7 @@ export default function StaffPortal() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <LanguageSwitcher />
+            <LanguageSwitcher expandDirection="left" />
             <button onClick={handleLogout} className="text-gray-500 hover:text-gray-900 dark:hover:text-white p-2">
               <LogOut size={24} />
             </button>
@@ -272,30 +277,36 @@ export default function StaffPortal() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="max-w-6xl mx-auto px-4 py-4 flex gap-4 overflow-x-auto hide-scrollbar border-t border-gray-100 dark:border-gray-700 scroll-smooth">
+        <div className="max-w-6xl mx-auto px-4 py-3 md:py-4 flex gap-3 md:gap-4 overflow-x-auto hide-scrollbar border-t border-gray-100 dark:border-gray-700 scroll-smooth pb-4">
           <button 
             onClick={() => setActiveTab('dashboard')} 
-            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'dashboard' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-2 md:gap-3 px-5 py-2.5 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg whitespace-nowrap transition-colors shadow-sm ${activeTab === 'dashboard' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <Clock size={24} /> Dashboard
+            <Clock className="w-4 h-4 md:w-6 md:h-6" /> Dashboard
           </button>
           <button 
             onClick={() => setActiveTab('schedule')} 
-            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'schedule' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-2 md:gap-3 px-5 py-2.5 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg whitespace-nowrap transition-colors shadow-sm ${activeTab === 'schedule' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <CalendarRange size={24} /> Rooster & Historie
+            <CalendarRange className="w-4 h-4 md:w-6 md:h-6" /> Rooster & Historie
           </button>
           <button 
             onClick={() => setActiveTab('leave')} 
-            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'leave' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-2 md:gap-3 px-5 py-2.5 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg whitespace-nowrap transition-colors shadow-sm ${activeTab === 'leave' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <Umbrella size={24} /> Verlof & Beschikbaarheid
+            <Umbrella className="w-4 h-4 md:w-6 md:h-6" /> Verlof & Beschikbaarheid
           </button>
           <button 
             onClick={() => setActiveTab('notices')} 
-            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'notices' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-2 md:gap-3 px-5 py-2.5 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg whitespace-nowrap transition-colors shadow-sm ${activeTab === 'notices' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <Megaphone size={24} /> Prikbord <span className="bg-red-500 text-white text-sm px-2 py-0.5 rounded-full ml-2">1</span>
+            <Megaphone className="w-4 h-4 md:w-6 md:h-6" /> Prikbord <span className="bg-red-500 text-white text-xs md:text-sm px-2 py-0.5 rounded-full ml-1 md:ml-2">1</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('profile')} 
+            className={`flex items-center gap-2 md:gap-3 px-5 py-2.5 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg whitespace-nowrap transition-colors shadow-sm ${activeTab === 'profile' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+          >
+            <User className="w-4 h-4 md:w-6 md:h-6" /> Mijn Profiel
           </button>
         </div>
       </header>
@@ -611,6 +622,80 @@ export default function StaffPortal() {
           </div>
         )}
 
+        {/* TAB 5: PROFIEL */}
+        {activeTab === 'profile' && (
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 lg:p-8 animate-fade-in max-w-2xl mx-auto">
+            <div className="flex justify-between items-center mb-8 border-b border-gray-100 dark:border-gray-700 pb-4">
+              <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <Settings className="text-primary" size={24} /> Persoonlijke Gegevens
+              </h2>
+            </div>
+            
+            <form action={async (formData) => {
+              formData.append('id', loggedInEmp.id)
+              const res = await updateEmployeeProfile(formData)
+              if (res.success) {
+                alert("Profiel succesvol opgeslagen!")
+                // Update local storage and state with new details
+                const updatedEmp = {
+                  ...loggedInEmp,
+                  profile_picture: formData.get('profile_picture'),
+                  address: formData.get('address'),
+                  date_of_birth: formData.get('date_of_birth')
+                }
+                setLoggedInEmp(updatedEmp)
+                localStorage.setItem('equivest_staff_session', JSON.stringify(updatedEmp))
+              }
+            }} className="space-y-6">
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Profielfoto</label>
+                <CloudinaryUploader 
+                  onUploadSuccess={(url) => {
+                    const input = document.getElementById('profile_picture') as HTMLInputElement
+                    if (input) input.value = url
+                    alert("Foto succesvol geüpload! Vergeet niet op opslaan te klikken.")
+                  }}
+                />
+                <input type="hidden" id="profile_picture" name="profile_picture" defaultValue={loggedInEmp.profile_picture || ''} />
+                {loggedInEmp.profile_picture && (
+                  <div className="mt-4 flex items-center gap-4">
+                    <Image src={loggedInEmp.profile_picture} alt="Preview" width={80} height={80} className="rounded-full object-cover border-4 border-gray-100 dark:border-gray-700" />
+                    <span className="text-sm text-green-600 font-medium flex items-center gap-1"><CheckCircle2 size={16}/> Huidige foto</span>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Volledig Adres</label>
+                <textarea 
+                  name="address" 
+                  rows={3} 
+                  defaultValue={loggedInEmp.address || ''}
+                  placeholder="Straat, Huisnummer&#10;Postcode, Woonplaats"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                ></textarea>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Geboortedatum</label>
+                <input 
+                  type="date" 
+                  name="date_of_birth" 
+                  defaultValue={loggedInEmp.date_of_birth || ''}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                />
+              </div>
+
+              <div className="pt-4">
+                <button type="submit" className="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98] shadow-md flex justify-center items-center gap-2 text-lg">
+                  <CheckCircle2 size={24} /> Profiel Opslaan
+                </button>
+              </div>
+
+            </form>
+          </div>
+        )}
       </main>
     </div>
   )

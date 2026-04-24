@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar } from 'lucide-react'
 
 import { usePathname } from 'next/navigation'
@@ -62,6 +63,7 @@ export default function AdminSidebar() {
           <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
         </div>
         <div className="flex items-center gap-4">
+          <LanguageSwitcher expandDirection="left" />
           <button onClick={() => setIsOpen(true)} className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white">
             <Menu size={24} />
           </button>
@@ -88,6 +90,7 @@ export default function AdminSidebar() {
             <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS</span>
           </div>
           <div className="flex items-center gap-2">
+            <div className="hidden md:block"><LanguageSwitcher expandDirection="left" /></div>
             <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary p-2">
               <X size={28} />
             </button>

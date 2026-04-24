@@ -10,7 +10,7 @@ const LANGUAGES = [
   { code: 'es', name: 'Español', flag: '🇪🇸' },
 ]
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ expandDirection = 'down' }: { expandDirection?: 'down' | 'left' }) {
   const [isOpen, setIsOpen] = useState(false)
   const [currentLang, setCurrentLang] = useState('nl')
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -77,16 +77,18 @@ export default function LanguageSwitcher() {
 
   const currentLangData = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0]
 
+  const isLeft = expandDirection === 'left'
+
   return (
     <div 
-      className="relative z-50 notranslate flex flex-col items-center" 
+      className={`relative z-50 notranslate flex ${isLeft ? 'items-center' : 'flex-col items-center'}`} 
       ref={dropdownRef}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <div 
-        className={`flex flex-col items-center overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
-          isOpen ? 'h-[160px] opacity-100' : 'h-10 sm:h-12 opacity-90'
+        className={`flex ${isLeft ? 'flex-row items-center' : 'flex-col items-center'} overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
+          isOpen ? (isLeft ? 'w-auto max-w-[300px] opacity-100' : 'h-[160px] opacity-100') : (isLeft ? 'w-10 sm:w-12 opacity-90' : 'h-10 sm:h-12 opacity-90')
         }`}
       >
         {/* Current Language Trigger */}
@@ -99,12 +101,12 @@ export default function LanguageSwitcher() {
         </button>
 
         {/* Slide-out options */}
-        <div className={`flex flex-col items-center pb-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`flex ${isLeft ? 'flex-row items-center pr-2' : 'flex-col items-center pb-2'} transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
           {LANGUAGES.filter(l => l.code !== currentLang).map((lang) => (
             <button
               key={lang.code}
               onClick={() => changeLanguage(lang.code)}
-              className="px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-white uppercase tracking-[0.1em] transition-colors"
+              className={`px-3 ${isLeft ? 'py-2' : 'py-1.5'} text-xs sm:text-sm font-medium text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-white uppercase tracking-[0.1em] transition-colors`}
             >
               {lang.code}
             </button>

@@ -493,3 +493,25 @@ export async function getEmployeeLeaveRequests(employeeId: string) {
   }
   return data || []
 }
+
+export async function updateEmployeeProfile(formData: FormData) {
+  const supabase = await createClient()
+  const id = formData.get('id') as string
+  const profile_picture = formData.get('profile_picture') as string
+  const address = formData.get('address') as string
+  const date_of_birth = formData.get('date_of_birth') as string
+
+  const { error } = await supabase
+    .from('staff_employees')
+    .update({ 
+      profile_picture: profile_picture || null,
+      address: address || null,
+      date_of_birth: date_of_birth || null
+    })
+    .eq('id', id)
+
+  if (error) return { error: error.message }
+  
+  revalidatePath('/staff')
+  return { success: true }
+}
