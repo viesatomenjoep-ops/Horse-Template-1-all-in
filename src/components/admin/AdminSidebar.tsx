@@ -1,29 +1,57 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar } from 'lucide-react'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
+import { getCurrentUserPermissions } from '@/app/actions/permissions'
 
 export default function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [userRole, setUserRole] = useState<any>(null)
   const pathname = usePathname()
 
-  const navItems = [
-    { href: '/admin', icon: LayoutDashboard, label: 'Overview' },
-    { href: '/admin/appointments', icon: Calendar, label: 'Bezoeken (Nieuw)' },
-    { href: '/admin/horses', icon: Database, label: 'Horses' },
-    { href: '/admin/references', icon: Camera, label: 'References' },
-    { href: '/admin/inventory', icon: ClipboardList, label: 'Voorraad' },
-    { href: '/admin/quotes', icon: FileText, label: 'Offertes & Orders' },
-    { href: '/admin/staff', icon: Users, label: 'Staff & Time' },
-    { href: '/admin/team', icon: UserCircle, label: 'Team' },
-    { href: '/admin/news', icon: Newspaper, label: 'News' },
-    { href: '/admin/settings', icon: Settings, label: 'Settings' },
+  useEffect(() => {
+    async function loadPermissions() {
+      try {
+        const data = await getCurrentUserPermissions()
+        setUserRole(data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    loadPermissions()
+  }, [])
+
+  const allNavItems = [
+    { id: 'overview', href: '/admin', icon: LayoutDashboard, label: 'Overview' },
+    { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Bezoeken (Nieuw)' },
+    { id: 'horses', href: '/admin/horses', icon: Database, label: 'Horses' },
+    { id: 'references', href: '/admin/references', icon: Camera, label: 'References' },
+    { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Voorraad' },
+    { id: 'quotes', href: '/admin/quotes', icon: FileText, label: 'Offertes & Orders' },
+    { id: 'staff', href: '/admin/staff', icon: Users, label: 'Staff & Time' },
+    { id: 'team', href: '/admin/team', icon: UserCircle, label: 'Team' },
+    { id: 'news', href: '/admin/news', icon: Newspaper, label: 'News' },
+    { id: 'settings', href: '/admin/settings', icon: Settings, label: 'Settings' },
   ]
+
+  // Filter items based on permissions
+  const navItems = allNavItems.filter(item => {
+    // Overview is always visible if they have CMS access
+    if (item.id === 'overview') return true
+    
+    // Superadmin sees everything
+    if (userRole?.role === 'superadmin') return true
+    
+    // Staff sees only what they have permission for
+    if (userRole?.permissions?.[item.id]) return true
+    
+    return false
+  })
 
   return (
     <>

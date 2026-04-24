@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Building2, ShieldCheck, Clock, Save, Lock } from 'lucide-react'
+import { Building2, ShieldCheck, Clock, Save, Lock, Users } from 'lucide-react'
 import { updateAdminPassword } from '@/app/actions/settings'
+import RoleManager from '@/components/admin/RoleManager'
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('general')
@@ -16,7 +17,6 @@ export default function SettingsPage() {
   const handleSaveGeneral = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSaving(true)
-    // Mock save delay
     setTimeout(() => {
       setIsSaving(false)
       alert('Settings saved successfully!')
@@ -74,6 +74,17 @@ export default function SettingsPage() {
             >
               <ShieldCheck size={20} />
               Security & Access
+            </button>
+            <button
+              onClick={() => setActiveTab('roles')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === 'roles' 
+                ? 'bg-primary text-white' 
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              <Users size={20} />
+              Rechten & Rollen
             </button>
             <button
               onClick={() => setActiveTab('staff')}
@@ -177,6 +188,11 @@ export default function SettingsPage() {
                 </div>
               </form>
             </div>
+          )}
+
+          {/* ROLES & PERMISSIONS */}
+          {activeTab === 'roles' && (
+            <RoleManager />
           )}
 
           {/* STAFF CONFIG SETTINGS */}
