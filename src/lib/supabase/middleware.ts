@@ -9,8 +9,7 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname
   
   // OPTIMIZATION: Only run Supabase auth checks on admin routes or login page.
-  // This saves ~200ms per page load on the public website.
-  if (!path.startsWith('/admin') && !path.startsWith('/login')) {
+  if (!path.startsWith('/admin') && !path.startsWith('/login') && !path.startsWith('/admin-login')) {
     return supabaseResponse
   }
 
@@ -40,7 +39,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Protect the admin routes
-  if (path.startsWith('/admin')) {
+  if (path.startsWith('/admin') && !path.startsWith('/admin-login')) {
     // If the user is not authenticated and trying to access /admin, redirect them to /admin-login
     if (!user) {
       const url = request.nextUrl.clone()
