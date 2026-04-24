@@ -81,25 +81,30 @@ export default function LanguageSwitcher() {
     <div className="relative z-50 notranslate" ref={dropdownRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full transition-colors border border-gray-200 dark:border-gray-700"
+        className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 hover:bg-white/80 dark:bg-gray-900/50 dark:hover:bg-gray-800 backdrop-blur-md rounded-full transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 shadow-sm hover:shadow-md"
+        aria-label="Select Language"
       >
-        <Globe size={18} className="text-gray-600 dark:text-gray-300" />
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{currentLangData.flag} {currentLang.toUpperCase()}</span>
+        <span className="text-base sm:text-lg leading-none filter drop-shadow-sm">{currentLangData.flag}</span>
+        <span className="text-xs sm:text-sm font-bold text-primary dark:text-white uppercase tracking-wider">{currentLang}</span>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
-          <div className="py-1">
+        <div className="absolute right-0 mt-3 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden transform opacity-100 scale-100 transition-all duration-200 origin-top-right">
+          <div className="p-2 space-y-1">
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => changeLanguage(lang.code)}
-                className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                  currentLang === lang.code ? 'bg-primary/5 text-primary dark:bg-gray-700 font-medium' : 'text-gray-700 dark:text-gray-300'
+                className={`w-full text-left px-4 py-3 text-sm flex items-center gap-4 rounded-xl transition-all duration-200 ${
+                  currentLang === lang.code 
+                    ? 'bg-primary text-white shadow-md' 
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
               >
-                <span className="text-lg">{lang.flag}</span>
-                {lang.name}
+                <span className="text-xl filter drop-shadow-sm">{lang.flag}</span>
+                <span className={`font-medium tracking-wide ${currentLang === lang.code ? 'text-white' : ''}`}>
+                  {lang.name}
+                </span>
               </button>
             ))}
           </div>

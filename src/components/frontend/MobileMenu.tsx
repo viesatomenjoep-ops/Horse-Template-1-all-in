@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Menu, X } from 'lucide-react'
 import NavLinks from './NavLinks'
 
@@ -53,9 +52,6 @@ export default function MobileMenu() {
         style={{ top: 0, left: 0 }}
       >
         <nav className="flex flex-col space-y-6">
-          <div className="mb-4">
-            <LanguageSwitcher />
-          </div>
 
           <NavLinks user={user} isMobile={true} setIsOpen={setIsOpen} logoutAction={logout} />
         </nav>
