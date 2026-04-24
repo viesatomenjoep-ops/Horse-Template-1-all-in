@@ -5,6 +5,7 @@ import { logout } from '@/app/actions/auth'
 import ScrollLogo from './ScrollLogo'
 import MobileMenu from './MobileMenu'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import NavLinks from './NavLinks'
 
 export default async function Navbar() {
   const supabase = await createClient()
@@ -37,36 +38,7 @@ export default async function Navbar() {
           {/* Desktop Navigation Center */}
           <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-[110]">
             <nav className="flex items-center space-x-3 lg:space-x-4 xl:space-x-5">
-              {user ? (
-                <form action={logout}>
-                  <button type="submit" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-accent hover:text-primary transition-colors py-2 whitespace-nowrap">
-                    Logout
-                  </button>
-                </form>
-              ) : (
-                <Link href="/login" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-accent hover:text-primary transition-colors py-2 whitespace-nowrap">
-                  Login
-                </Link>
-              )}
-              
-              <Link href="/about" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors py-2 whitespace-nowrap">
-                About Us
-              </Link>
-              <Link href="/horses" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors py-2 whitespace-nowrap">
-                Portfolio
-              </Link>
-              <Link href="/references" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors py-2 whitespace-nowrap">
-                References
-              </Link>
-              <Link href="/roi" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors py-2 whitespace-nowrap">
-                ROI
-              </Link>
-              <Link href="/news" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors py-2 whitespace-nowrap">
-                News
-              </Link>
-              <Link href="/contact" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-primary hover:text-accent transition-colors py-2 whitespace-nowrap">
-                Contact
-              </Link>
+              <NavLinks user={user} logoutAction={logout} />
             </nav>
           </div>
 
