@@ -81,27 +81,27 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
 
   return (
     <div 
-      className={`relative z-50 notranslate flex ${isLeft ? 'items-center' : 'flex-col items-center'}`} 
+      className="relative z-50 notranslate w-10 h-10 sm:w-12 sm:h-12" 
       ref={dropdownRef}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <div 
-        className={`flex ${isLeft ? 'flex-row items-center' : 'flex-col items-center'} overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
-          isOpen ? (isLeft ? 'w-auto max-w-[300px] opacity-100' : 'h-[160px] opacity-100') : (isLeft ? 'w-10 sm:w-12 opacity-90' : 'h-10 sm:h-12 opacity-90')
+        className={`absolute ${isLeft ? 'right-0 top-0 flex flex-row items-center' : 'top-0 right-0 flex flex-col items-center'} overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
+          isOpen ? (isLeft ? 'w-[200px] h-10 sm:h-12 opacity-100 justify-end' : 'w-10 sm:w-12 h-[160px] opacity-100') : 'w-10 sm:w-12 h-10 sm:h-12 opacity-90'
         }`}
       >
         {/* Current Language Trigger */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 shrink-0 hover:text-accent transition-colors focus:outline-none"
+          className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 shrink-0 hover:text-accent transition-colors focus:outline-none ${isLeft && isOpen ? 'order-2' : ''}`}
           aria-label="Toggle Language"
         >
           <span className="text-xs sm:text-sm font-bold text-primary dark:text-white uppercase tracking-[0.2em]">{currentLang}</span>
         </button>
 
         {/* Slide-out options */}
-        <div className={`flex ${isLeft ? 'flex-row items-center pr-2' : 'flex-col items-center pb-2'} transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`flex ${isLeft ? 'flex-row items-center pr-2 order-1' : 'flex-col items-center pb-2'} transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
           {LANGUAGES.filter(l => l.code !== currentLang).map((lang) => (
             <button
               key={lang.code}
