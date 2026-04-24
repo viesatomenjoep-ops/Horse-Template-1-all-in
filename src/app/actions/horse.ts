@@ -12,17 +12,17 @@ export async function getHorses() {
 
 export async function getHorse(id: string) {
   const supabase = await createClient()
-  // We use maybeSingle() and gracefully handle media in case it's not present
+  
+  // Try with media first
   const { data, error } = await supabase.from('horses').select('*, media(*)').eq('id', id).maybeSingle()
   
-  // If it fails because of media relation, try without media
-  if (error && error.code === 'PGRST200') {
+  if (error) {
+     // Fallback if the media relation fails for ANY reason
      const fallback = await supabase.from('horses').select('*').eq('id', id).single()
      if (fallback.error) throw new Error(fallback.error.message)
      return { ...fallback.data, media: [] }
   }
 
-  if (error) throw new Error(error.message)
   if (!data) throw new Error("Horse not found")
   return data
 }
