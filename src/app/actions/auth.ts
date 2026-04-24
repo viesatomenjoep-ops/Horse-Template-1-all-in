@@ -18,6 +18,20 @@ export async function login(formData: FormData) {
     redirect(`/admin/login?error=${encodeURIComponent(error.message)}`)
   }
 
+  // Send email notification (non-blocking)
+  fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      _subject: '⚠️ Beveiligingsmelding: Iemand is ingelogd op Equivest',
+      _template: 'basic',
+      message: `Er is zojuist succesvol ingelogd op het Equivest CMS.\n\nAccount: ${data.email}\nTijdstip: ${new Date().toLocaleString('nl-NL')}\n\nAls jij dit niet was, controleer dan direct je wachtwoorden.`
+    })
+  }).catch(err => console.error("Email notification failed:", err))
+
   revalidatePath('/', 'layout')
   redirect('/admin')
 }
