@@ -272,30 +272,30 @@ export default function StaffPortal() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="max-w-6xl mx-auto px-4 py-3 flex gap-2 overflow-x-auto hide-scrollbar border-t border-gray-100 dark:border-gray-700">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex gap-4 overflow-x-auto hide-scrollbar border-t border-gray-100 dark:border-gray-700 scroll-smooth">
           <button 
             onClick={() => setActiveTab('dashboard')} 
-            className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'dashboard' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'dashboard' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <Clock size={16} /> Dashboard
+            <Clock size={24} /> Dashboard
           </button>
           <button 
             onClick={() => setActiveTab('schedule')} 
-            className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'schedule' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'schedule' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <CalendarRange size={16} /> Rooster & Historie
+            <CalendarRange size={24} /> Rooster & Historie
           </button>
           <button 
             onClick={() => setActiveTab('leave')} 
-            className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'leave' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'leave' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <Umbrella size={16} /> Verlof & Beschikbaarheid
+            <Umbrella size={24} /> Verlof & Beschikbaarheid
           </button>
           <button 
             onClick={() => setActiveTab('notices')} 
-            className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'notices' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+            className={`flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg whitespace-nowrap transition-colors ${activeTab === 'notices' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
           >
-            <Megaphone size={16} /> Prikbord <span className="bg-red-500 text-white text-[10px] px-1.5 rounded-full ml-1">1</span>
+            <Megaphone size={24} /> Prikbord <span className="bg-red-500 text-white text-sm px-2 py-0.5 rounded-full ml-2">1</span>
           </button>
         </div>
       </header>
