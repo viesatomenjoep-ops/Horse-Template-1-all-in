@@ -52,6 +52,22 @@ export async function clockIn(employeeId: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('employee_logs').insert([{ employee_id: employeeId, action: 'clock_in' }])
   if (error) return { error: error.message }
+  
+  // Fetch employee name for notification
+  const { data: emp } = await supabase.from('employees').select('full_name').eq('id', employeeId).single()
+  const name = emp ? emp.full_name : 'Een medewerker';
+
+  // Send WhatsApp notification
+  const waText = encodeURIComponent(`⏰ *Ingeklokt* ⏰\n${name} is zojuist INGEKLOKT!\nTijd: ${new Date().toLocaleTimeString('nl-NL')}`);
+  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648`).catch(console.error);
+
+  // Send Email notification
+  fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Origin': 'https://www.equivestworldwide.com', 'Referer': 'https://www.equivestworldwide.com/' },
+    body: JSON.stringify({ _subject: `🟢 ${name} is ingeklokt`, _template: 'basic', message: `${name} is zojuist ingeklokt op de stalkiosk.\nTijd: ${new Date().toLocaleString('nl-NL')}` })
+  }).catch(console.error);
+
   revalidatePath('/staff')
   revalidatePath('/admin/staff')
   return { success: true }
@@ -61,6 +77,22 @@ export async function clockOut(employeeId: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('employee_logs').insert([{ employee_id: employeeId, action: 'clock_out' }])
   if (error) return { error: error.message }
+  
+  // Fetch employee name for notification
+  const { data: emp } = await supabase.from('employees').select('full_name').eq('id', employeeId).single()
+  const name = emp ? emp.full_name : 'Een medewerker';
+
+  // Send WhatsApp notification
+  const waText = encodeURIComponent(`🏠 *Uitgeklokt* 🏠\n${name} is zojuist UITGEKLOKT!\nTijd: ${new Date().toLocaleTimeString('nl-NL')}`);
+  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648`).catch(console.error);
+
+  // Send Email notification
+  fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Origin': 'https://www.equivestworldwide.com', 'Referer': 'https://www.equivestworldwide.com/' },
+    body: JSON.stringify({ _subject: `🔴 ${name} is uitgeklokt`, _template: 'basic', message: `${name} is zojuist uitgeklokt en naar huis gegaan.\nTijd: ${new Date().toLocaleString('nl-NL')}` })
+  }).catch(console.error);
+
   revalidatePath('/staff')
   revalidatePath('/admin/staff')
   return { success: true }
