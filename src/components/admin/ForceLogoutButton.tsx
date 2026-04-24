@@ -13,7 +13,7 @@ export default function ForceLogoutButton() {
     await supabase.auth.signOut()
     
     // Hard reload to login screen
-    window.location.href = '/admin-login'
+    window.location.href = '/cms-login'
   }
 
   return (

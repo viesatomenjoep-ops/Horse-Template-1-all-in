@@ -15,7 +15,7 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    redirect(`/admin-login?error=${encodeURIComponent(error.message)}`)
+    redirect(`/cms-login?error=${encodeURIComponent(error.message)}`)
   }
 
   // Send email notification (non-blocking)
