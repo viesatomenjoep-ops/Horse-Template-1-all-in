@@ -20,6 +20,7 @@ export default function StaffPortal() {
   const [history, setHistory] = useState<any[]>([])
   const [schedules, setSchedules] = useState<any[]>([])
   const [announcements, setAnnouncements] = useState<any[]>([])
+  const [leaveRequests, setLeaveRequests] = useState<any[]>([])
   const [activeTab, setActiveTab] = useState('dashboard')
 
   // Load basic data
@@ -67,6 +68,9 @@ export default function StaffPortal() {
 
     const anns = await actions.getAnnouncements()
     setAnnouncements(anns || [])
+
+    const leaves = await actions.getEmployeeLeaveRequests(empId)
+    setLeaveRequests(leaves || [])
   }
 
   const handleLogin = async (e: React.FormEvent, pinArg?: string) => {
@@ -504,6 +508,43 @@ export default function StaffPortal() {
                   Aanvraag Indienen
                 </button>
               </form>
+
+              {/* Mijn Verlofaanvragen List */}
+              <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+                <h3 className="text-lg font-serif font-bold text-gray-900 dark:text-white mb-4">Mijn Aanvragen</h3>
+                <div className="space-y-3 max-h-64 overflow-y-auto pr-2">
+                  {leaveRequests.length === 0 ? (
+                    <p className="text-sm text-gray-500 italic">Je hebt nog geen verlof aangevraagd.</p>
+                  ) : (
+                    leaveRequests.map((req: any) => {
+                      const isApproved = req.status === 'approved'
+                      const isRejected = req.status === 'rejected'
+                      return (
+                        <div key={req.id} className={`flex items-start justify-between p-3 rounded-xl border ${
+                          isApproved ? 'bg-green-50 border-green-200 dark:bg-green-900/10 dark:border-green-800' :
+                          isRejected ? 'bg-red-50 border-red-200 dark:bg-red-900/10 dark:border-red-800' :
+                          'bg-amber-50 border-amber-200 dark:bg-amber-900/10 dark:border-amber-800'
+                        }`}>
+                          <div>
+                            <p className="font-bold text-gray-900 dark:text-white text-sm">{req.leave_type}</p>
+                            <p className="text-xs text-gray-500 mt-1">
+                              {new Date(req.start_date).toLocaleDateString('nl-NL', {day: 'numeric', month: 'short'})} - {new Date(req.end_date).toLocaleDateString('nl-NL', {day: 'numeric', month: 'short'})}
+                            </p>
+                            {req.notes && <p className="text-xs text-gray-400 mt-1 truncate max-w-[200px]">"{req.notes}"</p>}
+                          </div>
+                          <div className={`px-2 py-1 rounded-md text-xs font-bold uppercase tracking-wider ${
+                            isApproved ? 'bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200' :
+                            isRejected ? 'bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200' :
+                            'bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200'
+                          }`}>
+                            {req.status === 'pending' ? 'In Afwachting' : req.status === 'approved' ? 'Goedgekeurd' : 'Afgewezen'}
+                          </div>
+                        </div>
+                      )
+                    })
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* FEATURE 4: Beschikbaarheid */}

@@ -478,3 +478,18 @@ export async function setAvailability(employeeId: string, isAvailable: boolean, 
   revalidatePath('/staff')
   return { success: true }
 }
+
+export async function getEmployeeLeaveRequests(employeeId: string) {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('staff_leave_requests')
+    .select('*')
+    .eq('employee_id', employeeId)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error("Error fetching leave requests:", error)
+    return []
+  }
+  return data || []
+}

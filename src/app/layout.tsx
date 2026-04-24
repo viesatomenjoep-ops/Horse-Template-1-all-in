@@ -24,16 +24,7 @@ export default function RootLayout({
       <body
         className={`${quicksand.variable} antialiased font-sans bg-background text-foreground min-h-screen flex flex-col`}
       >
-        <div id="google_translate_element" style={{ display: 'none' }}></div>
         {children}
-        <Script id="google-translate-init" strategy="afterInteractive">
-          {`
-            function googleTranslateElementInit() {
-              new window.google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'nl,en,de,es', autoDisplay: false}, 'google_translate_element');
-            }
-          `}
-        </Script>
-        <Script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive" />
       </body>
     </html>
   );
