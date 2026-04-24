@@ -34,7 +34,7 @@ export default function Navbar() {
           {/* Right side controls & Mobile menu button */}
           <div className="flex items-center space-x-3 md:space-x-4 ml-auto z-[110] relative">
             <div className="absolute right-12 md:right-0 top-1/2 -translate-y-1/2">
-              <LanguageSwitcher />
+              <LanguageSwitcher expandDirection="left" />
             </div>
             <MobileMenu />
           </div>

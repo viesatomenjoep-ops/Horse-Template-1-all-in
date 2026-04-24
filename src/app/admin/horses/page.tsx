@@ -20,50 +20,69 @@ export default async function AdminHorsesPage() {
         </Link>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg border border-gray-200 dark:border-gray-700 overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-900/50">
-            <tr>
-              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
-              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Discipline</th>
-              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-              <th scope="col" className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            {horses.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="px-4 sm:px-6 py-4 text-center text-sm text-gray-500">
-                  No horses found. Add one to get started, or configure Supabase.
-                </td>
-              </tr>
-            ) : (
-              horses.map((horse: any) => (
-                <tr key={horse.id}>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{horse.name}</td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{horse.discipline}</td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
-                      {horse.status}
-                    </span>
-                  </td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex justify-end gap-3">
-                      <Link href={`/admin/horses/${horse.id}/edit`} className="text-primary hover:text-secondary">Edit</Link>
-                      <form action={async () => {
-                        'use server';
-                        const { deleteHorse } = await import('@/app/actions/horse');
-                        await deleteHorse(horse.id);
-                      }}>
-                        <button type="submit" className="text-red-600 hover:text-red-900">Delete</button>
-                      </form>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        
+        {/* ADD NEW HORSE CARD */}
+        <Link 
+          href="/admin/horses/new" 
+          className="bg-primary/5 hover:bg-primary/10 border-2 border-dashed border-primary/30 hover:border-primary/50 rounded-2xl flex flex-col items-center justify-center p-8 transition-all duration-200 min-h-[250px] group"
+        >
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <Plus size={32} className="text-primary" />
+          </div>
+          <h3 className="text-lg font-bold text-primary">Nieuw Paard Toevoegen</h3>
+          <p className="text-sm text-gray-500 text-center mt-2">Maak een nieuw profiel aan in het portfolio</p>
+        </Link>
+
+        {/* HORSE CARDS */}
+        {horses.length === 0 ? (
+          <div className="col-span-full bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center text-gray-500">
+            Nog geen paarden gevonden. Klik op "Nieuw Paard Toevoegen" om te beginnen.
+          </div>
+        ) : (
+          horses.map((horse: any) => (
+            <div key={horse.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition-all flex flex-col">
+              <div className="relative h-48 bg-gray-100 dark:bg-gray-900">
+                {horse.cover_image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={horse.cover_image_url} alt={horse.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">Geen foto</div>
+                )}
+                <div className="absolute top-3 right-3">
+                  <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/90 text-gray-900 shadow-sm backdrop-blur-sm">
+                    {horse.status}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="p-5 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{horse.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{horse.discipline} • {horse.birth_year}</p>
+                
+                <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
+                  <Link 
+                    href={`/admin/horses/${horse.id}/edit`} 
+                    className="flex-1 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 rounded-xl text-center transition-colors text-sm"
+                  >
+                    Bewerken
+                  </Link>
+                  <form action={async () => {
+                    'use server';
+                    const { deleteHorse } = await import('@/app/actions/horse');
+                    await deleteHorse(horse.id);
+                  }} className="flex-none">
+                    <button type="submit" className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm" onClick={(e) => {
+                      if(!confirm("Weet je zeker dat je dit paard wilt verwijderen?")) e.preventDefault()
+                    }}>
+                      Verwijder
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   )

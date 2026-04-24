@@ -59,7 +59,7 @@ export default function AdminSidebar() {
       {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sticky top-0 z-40">
         <div className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain" />
+          <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain animate-[spin_20s_linear_infinite]" />
           <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
         </div>
         <div className="flex items-center gap-4">
@@ -85,9 +85,13 @@ export default function AdminSidebar() {
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain" />
+          <div className="flex items-center gap-3 md:hidden">
+            <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain animate-[spin_20s_linear_infinite]" />
             <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS</span>
+          </div>
+          <div className="hidden md:flex items-center gap-3">
+            <Image src="/logo.png" alt="Equivest Logo" width={40} height={40} className="w-10 h-10 object-contain animate-[spin_20s_linear_infinite]" />
+            <span className="text-xl font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="hidden md:block"><LanguageSwitcher expandDirection="left" /></div>
@@ -97,39 +101,70 @@ export default function AdminSidebar() {
           </div>
         </div>
         
-        <nav className="flex-1 p-4 md:p-4 space-y-2 md:space-y-1 overflow-y-auto">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
-            return (
-              <Link 
-                key={item.href} 
-                href={item.href} 
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center px-4 py-4 md:px-3 md:py-2 text-lg md:text-sm font-medium rounded-lg md:rounded-md transition-colors ${
-                  isActive 
-                    ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-white' 
-                    : 'text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
-              >
-                <Icon className={`mr-4 md:mr-3 h-6 w-6 md:h-5 md:w-5 ${isActive ? 'text-primary' : 'text-gray-500'}`} />
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
-        
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-          <Link href="/" className="flex w-full items-center px-4 py-4 md:px-3 md:py-2 text-lg md:text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg md:rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
-            <Home className="mr-4 md:mr-3 h-6 w-6 md:h-5 md:w-5 text-gray-500" />
-            Return to Website
-          </Link>
-          <form action={logout}>
-             <button type="submit" className="flex w-full items-center px-4 py-4 md:px-3 md:py-2 text-lg md:text-sm font-medium text-red-600 rounded-lg md:rounded-md hover:bg-red-50 dark:hover:bg-red-900/20">
-               <LogOut className="mr-4 md:mr-3 h-6 w-6 md:h-5 md:w-5" />
-               Sign out
-             </button>
-          </form>
+        {/* MOBILE APP-STYLE GRID MENU */}
+        <div className="flex-1 overflow-y-auto px-4 py-6 md:hidden pb-32">
+          <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 ml-1">Menu</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-200 active:scale-95 ${
+                    isActive 
+                      ? 'bg-primary border-primary shadow-lg text-white' 
+                      : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-primary/50 text-gray-600 dark:text-gray-300 shadow-sm'
+                  }`}
+                >
+                  <item.icon className={`w-8 h-8 mb-2 ${isActive ? 'text-white' : 'text-primary'}`} />
+                  <span className="text-sm font-bold text-center leading-tight">{item.label}</span>
+                </Link>
+              )
+            })}
+          </div>
+
+          <div className="mt-8 border-t border-gray-100 dark:border-gray-700 pt-6">
+             <form action={logout}>
+               <button type="submit" className="flex items-center justify-center gap-2 p-4 w-full rounded-2xl bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 font-bold border border-red-100 dark:border-red-800/30 transition-colors active:bg-red-100">
+                 <LogOut size={20} />
+                 Uitloggen
+               </button>
+             </form>
+          </div>
+        </div>
+
+        {/* DESKTOP SIDEBAR MENU (Hidden on Mobile) */}
+        <div className="hidden md:flex flex-col flex-1 overflow-y-auto">
+          <div className="flex-1 px-4 py-6 space-y-2">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
+                    isActive 
+                      ? 'bg-primary text-white shadow-md' 
+                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  <item.icon size={20} />
+                  {item.label}
+                </Link>
+              )
+            })}
+          </div>
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <form action={logout}>
+              <button type="submit" className="flex w-full items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 rounded-xl font-medium transition-colors">
+                <LogOut size={20} />
+                Uitloggen
+              </button>
+            </form>
+          </div>
         </div>
       </aside>
     </>
