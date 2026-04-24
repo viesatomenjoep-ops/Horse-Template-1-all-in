@@ -9,10 +9,22 @@ export async function getCurrentUserPermissions() {
   
   if (!user || !user.email) return null
 
+  const email = user.email.toLowerCase()
+
+  // HARDCODED FALLBACK: Owners are ALWAYS superadmin, even if the database table is empty or deleted!
+  if (email === 'tomvanbiene@gmail.com' || email === 'tomjo118735@gmail.com') {
+    return {
+      id: 'hardcoded-admin',
+      email: email,
+      role: 'superadmin',
+      permissions: { all: true }
+    }
+  }
+
   const { data, error } = await supabase
     .from('admin_permissions')
     .select('*')
-    .eq('email', user.email)
+    .eq('email', email)
     .single()
     
   if (error || !data) {
