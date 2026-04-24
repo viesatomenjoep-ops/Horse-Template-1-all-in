@@ -6,8 +6,11 @@ import { revalidatePath } from 'next/cache'
 export async function getInventoryItems() {
   const supabase = await createClient()
   const { data, error } = await supabase.from('inventory_items').select('*').order('category', { ascending: true })
-  if (error) throw new Error(error.message)
-  return data
+  if (error) {
+    console.error("Inventory fetch error:", error.message)
+    return []
+  }
+  return data || []
 }
 
 export async function getInventoryItem(id: string) {
