@@ -14,17 +14,21 @@ export async function getHorse(id: string) {
   const supabase = await createClient()
   
   // Try with media first
-  const { data, error } = await supabase.from('horses').select('*, media(*)').eq('id', id).maybeSingle()
+  const { data: horse, error } = await supabase
+    .from('horses')
+    .select('*, horse_media(*), horse_results(*)')
+    .eq('id', id)
+    .single()
   
   if (error) {
      // Fallback if the media relation fails for ANY reason
-     const fallback = await supabase.from('horses').select('*').eq('id', id).single()
+     const fallback = await supabase.from('horses').select('*, horse_results(*)').eq('id', id).single()
      if (fallback.error) throw new Error(fallback.error.message)
      return { ...fallback.data, media: [] }
   }
 
-  if (!data) throw new Error("Horse not found")
-  return data
+  if (!horse) throw new Error("Horse not found")
+  return horse
 }
 
 export async function createHorse(formData: FormData) {

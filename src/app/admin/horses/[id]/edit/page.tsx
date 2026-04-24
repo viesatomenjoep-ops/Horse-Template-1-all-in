@@ -8,6 +8,7 @@ const CloudinaryUploader = dynamic(() => import('@/components/admin/CloudinaryUp
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import HorseResultsManager from '@/components/admin/HorseResultsManager'
 
 export default function EditHorsePage(props: { params: Promise<{ id: string }> }) {
   const router = useRouter()
@@ -253,6 +254,9 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
           </div>
         </form>
       </div>
+
+      {/* Competition Results Manager */}
+      <HorseResultsManager horseId={horse.id} />
     </div>
   )
 }
