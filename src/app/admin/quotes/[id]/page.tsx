@@ -118,7 +118,6 @@ export default function QuoteDetailPage() {
           <div>
             <Image src="/logo.png" alt="Equivest" width={80} height={80} className="w-20 h-20 object-contain mb-4" />
             <h1 className="text-4xl font-serif font-bold text-primary tracking-tight">EQUIVEST</h1>
-            <p className="text-xs tracking-[0.2em] font-bold text-primary uppercase mt-1">Premium Sport Horses</p>
           </div>
           <div className="text-right text-sm text-gray-600 space-y-1">
             <h2 className="text-3xl font-serif font-bold text-accent mb-4">OFFERTE</h2>
@@ -197,7 +196,7 @@ export default function QuoteDetailPage() {
 
         {/* Footer */}
         <div className="mt-20 pt-8 border-t border-gray-200 text-center text-xs text-gray-400">
-          <p>Equivest Worldwide — Premium Sport Horses Since 1995</p>
+          <p>Equivest Worldwide — Since 1995</p>
         </div>
 
       </div>
