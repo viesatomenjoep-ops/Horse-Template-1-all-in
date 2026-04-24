@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { logout } from '@/app/actions/auth'
 import ScrollLogo from './ScrollLogo'
 import MobileMenu from './MobileMenu'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default async function Navbar() {
   const supabase = await createClient()
@@ -71,6 +72,10 @@ export default async function Navbar() {
 
           {/* Right side controls & Mobile menu button */}
           <div className="flex items-center space-x-2 md:space-x-4 ml-auto z-[110]">
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
+
             {user && (
               <Link href="/admin" className="hidden md:flex items-center text-sm font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors">
                 Admin

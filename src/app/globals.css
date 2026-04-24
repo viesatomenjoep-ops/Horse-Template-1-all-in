@@ -37,3 +37,18 @@
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(6px); opacity: 0; }
 }
+
+/* Google Translate Overrides */
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+}
+.skiptranslate > iframe.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+}
+body {
+  top: 0px !important;
+}
+#google_translate_element {
+  display: none !important;
+}

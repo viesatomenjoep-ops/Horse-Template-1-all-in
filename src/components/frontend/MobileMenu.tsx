@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function MobileMenu({ user }: { user: any }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,6 +38,10 @@ export default function MobileMenu({ user }: { user: any }) {
         style={{ top: 0, left: 0 }}
       >
         <nav className="flex flex-col space-y-6">
+          <div className="mb-4">
+            <LanguageSwitcher />
+          </div>
+
           {user ? (
             <>
               <Link onClick={() => setIsOpen(false)} href="/admin" className="text-2xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">

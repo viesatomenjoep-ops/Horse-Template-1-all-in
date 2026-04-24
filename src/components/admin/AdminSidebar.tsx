@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList } from 'lucide-react'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
 
@@ -30,9 +31,12 @@ export default function AdminSidebar() {
           <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain" />
           <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
         </div>
-        <button onClick={() => setIsOpen(true)} className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white">
-          <Menu size={24} />
-        </button>
+        <div className="flex items-center gap-4">
+          <LanguageSwitcher />
+          <button onClick={() => setIsOpen(true)} className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white">
+            <Menu size={24} />
+          </button>
+        </div>
       </div>
 
       {/* Overlay for mobile */}
@@ -52,11 +56,14 @@ export default function AdminSidebar() {
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
             <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain" />
-            <span className="text-xl font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
+            <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS</span>
           </div>
-          <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary">
-            <X size={24} />
-          </button>
+          <div className="flex items-center gap-2">
+            <div className="hidden md:block"><LanguageSwitcher /></div>
+            <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary">
+              <X size={24} />
+            </button>
+          </div>
         </div>
         
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">

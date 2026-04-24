@@ -12,17 +12,28 @@ export const metadata: Metadata = {
   description: "High-end sport horse trading platform and CMS.",
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="nl">
       <body
         className={`${quicksand.variable} antialiased font-sans bg-background text-foreground min-h-screen flex flex-col`}
       >
+        <div id="google_translate_element"></div>
         {children}
+        <Script id="google-translate-init" strategy="afterInteractive">
+          {`
+            function googleTranslateElementInit() {
+              new window.google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'nl,en,de,es', autoDisplay: false}, 'google_translate_element');
+            }
+          `}
+        </Script>
+        <Script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive" />
       </body>
     </html>
   );
