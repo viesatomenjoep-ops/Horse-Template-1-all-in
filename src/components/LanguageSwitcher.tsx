@@ -78,38 +78,39 @@ export default function LanguageSwitcher() {
   const currentLangData = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0]
 
   return (
-    <div className="relative z-50 notranslate" ref={dropdownRef}>
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white/50 hover:bg-white/80 dark:bg-gray-900/50 dark:hover:bg-gray-800 backdrop-blur-md rounded-full transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 shadow-sm hover:shadow-md"
-        aria-label="Select Language"
+    <div 
+      className="relative z-50 notranslate flex items-center" 
+      ref={dropdownRef}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <div 
+        className={`flex items-center overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
+          isOpen ? 'w-auto max-w-[300px] opacity-100' : 'w-10 sm:w-12 opacity-90'
+        }`}
       >
-        <span className="text-base sm:text-lg leading-none filter drop-shadow-sm">{currentLangData.flag}</span>
-        <span className="text-xs sm:text-sm font-bold text-primary dark:text-white uppercase tracking-wider">{currentLang}</span>
-      </button>
+        {/* Current Language Trigger */}
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 shrink-0 hover:text-accent transition-colors focus:outline-none"
+          aria-label="Toggle Language"
+        >
+          <span className="text-xs sm:text-sm font-bold text-primary dark:text-white uppercase tracking-[0.2em]">{currentLang}</span>
+        </button>
 
-      {isOpen && (
-        <div className="absolute right-0 mt-3 w-56 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden transform opacity-100 scale-100 transition-all duration-200 origin-top-right">
-          <div className="p-2 space-y-1">
-            {LANGUAGES.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => changeLanguage(lang.code)}
-                className={`w-full text-left px-4 py-3 text-sm flex items-center gap-4 rounded-xl transition-all duration-200 ${
-                  currentLang === lang.code 
-                    ? 'bg-primary text-white shadow-md' 
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                }`}
-              >
-                <span className="text-xl filter drop-shadow-sm">{lang.flag}</span>
-                <span className={`font-medium tracking-wide ${currentLang === lang.code ? 'text-white' : ''}`}>
-                  {lang.name}
-                </span>
-              </button>
-            ))}
-          </div>
+        {/* Slide-out options */}
+        <div className={`flex items-center pr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+          {LANGUAGES.filter(l => l.code !== currentLang).map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => changeLanguage(lang.code)}
+              className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-white uppercase tracking-[0.1em] transition-colors"
+            >
+              {lang.code}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   )
 }

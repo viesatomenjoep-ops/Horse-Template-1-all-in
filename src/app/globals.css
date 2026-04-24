@@ -38,17 +38,30 @@
   100% { transform: translateY(6px); opacity: 0; }
 }
 
-/* Google Translate Overrides */
-.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+/* Google Translate Overrides - BULLETPROOF HIDING */
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-ZVi9od-aZ2wEe-OiiCO,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
+
 .skiptranslate > iframe.skiptranslate {
   display: none !important;
   visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
 }
+
 body {
   top: 0px !important;
+  position: static !important;
 }
+
 #google_translate_element {
   display: none !important;
 }
