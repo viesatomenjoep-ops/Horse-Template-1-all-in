@@ -78,7 +78,7 @@ export default function AdminSidebar() {
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-full md:w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
+        fixed inset-y-0 left-0 z-50 w-[85%] md:w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
         transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-screen md:sticky md:top-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
