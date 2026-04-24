@@ -78,7 +78,7 @@ export default function AdminSidebar() {
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
+        fixed inset-y-0 left-0 z-50 w-full md:w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
         transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-screen md:sticky md:top-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
@@ -88,13 +88,13 @@ export default function AdminSidebar() {
             <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS</span>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary">
-              <X size={24} />
+            <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary p-2">
+              <X size={28} />
             </button>
           </div>
         </div>
         
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-4 md:p-4 space-y-2 md:space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
@@ -103,13 +103,13 @@ export default function AdminSidebar() {
                 key={item.href} 
                 href={item.href} 
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                className={`flex items-center px-4 py-4 md:px-3 md:py-2 text-lg md:text-sm font-medium rounded-lg md:rounded-md transition-colors ${
                   isActive 
                     ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-white' 
                     : 'text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }`}
               >
-                <Icon className={`mr-3 h-5 w-5 ${isActive ? 'text-primary' : 'text-gray-500'}`} />
+                <Icon className={`mr-4 md:mr-3 h-6 w-6 md:h-5 md:w-5 ${isActive ? 'text-primary' : 'text-gray-500'}`} />
                 {item.label}
               </Link>
             )
@@ -117,13 +117,13 @@ export default function AdminSidebar() {
         </nav>
         
         <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-          <Link href="/" className="flex w-full items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
-            <Home className="mr-3 h-5 w-5 text-gray-500" />
+          <Link href="/" className="flex w-full items-center px-4 py-4 md:px-3 md:py-2 text-lg md:text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg md:rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+            <Home className="mr-4 md:mr-3 h-6 w-6 md:h-5 md:w-5 text-gray-500" />
             Return to Website
           </Link>
           <form action={logout}>
-             <button type="submit" className="flex w-full items-center px-3 py-2 text-sm font-medium text-red-600 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20">
-               <LogOut className="mr-3 h-5 w-5" />
+             <button type="submit" className="flex w-full items-center px-4 py-4 md:px-3 md:py-2 text-lg md:text-sm font-medium text-red-600 rounded-lg md:rounded-md hover:bg-red-50 dark:hover:bg-red-900/20">
+               <LogOut className="mr-4 md:mr-3 h-6 w-6 md:h-5 md:w-5" />
                Sign out
              </button>
           </form>
