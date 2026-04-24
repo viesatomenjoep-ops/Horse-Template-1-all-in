@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar } from 'lucide-react'
+import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar, Globe } from 'lucide-react'
 
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
@@ -125,7 +125,11 @@ export default function AdminSidebar() {
             })}
           </div>
 
-          <div className="mt-8 border-t border-gray-100 dark:border-gray-700 pt-6">
+          <div className="mt-8 border-t border-gray-100 dark:border-gray-700 pt-6 space-y-3">
+             <Link href="/" className="flex items-center justify-center gap-2 p-4 w-full rounded-2xl bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700 transition-colors active:bg-gray-100">
+               <Globe size={20} />
+               Naar Website
+             </Link>
              <form action={logout}>
                <button type="submit" className="flex items-center justify-center gap-2 p-4 w-full rounded-2xl bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 font-bold border border-red-100 dark:border-red-800/30 transition-colors active:bg-red-100">
                  <LogOut size={20} />
@@ -157,7 +161,11 @@ export default function AdminSidebar() {
               )
             })}
           </div>
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+            <Link href="/" className="flex w-full items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800/50 rounded-xl font-medium transition-colors">
+              <Globe size={20} />
+              Naar Website
+            </Link>
             <form action={logout}>
               <button type="submit" className="flex w-full items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 rounded-xl font-medium transition-colors">
                 <LogOut size={20} />
