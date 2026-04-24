@@ -37,8 +37,10 @@ export async function POST(req: NextRequest) {
     // Check if message is an inventory command
     // Expected format: "Voorraad: [Naam van item], [Aantal]"
     // Example: "Voorraad: Zadeldekjes, 5" of "Voorraad: Paardenvoer, -2"
-    if (message.toLowerCase().startsWith('voorraad:') || message.toLowerCase().startsWith('inventory:')) {
-      const commandParts = message.split(':')
+    const lowerMessage = message.toLowerCase()
+    if (lowerMessage.includes('voorraad') || lowerMessage.includes('inventory')) {
+      // Split by colon or just assume the first part is the command
+      const commandParts = message.split(/:|-/)
       if (commandParts.length > 1) {
         const payload = commandParts[1].trim()
         const parts = payload.split(',')
