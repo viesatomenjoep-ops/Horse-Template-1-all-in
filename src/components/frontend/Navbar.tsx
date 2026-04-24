@@ -9,7 +9,9 @@ import NavLinks from './NavLinks'
 
 export default async function Navbar() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  // Use getSession instead of getUser for the public Navbar to avoid an extra 200ms API call on every page load
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#e6e6e6]/95 backdrop-blur-md border-b border-gray-100 transition-colors duration-300">
