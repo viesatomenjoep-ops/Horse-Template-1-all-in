@@ -25,7 +25,7 @@ export default function LanguageSwitcher() {
     
     const googtrans = getCookie('googtrans');
     if (googtrans) {
-      const match = googtrans.match(/\/nl\/([a-z]{2})/)
+      const match = googtrans.match(/\/([a-z]{2})$/i)
       if (match && match[1]) {
         setCurrentLang(match[1])
       }
@@ -47,17 +47,32 @@ export default function LanguageSwitcher() {
       return
     }
 
+    const host = window.location.hostname;
+    const baseHost = host.replace(/^www\./, '');
+
     if (code === 'nl') {
       // Clear the cookie to revert to original
       document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
-    } else {
-      // Set the cookie for translation
-      document.cookie = `googtrans=/nl/${code}; path=/;`;
-      document.cookie = `googtrans=/nl/${code}; path=/; domain=${window.location.hostname};`;
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host};`;
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${baseHost};`;
+      window.location.reload();
+      return;
     }
-    
-    window.location.reload()
+
+    // Try to trigger the native hidden google translate dropdown directly for an instant translation without reload
+    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (select) {
+      select.value = code;
+      select.dispatchEvent(new Event('change'));
+      setCurrentLang(code);
+      setIsOpen(false);
+    } else {
+      // Fallback: set the cookie aggressively and reload
+      document.cookie = `googtrans=/nl/${code}; path=/;`;
+      document.cookie = `googtrans=/nl/${code}; path=/; domain=${host};`;
+      document.cookie = `googtrans=/nl/${code}; path=/; domain=.${baseHost};`;
+      window.location.reload()
+    }
   }
 
   const currentLangData = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0]
