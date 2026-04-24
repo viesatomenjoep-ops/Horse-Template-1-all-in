@@ -275,18 +275,28 @@ export async function getUpcomingSchedules() {
   const supabase = await createClient()
   const today = new Date().toISOString().split('T')[0]
   
-  const { data, error } = await supabase
+  const { data: schedules, error } = await supabase
     .from('staff_schedules')
-    .select('*, employees(full_name)')
+    .select('*')
     .gte('shift_date', today)
     .order('shift_date', { ascending: true })
     .order('start_time', { ascending: true })
 
-  if (error) {
+  if (error || !schedules) {
     console.error("Error fetching schedules:", error)
     return []
   }
-  return data
+
+  // Fetch employees to attach names (safest way to avoid PostgREST FK relation errors)
+  const { data: employees } = await supabase.from('employees').select('id, full_name')
+  
+  return schedules.map(schedule => {
+    const emp = employees?.find(e => e.id === schedule.employee_id)
+    return {
+      ...schedule,
+      employees: { full_name: emp ? emp.full_name : 'Unknown' }
+    }
+  })
 }
 
 export async function getEmployeeSchedules(employeeId: string) {
