@@ -1,6 +1,6 @@
 import { getEmployees, getLogs, getTasks } from '@/app/actions/staff'
 import Link from 'next/link'
-import { Plus, Clock, CheckCircle2, UserPlus, Trash2 } from 'lucide-react'
+import { Plus, Clock, CheckCircle2, UserPlus, Trash2, Calendar } from 'lucide-react'
 import AddStaffForm from '@/components/admin/AddStaffForm'
 
 export default async function StaffAdminPage({
@@ -163,6 +163,60 @@ export default async function StaffAdminPage({
                 ))
               )}
             </ul>
+          </div>
+          
+          {/* Schedule Builder (Rooster Maken) */}
+          <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center"><Calendar className="mr-2" size={20}/> Schedule Builder (Roosters)</h2>
+            <p className="text-sm text-gray-500 mb-6">Create and assign shifts to staff members.</p>
+            
+            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Rooster functionaliteit wordt gekoppeld aan de database in de volgende fase!"); }}>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee</label>
+                  <select className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm">
+                    {employees.map((emp: any) => (
+                      <option key={emp.id} value={emp.id}>{emp.full_name}</option>
+                    ))}
+                    {employees.length === 0 && <option>No employees found</option>}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
+                  <input type="date" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Time</label>
+                  <input type="time" defaultValue="08:00" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Time</label>
+                  <input type="time" defaultValue="17:00" required className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Shift Type / Location</label>
+                <input type="text" placeholder="e.g. Stallen & Voeren" className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm" />
+              </div>
+              <button type="submit" className="w-full bg-primary hover:bg-secondary text-white font-bold py-2 rounded-lg transition-colors">
+                Add Shift to Schedule
+              </button>
+            </form>
+            
+            <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-3">Upcoming Shifts</h3>
+              <div className="space-y-3">
+                <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-700 flex justify-between items-center opacity-50">
+                  <div>
+                    <p className="font-medium text-sm text-gray-900 dark:text-white">Example Shift: John Doe</p>
+                    <p className="text-xs text-gray-500">Tommorrow • 08:00 - 17:00</p>
+                  </div>
+                  <button className="text-red-500 hover:text-red-700"><Trash2 size={16} /></button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
