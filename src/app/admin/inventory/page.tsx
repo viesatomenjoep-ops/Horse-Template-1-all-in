@@ -45,7 +45,7 @@ export default async function InventoryPage() {
               </div>
               
               <div className="divide-y divide-gray-100 dark:divide-gray-700">
-                {catItems.map((item) => {
+                {(catItems as any[]).map((item) => {
                   const isLowStock = Number(item.quantity) <= Number(item.low_stock_threshold)
                   
                   return (
