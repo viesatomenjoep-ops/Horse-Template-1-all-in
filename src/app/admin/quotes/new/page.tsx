@@ -1,13 +1,17 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { createQuote } from '@/app/actions/quotes'
-import { Plus, Trash2, ArrowLeft } from 'lucide-react'
+import { Plus, Trash2, ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
-export default function NewQuotePage() {
+function QuoteFormContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const typeParam = searchParams.get('type') || 'quote'
+  const isOrder = typeParam === 'order'
+  
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState([{ description: '', quantity: 1, price: 0 }])
   const [taxRate, setTaxRate] = useState(21)
@@ -39,6 +43,7 @@ export default function NewQuotePage() {
       const formData = new FormData(e.currentTarget)
       formData.append('items', JSON.stringify(items))
       formData.append('taxRate', taxRate.toString())
+      formData.append('type', typeParam) // Pass type to server action
       
       const quoteId = await createQuote(formData)
       router.push(`/admin/quotes/${quoteId}`)
@@ -56,8 +61,8 @@ export default function NewQuotePage() {
           <ArrowLeft size={20} className="text-gray-600 dark:text-gray-300" />
         </Link>
         <div>
-          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Nieuwe Offerte / Order</h1>
-          <p className="text-gray-500">Maak een nieuwe factuur aan voor een klant.</p>
+          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Nieuwe {isOrder ? 'Order' : 'Offerte'}</h1>
+          <p className="text-gray-500">Maak een nieuwe {isOrder ? 'order' : 'offerte'} aan voor een klant.</p>
         </div>
       </div>
 
@@ -185,5 +190,18 @@ export default function NewQuotePage() {
         </div>
       </form>
     </div>
+  )
+}
+
+export default function NewQuotePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-center items-center h-64 text-gray-500">
+        <Loader2 className="animate-spin w-8 h-8 mr-2" />
+        Laden...
+      </div>
+    }>
+      <QuoteFormContent />
+    </Suspense>
   )
 }

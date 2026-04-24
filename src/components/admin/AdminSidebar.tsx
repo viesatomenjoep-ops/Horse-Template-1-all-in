@@ -141,7 +141,13 @@ export default function AdminSidebar() {
 
         {/* DESKTOP SIDEBAR MENU (Hidden on Mobile) */}
         <div className="hidden md:flex flex-col flex-1 overflow-y-auto">
-          <div className="flex-1 px-4 py-6 space-y-2">
+          <div className="px-4 pt-6 pb-2">
+            <Link href="/" className="flex w-full items-center justify-center gap-3 px-4 py-3 bg-primary text-white hover:bg-primary/90 rounded-xl font-bold shadow-md transition-all active:scale-95">
+              <Globe size={20} />
+              Return to Website
+            </Link>
+          </div>
+          <div className="flex-1 px-4 py-4 space-y-2">
             {navItems.map((item) => {
               const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
               return (

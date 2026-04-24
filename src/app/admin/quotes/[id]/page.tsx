@@ -120,7 +120,9 @@ export default function QuoteDetailPage() {
             <h1 className="text-4xl font-serif font-bold text-primary tracking-tight">EQUIVEST</h1>
           </div>
           <div className="text-right text-sm text-gray-600 space-y-1">
-            <h2 className="text-3xl font-serif font-bold text-accent mb-4">OFFERTE</h2>
+            <h2 className="text-3xl font-serif font-bold text-accent mb-4 uppercase">
+              {quote.type === 'order' ? 'ORDER' : 'OFFERTE'}
+            </h2>
             <p><strong>Nummer:</strong> {quote.quote_number}</p>
             <p><strong>Datum:</strong> {new Date(quote.date).toLocaleDateString('nl-NL')}</p>
             {quote.valid_until && <p><strong>Geldig tot:</strong> {new Date(quote.valid_until).toLocaleDateString('nl-NL')}</p>}

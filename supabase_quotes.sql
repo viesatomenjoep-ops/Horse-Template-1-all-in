@@ -13,10 +13,14 @@ CREATE TABLE IF NOT EXISTS quotes (
     tax_amount NUMERIC DEFAULT 0,
     total_amount NUMERIC DEFAULT 0,
     status TEXT DEFAULT 'draft', -- 'draft', 'sent', 'accepted', 'paid'
+    type TEXT DEFAULT 'quote', -- 'quote' or 'order'
     notes TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Ensure the type column exists if the table is already created
+ALTER TABLE quotes ADD COLUMN IF NOT EXISTS type TEXT DEFAULT 'quote';
 
 -- 2. Create the quote items table
 CREATE TABLE IF NOT EXISTS quote_items (

@@ -43,6 +43,7 @@ export async function createQuote(formData: FormData) {
 
   const quoteData = {
     quote_number: formData.get('quoteNumber') as string,
+    type: (formData.get('type') as string) || 'quote',
     client_name: formData.get('clientName') as string,
     client_email: formData.get('clientEmail') as string,
     client_address: formData.get('clientAddress') as string,
@@ -97,14 +98,16 @@ export async function sendQuoteEmail(quoteId: string, emailPass: string) {
     }
   })
 
+  const typeLabel = quote.type === 'order' ? 'Order' : 'Offerte'
+
   // Create simple HTML email invoice
   const htmlContent = `
     <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; color: #111;">
       <h1 style="color: #08704D; text-align: center;">Equivest</h1>
-      <h2 style="text-align: center;">Offerte / Order: ${quote.quote_number}</h2>
+      <h2 style="text-align: center;">${typeLabel}: ${quote.quote_number}</h2>
       
       <p>Beste ${quote.client_name},</p>
-      <p>Hierbij ontvangt u uw offerte/order overzicht.</p>
+      <p>Hierbij ontvangt u uw ${typeLabel.toLowerCase()} overzicht.</p>
 
       <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <tr style="background-color: #08704D; color: white;">
@@ -140,7 +143,7 @@ export async function sendQuoteEmail(quoteId: string, emailPass: string) {
   await transporter.sendMail({
     from: '"Equivest Worldwide" <tomjo118735@gmail.com>',
     to: quote.client_email,
-    subject: `Equivest Offerte/Order - ${quote.quote_number}`,
+    subject: `Equivest ${typeLabel} - ${quote.quote_number}`,
     html: htmlContent
   })
 

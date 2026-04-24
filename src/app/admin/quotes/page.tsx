@@ -12,13 +12,22 @@ export default async function QuotesPage() {
           <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Offertes & Orders</h1>
           <p className="text-gray-500 mt-1">Beheer je offertes en verstuur ze direct naar klanten.</p>
         </div>
-        <Link 
-          href="/admin/quotes/new" 
-          className="flex items-center px-4 py-2 bg-accent text-white rounded-md hover:bg-primary transition-colors"
-        >
-          <Plus size={20} className="mr-2" />
-          Nieuwe Offerte
-        </Link>
+        <div className="flex gap-3">
+          <Link 
+            href="/admin/quotes/new?type=quote" 
+            className="flex items-center px-4 py-2 bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors font-medium"
+          >
+            <FileText size={20} className="mr-2" />
+            Nieuwe Offerte
+          </Link>
+          <Link 
+            href="/admin/quotes/new?type=order" 
+            className="flex items-center px-4 py-2 bg-accent text-white rounded-md hover:bg-accent/90 transition-colors font-medium"
+          >
+            <Plus size={20} className="mr-2" />
+            Nieuwe Order
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -27,6 +36,7 @@ export default async function QuotesPage() {
             <thead className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
               <tr>
                 <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Nummer</th>
+                <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Type</th>
                 <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Klant</th>
                 <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Datum</th>
                 <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Bedrag</th>
@@ -38,6 +48,13 @@ export default async function QuotesPage() {
               {quotes.map((quote: any) => (
                 <tr key={quote.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-primary dark:text-white">{quote.quote_number}</td>
+                  <td className="px-6 py-4">
+                    <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold uppercase tracking-wider ${
+                      quote.type === 'order' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                    }`}>
+                      {quote.type === 'order' ? 'ORDER' : 'OFFERTE'}
+                    </span>
+                  </td>
                   <td className="px-6 py-4">
                     <div className="text-gray-900 dark:text-gray-100">{quote.client_name}</div>
                     <div className="text-sm text-gray-500">{quote.client_email}</div>
