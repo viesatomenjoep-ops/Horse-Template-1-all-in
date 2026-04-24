@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar } from 'lucide-react'
 
 import { usePathname } from 'next/navigation'
@@ -62,6 +63,7 @@ export default function AdminSidebar() {
           <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
         </div>
         <div className="flex items-center gap-4">
+          <LanguageSwitcher />
           <button onClick={() => setIsOpen(true)} className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white">
             <Menu size={24} />
           </button>
@@ -78,7 +80,7 @@ export default function AdminSidebar() {
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-[85%] md:w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
+        fixed inset-y-0 left-0 z-50 w-full md:w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
         transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-screen md:sticky md:top-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
@@ -88,6 +90,7 @@ export default function AdminSidebar() {
             <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS</span>
           </div>
           <div className="flex items-center gap-2">
+            <div className="hidden md:block"><LanguageSwitcher /></div>
             <button onClick={() => setIsOpen(false)} className="md:hidden text-gray-500 hover:text-primary p-2">
               <X size={28} />
             </button>
