@@ -37,10 +37,31 @@ export async function getDashboardStats() {
     .from('quotes')
     .select('id', { count: 'exact', head: true })
 
+  // Get inventory data for financial dashboard
+  const { data: inventoryData } = await supabase
+    .from('inventory_items')
+    .select('quantity, purchase_price, selling_price')
+    
+  let inventoryCost = 0;
+  let inventoryValue = 0;
+  
+  if (inventoryData) {
+    inventoryData.forEach(item => {
+      const q = Number(item.quantity) || 0;
+      const buy = Number(item.purchase_price) || 0;
+      const sell = Number(item.selling_price) || 0;
+      inventoryCost += (q * buy);
+      inventoryValue += (q * sell);
+    });
+  }
+
   return {
     topHorses: topHorses || [],
     totalHorses: totalHorses || 0,
     totalAppointments: totalAppointments || 0,
-    totalQuotes: totalQuotes || 0
+    totalQuotes: totalQuotes || 0,
+    inventoryCost,
+    inventoryValue,
+    inventoryProfit: inventoryValue - inventoryCost
   }
 }

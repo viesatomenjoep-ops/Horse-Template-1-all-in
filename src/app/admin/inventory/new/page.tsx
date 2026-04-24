@@ -123,6 +123,30 @@ export default function NewInventoryItemPage() {
               className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
             />
           </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Inkoopprijs (€)</label>
+            <input 
+              type="number"
+              name="purchase_price" 
+              step="0.01"
+              min="0"
+              placeholder="0.00"
+              className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Verkoopprijs (€)</label>
+            <input 
+              type="number"
+              name="selling_price" 
+              step="0.01"
+              min="0"
+              placeholder="0.00"
+              className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
+            />
+          </div>
         </div>
 
         <div className="space-y-2">

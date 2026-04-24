@@ -60,9 +60,23 @@ export default async function InventoryPage() {
                             </span>
                           )}
                         </div>
-                        {item.supplier && (
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Leverancier: {item.supplier}</p>
-                        )}
+                        <div className="flex flex-col gap-1 mt-2 sm:mt-0">
+                          {item.supplier && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Leverancier: {item.supplier}</p>
+                          )}
+                          <div className="flex items-center gap-3 text-xs font-medium mt-1">
+                            {item.purchase_price > 0 && (
+                              <span className="text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                                Inkoop: €{Number(item.purchase_price).toFixed(2)}
+                              </span>
+                            )}
+                            {item.selling_price > 0 && (
+                              <span className="text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded">
+                                Verkoop: €{Number(item.selling_price).toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                       
                       <div className="flex items-center gap-6">

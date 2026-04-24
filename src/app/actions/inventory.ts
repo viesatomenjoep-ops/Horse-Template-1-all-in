@@ -37,6 +37,8 @@ export async function addInventoryItem(formData: FormData) {
     unit: formData.get('unit') as string,
     low_stock_threshold: Number(formData.get('low_stock_threshold')),
     supplier: formData.get('supplier') as string,
+    purchase_price: Number(formData.get('purchase_price') || 0),
+    selling_price: Number(formData.get('selling_price') || 0),
   }
 
   const { error } = await supabase.from('inventory_items').insert([data])
