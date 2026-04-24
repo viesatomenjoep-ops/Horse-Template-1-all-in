@@ -1,4 +1,5 @@
 import AdminSidebar from '@/components/admin/AdminSidebar'
+import ForceLogoutButton from '@/components/admin/ForceLogoutButton'
 import { getCurrentUserPermissions } from '@/app/actions/permissions'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
@@ -25,12 +26,7 @@ export default async function AdminLayout({
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Bovenstaand account heeft momenteel geen toegangsrechten voor het CMS. Klik op "Uitloggen" en log in met een bevoegd account (zoals de hoofd admin).
           </p>
-          <form action={logout}>
-            <button type="submit" className="flex items-center justify-center w-full gap-2 bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors">
-              <LogOut size={18} />
-              Uitloggen om opnieuw in te loggen
-            </button>
-          </form>
+          <ForceLogoutButton />
         </div>
       </div>
     )
