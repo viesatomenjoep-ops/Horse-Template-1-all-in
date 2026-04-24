@@ -32,6 +32,11 @@ export async function login(formData: FormData) {
     })
   }).catch(err => console.error("Email notification failed:", err))
 
+  // Send WhatsApp notification (non-blocking)
+  const waText = encodeURIComponent(`🚨 *Equivest Login* 🚨\nEr is zojuist ingelogd op het CMS!\nEmail: ${data.email}\nTijd: ${new Date().toLocaleTimeString('nl-NL')}`);
+  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648`)
+    .catch(err => console.error("WhatsApp notification failed:", err));
+
   revalidatePath('/', 'layout')
   redirect('/admin')
 }
