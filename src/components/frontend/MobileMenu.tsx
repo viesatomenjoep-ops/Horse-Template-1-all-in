@@ -44,32 +44,32 @@ export default function MobileMenu({ user }: { user: any }) {
 
           {user ? (
             <>
-              <Link onClick={() => setIsOpen(false)} href="/admin" className="text-2xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
+              <Link onClick={() => setIsOpen(false)} href="/admin" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
                 Admin Dashboard
               </Link>
             </>
           ) : (
-            <Link onClick={() => setIsOpen(false)} href="/login" className="text-2xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
+            <Link onClick={() => setIsOpen(false)} href="/login" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
               Login
             </Link>
           )}
           
-          <Link onClick={() => setIsOpen(false)} href="/about" className="text-2xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          <Link onClick={() => setIsOpen(false)} href="/about" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
             About Us
           </Link>
-          <Link onClick={() => setIsOpen(false)} href="/horses" className="text-2xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          <Link onClick={() => setIsOpen(false)} href="/horses" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
             Portfolio
           </Link>
-          <Link onClick={() => setIsOpen(false)} href="/references" className="text-2xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          <Link onClick={() => setIsOpen(false)} href="/references" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
             References
           </Link>
-          <Link onClick={() => setIsOpen(false)} href="/roi" className="text-2xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          <Link onClick={() => setIsOpen(false)} href="/roi" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
             ROI
           </Link>
-          <Link onClick={() => setIsOpen(false)} href="/news" className="text-2xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          <Link onClick={() => setIsOpen(false)} href="/news" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
             News
           </Link>
-          <Link onClick={() => setIsOpen(false)} href="/contact" className="text-2xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          <Link onClick={() => setIsOpen(false)} href="/contact" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
             Contact
           </Link>
         </nav>
