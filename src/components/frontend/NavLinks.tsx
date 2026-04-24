@@ -25,9 +25,16 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
     return (
       <>
         {user ? (
-          <Link onClick={() => setIsOpen?.(false)} href="/admin" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
-            Admin Dashboard
-          </Link>
+          <>
+            <Link onClick={() => setIsOpen?.(false)} href="/admin" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
+              Admin Dashboard
+            </Link>
+            <form action={logoutAction} className="inline">
+              <button type="submit" onClick={() => setIsOpen?.(false)} className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase text-left w-full">
+                Logout
+              </button>
+            </form>
+          </>
         ) : (
           <Link onClick={() => setIsOpen?.(false)} href="/login" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
             Login

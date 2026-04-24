@@ -6,6 +6,8 @@ import { Menu, X } from 'lucide-react'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import NavLinks from './NavLinks'
 
+import { logout } from '@/app/actions/auth'
+
 export default function MobileMenu({ user }: { user: any }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -22,7 +24,7 @@ export default function MobileMenu({ user }: { user: any }) {
   }, [isOpen])
 
   return (
-    <div className="lg:hidden flex items-center relative z-[120]">
+    <div className="flex items-center relative z-[120]">
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="text-primary hover:text-accent p-2 transition-colors focus:outline-none relative z-[130]" 
@@ -43,7 +45,7 @@ export default function MobileMenu({ user }: { user: any }) {
             <LanguageSwitcher />
           </div>
 
-          <NavLinks user={user} isMobile={true} setIsOpen={setIsOpen} />
+          <NavLinks user={user} isMobile={true} setIsOpen={setIsOpen} logoutAction={logout} />
         </nav>
       </div>
     </div>

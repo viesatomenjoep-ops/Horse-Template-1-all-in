@@ -37,12 +37,7 @@ export default async function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Navigation Center */}
-          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-[110]">
-            <nav className="flex items-center space-x-3 lg:space-x-4 xl:space-x-5">
-              <NavLinks user={user} logoutAction={logout} />
-            </nav>
-          </div>
+          {/* Desktop Navigation Center (REMOVED due to too many items overlapping logo) */}
 
           {/* Right side controls & Mobile menu button */}
           <div className="flex items-center space-x-2 md:space-x-4 ml-auto z-[110]">
