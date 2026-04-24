@@ -341,3 +341,126 @@ export async function removeSchedule(id: string) {
   revalidatePath('/staff')
   return { success: true }
 }
+// --- NEW FEATURES (SHIFTBASE INSPIRED) ---
+
+// 1. Announcements (Prikbord)
+export async function getAnnouncements() {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('staff_announcements')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(10)
+  
+  if (error) {
+    console.error("Announcements error:", error)
+    return []
+  }
+  return data
+}
+
+export async function addAnnouncement(formData: FormData) {
+  const supabase = await createClient()
+  const title = formData.get('title') as string
+  const message = formData.get('message') as string
+  const type = formData.get('type') as string || 'info'
+  const author = formData.get('author') as string || 'Admin'
+
+  if (!title || !message) return { error: 'Missing fields' }
+
+  const { error } = await supabase.from('staff_announcements').insert([{ title, message, type, author }])
+  if (error) return { error: error.message }
+
+  revalidatePath('/staff')
+  revalidatePath('/admin/staff')
+  return { success: true }
+}
+
+// 2. Leave Requests (Verlof)
+export async function submitLeaveRequest(formData: FormData) {
+  const supabase = await createClient()
+  const employeeId = formData.get('employee_id') as string
+  const startDate = formData.get('start_date') as string
+  const endDate = formData.get('end_date') as string
+  const leaveType = formData.get('leave_type') as string
+  const notes = formData.get('notes') as string
+
+  if (!employeeId || !startDate || !endDate) return { error: 'Missing fields' }
+
+  const { error } = await supabase.from('staff_leave_requests').insert([{
+    employee_id: employeeId,
+    start_date: startDate,
+    end_date: endDate,
+    leave_type: leaveType,
+    notes: notes || null
+  }])
+
+  if (error) return { error: error.message }
+
+  // Notify Tom via Email
+  const { data: emp } = await supabase.from('employees').select('full_name').eq('id', employeeId).single()
+  const name = emp ? emp.full_name : 'Een medewerker';
+  fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ _subject: `🏖️ Verlofaanvraag: ${name}`, _template: 'basic', message: `${name} heeft verlof aangevraagd.\nVan: ${startDate}\nTot: ${endDate}\nType: ${leaveType}\nOpmerking: ${notes}` })
+  }).catch(console.error);
+
+  revalidatePath('/staff')
+  revalidatePath('/admin/staff')
+  return { success: true }
+}
+
+// 3. Time Corrections (Uren Correctie)
+export async function submitTimeCorrection(formData: FormData) {
+  const supabase = await createClient()
+  const employeeId = formData.get('employee_id') as string
+  const shiftDate = formData.get('shift_date') as string
+  const requestedTime = formData.get('requested_time') as string
+  const reason = formData.get('reason') as string
+
+  if (!employeeId || !shiftDate || !requestedTime) return { error: 'Missing fields' }
+
+  const { error } = await supabase.from('staff_time_corrections').insert([{
+    employee_id: employeeId,
+    shift_date: shiftDate,
+    requested_time: requestedTime,
+    reason: reason || null
+  }])
+
+  if (error) return { error: error.message }
+  
+  // Notify Tom via Email
+  const { data: emp } = await supabase.from('employees').select('full_name').eq('id', employeeId).single()
+  const name = emp ? emp.full_name : 'Een medewerker';
+  fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ _subject: `⏰ Uren Correctie: ${name}`, _template: 'basic', message: `${name} wil uren corrigeren.\nDatum: ${shiftDate}\nNieuwe Tijd: ${requestedTime}\nReden: ${reason}` })
+  }).catch(console.error);
+
+  revalidatePath('/staff')
+  return { success: true }
+}
+
+// 4. Availability
+export async function setAvailability(employeeId: string, isAvailable: boolean, notes: string) {
+  const supabase = await createClient()
+  
+  // Just log it for next week Monday
+  const d = new Date()
+  d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7)
+  const nextMonday = d.toISOString().split('T')[0]
+
+  const { error } = await supabase.from('staff_availability').insert([{
+    employee_id: employeeId,
+    week_date: nextMonday,
+    is_available: isAvailable,
+    notes: notes
+  }])
+
+  if (error) return { error: error.message }
+  
+  revalidatePath('/staff')
+  return { success: true }
+}

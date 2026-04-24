@@ -18,6 +18,7 @@ export default function StaffPortal() {
   const [todayMs, setTodayMs] = useState(0)
   const [history, setHistory] = useState<any[]>([])
   const [schedules, setSchedules] = useState<any[]>([])
+  const [announcements, setAnnouncements] = useState<any[]>([])
   const [activeTab, setActiveTab] = useState('dashboard')
 
   // Load basic data
@@ -39,8 +40,8 @@ export default function StaffPortal() {
     let interval: NodeJS.Timeout
     if (loggedInEmp && lastAction?.action === 'clock_in') {
       interval = setInterval(() => {
-        setTodayMs(prev => prev + 60000)
-      }, 60000)
+        setTodayMs(prev => prev + 1000)
+      }, 1000)
     }
     return () => clearInterval(interval)
   }, [loggedInEmp, lastAction])
@@ -62,6 +63,9 @@ export default function StaffPortal() {
     const actions = await import('@/app/actions/staff')
     const empSchedules = await actions.getEmployeeSchedules(empId)
     setSchedules(empSchedules || [])
+
+    const anns = await actions.getAnnouncements()
+    setAnnouncements(anns || [])
   }
 
   const handleLogin = async (e: React.FormEvent, pinArg?: string) => {
@@ -102,13 +106,52 @@ export default function StaffPortal() {
   const handleToggleTask = async (taskId: string, currentStatus: boolean) => {
     if (!loggedInEmp) return
     setTasks(tasks.map(t => t.id === taskId ? { ...t, is_completed: !currentStatus, completed_by_emp: { full_name: loggedInEmp.full_name } } : t))
+    const { toggleTaskComplete } = await import('@/app/actions/staff')
     await toggleTaskComplete(taskId, loggedInEmp.id, !currentStatus)
     await fetchDashboardData(loggedInEmp.id)
+  }
+
+  const handleLeaveSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!loggedInEmp) return
+    const formData = new FormData(e.currentTarget)
+    formData.append('employee_id', loggedInEmp.id)
+    const { submitLeaveRequest } = await import('@/app/actions/staff')
+    await submitLeaveRequest(formData)
+    alert("Verlofaanvraag succesvol verzonden ter goedkeuring!")
+    e.currentTarget.reset()
+  }
+
+  const handleTimeCorrection = async () => {
+    if (!loggedInEmp) return
+    const shiftDate = prompt("Voor welke datum wil je een correctie aanvragen? (YYYY-MM-DD)")
+    if (!shiftDate) return
+    const requestedTime = prompt("Wat had de correcte tijd moeten zijn? (Bijv 17:30)")
+    if (!requestedTime) return
+    const reason = prompt("Wat was de reden? (Bijv. 'Vergeten uit te klokken')")
+    
+    const formData = new FormData()
+    formData.append('employee_id', loggedInEmp.id)
+    formData.append('shift_date', shiftDate)
+    formData.append('requested_time', requestedTime)
+    formData.append('reason', reason || '')
+
+    const { submitTimeCorrection } = await import('@/app/actions/staff')
+    await submitTimeCorrection(formData)
+    alert("Correctieverzoek ingediend!")
+  }
+
+  const handleAvailabilityChange = async (isAvailable: boolean, notes: string) => {
+    if (!loggedInEmp) return
+    const { setAvailability } = await import('@/app/actions/staff')
+    await setAvailability(loggedInEmp.id, isAvailable, notes)
+    alert("Beschikbaarheid doorgegeven!")
   }
 
   const isClockedIn = lastAction?.action === 'clock_in'
   const hours = Math.floor(todayMs / (1000 * 60 * 60))
   const minutes = Math.floor((todayMs % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((todayMs % (1000 * 60)) / 1000)
 
   if (!loggedInEmp) {
     return (
@@ -305,8 +348,8 @@ export default function StaffPortal() {
                   <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-1">
                     <Timer size={14} /> Total Time Today
                   </span>
-                  <div className="text-4xl font-mono font-black text-primary dark:text-white tracking-tight">
-                    {hours}<span className="text-xl text-gray-400">h</span> {minutes.toString().padStart(2, '0')}<span className="text-xl text-gray-400">m</span>
+                  <div className="text-4xl font-mono font-black text-primary dark:text-white tracking-tight flex items-baseline">
+                    {hours}<span className="text-xl text-gray-400 mx-1">h</span> {minutes.toString().padStart(2, '0')}<span className="text-xl text-gray-400 mx-1">m</span> <span className="text-2xl">{seconds.toString().padStart(2, '0')}</span><span className="text-lg text-gray-400 ml-1">s</span>
                   </div>
                 </div>
 
@@ -417,7 +460,7 @@ export default function StaffPortal() {
               </ul>
               
               {/* FEATURE 2: Correctieverzoek */}
-              <button className="w-full mt-2 flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+              <button onClick={handleTimeCorrection} className="w-full mt-2 flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
                 <FileEdit size={18} /> Uren vergeten? Vraag correctie aan
               </button>
             </div>
@@ -432,20 +475,20 @@ export default function StaffPortal() {
               <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <Umbrella className="text-primary" /> Verlof Aanvragen
               </h2>
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Verlofaanvraag succesvol verzonden ter goedkeuring."); }}>
+              <form className="space-y-4" onSubmit={handleLeaveSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Van</label>
-                    <input type="date" className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required />
+                    <input type="date" name="start_date" className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tot</label>
-                    <input type="date" className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required />
+                    <input type="date" name="end_date" className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type Verlof</label>
-                  <select className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                  <select name="leave_type" className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                     <option>Vakantie (Betaald)</option>
                     <option>Ziekte</option>
                     <option>Bijzonder Verlof</option>
@@ -454,7 +497,7 @@ export default function StaffPortal() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Opmerking</label>
-                  <textarea rows={2} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"></textarea>
+                  <textarea name="notes" rows={2} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"></textarea>
                 </div>
                 <button type="submit" className="w-full bg-primary hover:bg-secondary text-white font-bold py-3 rounded-lg transition-colors">
                   Aanvraag Indienen
@@ -473,26 +516,20 @@ export default function StaffPortal() {
                 <div className="flex items-center justify-between p-4 bg-green-50 border border-green-200 dark:bg-green-900/20 dark:border-green-800 rounded-xl">
                   <div>
                     <p className="font-bold text-green-900 dark:text-green-400">Extra Werken</p>
-                    <p className="text-sm text-green-700 dark:text-green-500">Ik ben komend weekend beschikbaar voor extra diensten.</p>
+                    <p className="text-sm text-green-700 dark:text-green-500">Geef door als je extra beschikbaar bent.</p>
                   </div>
                   <div className="flex items-center">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-                    </label>
+                    <button onClick={() => handleAvailabilityChange(true, prompt('Wanneer precies?') || '')} className="bg-green-600 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm hover:bg-green-500">Beschikbaar</button>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-red-50 border border-red-200 dark:bg-red-900/20 dark:border-red-800 rounded-xl">
                   <div>
                     <p className="font-bold text-red-900 dark:text-red-400">Niet Beschikbaar</p>
-                    <p className="text-sm text-red-700 dark:text-red-500">Ik kan volgende week dinsdag en woensdag niet werken.</p>
+                    <p className="text-sm text-red-700 dark:text-red-500">Geef door als je echt vrij moet zijn.</p>
                   </div>
                   <div className="flex items-center">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
-                    </label>
+                    <button onClick={() => handleAvailabilityChange(false, prompt('Wanneer precies en waarom?') || '')} className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm hover:bg-red-500">Onbeschikbaar</button>
                   </div>
                 </div>
               </div>
@@ -511,25 +548,24 @@ export default function StaffPortal() {
             </div>
             
             <div className="space-y-6 max-w-3xl">
-              <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg dark:bg-red-900/10">
-                <div className="flex items-center gap-2 text-red-800 dark:text-red-400 font-bold mb-1">
-                  <AlertCircle size={18} /> BELANGRIJK: FEI Inspectie
-                </div>
-                <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Aankomende woensdag is er een officiële FEI inspectie op stal. Zorg dat alle paspoorten klaarliggen en de stallen extra zijn aangeveegd!
-                </p>
-                <p className="text-xs text-gray-500 mt-2 font-medium">Geplaatst door: Tom - Gisteren om 14:30</p>
-              </div>
-
-              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg dark:bg-blue-900/10">
-                <div className="flex items-center gap-2 text-blue-800 dark:text-blue-400 font-bold mb-1">
-                  Nieuw Paard Binnengekomen
-                </div>
-                <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Chimi is zojuist gearriveerd in stal 4. Hij moet komende 3 dagen apart op de paddock ivm quarantaine. Let goed op het voerschema op de deur.
-                </p>
-                <p className="text-xs text-gray-500 mt-2 font-medium">Geplaatst door: Tom - 22 April om 09:15</p>
-              </div>
+              {announcements.length === 0 ? (
+                <p className="text-gray-500">Geen actuele mededelingen.</p>
+              ) : (
+                announcements.map((ann: any) => {
+                  const isRed = ann.type === 'urgent'
+                  return (
+                    <div key={ann.id} className={`${isRed ? 'bg-red-50 border-red-500 dark:bg-red-900/10' : 'bg-blue-50 border-blue-500 dark:bg-blue-900/10'} border-l-4 p-4 rounded-r-lg`}>
+                      <div className={`flex items-center gap-2 ${isRed ? 'text-red-800 dark:text-red-400' : 'text-blue-800 dark:text-blue-400'} font-bold mb-1`}>
+                        {isRed && <AlertCircle size={18} />} {ann.title}
+                      </div>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm">
+                        {ann.message}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-2 font-medium">Geplaatst door: {ann.author} - {new Date(ann.created_at).toLocaleDateString('nl-NL')} om {new Date(ann.created_at).toLocaleTimeString('nl-NL', {hour: '2-digit', minute:'2-digit'})}</p>
+                    </div>
+                  )
+                })
+              )}
             </div>
           </div>
         )}
