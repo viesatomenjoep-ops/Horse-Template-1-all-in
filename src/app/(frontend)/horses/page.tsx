@@ -26,11 +26,16 @@ export default async function CollectionPage() {
         ) : (
           horses.map((horse: any) => (
             <div key={horse.id} className="group relative">
-              <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
+              <div className="min-h-80 aspect-square w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center">
                 <img
                   src={horse.cover_image_url || 'https://via.placeholder.com/600x400?text=No+Image'}
                   alt={horse.name}
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full group-hover:opacity-75 transition-opacity"
+                  className="absolute inset-0 h-full w-full object-cover blur-xl opacity-40 scale-110"
+                />
+                <img
+                  src={horse.cover_image_url || 'https://via.placeholder.com/600x400?text=No+Image'}
+                  alt={horse.name}
+                  className="relative h-full w-full object-contain group-hover:scale-105 transition-transform duration-500 z-10"
                 />
               </div>
               <div className="mt-4 flex justify-between">

@@ -6,7 +6,7 @@ import AddStaffForm from '@/components/admin/AddStaffForm'
 export default async function StaffAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ month?: string; year?: string; date?: string }>
+  searchParams: Promise<{ month?: string; year?: string; date?: string; error?: string; success?: string }>
 }) {
   const params = await searchParams
   
@@ -178,6 +178,16 @@ export default async function StaffAdminPage({
               const { addSchedule } = await import('@/app/actions/staff')
               await addSchedule(formData)
             }}>
+              {params.error && (
+                <div className="bg-red-50 text-red-600 p-3 rounded-lg border border-red-200 text-sm">
+                  {decodeURIComponent(params.error)}
+                </div>
+              )}
+              {params.success && (
+                <div className="bg-green-50 text-green-600 p-3 rounded-lg border border-green-200 text-sm">
+                  Shift successfully added!
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee</label>

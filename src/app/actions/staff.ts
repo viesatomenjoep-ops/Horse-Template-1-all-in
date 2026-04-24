@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 // --- EMPLOYEES ---
 
@@ -314,7 +315,7 @@ export async function addSchedule(formData: FormData) {
   const shiftType = formData.get('shift_type') as string
 
   if (!employeeId || !shiftDate || !startTime || !endTime) {
-    return { error: 'Missing required fields' }
+    redirect('/admin/staff?error=Missing+required+fields')
   }
 
   const { error } = await supabase.from('staff_schedules').insert([{
@@ -327,12 +328,12 @@ export async function addSchedule(formData: FormData) {
 
   if (error) {
     console.error("Insert error:", error)
-    return { error: error.message }
+    redirect('/admin/staff?error=' + encodeURIComponent(error.message))
   }
 
   revalidatePath('/admin/staff')
   revalidatePath('/staff')
-  return { success: true }
+  redirect('/admin/staff?success=Shift+added')
 }
 
 export async function removeSchedule(id: string) {
