@@ -59,7 +59,7 @@ export async function clockIn(employeeId: string) {
 
   // Send WhatsApp notification
   const waText = encodeURIComponent(`⏰ *Ingeklokt* ⏰\n${name} is zojuist INGEKLOKT!\nTijd: ${new Date().toLocaleTimeString('nl-NL')}`);
-  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648`).catch(console.error);
+  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648&t=${Date.now()}`, { cache: 'no-store' }).catch(console.error);
 
   // Send Email notification
   fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
@@ -84,7 +84,7 @@ export async function clockOut(employeeId: string) {
 
   // Send WhatsApp notification
   const waText = encodeURIComponent(`🏠 *Uitgeklokt* 🏠\n${name} is zojuist UITGEKLOKT!\nTijd: ${new Date().toLocaleTimeString('nl-NL')}`);
-  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648`).catch(console.error);
+  fetch(`https://api.callmebot.com/whatsapp.php?phone=31651641886&text=${waText}&apikey=6121648&t=${Date.now()}`, { cache: 'no-store' }).catch(console.error);
 
   // Send Email notification
   fetch('https://formsubmit.co/ajax/tomvanbiene@gmail.com', {
