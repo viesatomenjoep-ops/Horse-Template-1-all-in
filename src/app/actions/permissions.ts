@@ -12,7 +12,7 @@ export async function getCurrentUserPermissions() {
   const email = user.email.toLowerCase()
 
   // HARDCODED FALLBACK: Owners are ALWAYS superadmin, even if the database table is empty or deleted!
-  if (email === 'tomvanbiene@gmail.com' || email === 'tomjo118735@gmail.com') {
+  if (email === 'tomvanbiene@gmail.com' || email === 'tomjo118735@gmail.com' || email === 'tom@equivest.com' || email === 'info@equivest.com' || email === 'info@equivestworldwide.com') {
     return {
       id: 'hardcoded-admin',
       email: email,
