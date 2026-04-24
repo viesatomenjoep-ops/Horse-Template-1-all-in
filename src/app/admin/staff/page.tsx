@@ -170,7 +170,10 @@ export default async function StaffAdminPage({
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center"><Calendar className="mr-2" size={20}/> Schedule Builder (Roosters)</h2>
             <p className="text-sm text-gray-500 mb-6">Create and assign shifts to staff members.</p>
             
-            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Rooster functionaliteit wordt gekoppeld aan de database in de volgende fase!"); }}>
+            <form className="space-y-4" action={async () => {
+              'use server'
+              // Placeholder for future database implementation
+            }}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee</label>
