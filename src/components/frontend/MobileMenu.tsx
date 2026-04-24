@@ -6,10 +6,22 @@ import { Menu, X } from 'lucide-react'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import NavLinks from './NavLinks'
 
+import { createBrowserClient } from '@supabase/ssr'
 import { logout } from '@/app/actions/auth'
 
-export default function MobileMenu({ user }: { user: any }) {
+export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user)
+    })
+  }, [])
 
   // Prevent body scroll when menu is open
   useEffect(() => {

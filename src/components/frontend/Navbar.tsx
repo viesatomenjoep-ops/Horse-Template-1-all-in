@@ -1,18 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { createClient } from '@/lib/supabase/server'
-import { logout } from '@/app/actions/auth'
 import ScrollLogo from './ScrollLogo'
 import MobileMenu from './MobileMenu'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import NavLinks from './NavLinks'
 
-export default async function Navbar() {
-  const supabase = await createClient()
-  // Use getSession instead of getUser for the public Navbar to avoid an extra 200ms API call on every page load
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user
-
+export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#e6e6e6]/95 backdrop-blur-md border-b border-gray-100 transition-colors duration-300">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,13 +37,7 @@ export default async function Navbar() {
               <LanguageSwitcher />
             </div>
 
-            {user && (
-              <Link href="/admin" className="hidden md:flex items-center text-sm font-bold uppercase tracking-[0.15em] text-primary hover:text-accent transition-colors">
-                Admin
-              </Link>
-            )}
-
-            <MobileMenu user={user} />
+            <MobileMenu />
           </div>
 
         </div>
