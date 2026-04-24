@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, toggleTaskComplete, getTodayHours, getEmployeeMonthlyHistory } from '@/app/actions/staff'
 import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer, CalendarDays, Megaphone, CalendarRange, Umbrella, FileEdit, UserCheck, Calendar, AlertCircle } from 'lucide-react'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+
 
 export default function StaffPortal() {
   const [employees, setEmployees] = useState<any[]>([])
@@ -157,7 +157,6 @@ export default function StaffPortal() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 relative">
         <div className="absolute top-4 right-4">
-          <LanguageSwitcher />
         </div>
         <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
           <div className="bg-primary p-8 text-center relative flex flex-col items-center">
@@ -260,7 +259,6 @@ export default function StaffPortal() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <LanguageSwitcher />
             <button onClick={handleLogout} className="text-gray-500 hover:text-gray-900 dark:hover:text-white p-2">
               <LogOut size={24} />
             </button>

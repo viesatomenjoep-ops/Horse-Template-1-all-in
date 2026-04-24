@@ -221,7 +221,7 @@ export default async function StaffAdminPage({
                   schedules.map((schedule: any) => (
                     <div key={schedule.id} className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-700 flex justify-between items-center">
                       <div>
-                        <p className="font-medium text-sm text-gray-900 dark:text-white">{schedule.employee?.full_name} <span className="text-gray-500 font-normal">({schedule.shift_type})</span></p>
+                        <p className="font-medium text-sm text-gray-900 dark:text-white">{schedule.employees?.full_name} <span className="text-gray-500 font-normal">({schedule.shift_type})</span></p>
                         <p className="text-xs text-gray-500">
                           {new Date(schedule.shift_date).toLocaleDateString('en-GB')} • {schedule.start_time.substring(0,5)} - {schedule.end_time.substring(0,5)}
                         </p>

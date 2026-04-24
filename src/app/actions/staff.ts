@@ -276,7 +276,7 @@ export async function getUpcomingSchedules() {
   
   const { data, error } = await supabase
     .from('staff_schedules')
-    .select('*, employee:employees(full_name)')
+    .select('*, employees(full_name)')
     .gte('shift_date', today)
     .order('shift_date', { ascending: true })
     .order('start_time', { ascending: true })
@@ -325,7 +325,10 @@ export async function addSchedule(formData: FormData) {
     shift_type: shiftType || null
   }])
 
-  if (error) return { error: error.message }
+  if (error) {
+    console.error("Insert error:", error)
+    return { error: error.message }
+  }
 
   revalidatePath('/admin/staff')
   revalidatePath('/staff')

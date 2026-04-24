@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
 import NavLinks from './NavLinks'
 
 import { createBrowserClient } from '@supabase/ssr'
@@ -53,9 +52,7 @@ export default function MobileMenu() {
         style={{ top: 0, left: 0 }}
       >
         <nav className="flex flex-col space-y-6">
-          <div className="mb-4">
-            <LanguageSwitcher />
-          </div>
+
 
           <NavLinks user={user} isMobile={true} setIsOpen={setIsOpen} logoutAction={logout} />
         </nav>
