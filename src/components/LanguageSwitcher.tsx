@@ -79,14 +79,14 @@ export default function LanguageSwitcher() {
 
   return (
     <div 
-      className="relative z-50 notranslate flex items-center" 
+      className="relative z-50 notranslate flex flex-col items-center" 
       ref={dropdownRef}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <div 
-        className={`flex items-center overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
-          isOpen ? 'w-auto max-w-[300px] opacity-100' : 'w-10 sm:w-12 opacity-90'
+        className={`flex flex-col items-center overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
+          isOpen ? 'h-[160px] opacity-100' : 'h-10 sm:h-12 opacity-90'
         }`}
       >
         {/* Current Language Trigger */}
@@ -99,12 +99,12 @@ export default function LanguageSwitcher() {
         </button>
 
         {/* Slide-out options */}
-        <div className={`flex items-center pr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`flex flex-col items-center pb-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
           {LANGUAGES.filter(l => l.code !== currentLang).map((lang) => (
             <button
               key={lang.code}
               onClick={() => changeLanguage(lang.code)}
-              className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-white uppercase tracking-[0.1em] transition-colors"
+              className="px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-white uppercase tracking-[0.1em] transition-colors"
             >
               {lang.code}
             </button>

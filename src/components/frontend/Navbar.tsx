@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ScrollLogo from './ScrollLogo'
 import MobileMenu from './MobileMenu'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Navbar() {
   return (
@@ -31,7 +32,10 @@ export default function Navbar() {
           {/* Desktop Navigation Center (REMOVED due to too many items overlapping logo) */}
 
           {/* Right side controls & Mobile menu button */}
-          <div className="flex items-center space-x-3 md:space-x-4 ml-auto z-[110]">
+          <div className="flex items-center space-x-3 md:space-x-4 ml-auto z-[110] relative">
+            <div className="absolute right-12 md:right-0 top-1/2 -translate-y-1/2">
+              <LanguageSwitcher />
+            </div>
             <MobileMenu />
           </div>
 

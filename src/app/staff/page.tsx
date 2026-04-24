@@ -6,7 +6,6 @@ import { getEmployees, staffLogin, clockIn, clockOut, getLastAction, getTasks, t
 import { LogIn, LogOut, CheckCircle2, Circle, Clock, Timer, CalendarDays, Megaphone, CalendarRange, Umbrella, FileEdit, UserCheck, Calendar, AlertCircle } from 'lucide-react'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
-
 export default function StaffPortal() {
   const [employees, setEmployees] = useState<any[]>([])
   const [loggedInEmp, setLoggedInEmp] = useState<any | null>(null)
