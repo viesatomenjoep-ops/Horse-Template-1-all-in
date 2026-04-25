@@ -14,63 +14,63 @@ export default async function AdminOverview() {
       {/* Stat Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         
-        <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6">
+        <Link href="/admin/horses" className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6 hover:shadow-md hover:border-primary/30 transition-all cursor-pointer group">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 group-hover:bg-blue-200 transition-colors">
               <Database size={24} />
             </div>
             <div className="ml-5 w-0 flex-1">
               <dl>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Horses</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-primary transition-colors">Total Horses</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalHorses}</dd>
               </dl>
             </div>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6">
+        <Link href="/admin/schedules" className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6 hover:shadow-md hover:border-green-500/30 transition-all cursor-pointer group">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+            <div className="p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 group-hover:bg-green-200 transition-colors">
               <CalendarIcon size={24} />
             </div>
             <div className="ml-5 w-0 flex-1">
               <dl>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Bezoeken & Afspraken</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-green-600 transition-colors">Bezoeken & Afspraken</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalAppointments}</dd>
               </dl>
             </div>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6">
+        <Link href="/admin/quotes" className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6 hover:shadow-md hover:border-yellow-500/30 transition-all cursor-pointer group">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400">
+            <div className="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 group-hover:bg-yellow-200 transition-colors">
               <FileText size={24} />
             </div>
             <div className="ml-5 w-0 flex-1">
               <dl>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Offertes & Orders</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-yellow-600 transition-colors">Offertes & Orders</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalQuotes}</dd>
               </dl>
             </div>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6">
+        <Link href="/admin/horses" className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6 hover:shadow-md hover:border-purple-500/30 transition-all cursor-pointer group">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+            <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 group-hover:bg-purple-200 transition-colors">
               <TrendingUp size={24} />
             </div>
             <div className="ml-5 w-0 flex-1">
               <dl>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Profile Views</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-purple-600 transition-colors">Total Profile Views</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">
                   {stats.topHorses.reduce((acc: number, curr: any) => acc + (curr.views || 0), 0)}
                 </dd>
               </dl>
             </div>
           </div>
-        </div>
+        </Link>
 
       </div>
 
