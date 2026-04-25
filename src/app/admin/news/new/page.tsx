@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createNewsArticle } from '@/app/actions/news'
 import dynamic from 'next/dynamic'
 const CloudinaryUploader = dynamic(() => import('@/components/admin/CloudinaryUploader'), { ssr: false })
+import NewsLinkScanner from '@/components/admin/NewsLinkScanner'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -47,6 +48,8 @@ export default function NewNewsPage() {
         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Add News Article</h1>
       </div>
 
+      <NewsLinkScanner onScanSuccess={(url) => setImageUrl(url)} />
+
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         {error && (
           <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-md text-sm font-medium">
@@ -74,7 +77,13 @@ export default function NewNewsPage() {
             {/* Media Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Article Image</label>
-              <CloudinaryUploader onUploadSuccess={setImageUrl} label="Upload Image" />
+              {imageUrl && (
+                <div className="mb-4 relative w-full h-48 rounded-lg overflow-hidden border border-gray-200">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={imageUrl} alt="Article preview" className="w-full h-full object-cover" />
+                </div>
+              )}
+              <CloudinaryUploader onUploadSuccess={setImageUrl} label={imageUrl ? "Replace Image" : "Upload Image"} />
             </div>
           </div>
 
