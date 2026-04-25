@@ -81,12 +81,20 @@ export default function QuotesTableClient({ quotes }: { quotes: any[] }) {
                   </span>
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <Link 
-                    href={`/admin/quotes/${quote.id}`}
-                    className="inline-flex items-center px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                  >
-                    Bekijk
-                  </Link>
+                  <div className="flex items-center justify-end gap-2">
+                    <Link 
+                      href={`/admin/quotes/${quote.id}/edit`}
+                      className="inline-flex items-center px-3 py-1.5 text-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      Aanpassen
+                    </Link>
+                    <Link 
+                      href={`/admin/quotes/${quote.id}`}
+                      className="inline-flex items-center px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                    >
+                      Bekijk
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}

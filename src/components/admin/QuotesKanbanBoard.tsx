@@ -89,11 +89,16 @@ export default function QuotesKanbanBoard({ initialQuotes }: { initialQuotes: an
                   <h4 className="font-bold text-gray-900">{quote.client_name}</h4>
                   <p className="text-xs text-gray-500 truncate mb-3">{quote.client_email}</p>
                   
-                  <div className="flex justify-between items-end border-t border-gray-50 pt-2 mt-2">
+                  <div className="flex justify-between items-end border-t border-gray-50 pt-3 mt-3">
                     <span className="font-bold text-gray-900">€ {Number(quote.total_amount).toFixed(2)}</span>
-                    <Link href={`/admin/quotes/${quote.id}`} className="text-xs text-primary hover:underline flex items-center gap-1">
-                      <FileText size={12} /> Details
-                    </Link>
+                    <div className="flex gap-2">
+                      <Link href={`/admin/quotes/${quote.id}/edit`} className="text-xs text-gray-500 hover:text-primary hover:underline flex items-center gap-1">
+                        Aanpassen
+                      </Link>
+                      <Link href={`/admin/quotes/${quote.id}`} className="text-xs text-primary hover:underline flex items-center gap-1">
+                        <FileText size={12} /> Details
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
