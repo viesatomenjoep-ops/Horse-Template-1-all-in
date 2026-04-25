@@ -12,7 +12,6 @@ import HorseLinkScanner from '@/components/admin/HorseLinkScanner'
 export default function NewHorsePage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -21,9 +20,6 @@ export default function NewHorsePage() {
     setError(null)
 
     const formData = new FormData(event.currentTarget)
-    if (coverImageUrl) {
-      formData.append('cover_image_url', coverImageUrl)
-    }
 
     try {
       const result = await createHorse(formData)
@@ -50,7 +46,8 @@ export default function NewHorsePage() {
     if (priceInput && data.price > 0) priceInput.value = data.price.toString();
 
     if (data.image) {
-      setCoverImageUrl(data.image);
+      const coverInput = document.getElementById('cover_image_url') as HTMLInputElement;
+      if (coverInput) coverInput.value = data.image;
     }
   }
 
@@ -209,7 +206,11 @@ export default function NewHorsePage() {
             <div className="col-span-2 pt-6 border-t border-gray-200 dark:border-gray-700">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Media</h3>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cover Image</label>
-              <CloudinaryUploader onUploadSuccess={setCoverImageUrl} label="Upload Cover Image" />
+              <CloudinaryUploader onUploadSuccess={(url) => {
+                const input = document.getElementById('cover_image_url') as HTMLInputElement;
+                if(input) input.value = url;
+              }} label="Upload Cover Image" />
+              <input type="hidden" name="cover_image_url" id="cover_image_url" />
             </div>
           </div>
 
