@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Plus, AlertTriangle, PackageSearch } from 'lucide-react'
 import BulkLinkScanner from '@/components/admin/BulkLinkScanner'
 import InventoryQuickActions from '@/components/admin/InventoryQuickActions'
+import DeleteInventoryButton from '@/components/admin/DeleteInventoryButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -122,6 +123,8 @@ export default async function InventoryPage() {
                           >
                             Details
                           </Link>
+                          
+                          <DeleteInventoryButton itemId={item.id} itemName={item.name} />
                         </div>
                       </div>
                     )
