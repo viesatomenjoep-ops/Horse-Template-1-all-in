@@ -160,9 +160,9 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
             {block.type === 'image' && (
               <div className="space-y-3">
                 {block.content ? (
-                  <div className="w-full h-48 relative rounded-md overflow-hidden bg-gray-100">
+                  <div className="w-full relative rounded-md overflow-hidden bg-gray-100">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={block.content} alt="Block" className="w-full h-full object-contain" />
+                    <img src={block.content} alt="Block" className="w-full h-auto object-contain" />
                   </div>
                 ) : (
                   <div className="w-full h-24 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-500">

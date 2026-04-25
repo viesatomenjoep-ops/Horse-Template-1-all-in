@@ -65,8 +65,8 @@ export default async function InvestorsPage() {
           }
           if (block.type === 'image') {
             return (
-              <div key={block.id || idx} className="relative w-full h-[400px] rounded-xl overflow-hidden my-8 shadow-lg">
-                <Image src={block.content} alt="Content" fill className="object-cover" />
+              <div key={block.id || idx} className="relative w-full rounded-xl overflow-hidden my-8 shadow-lg bg-gray-50 dark:bg-gray-800">
+                <Image src={block.content} alt="Content" width={1200} height={800} className="w-full h-auto object-contain" />
               </div>
             )
           }
