@@ -70,21 +70,21 @@ export default function HorseLinkScanner({ onApply }: HorseLinkScannerProps) {
           className="px-4 py-2.5 bg-accent text-white font-bold rounded-lg hover:bg-primary transition-colors disabled:opacity-50 flex items-center gap-2 text-sm"
         >
           {loading ? <Loader2 className="animate-spin" size={18} /> : <Download size={18} />}
-          Importeer
+          <span>Importeer</span>
         </button>
       </form>
 
-      {error && (
+      {error ? (
         <div className="mt-3 p-2 bg-red-50 text-red-700 rounded-md text-sm flex items-center gap-2">
-          <AlertCircle size={16} /> {error}
+          <AlertCircle size={16} /> <span>{error}</span>
         </div>
-      )}
+      ) : null}
 
-      {success && (
+      {success ? (
         <div className="mt-3 p-2 bg-green-50 text-green-700 rounded-md text-sm flex items-center gap-2">
-          <CheckCircle size={16} /> {success}
+          <CheckCircle size={16} /> <span>{success}</span>
         </div>
-      )}
+      ) : null}
     </div>
   )
 }
