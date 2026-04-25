@@ -34,6 +34,7 @@ export default function AdminSidebar() {
     { id: 'references', href: '/admin/references', icon: Camera, label: 'References' },
     { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Voorraad' },
     { id: 'quotes', href: '/admin/quotes', icon: FileText, label: 'Offertes & Orders' },
+    { id: 'crm', href: '/admin/crm', icon: Users, label: 'Klanten (CRM)' },
     { id: 'staff', href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { id: 'team', href: '/admin/team', icon: UserCircle, label: 'Team' },
     { id: 'news', href: '/admin/news', icon: Newspaper, label: 'News' },
