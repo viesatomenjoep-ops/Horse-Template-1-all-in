@@ -2,6 +2,8 @@ import { getPageContent } from '@/app/actions/pages'
 import PageBuilderClient from './PageBuilderClient'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminInvestorsPage() {
   const data = await getPageContent('investors')
 
