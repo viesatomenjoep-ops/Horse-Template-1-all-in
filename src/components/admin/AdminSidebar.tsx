@@ -38,6 +38,7 @@ export default function AdminSidebar() {
     { id: 'staff', href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { id: 'team', href: '/admin/team', icon: UserCircle, label: 'Team' },
     { id: 'news', href: '/admin/news', icon: Newspaper, label: 'News' },
+    { id: 'pages', href: '/admin/pages/investors', icon: Globe, label: 'Website Content' },
     { id: 'settings', href: '/admin/settings', icon: Settings, label: 'Settings' },
   ]
 
