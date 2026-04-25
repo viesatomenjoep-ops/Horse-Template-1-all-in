@@ -20,6 +20,8 @@ export async function scrapeProductUrl(url: string) {
 
     const title = getMeta('og:title') || getMeta('twitter:title') || html.match(/<title>(.*?)<\/title>/i)?.[1] || 'Nieuw Product'
     const image = getMeta('og:image') || getMeta('twitter:image') || null
+    const description = getMeta('og:description') || getMeta('twitter:description') || getMeta('description') || ''
+    
     let price = getMeta('product:price:amount') || getMeta('og:price:amount') || '0.00'
     
     if (price === '0.00') {
@@ -29,8 +31,9 @@ export async function scrapeProductUrl(url: string) {
 
     // Decode HTML entities in title
     const cleanTitle = title.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"')
+    const cleanDescription = description.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"')
 
-    return { success: true, title: cleanTitle, image, price: parseFloat(price) }
+    return { success: true, title: cleanTitle, image, price: parseFloat(price), description: cleanDescription }
   } catch (error: any) {
     return { success: false, error: 'Kan URL niet uitlezen. Probeer het handmatig.' }
   }

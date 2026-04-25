@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 const CloudinaryUploader = dynamic(() => import('@/components/admin/CloudinaryUploader'), { ssr: false })
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import HorseLinkScanner from '@/components/admin/HorseLinkScanner'
 
 export default function NewHorsePage() {
   const router = useRouter()
@@ -38,6 +39,21 @@ export default function NewHorsePage() {
     }
   }
 
+  const handleApplyData = (data: { name: string, image: string, description: string, price: number }) => {
+    const nameInput = document.querySelector('input[name="name"]') as HTMLInputElement;
+    if (nameInput && data.name) nameInput.value = data.name;
+
+    const descInput = document.querySelector('textarea[name="description"]') as HTMLTextAreaElement;
+    if (descInput && data.description) descInput.value = data.description;
+
+    const priceInput = document.querySelector('input[name="price"]') as HTMLInputElement;
+    if (priceInput && data.price > 0) priceInput.value = data.price.toString();
+
+    if (data.image) {
+      setCoverImageUrl(data.image);
+    }
+  }
+
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
@@ -46,6 +62,8 @@ export default function NewHorsePage() {
         </Link>
         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Add New Horse</h1>
       </div>
+
+      <HorseLinkScanner onApply={handleApplyData} />
 
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         {error && (
