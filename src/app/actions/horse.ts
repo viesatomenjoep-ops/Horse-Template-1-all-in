@@ -1,17 +1,18 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import { revalidatePath } from 'next/cache'
 
 export async function getHorses() {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase.from('horses').select('*').order('created_at', { ascending: false })
   if (error) throw new Error(error.message)
   return data
 }
 
 export async function getHorse(id: string) {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   
   // Try with media first
   const { data: horse, error } = await supabase

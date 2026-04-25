@@ -1,10 +1,11 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import { revalidatePath } from 'next/cache'
 
 export async function getNewsArticles() {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase.from('news').select('*').order('published_at', { ascending: false })
   
   if (error) throw new Error(error.message)
@@ -12,7 +13,7 @@ export async function getNewsArticles() {
 }
 
 export async function getNewsArticle(id: string) {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase.from('news').select('*').eq('id', id).single()
   
   if (error) throw new Error(error.message)

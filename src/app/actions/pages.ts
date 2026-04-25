@@ -1,10 +1,11 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createPublicClient } from '@/lib/supabase/public'
 import { revalidatePath } from 'next/cache'
 
 export async function getPageContent(slug: string) {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase.from('site_pages').select('*').eq('slug', slug).single()
   
   if (error || !data) {
