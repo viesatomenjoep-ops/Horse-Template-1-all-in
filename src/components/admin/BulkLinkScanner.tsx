@@ -88,7 +88,7 @@ export default function BulkLinkScanner() {
               className="w-full py-3 bg-accent text-white font-bold rounded-lg hover:bg-primary transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 className="animate-spin" size={20} /> : <Play size={20} />}
-              Start Bulk Import
+              <span>Start Bulk Import</span>
             </button>
           </div>
         </div>

@@ -30,8 +30,8 @@ export default function InventoryQuickActions({ itemId, currentQuantity }: { ite
         <Minus size={16} />
       </button>
       
-      <div className="w-6 text-center text-xs font-medium text-gray-500">
-        {loading ? <Loader2 size={12} className="animate-spin mx-auto" /> : currentQuantity}
+      <div className="w-6 text-center text-xs font-medium text-gray-500 flex items-center justify-center">
+        {loading ? <Loader2 size={12} className="animate-spin" /> : <span>{currentQuantity}</span>}
       </div>
 
       <button 

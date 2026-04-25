@@ -67,7 +67,7 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
           className="flex items-center px-6 py-3 bg-accent text-white font-bold rounded-md hover:bg-primary transition-colors disabled:opacity-50"
         >
           {loading ? <Loader2 className="animate-spin mr-2" /> : <Save className="mr-2" />}
-          Opslaan
+          <span>Opslaan</span>
         </button>
       </div>
 
@@ -111,9 +111,9 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
             
             <div className="flex justify-between items-start mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
               <span className="font-bold text-sm uppercase tracking-wider text-accent flex items-center gap-2">
-                {block.type === 'heading' && <><Heading size={16} /> Koptekst</>}
-                {block.type === 'text' && <><Type size={16} /> Alinea (Lappen tekst)</>}
-                {block.type === 'image' && <><ImageIcon size={16} /> Afbeelding</>}
+                {block.type === 'heading' && <><Heading size={16} /> <span>Koptekst</span></>}
+                {block.type === 'text' && <><Type size={16} /> <span>Alinea (Lappen tekst)</span></>}
+                {block.type === 'image' && <><ImageIcon size={16} /> <span>Afbeelding</span></>}
               </span>
               <button onClick={() => handleRemoveBlock(index)} className="text-red-500 hover:text-red-700 p-1"><Trash2 size={18} /></button>
             </div>
