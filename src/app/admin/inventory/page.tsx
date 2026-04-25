@@ -1,6 +1,7 @@
 import { getInventoryItems } from '@/app/actions/inventory'
 import Link from 'next/link'
 import { Plus, AlertTriangle, PackageSearch } from 'lucide-react'
+import MagicLinkImporter from '@/components/admin/MagicLinkImporter'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,6 +17,8 @@ export default async function InventoryPage() {
 
   return (
     <div className="space-y-6">
+      <MagicLinkImporter />
+      
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-serif text-primary dark:text-white">Voorraadbeheer</h1>

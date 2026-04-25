@@ -87,8 +87,8 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
       onMouseLeave={() => setIsOpen(false)}
     >
       <div 
-        className={`absolute ${isLeft ? 'right-0 top-0 flex flex-row items-center' : 'top-0 right-0 flex flex-col items-center'} overflow-hidden transition-all duration-500 ease-in-out bg-white/40 dark:bg-gray-900/40 backdrop-blur-md rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
-          isOpen ? (isLeft ? 'w-[200px] h-10 sm:h-12 opacity-100 justify-end' : 'w-10 sm:w-12 h-[160px] opacity-100') : 'w-10 sm:w-12 h-10 sm:h-12 opacity-90'
+        className={`absolute ${isLeft ? 'right-0 top-0 flex flex-row items-center' : 'top-0 right-0 flex flex-col items-center'} overflow-hidden transition-all duration-500 ease-in-out bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm ${
+          isOpen ? (isLeft ? 'w-[200px] h-10 sm:h-12 opacity-100 justify-end' : 'w-10 sm:w-12 h-[160px] opacity-100') : 'w-10 sm:w-12 h-10 sm:h-12 opacity-100'
         }`}
       >
         {/* Current Language Trigger */}
@@ -106,7 +106,7 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
             <button
               key={lang.code}
               onClick={() => changeLanguage(lang.code)}
-              className={`px-3 ${isLeft ? 'py-2' : 'py-1.5'} text-xs sm:text-sm font-medium text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-white uppercase tracking-[0.1em] transition-colors`}
+              className={`px-3 ${isLeft ? 'py-2' : 'py-1.5'} text-xs sm:text-sm font-bold text-gray-700 hover:text-accent dark:text-gray-300 dark:hover:text-white uppercase tracking-[0.1em] transition-colors`}
             >
               {lang.code}
             </button>

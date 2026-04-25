@@ -32,10 +32,8 @@ export default function Navbar() {
           {/* Desktop Navigation Center (REMOVED due to too many items overlapping logo) */}
 
           {/* Right side controls & Mobile menu button */}
-          <div className="flex items-center space-x-3 md:space-x-4 ml-auto z-[110] relative">
-            <div className="absolute right-12 md:right-0 top-1/2 -translate-y-1/2">
-              <LanguageSwitcher expandDirection="down" />
-            </div>
+          <div className="flex items-center gap-4 ml-auto z-[110]">
+            <LanguageSwitcher expandDirection="down" />
             <MobileMenu />
           </div>
 
