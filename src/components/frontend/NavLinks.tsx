@@ -10,6 +10,7 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
     { href: '/about', label: 'About Us' },
     { href: '/horses', label: 'Portfolio' },
     { href: '/references', label: 'References' },
+    { href: '/investors', label: 'Want to invest?' },
     { href: '/roi', label: 'ROI' },
     { href: '/news', label: 'News' },
     { href: '/book', label: 'Plan Bezoek' },
