@@ -152,3 +152,49 @@ export async function sendQuoteEmail(quoteId: string, emailPass: string) {
   await supabase.from('quotes').update({ status: 'sent' }).eq('id', quoteId)
   revalidatePath('/admin/quotes')
 }
+
+export async function updateQuote(id: string, formData: FormData) {
+  const supabase = await createClient()
+  
+  const itemsJson = formData.get('items') as string
+  const items = JSON.parse(itemsJson)
+
+  const subtotal = items.reduce((sum: number, item: any) => sum + (Number(item.quantity) * Number(item.price)), 0)
+  const taxRate = Number(formData.get('taxRate')) || 21
+  const taxAmount = (subtotal * taxRate) / 100
+  const totalAmount = subtotal + taxAmount
+
+  const quoteData = {
+    quote_number: formData.get('quoteNumber') as string,
+    client_name: formData.get('clientName') as string,
+    client_email: formData.get('clientEmail') as string,
+    client_address: formData.get('clientAddress') as string,
+    client_company: formData.get('clientCompany') as string,
+    subtotal: subtotal,
+    tax_rate: taxRate,
+    tax_amount: taxAmount,
+    total_amount: totalAmount,
+    notes: formData.get('notes') as string,
+  }
+
+  const { error: quoteError } = await supabase.from('quotes').update(quoteData).eq('id', id)
+  if (quoteError) throw new Error(quoteError.message)
+
+  // Re-create items: delete old, insert new
+  await supabase.from('quote_items').delete().eq('quote_id', id)
+
+  const quoteItems = items.map((item: any) => ({
+    quote_id: id,
+    description: item.description,
+    quantity: Number(item.quantity),
+    unit_price: Number(item.price),
+    total: Number(item.quantity) * Number(item.price)
+  }))
+
+  const { error: itemsError } = await supabase.from('quote_items').insert(quoteItems)
+  if (itemsError) throw new Error(itemsError.message)
+
+  revalidatePath('/admin/quotes')
+  revalidatePath(`/admin/quotes/${id}`)
+  return id
+}

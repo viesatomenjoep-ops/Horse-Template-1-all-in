@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { getQuoteWithItems, sendQuoteEmail } from '@/app/actions/quotes'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Printer, Send, Mail } from 'lucide-react'
+import { ArrowLeft, Printer, Send, Mail, Edit } from 'lucide-react'
 
 export default function QuoteDetailPage() {
   const { id } = useParams()
@@ -67,7 +67,10 @@ export default function QuoteDetailPage() {
         <Link href="/admin/quotes" className="flex items-center text-gray-500 hover:text-primary transition-colors">
           <ArrowLeft size={20} className="mr-2" /> Terug naar overzicht
         </Link>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
+          <Link href={`/admin/quotes/${quote.id}/edit`} className="flex items-center px-4 py-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-md hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition-colors">
+            <Edit size={18} className="mr-2" /> Bewerken
+          </Link>
           <button onClick={handlePrint} className="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
             <Printer size={18} className="mr-2" /> Print / PDF Opslaan
           </button>
