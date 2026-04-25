@@ -16,10 +16,23 @@ export async function getPageContent(slug: string) {
 
 export async function updatePageContent(slug: string, updateData: any) {
   const supabase = await createClient()
-  const { error } = await supabase.from('site_pages').update(updateData).eq('slug', slug)
   
-  if (error) {
-    throw new Error(error.message)
+  // Eerst kijken of we moeten updaten of inserten
+  const { data: existing } = await supabase.from('site_pages').select('id').eq('slug', slug).single()
+  
+  let errorMsg = null;
+  
+  if (existing) {
+    const { error } = await supabase.from('site_pages').update(updateData).eq('slug', slug)
+    if (error) errorMsg = error.message
+  } else {
+    // Probeer in te voegen als hij nog niet bestaat
+    const { error } = await supabase.from('site_pages').insert([{ slug, ...updateData }])
+    if (error) errorMsg = error.message
+  }
+  
+  if (errorMsg) {
+    return { error: errorMsg }
   }
   
   revalidatePath(`/${slug}`)

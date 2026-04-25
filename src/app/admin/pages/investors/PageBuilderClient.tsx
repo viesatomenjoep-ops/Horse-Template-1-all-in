@@ -41,15 +41,19 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
   const handleSave = async () => {
     setLoading(true)
     try {
-      await updatePageContent('investors', {
+      const res = await updatePageContent('investors', {
         title,
         hero_image: heroImage,
         content_blocks: blocks
       })
-      alert('Pagina succesvol opgeslagen!')
-    } catch (err) {
+      if (res.error) {
+        alert('Fout bij opslaan: ' + res.error)
+      } else {
+        alert('Pagina succesvol opgeslagen!')
+      }
+    } catch (err: any) {
       console.error(err)
-      alert('Fout bij opslaan.')
+      alert('Fout bij opslaan: ' + (err.message || 'Onbekende fout'))
     }
     setLoading(false)
   }
