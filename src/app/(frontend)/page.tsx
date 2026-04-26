@@ -126,15 +126,21 @@ async function ReferencesPreview() {
     references = [
       {
         id: 'dummy1',
-        horse_name: 'Chimi',
-        image_url: '/chimi.jpg',
+        horse_name: 'Equivest Royal Flush',
+        image_url: '/success1.png',
         sold_to_country: 'United States'
       },
       {
         id: 'dummy2',
-        horse_name: 'Wellington Champion',
-        image_url: '/wellington_showjumper.png',
-        sold_to_country: 'Belgium'
+        horse_name: 'Equivest Grand Prix',
+        image_url: '/success2.png',
+        sold_to_country: 'Germany'
+      },
+      {
+        id: 'dummy3',
+        horse_name: 'Equivest Platinum',
+        image_url: '/success3.png',
+        sold_to_country: 'United Arab Emirates'
       }
     ];
   }
@@ -142,17 +148,20 @@ async function ReferencesPreview() {
   return (
     <section className="py-24 bg-white dark:bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
           <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Proven Success</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-primary dark:text-white">
+          <h2 className="text-4xl md:text-5xl font-serif text-primary dark:text-white mb-6">
             Global <span className="italic text-accent">References</span>
           </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            From the European heartland to the most prestigious arenas in the world, our elite athletes consistently prove their immense value. Discover some of our proudest alumni who have achieved greatness on the global stage after joining the Equivest portfolio.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {references.map((ref: any) => (
             <Link href="/references" key={ref.id} className="group cursor-pointer">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-xl">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-xl">
                 {ref.image_url ? (
                   <Image 
                     src={ref.image_url} 
@@ -165,17 +174,22 @@ async function ReferencesPreview() {
                     <Trophy className="text-gray-400 w-12 h-12" />
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80"></div>
-                <div className="absolute bottom-0 left-0 w-full p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-2xl font-serif font-bold mb-1 group-hover:text-accent transition-colors">{ref.horse_name}</h3>
-                  <p className="text-sm text-white/80 uppercase tracking-widest">{ref.sold_to_country}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90"></div>
+                <div className="absolute bottom-0 left-0 w-full p-8 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="flex items-center gap-2 mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Trophy size={16} className="text-accent" />
+                    <span className="text-xs font-bold uppercase tracking-widest text-accent">Top Performer</span>
+                  </div>
+                  <h3 className="text-3xl font-serif font-bold mb-2 group-hover:text-white transition-colors">{ref.horse_name}</h3>
+                  <div className="w-10 h-1 bg-accent mb-3"></div>
+                  <p className="text-sm text-white/80 uppercase tracking-widest font-medium">Exported to: {ref.sold_to_country}</p>
                 </div>
               </div>
             </Link>
           ))}
         </div>
-        <div className="mt-12 text-center">
-          <Link href="/references" className="inline-flex items-center gap-2 text-primary dark:text-white font-bold uppercase tracking-widest hover:text-accent transition-colors group">
+        <div className="mt-16 text-center">
+          <Link href="/references" className="inline-flex items-center gap-3 px-8 py-4 border border-gray-300 dark:border-gray-700 rounded-full text-primary dark:text-white font-bold uppercase tracking-widest hover:border-accent hover:text-accent transition-colors group">
             View All References <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
           </Link>
         </div>
