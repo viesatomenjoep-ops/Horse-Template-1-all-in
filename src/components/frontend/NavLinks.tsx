@@ -23,6 +23,9 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
   if (isMobile) {
     return (
       <>
+        <Link onClick={() => setIsOpen?.(false)} href="/" className="text-xl font-serif font-bold text-primary hover:text-accent transition-colors uppercase">
+          Return to Homepage
+        </Link>
         {user ? (
           <>
             <Link onClick={() => setIsOpen?.(false)} href="/admin" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
@@ -56,6 +59,10 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
 
   return (
     <>
+      <Link href="/" className={`text-[11px] xl:text-sm font-bold uppercase tracking-wider transition-colors py-2 whitespace-nowrap ${isActive('/') ? 'text-accent' : 'text-primary hover:text-accent'}`}>
+        Return to Homepage
+      </Link>
+
       {user ? (
         <form action={logoutAction}>
           <button type="submit" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-accent hover:text-primary transition-colors py-2 whitespace-nowrap">
