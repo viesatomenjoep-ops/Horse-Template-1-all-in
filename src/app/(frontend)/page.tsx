@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Trophy, ArrowRight } from "lucide-react";
 
 export const dynamic = 'force-dynamic'
 
