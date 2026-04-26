@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, ExternalLink, Linkedin, CheckCircle, RefreshCw, MessageSquare } from 'lucide-react'
+import { Copy, ExternalLink, CheckCircle, RefreshCw, MessageSquare } from 'lucide-react'
 
 export default function LinkedInClient({ horses }: { horses: any[] }) {
   const [leadName, setLeadName] = useState('')
@@ -60,7 +60,7 @@ export default function LinkedInClient({ horses }: { horses: any[] }) {
       {/* Configuration Panel */}
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-          <Linkedin className="text-blue-600" /> Campaign Setup
+          <MessageSquare className="text-blue-600" /> Campaign Setup
         </h2>
         
         <div className="space-y-5">
