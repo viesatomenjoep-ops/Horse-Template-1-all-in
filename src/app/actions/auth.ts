@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
+import { cookies } from 'next/headers'
+
 export async function login(formData: FormData) {
   const supabase = await createClient()
 
@@ -44,35 +46,27 @@ export async function login(formData: FormData) {
 }
 
 export async function investorLogin(formData: FormData) {
-  const supabase = await createClient()
-
-  let rawUsername = formData.get('username') as string
-  let email = rawUsername
+  const rawUsername = formData.get('username') as string
+  const password = formData.get('password') as string
   
-  // Format username to email if it's not an email
-  if (!email.includes('@')) {
-    // Turn "Equivest 11" into "equivest11@equivest.com"
-    email = rawUsername.toLowerCase().replace(/\s+/g, '') + '@equivest.com'
+  // Clean up username for comparison
+  const cleanUsername = rawUsername.toLowerCase().replace(/\s+/g, '')
+
+  if (cleanUsername === 'equivest11' && password === '1111') {
+    const cookieStore = await cookies()
+    cookieStore.set('investor_auth', 'true', { maxAge: 60 * 60 * 24 * 7 }) // 1 week
+    revalidatePath('/', 'layout')
+    redirect('/horses')
   }
 
-  const data = {
-    email,
-    password: formData.get('password') as string,
-  }
-
-  const { error } = await supabase.auth.signInWithPassword(data)
-
-  if (error) {
-    redirect(`/investor-login?error=${encodeURIComponent("Invalid username or password.")}`)
-  }
-
-  revalidatePath('/', 'layout')
-  redirect('/horses') // Redirect to portfolio
+  redirect(`/investor-login?error=${encodeURIComponent("Invalid username or password.")}`)
 }
 
 export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
+  const cookieStore = await cookies()
+  cookieStore.delete('investor_auth')
   revalidatePath('/', 'layout')
   redirect('/')
 }

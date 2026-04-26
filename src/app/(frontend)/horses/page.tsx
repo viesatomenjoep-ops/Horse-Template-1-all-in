@@ -2,6 +2,7 @@ import { getPublicHorses } from '@/app/actions/horse'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 import { ShieldCheck, Eye } from 'lucide-react'
 import { logout } from '@/app/actions/auth'
 
@@ -13,7 +14,11 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  const isLoggedIn = !!user
+  
+  const cookieStore = await cookies()
+  const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
+  
+  const isLoggedIn = !!user || isInvestor
 
   if (!isLoggedIn) {
     redirect('/investor-login')
