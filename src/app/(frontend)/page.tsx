@@ -84,7 +84,7 @@ export default function Home() {
       <PortfolioSlideshowPreview />
 
       {/* Want to Invest CTA - Floating Card */}
-      <section className="py-20 relative z-20">
+      <section className="pt-20 pb-10 relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[3rem] shadow-2xl bg-primary transform hover:-translate-y-2 transition-transform duration-500">
             <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>
@@ -177,7 +177,7 @@ async function ReferencesPreview() {
   }
 
   return (
-    <section className="py-24 bg-transparent">
+    <section className="pt-10 pb-24 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Proven Success</span>
