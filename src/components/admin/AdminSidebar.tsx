@@ -30,8 +30,8 @@ export default function AdminSidebar() {
   const allNavItems = [
     { id: 'overview', href: '/admin', icon: LayoutDashboard, label: 'Overview' },
     { id: 'pages', href: '/admin/pages/investors', icon: Globe, label: 'Website Content' },
-    { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Bezoeken (Nieuw)' },
     { id: 'horses', href: '/admin/horses', icon: Database, label: 'Horses' },
+    { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Bezoeken (Nieuw)' },
     { id: 'references', href: '/admin/references', icon: Camera, label: 'References' },
     { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Voorraad' },
     { id: 'quotes', href: '/admin/quotes', icon: FileText, label: 'Offertes & Orders' },
