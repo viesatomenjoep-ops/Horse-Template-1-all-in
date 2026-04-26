@@ -56,7 +56,7 @@ export default async function AdminOverview() {
       
       <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Live Statistics</h2>
       {/* Stat Cards */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
         
         <Link href="/admin/horses" className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6 hover:shadow-md hover:border-primary/30 transition-all cursor-pointer group">
           <div className="flex items-center">
@@ -95,6 +95,20 @@ export default async function AdminOverview() {
               <dl>
                 <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-yellow-600 transition-colors">Quotes & Orders</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalQuotes}</dd>
+              </dl>
+            </div>
+          </div>
+        </Link>
+
+        <Link href="/admin/team" className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl p-6 hover:shadow-md hover:border-emerald-500/30 transition-all cursor-pointer group">
+          <div className="flex items-center">
+            <div className="p-3 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-200 transition-colors">
+              <Users size={24} />
+            </div>
+            <div className="ml-5 w-0 flex-1">
+              <dl>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-emerald-600 transition-colors">Team Members</dt>
+                <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalTeamMembers || 0}</dd>
               </dl>
             </div>
           </div>

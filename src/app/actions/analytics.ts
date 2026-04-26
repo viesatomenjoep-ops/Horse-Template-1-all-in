@@ -42,6 +42,11 @@ export async function getDashboardStats() {
     .from('inventory_items')
     .select('quantity, purchase_price, selling_price')
     
+  // Get total team members
+  const { count: totalTeamMembers } = await supabase
+    .from('team')
+    .select('id', { count: 'exact', head: true })
+
   let inventoryCost = 0;
   let inventoryValue = 0;
   
@@ -60,6 +65,7 @@ export async function getDashboardStats() {
     totalHorses: totalHorses || 0,
     totalAppointments: totalAppointments || 0,
     totalQuotes: totalQuotes || 0,
+    totalTeamMembers: totalTeamMembers || 0,
     inventoryCost,
     inventoryValue,
     inventoryProfit: inventoryValue - inventoryCost
