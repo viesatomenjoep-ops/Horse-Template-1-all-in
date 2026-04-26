@@ -1,18 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Wand, TrendingUp, ShieldCheck, PlayCircle, Lock, ArrowRight, Search } from 'lucide-react'
+import { Wand, TrendingUp, ShieldCheck, PlayCircle, Lock, ArrowRight, Search, Camera, Trophy, Dna, Calendar, FileText } from 'lucide-react'
 import Link from 'next/link'
 
 export default function ExploreToolsPage() {
-  // ROI Calculator State
-  const [purchasePrice, setPurchasePrice] = useState(50000)
-  const [yearsHeld, setYearsHeld] = useState(2)
-  const [expectedGrowth, setExpectedGrowth] = useState(15)
-
-  const finalValue = purchasePrice * Math.pow((1 + expectedGrowth / 100), yearsHeld)
-  const profit = finalValue - purchasePrice
-
   // Passport Scanner State
   const [passportNum, setPassportNum] = useState('')
   const [isScanning, setIsScanning] = useState(false)
@@ -27,7 +19,6 @@ export default function ExploreToolsPage() {
     // Simulate API call
     setTimeout(() => {
       setIsScanning(false)
-      // Just a fun mock logic: if it ends in '7', it fails, otherwise success
       if (passportNum.endsWith('7')) {
         setScanResult(false)
       } else {
@@ -36,7 +27,6 @@ export default function ExploreToolsPage() {
     }, 1500)
   }
 
-  return (
   // Magic Link State
   const [activeMagicLink, setActiveMagicLink] = useState<string | null>(null)
   const [magicLinkLoading, setMagicLinkLoading] = useState(false)
@@ -56,7 +46,7 @@ export default function ExploreToolsPage() {
       <div className="bg-primary pt-24 pb-20 px-4 text-center">
         <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 animate-fade-in">Client Explore Hub</h1>
         <p className="text-primary-foreground/80 max-w-2xl mx-auto text-lg mb-8">
-          Experience the cutting-edge tools that power Equivest Worldwide. From interactive investment calculators to secure Magic Link previews.
+          Experience the cutting-edge tools that power Equivest Worldwide. From highly secure Magic Link previews to AI-powered authenticity scanning.
         </p>
       </div>
 
@@ -66,18 +56,20 @@ export default function ExploreToolsPage() {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
           <div className="md:flex">
             <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400 text-xs font-bold uppercase tracking-wider mb-6">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400 text-xs font-bold uppercase tracking-wider mb-6 w-max">
                 <Wand size={14} className="mr-2" /> Exclusive Technology
               </div>
               <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-4">Magic Link Previews</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                Our investors receive highly secure, password-less <strong>Magic Links</strong> to view confidential veterinary reports, exclusive 4K videos, and wire instructions. No accounts needed. Experience what our clients see:
+                Our investors receive highly secure, password-less <strong>Magic Links</strong> to view confidential veterinary reports, exclusive 4K videos, and syndication details. Experience what our clients see:
               </p>
               
-              <div className="space-y-4">
+              <div className="space-y-4 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar">
+                
+                {/* 1. Secure Video Room */}
                 <div 
                   onClick={() => handleMagicLinkClick('video')}
-                  className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-accent transition-colors cursor-pointer group flex items-center justify-between"
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'video' ? 'border-accent bg-accent/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-accent'}`}
                 >
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent/20 transition-colors">
@@ -91,9 +83,10 @@ export default function ExploreToolsPage() {
                   <Lock size={16} className="text-gray-400" />
                 </div>
 
+                {/* 2. Vet Check & X-Rays */}
                 <div 
                   onClick={() => handleMagicLinkClick('vet')}
-                  className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-green-500 transition-colors cursor-pointer group flex items-center justify-between"
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'vet' ? 'border-green-500 bg-green-500/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-green-500'}`}
                 >
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center mr-4 group-hover:bg-green-500/20 transition-colors">
@@ -106,9 +99,95 @@ export default function ExploreToolsPage() {
                   </div>
                   <Lock size={16} className="text-gray-400" />
                 </div>
+
+                {/* 3. Live Stable Cam */}
+                <div 
+                  onClick={() => handleMagicLinkClick('live_cam')}
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'live_cam' ? 'border-blue-500 bg-blue-500/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-blue-500'}`}
+                >
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center mr-4 group-hover:bg-blue-500/20 transition-colors">
+                      <Camera size={20} className="text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">Live Stable Cam</h4>
+                      <p className="text-xs text-gray-500">24/7 Training & stable feed</p>
+                    </div>
+                  </div>
+                  <Lock size={16} className="text-gray-400" />
+                </div>
+
+                {/* 4. Competition History */}
+                <div 
+                  onClick={() => handleMagicLinkClick('results')}
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'results' ? 'border-purple-500 bg-purple-500/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-purple-500'}`}
+                >
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center mr-4 group-hover:bg-purple-500/20 transition-colors">
+                      <Trophy size={20} className="text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">Competition Results</h4>
+                      <p className="text-xs text-gray-500">Official FEI records & analytics</p>
+                    </div>
+                  </div>
+                  <Lock size={16} className="text-gray-400" />
+                </div>
+
+                {/* 5. Syndicate Prospectus */}
+                <div 
+                  onClick={() => handleMagicLinkClick('syndicate')}
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'syndicate' ? 'border-emerald-500 bg-emerald-500/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-emerald-500'}`}
+                >
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center mr-4 group-hover:bg-emerald-500/20 transition-colors">
+                      <TrendingUp size={20} className="text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">Financial Valuation</h4>
+                      <p className="text-xs text-gray-500">Syndicate shares & ROI projection</p>
+                    </div>
+                  </div>
+                  <Lock size={16} className="text-gray-400" />
+                </div>
+
+                {/* 6. DNA & Pedigree */}
+                <div 
+                  onClick={() => handleMagicLinkClick('pedigree')}
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'pedigree' ? 'border-orange-500 bg-orange-500/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-orange-500'}`}
+                >
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center mr-4 group-hover:bg-orange-500/20 transition-colors">
+                      <Dna size={20} className="text-orange-600 dark:text-orange-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">Pedigree Analysis</h4>
+                      <p className="text-xs text-gray-500">Bloodline grading & genetics</p>
+                    </div>
+                  </div>
+                  <Lock size={16} className="text-gray-400" />
+                </div>
+
+                {/* 7. VIP Trial Booking */}
+                <div 
+                  onClick={() => handleMagicLinkClick('vip_trial')}
+                  className={`p-4 rounded-xl border transition-colors cursor-pointer group flex items-center justify-between ${activeMagicLink === 'vip_trial' ? 'border-rose-500 bg-rose-500/5' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-rose-500'}`}
+                >
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center mr-4 group-hover:bg-rose-500/20 transition-colors">
+                      <Calendar size={20} className="text-rose-600 dark:text-rose-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">VIP Trial Booking</h4>
+                      <p className="text-xs text-gray-500">Secure exclusive viewing session</p>
+                    </div>
+                  </div>
+                  <Lock size={16} className="text-gray-400" />
+                </div>
               </div>
             </div>
-            <div className="md:w-1/2 bg-gray-900 relative p-8 md:p-12 flex items-center justify-center overflow-hidden">
+
+            <div className="md:w-1/2 bg-gray-900 relative p-8 md:p-12 flex items-center justify-center overflow-hidden min-h-[500px]">
               <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
               
               {magicLinkLoading ? (
@@ -136,6 +215,88 @@ export default function ExploreToolsPage() {
                     Download Documents
                   </button>
                 </div>
+              ) : activeMagicLink === 'live_cam' ? (
+                 <div className="relative z-10 w-full bg-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in">
+                    <div className="aspect-video bg-gray-800 relative cursor-pointer overflow-hidden group">
+                      <img src="https://images.unsplash.com/photo-1598974357801-cbca100e65d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Stable" className="object-cover w-full h-full opacity-60 group-hover:opacity-80 transition-opacity" />
+                      <div className="absolute top-4 left-4 flex items-center bg-black/70 px-3 py-1 rounded-full">
+                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                        <span className="text-white text-xs font-bold uppercase tracking-widest">Live: Stable 4</span>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <PlayCircle size={64} className="text-white/80 group-hover:text-blue-400 group-hover:scale-110 transition-all" />
+                      </div>
+                    </div>
+                 </div>
+              ) : activeMagicLink === 'results' ? (
+                 <div className="relative z-10 w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-2xl animate-fade-in">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mr-4">
+                      <Trophy size={20} className="text-purple-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white">FEI History</h3>
+                      <p className="text-gray-400 text-xs uppercase tracking-widest">Verified Data</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3 mb-6">
+                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex justify-between items-center">
+                      <span className="text-gray-300 text-sm">CSI2* Wellington</span>
+                      <span className="text-purple-400 font-bold">1st Place</span>
+                    </div>
+                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex justify-between items-center">
+                      <span className="text-gray-300 text-sm">CSI3* Aachen</span>
+                      <span className="text-purple-400 font-bold">Clear Round</span>
+                    </div>
+                  </div>
+                  <button className="w-full py-2 border border-purple-500/50 text-purple-400 hover:bg-purple-500/10 rounded-lg font-bold transition-colors">
+                    View Full Analytics
+                  </button>
+                </div>
+              ) : activeMagicLink === 'syndicate' ? (
+                 <div className="relative z-10 w-full max-w-sm bg-gradient-to-br from-emerald-900/50 to-gray-900 border border-emerald-500/30 rounded-2xl p-6 shadow-2xl animate-fade-in">
+                  <h3 className="text-xl font-bold text-white mb-2 flex items-center">
+                    <TrendingUp className="text-emerald-400 mr-2" size={20} />
+                    Prospectus Unlocked
+                  </h3>
+                  <p className="text-gray-300 text-sm mb-6">Syndicate valuation, structured equity breakdown, and projected 5-year ROI.</p>
+                  
+                  <div className="bg-black/40 p-4 rounded-xl mb-6 border border-emerald-500/20">
+                    <div className="flex justify-between items-end mb-2">
+                      <span className="text-gray-400 text-xs uppercase">Est. Portfolio Value</span>
+                      <span className="text-emerald-400 font-bold text-xl">€1.2M</span>
+                    </div>
+                    <div className="w-full bg-gray-800 rounded-full h-1.5">
+                      <div className="bg-emerald-500 h-1.5 rounded-full w-[75%]"></div>
+                    </div>
+                  </div>
+
+                  <button className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold shadow-lg transition-transform hover:scale-105 active:scale-95">
+                    Download Prospectus PDF
+                  </button>
+                </div>
+              ) : activeMagicLink === 'pedigree' ? (
+                 <div className="relative z-10 w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center shadow-2xl animate-fade-in">
+                  <div className="w-16 h-16 mx-auto bg-orange-500/20 rounded-full flex items-center justify-center mb-4">
+                    <Dna size={24} className="text-orange-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Genetics Verified</h3>
+                  <p className="text-gray-300 text-sm mb-6">Complete bloodline tracking from sire line and dam line with DNA authenticity.</p>
+                  <button className="w-full py-3 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-bold shadow-lg transition-transform hover:scale-105 active:scale-95">
+                    View Family Tree
+                  </button>
+                </div>
+              ) : activeMagicLink === 'vip_trial' ? (
+                 <div className="relative z-10 w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-2xl animate-fade-in text-center">
+                  <div className="w-16 h-16 mx-auto bg-rose-500/20 rounded-full flex items-center justify-center mb-4">
+                    <Calendar size={24} className="text-rose-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">VIP Concierge</h3>
+                  <p className="text-gray-300 text-sm mb-6">Your identity is verified. You have exclusive priority to book a private showing in Belgium.</p>
+                  <button className="w-full py-3 bg-white text-gray-900 hover:bg-gray-100 rounded-lg font-bold shadow-lg transition-transform hover:scale-105 active:scale-95">
+                    Select Dates
+                  </button>
+                </div>
               ) : (
                 <div className="relative z-10 w-full max-w-sm bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center shadow-2xl">
                   <div className="w-16 h-16 mx-auto bg-gray-500/20 rounded-full flex items-center justify-center mb-4">
@@ -149,88 +310,7 @@ export default function ExploreToolsPage() {
           </div>
         </div>
 
-        {/* TOOL 2: Interactive ROI Calculator */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 p-8 md:p-12">
-          <div className="text-center mb-10">
-             <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs font-bold uppercase tracking-wider mb-6">
-                <TrendingUp size={14} className="mr-2" /> Investment Tool
-              </div>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-4">Sport Horse ROI Calculator</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Calculate the potential return on investment for young sport horses entering the international circuit. Adjust the sliders below to simulate market scenarios.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Sliders */}
-            <div className="space-y-8">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <label className="font-bold text-gray-700 dark:text-gray-300">Initial Purchase Value</label>
-                  <span className="font-bold text-primary dark:text-white">€ {purchasePrice.toLocaleString()}</span>
-                </div>
-                <input 
-                  type="range" min="10000" max="250000" step="5000" 
-                  value={purchasePrice} 
-                  onChange={(e) => setPurchasePrice(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between mb-2">
-                  <label className="font-bold text-gray-700 dark:text-gray-300">Holding Period (Years)</label>
-                  <span className="font-bold text-primary dark:text-white">{yearsHeld} Years</span>
-                </div>
-                <input 
-                  type="range" min="1" max="5" step="1" 
-                  value={yearsHeld} 
-                  onChange={(e) => setYearsHeld(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between mb-2">
-                  <label className="font-bold text-gray-700 dark:text-gray-300">Estimated Annual Growth (%)</label>
-                  <span className="font-bold text-green-600 dark:text-green-400">+{expectedGrowth}%</span>
-                </div>
-                <input 
-                  type="range" min="5" max="35" step="1" 
-                  value={expectedGrowth} 
-                  onChange={(e) => setExpectedGrowth(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-500"
-                />
-              </div>
-            </div>
-
-            {/* Results */}
-            <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 border border-gray-100 dark:border-gray-700 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-2xl"></div>
-              
-              <h3 className="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">Projected Valuation</h3>
-              
-              <div className="space-y-6">
-                <div className="flex justify-between items-end border-b border-gray-200 dark:border-gray-800 pb-4">
-                  <span className="text-gray-600 dark:text-gray-400">Initial Investment</span>
-                  <span className="text-xl font-bold text-gray-900 dark:text-white">€ {purchasePrice.toLocaleString()}</span>
-                </div>
-                
-                <div className="flex justify-between items-end border-b border-gray-200 dark:border-gray-800 pb-4">
-                  <span className="text-gray-600 dark:text-gray-400">Projected Profit</span>
-                  <span className="text-xl font-bold text-green-600 dark:text-green-400">+ € {Math.round(profit).toLocaleString()}</span>
-                </div>
-
-                <div className="flex justify-between items-end pt-2">
-                  <span className="text-gray-900 dark:text-white font-bold text-lg">Total Future Value</span>
-                  <span className="text-4xl font-serif font-bold text-primary dark:text-white">€ {Math.round(finalValue).toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* TOOL 3: Passport Authenticity Scanner */}
+        {/* TOOL 2: Passport Authenticity Scanner */}
         <div className="bg-primary rounded-2xl shadow-xl overflow-hidden relative">
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
           <div className="md:flex relative z-10">
@@ -243,7 +323,7 @@ export default function ExploreToolsPage() {
               <form onSubmit={handleScan} className="flex gap-3">
                 <div className="relative flex-grow">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search size={18} className="text-gray-400" />
+                    <Search size={18} className="text-white/50" />
                   </div>
                   <input 
                     type="text" 
