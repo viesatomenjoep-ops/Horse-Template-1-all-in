@@ -36,37 +36,36 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
   }
 
   return (
-    <section className="py-32 bg-[#050B14] relative overflow-hidden">
+    <section className="py-20 bg-gray-50 dark:bg-[#0a0a0a] relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none transform -translate-x-1/3 translate-y-1/3"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <div className="space-y-4">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3">
             <div className="inline-flex items-center space-x-2 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
               <span className="text-accent uppercase tracking-[0.2em] text-xs font-bold">Premium Assets</span>
             </div>
             <Link href="/horses" className="inline-block group">
-              <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight group-hover:opacity-80 transition-opacity flex items-center gap-3">
+              <h2 className="text-3xl md:text-5xl font-serif text-primary dark:text-white tracking-tight group-hover:opacity-80 transition-opacity">
                 Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
               </h2>
             </Link>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
+            <Link href="/horses" className="hidden sm:flex items-center gap-3 px-6 py-3 bg-primary dark:bg-white text-white dark:text-primary rounded-full text-sm font-bold uppercase tracking-widest hover:scale-105 hover:shadow-lg transition-all group">
+              View Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
             <div className="flex gap-2">
-              <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all group backdrop-blur-sm">
+              <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all group backdrop-blur-sm">
                 <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
               </button>
-              <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all group backdrop-blur-sm">
+              <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all group backdrop-blur-sm">
                 <ChevronRight className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
-            <Link href="/horses" className="hidden sm:flex items-center gap-2 text-white/70 hover:text-white uppercase tracking-widest text-sm font-bold ml-4 group">
-              View All <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
         </div>
       </div>
@@ -74,43 +73,37 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
       <div className="w-full overflow-hidden relative z-10 pb-12">
         <div 
           className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-          style={{ transform: `translateX(-${currentIndex * (typeof window !== 'undefined' && window.innerWidth < 768 ? 100 : 85)}%)` }}
+          style={{ transform: `translateX(-${currentIndex * (typeof window !== 'undefined' && window.innerWidth < 768 ? 100 : 33.333)}%)` }}
         >
           {displayHorses.map((horse, index) => {
-            const isActive = index === currentIndex;
             return (
               <div 
                 key={horse.id} 
-                className={`min-w-full md:min-w-[85%] px-4 sm:px-6 lg:px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${isActive ? 'opacity-100 scale-100' : 'opacity-40 scale-95 md:blur-[2px]'}`}
+                className="min-w-full md:min-w-[33.333%] px-3 md:px-4 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
               >
-                <Link href={`/horses/${horse.id}`} className="block group relative rounded-3xl overflow-hidden aspect-[4/5] md:aspect-[21/9] w-full shadow-2xl bg-gray-900 border border-white/5">
+                <Link href={`/horses/${horse.id}`} className="block group relative rounded-2xl overflow-hidden aspect-[4/5] w-full shadow-2xl bg-gray-900 border border-gray-200 dark:border-white/5">
                   <Image
                     src={horse.main_image_url}
                     alt={horse.name}
                     fill
                     className="object-cover transition-transform duration-[1.5s] group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-[#0A192F]/40 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
                   
-                  <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end transform transition-transform duration-500">
-                    <div className="translate-y-8 md:translate-y-12 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                      <div className="flex flex-wrap items-center gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end transform transition-transform duration-500">
+                    <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                      <div className="flex flex-wrap items-center gap-2 mb-3">
                         {horse.status === 'Available' && (
-                          <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">Available</span>
+                          <span className="bg-emerald-500 text-white px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg">Available</span>
                         )}
-                        <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">{horse.category}</span>
+                        <span className="bg-white/20 backdrop-blur-md text-white px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">{horse.category}</span>
                       </div>
                       
-                      <h3 className="text-4xl md:text-6xl font-serif text-white mb-2 md:mb-4 group-hover:text-accent transition-colors duration-300 drop-shadow-lg">{horse.name}</h3>
+                      <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 group-hover:text-accent transition-colors duration-300 drop-shadow-lg">{horse.name}</h3>
                       
-                      <div className="flex items-center gap-6 text-white/70 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                        <div className="flex items-center gap-2"><Activity size={18} /> <span>{horse.age} Years</span></div>
-                        <div className="flex items-center gap-2"><Trophy size={18} /> <span>{horse.gender}</span></div>
-                        <div className="flex items-center gap-2"><Euro size={18} /> <span className="uppercase">{horse.price_range || 'On Request'}</span></div>
-                      </div>
-                      
-                      <div className="inline-flex items-center gap-3 text-white font-bold tracking-widest uppercase border-b border-white/30 pb-1 group-hover:border-accent group-hover:text-accent transition-all duration-300 opacity-0 group-hover:opacity-100 delay-300">
-                        Discover Details <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                      <div className="flex items-center gap-4 text-white/80 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="flex items-center gap-1.5"><Activity size={14} /> <span>{horse.age} yrs</span></div>
+                        <div className="flex items-center gap-1.5"><Euro size={14} /> <span className="uppercase">{horse.price_range || 'On Request'}</span></div>
                       </div>
                     </div>
                   </div>

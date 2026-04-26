@@ -16,7 +16,10 @@ export default function PageBuilderClient({
 }) {
   const [title, setTitle] = useState(initialData?.title || '')
   const [heroImage, setHeroImage] = useState(initialData?.hero_image || '')
-  const [blocks, setBlocks] = useState<any[]>(initialData?.content_blocks || [])
+  const initialHero2 = initialData?.content_blocks?.find((b: any) => b.type === 'hero_image_2')?.content || ''
+  const [heroImage2, setHeroImage2] = useState(initialHero2)
+  const initialBlocks = initialData?.content_blocks?.filter((b: any) => b.type !== 'hero_image_2') || []
+  const [blocks, setBlocks] = useState<any[]>(initialBlocks)
   const [loading, setLoading] = useState(false)
 
   const handleAddBlock = (type: string) => {
@@ -49,10 +52,15 @@ export default function PageBuilderClient({
   const handleSave = async () => {
     setLoading(true)
     try {
+      const filteredBlocks = blocks.filter(b => b.type !== 'hero_image_2')
+      if (heroImage2) {
+        filteredBlocks.unshift({ id: 'hero_2', type: 'hero_image_2', content: heroImage2, size: 'media' })
+      }
+
       const res = await updatePageContent(pageSlug, {
         title,
         hero_image: heroImage,
-        content_blocks: blocks
+        content_blocks: filteredBlocks
       })
       if (res.error) {
         alert('Fout bij opslaan: ' + res.error)
@@ -95,16 +103,37 @@ export default function PageBuilderClient({
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Achtergrondfoto</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Hero Media (Foto / Video) 1</label>
           {heroImage && (
             <div className="w-full h-40 relative rounded-md overflow-hidden mb-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={heroImage} alt="Hero" className="w-full h-full object-cover" />
+              {heroImage.endsWith('.mp4') || heroImage.endsWith('.mov') || heroImage.endsWith('.webm') ? (
+                <video src={heroImage} className="w-full h-full object-cover" controls />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={heroImage} alt="Hero 1" className="w-full h-full object-cover" />
+              )}
             </div>
           )}
           <CloudinaryUploader 
             onUploadSuccess={(url) => setHeroImage(url)} 
-            label="Upload Nieuwe Hero Foto"
+            label="Upload Hero Media 1"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Hero Media (Foto / Video) 2</label>
+          {heroImage2 && (
+            <div className="w-full h-40 relative rounded-md overflow-hidden mb-4">
+              {heroImage2.endsWith('.mp4') || heroImage2.endsWith('.mov') || heroImage2.endsWith('.webm') ? (
+                <video src={heroImage2} className="w-full h-full object-cover" controls />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={heroImage2} alt="Hero 2" className="w-full h-full object-cover" />
+              )}
+            </div>
+          )}
+          <CloudinaryUploader 
+            onUploadSuccess={(url) => setHeroImage2(url)} 
+            label="Upload Hero Media 2"
           />
         </div>
       </div>
