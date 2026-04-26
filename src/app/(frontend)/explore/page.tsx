@@ -92,7 +92,7 @@ export default function ExploreToolsPage() {
 
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 space-y-12 z-10 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-16 pb-12 space-y-12 z-10 relative">
 
         {/* TOOL 1: Magic Links Demo */}
         <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
