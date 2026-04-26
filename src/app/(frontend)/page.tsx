@@ -7,10 +7,9 @@ export const dynamic = 'force-dynamic'
 export default function Home() {
   return (
     <main className="flex-1 bg-[#fdfbf7] dark:bg-[#0a0a0a] overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="relative min-h-[95vh] flex flex-col items-center justify-between text-white pt-24 pb-32">
-        <div className="absolute inset-0 opacity-90 overflow-hidden">
-          {/* Note: The user needs to add chimi.jpg to the public directory */}
+      {/* Shared Background for Hero and Slider */}
+      <div className="relative w-full">
+        <div className="absolute inset-0 opacity-90 overflow-hidden pointer-events-none">
           <Image
             src="/chimi.jpg"
             alt="Elite Jumper Chimi"
@@ -18,46 +17,69 @@ export default function Home() {
             priority
             className="object-cover object-top"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/40 to-[#fdfbf7] dark:to-[#0a0a0a]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-[#fdfbf7] dark:to-[#0a0a0a]"></div>
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6 md:space-y-8 w-full mt-4 md:mt-[2vh] mb-auto">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-4">
-            <span className="w-2 h-2 bg-accent-light rounded-full animate-pulse"></span>
-            <span className="text-accent-light uppercase tracking-[0.3em] text-xs sm:text-sm md:text-base font-bold">
-              Invest in Elite Showjumpers
+        {/* Hero Section */}
+        <section className="relative min-h-[95vh] flex flex-col items-center justify-between text-white pt-24 pb-32">
+          <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6 md:space-y-8 w-full mt-4 md:mt-[2vh] mb-auto">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-4">
+              <span className="w-2 h-2 bg-accent-light rounded-full animate-pulse"></span>
+              <span className="text-accent-light uppercase tracking-[0.3em] text-xs sm:text-sm md:text-base font-bold">
+                Invest in Elite Showjumpers
+              </span>
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-serif text-white leading-[1.1] tracking-tight">
+              High-yield returns from world-class <span className="text-accent-light italic">equestrian talent.</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl font-medium text-white/80 max-w-2xl mx-auto leading-relaxed">
+              Securing high-yield returns through the acquisition of world-class equestrian talent.
+            </p>
+            
+            <div className="pt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/horses"
+                className="bg-accent text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-primary transition-all shadow-xl"
+              >
+                View Portfolio
+              </Link>
+              <Link
+                href="/investors"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white/20 transition-all shadow-xl"
+              >
+                Want to invest
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex flex-col items-center justify-end opacity-80 mt-12 md:mt-auto pb-8 md:pb-12">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-4 block">
+              Scroll to explore
             </span>
+            <div className="flex flex-col items-center">
+              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2 mb-2">
+                <div className="w-1.5 h-2.5 bg-accent-light rounded-full animate-bounce"></div>
+              </div>
+              <svg 
+                className="w-4 h-4 text-white/50 animate-pulse mt-1" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </div>
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-serif text-white leading-[1.1] tracking-tight">
-            High-yield returns from world-class <span className="text-accent-light italic">equestrian talent.</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl font-medium text-white/80 max-w-2xl mx-auto leading-relaxed">
-            Securing high-yield returns through the acquisition of world-class equestrian talent.
-          </p>
-          
-          <div className="pt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/horses"
-              className="bg-accent text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-primary transition-all shadow-xl"
-            >
-              View Portfolio
-            </Link>
-            <Link
-              href="/investors"
-              className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white/20 transition-all shadow-xl"
-            >
-              Want to invest
-            </Link>
-          </div>
-        </div>
+        </section>
 
-        <ScrollLogo />
-      </section>
-
-      {/* Explore the Sport Portfolio */}
-      <PortfolioSlideshowPreview />
+        {/* Explore the Sport Portfolio */}
+        <PortfolioSlideshowPreview />
+      </div>
 
       {/* Want to Invest CTA - Floating Card */}
       <section className="pt-8 pb-10 relative z-20">

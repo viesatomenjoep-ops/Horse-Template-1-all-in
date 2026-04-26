@@ -63,19 +63,19 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 mb-8 md:mb-12">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              <span className="text-accent uppercase tracking-[0.2em] text-xs font-bold">Premium Assets</span>
+            <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white/10 border border-white/20 rounded-full">
+              <span className="w-2 h-2 bg-accent-light rounded-full animate-pulse"></span>
+              <span className="text-white uppercase tracking-[0.2em] text-xs font-bold">Premium Assets</span>
             </div>
             <Link href="/horses" className="inline-block group">
-              <h2 className="text-3xl md:text-5xl font-serif text-primary dark:text-white tracking-tight group-hover:opacity-80 transition-opacity">
-                Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
+              <h2 className="text-3xl md:text-5xl font-serif text-white tracking-tight group-hover:opacity-80 transition-opacity drop-shadow-md">
+                Explore the <span className="italic text-accent-light font-light">Sport Portfolio</span>
               </h2>
             </Link>
           </div>
           
           <div className="flex items-center gap-6">
-            <Link href="/horses" className="hidden sm:flex items-center gap-3 px-6 py-3 bg-primary dark:bg-white text-white dark:text-primary rounded-full text-sm font-bold uppercase tracking-widest hover:scale-105 hover:shadow-lg transition-all group">
+            <Link href="/horses" className="hidden sm:flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full text-sm font-bold uppercase tracking-widest hover:scale-105 hover:bg-white/20 transition-all group shadow-xl">
               View Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
