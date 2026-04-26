@@ -29,6 +29,7 @@ export default function AdminSidebar() {
 
   const allNavItems = [
     { id: 'overview', href: '/admin', icon: LayoutDashboard, label: 'Overview' },
+    { id: 'pages', href: '/admin/pages/investors', icon: Globe, label: 'Website Content' },
     { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Bezoeken (Nieuw)' },
     { id: 'horses', href: '/admin/horses', icon: Database, label: 'Horses' },
     { id: 'references', href: '/admin/references', icon: Camera, label: 'References' },
@@ -38,7 +39,6 @@ export default function AdminSidebar() {
     { id: 'staff', href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { id: 'team', href: '/admin/team', icon: UserCircle, label: 'Team' },
     { id: 'news', href: '/admin/news', icon: Newspaper, label: 'News' },
-    { id: 'pages', href: '/admin/pages/investors', icon: Globe, label: 'Website Content' },
     { id: 'settings', href: '/admin/settings', icon: Settings, label: 'Settings' },
   ]
 
