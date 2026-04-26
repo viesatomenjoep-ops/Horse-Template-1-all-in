@@ -12,6 +12,12 @@
   
   --font-sans: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-quicksand), ui-serif, Georgia, serif;
+  
+  --animate-shimmer: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(200%); }
 }
 
 :root {
