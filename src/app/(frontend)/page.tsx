@@ -51,14 +51,28 @@ export default function Home() {
               >
                 Want to invest
               </Link>
+            </div>
           </div>
-          
-          <div className="relative z-10 flex flex-col items-center justify-end opacity-70 mt-12 md:mt-auto pb-4 md:pb-8">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-3 block">
+
+          <div className="relative z-10 flex flex-col items-center justify-end opacity-80 mt-12 md:mt-auto pb-8 md:pb-12">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-4 block">
               Scroll to explore
             </span>
-            <div className="w-[2px] h-24 md:h-32 bg-white/20 relative overflow-hidden rounded-full mb-[-2rem] md:mb-[-4rem]">
-              <div className="w-full h-1/4 bg-white/90 shadow-[0_0_10px_rgba(255,255,255,1)] absolute top-0 left-0 rounded-full" style={{ animation: "mouse-scroll 2s ease-in-out infinite" }}></div>
+            <div className="flex flex-col items-center">
+              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2 mb-2">
+                <div className="w-1.5 h-2.5 bg-accent-light rounded-full animate-bounce"></div>
+              </div>
+              <svg 
+                className="w-4 h-4 text-white/50 animate-pulse mt-1" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
             </div>
           </div>
         </section>
