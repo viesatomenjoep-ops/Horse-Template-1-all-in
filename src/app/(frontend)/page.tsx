@@ -60,14 +60,113 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Explore the Sport Portfolio */}
+      <PortfolioSlideshowPreview />
+
+      {/* References Section */}
+      <ReferencesPreview />
+
+      {/* Want to Invest CTA */}
+      <section className="py-32 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-transparent"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-6xl font-serif text-white mb-6">Want to <span className="text-accent italic">Invest?</span></h2>
+            <p className="text-xl text-white/80 mb-10 leading-relaxed">
+              Join Equivest Worldwide and become part of an exclusive network of investors acquiring elite equestrian talent. Our proven track record and data-driven approach maximize both sport success and financial returns.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/investors" className="bg-accent text-white px-8 py-4 font-bold uppercase tracking-widest text-center hover:bg-white hover:text-primary transition-all shadow-2xl">
+                Become an Investor
+              </Link>
+              <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 font-bold uppercase tracking-widest text-center hover:bg-white/10 transition-all backdrop-blur-sm">
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Latest News Section */}
       <LatestNewsPreview />
     </main>
   );
 }
 
-// Add a component at the bottom of the file to fetch and show news
 import { getNewsArticles } from '@/app/actions/news'
+import { getHorses } from '@/app/actions/horse'
+import { getReferences } from '@/app/actions/reference'
+import HorseSlideshow from '@/components/frontend/HorseSlideshow'
+
+async function PortfolioSlideshowPreview() {
+  let horses = [];
+  try {
+    horses = await getHorses() || [];
+  } catch (e) {
+    console.error(e);
+  }
+  return <HorseSlideshow horses={horses} />;
+}
+
+async function ReferencesPreview() {
+  let references = [];
+  try {
+    references = await getReferences() || [];
+    references = references.slice(0, 3); // Take top 3
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (references.length === 0) return null;
+
+  return (
+    <section className="py-24 bg-white dark:bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Proven Success</span>
+          <h2 className="text-4xl md:text-5xl font-serif text-primary dark:text-white">
+            Global <span className="italic text-accent">References</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {references.map((ref: any) => (
+            <Link href="/references" key={ref.id} className="group cursor-pointer">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-xl">
+                {ref.image_url ? (
+                  <Image 
+                    src={ref.image_url} 
+                    alt={ref.horse_name} 
+                    fill 
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                    <Trophy className="text-gray-400 w-12 h-12" />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80"></div>
+                <div className="absolute bottom-0 left-0 w-full p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <h3 className="text-2xl font-serif font-bold mb-1 group-hover:text-accent transition-colors">{ref.horse_name}</h3>
+                  <p className="text-sm text-white/80 uppercase tracking-widest">{ref.sold_to_country}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <Link href="/references" className="inline-flex items-center gap-2 text-primary dark:text-white font-bold uppercase tracking-widest hover:text-accent transition-colors group">
+            View All References <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Add a component at the bottom of the file to fetch and show news
 
 async function LatestNewsPreview() {
   let articles = [];
