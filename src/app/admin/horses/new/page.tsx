@@ -114,12 +114,12 @@ export default function NewHorsePage() {
             </div>
 
             <div className="col-span-2 sm:col-span-1">
-              <label htmlFor="discipline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Discipline *</label>
+              <label htmlFor="discipline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Discipline / Category *</label>
               <select required name="discipline" id="discipline" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
-                <option value="Dressage">Dressage</option>
-                <option value="Showjumping">Showjumping</option>
-                <option value="Hunter">Hunter</option>
-                <option value="Eventing">Eventing</option>
+                <option value="Jumping horses">Jumping horses</option>
+                <option value="Hunters">Hunters</option>
+                <option value="Equitation horses">Equitation horses</option>
+                <option value="Ponies">Ponies</option>
               </select>
             </div>
 

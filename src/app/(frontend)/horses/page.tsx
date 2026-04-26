@@ -6,7 +6,10 @@ import { logoutAction } from '@/app/actions/auth'
 
 export const dynamic = 'force-dynamic'
 
-export default async function CollectionPage() {
+export default async function CollectionPage(props: { searchParams: Promise<{ discipline?: string }> }) {
+  const searchParams = await props.searchParams
+  const selectedDiscipline = searchParams?.discipline || 'All'
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   const isLoggedIn = !!user
@@ -21,9 +24,16 @@ export default async function CollectionPage() {
     errorMsg = error.message;
   }
 
+  // Filter horses by discipline if selected
+  const displayedHorses = selectedDiscipline === 'All' 
+    ? horses 
+    : horses.filter((h: any) => h.discipline === selectedDiscipline)
+
+  const disciplines = ['All', 'Jumping horses', 'Hunters', 'Equitation horses', 'Ponies']
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col border-b border-gray-200 dark:border-gray-800 pb-6 mb-8 gap-4">
+      <div className="flex flex-col border-b border-gray-200 dark:border-gray-800 pb-6 mb-8 gap-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <h1 className="text-4xl font-serif font-bold tracking-tight text-primary dark:text-white">The Collection</h1>
@@ -46,13 +56,28 @@ export default async function CollectionPage() {
               </div>
             )}
           </div>
-          {/* Placeholder for Advanced Filtering Sidebar toggle */}
-          <button className="text-sm font-medium text-secondary dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors whitespace-nowrap">Filters</button>
+        </div>
+
+        {/* Category Selector */}
+        <div className="flex flex-wrap items-center gap-2">
+          {disciplines.map(disc => (
+            <Link 
+              key={disc} 
+              href={disc === 'All' ? '/horses' : `/horses?discipline=${encodeURIComponent(disc)}`}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                selectedDiscipline === disc 
+                  ? 'bg-primary text-white dark:bg-white dark:text-gray-900' 
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+              }`}
+            >
+              {disc}
+            </Link>
+          ))}
         </div>
 
         {!isLoggedIn && (
           <div className="mt-2">
-            <Link href="/login" className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-bold rounded-md text-white bg-accent hover:bg-primary shadow-sm transition-colors">
+            <Link href="/investor-login" className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-bold rounded-md text-white bg-accent hover:bg-primary shadow-sm transition-colors">
               Log in to explore tailored investment opportunities
             </Link>
           </div>
@@ -65,12 +90,12 @@ export default async function CollectionPage() {
             <p className="font-bold">Database Error:</p>
             <p>{errorMsg}</p>
           </div>
-        ) : horses.length === 0 ? (
+        ) : displayedHorses.length === 0 ? (
           <div className="col-span-full py-12 text-center text-gray-500">
-            No horses available at the moment.
+            No horses found for this category.
           </div>
         ) : (
-          horses.map((horse: any) => (
+          displayedHorses.map((horse: any) => (
             <div key={horse.id} className="group relative">
               <div className="min-h-80 aspect-square w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center">
                 <img

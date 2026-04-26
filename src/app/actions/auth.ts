@@ -43,6 +43,33 @@ export async function login(formData: FormData) {
   redirect('/admin')
 }
 
+export async function investorLogin(formData: FormData) {
+  const supabase = await createClient()
+
+  let rawUsername = formData.get('username') as string
+  let email = rawUsername
+  
+  // Format username to email if it's not an email
+  if (!email.includes('@')) {
+    // Turn "Equivest 11" into "equivest11@equivest.com"
+    email = rawUsername.toLowerCase().replace(/\s+/g, '') + '@equivest.com'
+  }
+
+  const data = {
+    email,
+    password: formData.get('password') as string,
+  }
+
+  const { error } = await supabase.auth.signInWithPassword(data)
+
+  if (error) {
+    redirect(`/investor-login?error=${encodeURIComponent("Invalid username or password.")}`)
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/horses') // Redirect to portfolio
+}
+
 export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
