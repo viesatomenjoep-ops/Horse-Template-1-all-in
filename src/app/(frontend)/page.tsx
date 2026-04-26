@@ -22,8 +22,8 @@ export default function Home() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative min-h-[180vh] flex flex-col items-center justify-start text-white pt-32 pb-32">
-          <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6 md:space-y-8 w-full mt-4 md:mt-12 mb-16">
+        <section className="relative min-h-[180vh] flex flex-col items-center justify-start text-white pt-24 pb-32">
+          <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6 md:space-y-8 w-full mt-6 md:mt-8 mb-16">
             <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-4">
               <span className="w-2 h-2 bg-accent-light rounded-full animate-pulse"></span>
               <span className="text-accent-light uppercase tracking-[0.3em] text-xs sm:text-sm md:text-base font-bold">
