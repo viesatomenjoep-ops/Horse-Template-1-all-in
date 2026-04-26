@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar, Globe } from 'lucide-react'
+import { LayoutDashboard, Database, Users, UserCircle, Newspaper, Settings, LogOut, Home, Menu, X, Camera, ClipboardList, FileText, Calendar, Globe, MessageSquare } from 'lucide-react'
 
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/actions/auth'
@@ -36,6 +36,7 @@ export default function AdminSidebar() {
     { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Inventory' },
     { id: 'quotes', href: '/admin/quotes', icon: FileText, label: 'Quotes & Orders' },
     { id: 'crm', href: '/admin/crm', icon: Users, label: 'Customers (CRM)' },
+    { id: 'linkedin', href: '/admin/linkedin', icon: MessageSquare, label: 'LinkedIn Outreach' },
     { id: 'staff', href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { id: 'team', href: '/admin/team', icon: UserCircle, label: 'Team' },
     { id: 'news', href: '/admin/news', icon: Newspaper, label: 'News' },
