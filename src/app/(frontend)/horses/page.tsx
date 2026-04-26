@@ -1,6 +1,8 @@
 import { getPublicHorses } from '@/app/actions/horse'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 export default async function CollectionPage() {
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
   let horses = [];

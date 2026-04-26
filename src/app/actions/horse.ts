@@ -12,10 +12,20 @@ export async function getHorses() {
 }
 
 export async function getPublicHorses() {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase.from('horses').select('*').eq('category', 'sales').order('created_at', { ascending: false })
-  if (error) throw new Error(error.message)
-  return data
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (user) {
+    // If logged in (investor/admin), show ALL horses on the public page too
+    const { data, error } = await supabase.from('horses').select('*').order('created_at', { ascending: false })
+    if (error) throw new Error(error.message)
+    return data
+  } else {
+    // If not logged in, only show sales horses
+    const { data, error } = await supabase.from('horses').select('*').eq('category', 'sales').order('created_at', { ascending: false })
+    if (error) throw new Error(error.message)
+    return data
+  }
 }
 
 export async function getInvestmentHorses() {
