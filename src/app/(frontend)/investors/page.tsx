@@ -105,6 +105,9 @@ export default async function InvestorsPage() {
             <Link href="/contact" className="px-8 py-4 bg-accent text-white font-bold rounded-full hover:bg-white hover:text-accent transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
               Request Investment Deck <ArrowRight size={20} />
             </Link>
+            <Link href="/investors/portfolio" className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+              View Private Portfolio
+            </Link>
           </div>
         </div>
       </div>

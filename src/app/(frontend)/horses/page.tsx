@@ -1,11 +1,11 @@
-import { getHorses } from '@/app/actions/horse'
+import { getPublicHorses } from '@/app/actions/horse'
 import Link from 'next/link'
 
 export default async function CollectionPage() {
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
   let horses = [];
   try {
-    horses = await getHorses() || [];
+    horses = await getPublicHorses() || [];
   } catch (error) {
     console.error("Supabase not configured yet. Using placeholder data.");
   }

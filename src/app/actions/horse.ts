@@ -11,6 +11,24 @@ export async function getHorses() {
   return data
 }
 
+export async function getPublicHorses() {
+  const supabase = createPublicClient()
+  const { data, error } = await supabase.from('horses').select('*').eq('category', 'sales').order('created_at', { ascending: false })
+  if (error) throw new Error(error.message)
+  return data
+}
+
+export async function getInvestmentHorses() {
+  // Requires user auth to view investment horses
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized: Only for private investors")
+
+  const { data, error } = await supabase.from('horses').select('*').eq('category', 'investment').order('created_at', { ascending: false })
+  if (error) throw new Error(error.message)
+  return data
+}
+
 export async function getHorse(id: string) {
   const supabase = createPublicClient()
   
@@ -42,6 +60,7 @@ export async function createHorse(formData: FormData) {
   
   const rawData = {
     name: formData.get('name') as string,
+    category: formData.get('category') as string || 'sales',
     price_category: formData.get('price_category') as string,
     birth_year: parseInt(formData.get('birth_year') as string),
     gender: formData.get('gender') as string,
@@ -93,6 +112,7 @@ export async function updateHorse(id: string, formData: FormData) {
   
   const rawData: any = {
     name: formData.get('name') as string,
+    category: formData.get('category') as string || 'sales',
     price_category: formData.get('price_category') as string,
     birth_year: parseInt(formData.get('birth_year') as string),
     gender: formData.get('gender') as string,
