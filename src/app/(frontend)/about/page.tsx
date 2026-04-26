@@ -36,8 +36,13 @@ export default async function AboutPage() {
             </p>
           </div>
           <div className="h-64 sm:h-96 w-full relative mt-12 bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
-            {/* Placeholder for a luxury image */}
-            <span className="text-gray-400 dark:text-gray-600 font-medium tracking-widest uppercase">Luxury Brand Image</span>
+            <Image 
+              src="/wellington_showjumper.png" 
+              alt="Professional showjumper in Wellington" 
+              fill 
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </div>
