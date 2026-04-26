@@ -1,8 +1,9 @@
 import { getPublicHorses } from '@/app/actions/horse'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { ShieldCheck, Eye } from 'lucide-react'
-import { logoutAction } from '@/app/actions/auth'
+import { logout } from '@/app/actions/auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,6 +14,10 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   const isLoggedIn = !!user
+
+  if (!isLoggedIn) {
+    redirect('/investor-login')
+  }
 
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
   let horses = [];
@@ -43,7 +48,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
                   <ShieldCheck size={16} className="mr-2" />
                   Investor Access: Full Collection Unlocked
                 </div>
-                <form action={logoutAction}>
+                <form action={logout}>
                   <button type="submit" className="text-sm font-bold text-accent hover:text-primary transition-colors underline decoration-2 underline-offset-4">
                     Logout as an investor
                   </button>
