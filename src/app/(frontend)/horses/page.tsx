@@ -8,6 +8,12 @@ import { logout } from '@/app/actions/auth'
 
 export const dynamic = 'force-dynamic'
 
+export const metadata = {
+  title: 'Elite Sport Horses for Sale | Jumpers & Hunters Belgium | Equivest',
+  description: 'Explore our exclusive collection of premium sport horses, jumpers, hunters, and equitation horses in Belgium. Secure high-yield equestrian investments.',
+  keywords: 'sport horses Belgium, invest in sport horses, sport horses, jumpers, hunters, equitation horse, horses for sale'
+}
+
 export default async function CollectionPage(props: { searchParams: Promise<{ discipline?: string }> }) {
   const searchParams = await props.searchParams
   const selectedDiscipline = searchParams?.discipline || 'All'
@@ -130,6 +136,14 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
             </div>
           ))
         )}
+      </div>
+
+      {/* SEO Section */}
+      <div className="mt-24 pt-12 border-t border-gray-200 dark:border-gray-800">
+        <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">Invest in Premium Sport Horses</h2>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm max-w-4xl">
+          Equivest Worldwide is your premier destination to <strong>invest in sport horses</strong>. Based out of the heart of equestrian excellence, we specialize in sourcing and developing the most elite <strong>sport horses Belgium</strong> has to offer. Whether you are looking for top-tier <strong>jumpers</strong> to compete at the highest international levels, meticulously trained <strong>hunters</strong> with perfect form, or a highly reliable <strong>equitation horse</strong>, our portfolio represents the absolute pinnacle of equestrian talent. We believe that investing in <strong>sport horses</strong> is more than just a passion—it is a strategic, high-yield alternative asset class. Our expert team ensures that every horse in our collection undergoes rigorous vetting and training to secure both competitive success and strong financial returns.
+        </p>
       </div>
     </div>
   )

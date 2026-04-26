@@ -8,8 +8,17 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Equivest | Premium Sport Horses",
-  description: "High-end sport horse trading platform and CMS.",
+  title: "Equivest | Invest in Premium Sport Horses & Jumpers in Belgium",
+  description: "Equivest is the premier platform to invest in elite sport horses, hunters, jumpers, and equitation horses in Belgium. Discover top-tier equestrian investments.",
+  keywords: "sport horses Belgium, invest in sport horses, sport horses, jumpers, hunters, equitation horse, elite showjumpers, equestrian investments",
+  openGraph: {
+    title: "Equivest | Premium Sport Horses & Equestrian Investments",
+    description: "Invest in elite sport horses, hunters, and jumpers in Belgium.",
+    url: "https://www.equivestworldwide.com",
+    siteName: "Equivest Worldwide",
+    type: "website",
+  },
+  robots: "index, follow",
 };
 
 import Script from "next/script";
