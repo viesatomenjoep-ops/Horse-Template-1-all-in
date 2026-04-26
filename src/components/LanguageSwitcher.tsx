@@ -12,7 +12,7 @@ const LANGUAGES = [
 
 export default function LanguageSwitcher({ expandDirection = 'down' }: { expandDirection?: 'down' | 'left' }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [currentLang, setCurrentLang] = useState('nl')
+  const [currentLang, setCurrentLang] = useState('en')
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
     setCurrentLang(code);
     setIsOpen(false);
 
-    if (code === 'nl') {
+    if (code === 'en') {
       // Clear the cookie to revert to original
       document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
       document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host};`;
@@ -77,9 +77,9 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
       select.dispatchEvent(new Event('change'));
     } else {
       // Fallback: set the cookie aggressively and reload
-      document.cookie = `googtrans=/nl/${code}; path=/;`;
-      document.cookie = `googtrans=/nl/${code}; path=/; domain=${host};`;
-      document.cookie = `googtrans=/nl/${code}; path=/; domain=.${baseHost};`;
+      document.cookie = `googtrans=/en/${code}; path=/;`;
+      document.cookie = `googtrans=/en/${code}; path=/; domain=${host};`;
+      document.cookie = `googtrans=/en/${code}; path=/; domain=.${baseHost};`;
       window.location.reload()
     }
   }

@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl">
+    <html lang="en">
       <body
         className={`${quicksand.variable} antialiased font-sans bg-background text-foreground min-h-screen flex flex-col`}
       >
@@ -29,7 +29,7 @@ export default function RootLayout({
         <Script id="google-translate-init" strategy="afterInteractive">
           {`
             function googleTranslateElementInit() {
-              new window.google.translate.TranslateElement({pageLanguage: 'nl', includedLanguages: 'nl,en,de,es', autoDisplay: false}, 'google_translate_element');
+              new window.google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,nl,de,es', autoDisplay: false}, 'google_translate_element');
             }
           `}
         </Script>
