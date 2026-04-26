@@ -22,23 +22,33 @@ export default async function CollectionPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200 dark:border-gray-800 pb-6 mb-8 gap-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <h1 className="text-4xl font-serif font-bold tracking-tight text-primary dark:text-white">The Collection</h1>
-          {isLoggedIn ? (
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 text-sm font-bold border border-green-200 dark:border-green-800/30 shadow-sm animate-fade-in">
-              <ShieldCheck size={16} className="mr-2" />
-              Investor Access: Full Collection Unlocked
-            </div>
-          ) : (
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-sm font-medium border border-gray-200 dark:border-gray-700 shadow-sm">
-              <Eye size={16} className="mr-2" />
-              Public Access: Viewing Sales Horses
-            </div>
-          )}
+      <div className="flex flex-col border-b border-gray-200 dark:border-gray-800 pb-6 mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <h1 className="text-4xl font-serif font-bold tracking-tight text-primary dark:text-white">The Collection</h1>
+            {isLoggedIn ? (
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 text-sm font-bold border border-green-200 dark:border-green-800/30 shadow-sm animate-fade-in">
+                <ShieldCheck size={16} className="mr-2" />
+                Investor Access: Full Collection Unlocked
+              </div>
+            ) : (
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-sm font-medium border border-gray-200 dark:border-gray-700 shadow-sm">
+                <Eye size={16} className="mr-2" />
+                Public Access: Viewing Sales Horses
+              </div>
+            )}
+          </div>
+          {/* Placeholder for Advanced Filtering Sidebar toggle */}
+          <button className="text-sm font-medium text-secondary dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors whitespace-nowrap">Filters</button>
         </div>
-        {/* Placeholder for Advanced Filtering Sidebar toggle */}
-        <button className="text-sm font-medium text-secondary dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors whitespace-nowrap">Filters</button>
+
+        {!isLoggedIn && (
+          <div className="mt-2">
+            <Link href="/login" className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-bold rounded-md text-white bg-accent hover:bg-primary shadow-sm transition-colors">
+              Login as an investor to see inventory
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
