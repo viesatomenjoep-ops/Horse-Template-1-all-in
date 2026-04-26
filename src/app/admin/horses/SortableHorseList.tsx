@@ -10,13 +10,22 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
   const [horses, setHorses] = useState(initialHorses)
   const [isSaving, setIsSaving] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const [activeFilter, setActiveFilter] = useState('All')
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
+  const displayedHorses = activeFilter === 'All' 
+    ? horses 
+    : horses.filter((h: any) => h.discipline === activeFilter)
+
   const handleDragEnd = async (result: any) => {
     if (!result.destination) return
+    if (activeFilter !== 'All') {
+      alert("Please set the filter to 'All' to reorder horses.")
+      return
+    }
 
     const sourceIndex = result.source.index
     const destinationIndex = result.destination.index
@@ -45,10 +54,29 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
     return null
   }
 
+  const disciplines = ['All', 'Jumping horses', 'Hunters', 'Equitation horses', 'Ponies']
+
   return (
     <div className="space-y-4">
       {isSaving && <div className="text-sm text-green-600 animate-pulse font-medium">Volgorde wordt opgeslagen...</div>}
       
+      <div className="flex flex-wrap items-center gap-2 mb-6 bg-white dark:bg-gray-800 p-2 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+        <span className="text-sm font-semibold text-gray-500 ml-2 mr-2">Filter:</span>
+        {disciplines.map(disc => (
+          <button
+            key={disc}
+            onClick={() => setActiveFilter(disc)}
+            className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+              activeFilter === disc 
+                ? 'bg-primary text-white shadow-md' 
+                : 'bg-gray-50 text-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+            }`}
+          >
+            {disc}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
         {/* ADD SALES HORSE CARD */}
         <Link 
@@ -83,12 +111,12 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
               ref={provided.innerRef}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
             >
-              {horses.length === 0 ? (
+              {displayedHorses.length === 0 ? (
                 <div className="col-span-full bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center text-gray-500">
                   No horses found. Click a button to begin.
                 </div>
               ) : (
-                horses.map((horse: any, index: number) => (
+                displayedHorses.map((horse: any, index: number) => (
                   <Draggable key={horse.id} draggableId={horse.id} index={index}>
                     {(provided, snapshot) => (
                       <div
