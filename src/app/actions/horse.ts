@@ -45,25 +45,34 @@ export async function getInvestmentHorses() {
 }
 
 export async function getHorse(id: string) {
-  const supabase = createPublicClient()
+  const supabase = await createClient() // Use server client so it has auth state
   
-  // Try with all relations first
-  const { data: horse, error } = await supabase
-    .from('horses')
-    .select('*, horse_media(*), horse_results(*)')
-    .eq('id', id)
-    .single()
-  
-  if (error) {
-     console.error("Relation fetch failed, falling back to basic horse fetch:", error)
-     // Fallback to basic fetch without relations if tables don't exist
-     const fallback = await supabase.from('horses').select('*').eq('id', id).single()
-     if (fallback.error) throw new Error(fallback.error.message)
-     return { ...fallback.data, media: [], horse_results: [] }
-  }
+  try {
+    // Try with all relations first
+    const { data: horse, error } = await supabase
+      .from('horses')
+      .select('*, horse_media(*), horse_results(*)')
+      .eq('id', id)
+      .limit(1)
+    
+    if (error) {
+       console.error("Relation fetch failed, falling back to basic horse fetch:", error)
+       // Fallback to basic fetch without relations if tables don't exist
+       const fallback = await supabase.from('horses').select('*').eq('id', id).limit(1)
+       if (fallback.error) {
+         console.error("Fallback error:", fallback.error)
+         return null
+       }
+       if (!fallback.data || fallback.data.length === 0) return null
+       return { ...fallback.data[0], media: [], horse_results: [] }
+    }
 
-  if (!horse) throw new Error("Horse not found")
-  return horse
+    if (!horse || horse.length === 0) return null
+    return horse[0]
+  } catch (err) {
+    console.error("Fatal error in getHorse:", err)
+    return null
+  }
 }
 
 export async function createHorse(formData: FormData) {

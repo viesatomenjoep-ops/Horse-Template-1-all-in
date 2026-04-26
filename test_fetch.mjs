@@ -1,26 +1,30 @@
 import { createClient } from '@supabase/supabase-js'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: '.env' })
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy'
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
-// fetch 1 horse ID
+
 async function test() {
-  const res = await fetch('https://equivest-platform.vercel.app/horses')
-  const html = await res.text()
-  const match = html.match(/\/horses\/([a-f0-9\-]{36})/)
-  if (match) {
-    const id = match[1]
-    console.log("Found ID:", id)
-    const detail = await fetch(`https://equivest-platform.vercel.app/horses/${id}`)
-    console.log("Detail Status:", detail.status)
-    const detailHtml = await detail.text()
-    if (detail.status === 500) {
-       console.log("500 ERROR CAUSE:")
-       console.log(detailHtml.substring(0, 1000))
+  const { data: list, error: listError } = await supabase.from('horses').select('id').limit(1)
+  console.log("List:", list, listError)
+  if (list && list.length > 0) {
+    const id = list[0].id
+    console.log("Fetching id:", id)
+    const { data: horse, error } = await supabase
+      .from('horses')
+      .select('*, horse_media(*), horse_results(*)')
+      .eq('id', id)
+      .single()
+    console.log("Horse:", horse ? 'Found' : 'Null', "Error:", error)
+    if (error) {
+      console.log("Fallback...")
+      const fallback = await supabase.from('horses').select('*').eq('id', id).single()
+      console.log("Fallback:", fallback)
     }
-  } else {
-    console.log("No ID found")
   }
 }
 test()
