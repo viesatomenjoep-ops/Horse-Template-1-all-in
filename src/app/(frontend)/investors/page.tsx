@@ -35,22 +35,22 @@ export default async function InvestorsPage() {
     <div className="bg-white dark:bg-gray-900 min-h-screen pt-24 pb-20">
       
       {/* Hero Section */}
-      <div className="relative h-[60vh] min-h-[500px] w-full flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src={hero_image || "/about-bg.jpg"}
-            alt="Hero Background"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
-        </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
-          <span className="text-accent uppercase tracking-[0.3em] font-bold text-sm mb-4 block">Exclusive Opportunity</span>
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="text-center mb-8">
+          <span className="text-accent uppercase tracking-[0.3em] font-bold text-sm mb-4 block mt-8">Exclusive Opportunity</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-primary dark:text-white mb-6 leading-tight">
             {title}
           </h1>
+        </div>
+        <div className="relative w-full rounded-2xl overflow-hidden shadow-xl bg-gray-100 dark:bg-gray-800">
+          <Image 
+            src={hero_image || "/about-bg.jpg"}
+            alt="Investment Opportunity"
+            width={1600}
+            height={900}
+            className="w-full h-auto object-contain"
+            priority
+          />
         </div>
       </div>
 
