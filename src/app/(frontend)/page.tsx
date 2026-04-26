@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Trophy, ArrowRight } from "lucide-react";
+import { Trophy, ArrowRight, Lock } from "lucide-react";
 
 export const dynamic = 'force-dynamic'
 
@@ -45,10 +45,10 @@ export default function Home() {
               View Portfolio
             </Link>
             <Link
-              href="/roi"
+              href="/investors"
               className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white/20 transition-all shadow-xl"
             >
-              ROI
+              Want to invest
             </Link>
           </div>
         </div>
@@ -80,14 +80,20 @@ export default function Home() {
             <p className="text-xl text-white/80 mb-10 leading-relaxed">
               Join Equivest Worldwide and become part of an exclusive network of investors acquiring elite equestrian talent. Our proven track record and data-driven approach maximize both sport success and financial returns.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/investors" className="bg-accent text-white px-8 py-4 font-bold uppercase tracking-widest text-center hover:bg-white hover:text-primary transition-all shadow-2xl">
-                Become an Investor
-              </Link>
-              <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 font-bold uppercase tracking-widest text-center hover:bg-white/10 transition-all backdrop-blur-sm">
+            <div className="flex flex-col sm:flex-row gap-6 items-center">
+              <a 
+                href="mailto:invest@equivestworldwide.com?subject=Private%20Portfolio%20Access%20Request&body=Hi%20Equivest%20Team,%0A%0AI%20would%20like%20to%20become%20an%20investor%20and%20request%20private%20access%20credentials%20to%20view%20the%20portfolio.%0A%0AKind%20regards,"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
+              >
+                <Lock size={18} /> Become an Investor <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+              </a>
+              <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 font-bold uppercase tracking-widest rounded-full text-center hover:bg-white/10 transition-all backdrop-blur-sm">
                 Contact Us
               </Link>
             </div>
+            <p className="text-xs text-white/50 mt-6 font-bold uppercase tracking-widest">
+              Login credentials for private access will be sent via email.
+            </p>
           </div>
         </div>
       </section>

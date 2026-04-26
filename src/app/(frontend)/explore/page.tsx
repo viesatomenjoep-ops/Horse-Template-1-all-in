@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Wand, TrendingUp, ShieldCheck, PlayCircle, Lock, ArrowRight, Search, Camera, Trophy, Dna, Calendar, FileText, CheckCircle2 } from 'lucide-react'
+import { Wand, TrendingUp, ShieldCheck, PlayCircle, Lock, ArrowRight, Search, Camera, Trophy, Dna, Calendar, FileText, CheckCircle2, Activity, FileCheck, CalendarDays, Plane, Scale, BrainCircuit } from 'lucide-react'
 import Link from 'next/link'
 
 export default function ExploreToolsPage() {
@@ -50,8 +50,17 @@ export default function ExploreToolsPage() {
       
       try {
         // Trigger actual downloads or actions to make the simulation feel real
-        if (type === 'vet' || type === 'syndicate') {
-          const text = `EQUIVEST WORLDWIDE - SECURE DOCUMENT VAULT\n==========================================\n\nDocument: ${type === 'vet' ? 'Confidential Veterinary Report & X-Rays Summary' : 'Syndicate Valuation & ROI Prospectus'}\nDate Generated: ${new Date().toLocaleString()}\nSecurity Token: EQV-${Math.random().toString(36).substring(2, 10).toUpperCase()}\n\nThis is a securely generated document demonstrating the Equivest Magic Link capabilities. All data is encrypted and watermarked.\n\n© 2026 Equivest Portfolio Management`;
+        if (type === 'vet' || type === 'syndicate' || ['insurance', 'training', 'transport', 'contracts', 'biometrics'].includes(type)) {
+          const titles: Record<string, string> = {
+            vet: 'Confidential Veterinary Report & X-Rays Summary',
+            syndicate: 'Syndicate Valuation & ROI Prospectus',
+            insurance: 'Equine Insurance Policy Document',
+            training: 'Weekly Training & Fitness Regimen',
+            transport: 'International Flight & Quarantine Itinerary',
+            contracts: 'Ownership Syndication Agreement',
+            biometrics: 'AI Biometric Jump Analysis Data'
+          };
+          const text = `EQUIVEST WORLDWIDE - SECURE DOCUMENT VAULT\n==========================================\n\nDocument: ${titles[type] || 'Secure Document'}\nDate Generated: ${new Date().toLocaleString()}\nSecurity Token: EQV-${Math.random().toString(36).substring(2, 10).toUpperCase()}\n\nThis is a securely generated document demonstrating the Equivest Magic Link capabilities. All data is encrypted and watermarked.\n\n© 2026 Equivest Portfolio Management`;
           const blob = new Blob([text], { type: 'text/plain' });
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
@@ -155,7 +164,7 @@ export default function ExploreToolsPage() {
 
 
 
-              {/* 6. DNA & Pedigree */}
+              {/* 5. DNA & Pedigree */}
               <div 
                 onClick={() => handleMagicLinkClick('pedigree')}
                 className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'pedigree' ? 'border-orange-500 bg-orange-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-orange-500 hover:-translate-y-1 hover:shadow-xl'}`}
@@ -165,6 +174,71 @@ export default function ExploreToolsPage() {
                 </div>
                 <h4 className="font-bold text-gray-900 dark:text-white mb-2">Pedigree</h4>
                 <p className="text-xs text-gray-500 mb-4 flex-grow">DNA verified</p>
+                <Lock size={16} className="text-gray-400 mt-auto" />
+              </div>
+
+              {/* 6. AI Biometrics */}
+              <div 
+                onClick={() => handleMagicLinkClick('biometrics')}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'biometrics' ? 'border-cyan-500 bg-cyan-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-cyan-500 hover:-translate-y-1 hover:shadow-xl'}`}
+              >
+                <div className="w-14 h-14 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:bg-cyan-500/20 transition-colors">
+                  <BrainCircuit size={28} className="text-cyan-600 dark:text-cyan-400" />
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Biometrics</h4>
+                <p className="text-xs text-gray-500 mb-4 flex-grow">AI Jump Analysis</p>
+                <Lock size={16} className="text-gray-400 mt-auto" />
+              </div>
+
+              {/* 7. Insurance Vault */}
+              <div 
+                onClick={() => handleMagicLinkClick('insurance')}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'insurance' ? 'border-rose-500 bg-rose-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-rose-500 hover:-translate-y-1 hover:shadow-xl'}`}
+              >
+                <div className="w-14 h-14 rounded-full bg-rose-500/10 flex items-center justify-center mb-4 group-hover:bg-rose-500/20 transition-colors">
+                  <FileCheck size={28} className="text-rose-600 dark:text-rose-400" />
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Insurance</h4>
+                <p className="text-xs text-gray-500 mb-4 flex-grow">Policy documents</p>
+                <Lock size={16} className="text-gray-400 mt-auto" />
+              </div>
+
+              {/* 8. Training Regimen */}
+              <div 
+                onClick={() => handleMagicLinkClick('training')}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'training' ? 'border-indigo-500 bg-indigo-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 hover:-translate-y-1 hover:shadow-xl'}`}
+              >
+                <div className="w-14 h-14 rounded-full bg-indigo-500/10 flex items-center justify-center mb-4 group-hover:bg-indigo-500/20 transition-colors">
+                  <Activity size={28} className="text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Training</h4>
+                <p className="text-xs text-gray-500 mb-4 flex-grow">Fitness schedule</p>
+                <Lock size={16} className="text-gray-400 mt-auto" />
+              </div>
+
+              {/* 9. Transport Logistics */}
+              <div 
+                onClick={() => handleMagicLinkClick('transport')}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'transport' ? 'border-amber-500 bg-amber-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-amber-500 hover:-translate-y-1 hover:shadow-xl'}`}
+              >
+                <div className="w-14 h-14 rounded-full bg-amber-500/10 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
+                  <Plane size={28} className="text-amber-600 dark:text-amber-400" />
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Transport</h4>
+                <p className="text-xs text-gray-500 mb-4 flex-grow">Global logistics</p>
+                <Lock size={16} className="text-gray-400 mt-auto" />
+              </div>
+
+              {/* 10. Legal Contracts */}
+              <div 
+                onClick={() => handleMagicLinkClick('contracts')}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'contracts' ? 'border-slate-500 bg-slate-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-slate-500 hover:-translate-y-1 hover:shadow-xl'}`}
+              >
+                <div className="w-14 h-14 rounded-full bg-slate-500/10 flex items-center justify-center mb-4 group-hover:bg-slate-500/20 transition-colors">
+                  <Scale size={28} className="text-slate-600 dark:text-slate-400" />
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Contracts</h4>
+                <p className="text-xs text-gray-500 mb-4 flex-grow">Ownership docs</p>
                 <Lock size={16} className="text-gray-400 mt-auto" />
               </div>
             </div>
@@ -277,6 +351,107 @@ export default function ExploreToolsPage() {
                     }`}
                   >
                     {actionState['pedigree'] === 'loading' ? 'Loading Database...' : actionState['pedigree'] || 'View Interactive Family Tree'}
+                  </button>
+                </div>
+              ) : activeMagicLink === 'biometrics' ? (
+                 <div className="relative z-10 w-full max-w-md bg-gradient-to-br from-cyan-900/50 to-gray-900 border border-cyan-500/30 rounded-3xl p-8 shadow-2xl animate-fade-in mt-[-5vh]">
+                  <div className="flex items-center mb-6">
+                    <BrainCircuit size={32} className="text-cyan-400 mr-4" />
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">AI Biometrics</h3>
+                      <p className="text-cyan-400 text-sm uppercase tracking-widest">Jump Analysis</p>
+                    </div>
+                  </div>
+                  <div className="space-y-4 mb-8">
+                    <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                      <div className="flex justify-between text-sm mb-2"><span className="text-gray-300">Takeoff Power</span><span className="text-cyan-400 font-bold">98th Percentile</span></div>
+                      <div className="w-full bg-gray-800 rounded-full h-1.5"><div className="bg-cyan-500 h-1.5 rounded-full w-[98%]"></div></div>
+                    </div>
+                    <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                      <div className="flex justify-between text-sm mb-2"><span className="text-gray-300">Clearance Height</span><span className="text-cyan-400 font-bold">1.65m</span></div>
+                      <div className="w-full bg-gray-800 rounded-full h-1.5"><div className="bg-cyan-500 h-1.5 rounded-full w-[90%]"></div></div>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => handleActionClick('biometrics', 'Full Report Downloaded ✅')}
+                    disabled={!!actionState['biometrics']}
+                    className={`w-full py-4 text-white rounded-xl font-bold transition-all ${
+                      actionState['biometrics'] ? 'bg-cyan-700' : 'bg-cyan-600 hover:bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]'
+                    }`}
+                  >
+                    {actionState['biometrics'] === 'loading' ? 'Generating Model...' : actionState['biometrics'] || 'Download 3D Analysis'}
+                  </button>
+                </div>
+              ) : activeMagicLink === 'insurance' ? (
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
+                  <div className="w-20 h-20 mx-auto bg-rose-500/20 rounded-full flex items-center justify-center mb-6">
+                    <FileCheck size={40} className="text-rose-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Policy Vault</h3>
+                  <p className="text-gray-300 mb-8">Access the fully underwritten equine mortality and medical insurance policy documents.</p>
+                  <button 
+                    onClick={() => handleActionClick('insurance', 'Policy PDF Downloaded ✅')}
+                    disabled={!!actionState['insurance']}
+                    className={`w-full py-4 text-white rounded-xl font-bold shadow-lg transition-all ${
+                      actionState['insurance'] === 'loading' ? 'bg-gray-600' : 
+                      actionState['insurance'] ? 'bg-rose-700' : 'bg-rose-600 hover:bg-rose-500 hover:scale-105 active:scale-95'
+                    }`}
+                  >
+                    {actionState['insurance'] === 'loading' ? 'Decrypting...' : actionState['insurance'] || 'View Policy Documents'}
+                  </button>
+                </div>
+              ) : activeMagicLink === 'training' ? (
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
+                  <div className="w-20 h-20 mx-auto bg-indigo-500/20 rounded-full flex items-center justify-center mb-6">
+                    <Activity size={40} className="text-indigo-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Training Log</h3>
+                  <p className="text-gray-300 mb-8">Live sync with the stable manager's weekly regimen, including nutrition, farrier visits, and flatwork routines.</p>
+                  <button 
+                    onClick={() => handleActionClick('training', 'Regimen Exported ✅')}
+                    disabled={!!actionState['training']}
+                    className={`w-full py-4 text-white rounded-xl font-bold shadow-lg transition-all ${
+                      actionState['training'] === 'loading' ? 'bg-gray-600' : 
+                      actionState['training'] ? 'bg-indigo-700' : 'bg-indigo-600 hover:bg-indigo-500 hover:scale-105 active:scale-95'
+                    }`}
+                  >
+                    {actionState['training'] === 'loading' ? 'Fetching Schedule...' : actionState['training'] || 'Export Training Schedule'}
+                  </button>
+                </div>
+              ) : activeMagicLink === 'transport' ? (
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
+                  <div className="w-20 h-20 mx-auto bg-amber-500/20 rounded-full flex items-center justify-center mb-6">
+                    <Plane size={40} className="text-amber-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Logistics Tracker</h3>
+                  <p className="text-gray-300 mb-8">Track international flights, quarantine schedules, and border crossing documentation in real-time.</p>
+                  <button 
+                    onClick={() => handleActionClick('transport', 'Itinerary Downloaded ✅')}
+                    disabled={!!actionState['transport']}
+                    className={`w-full py-4 text-white rounded-xl font-bold shadow-lg transition-all ${
+                      actionState['transport'] === 'loading' ? 'bg-gray-600' : 
+                      actionState['transport'] ? 'bg-amber-700' : 'bg-amber-600 hover:bg-amber-500 hover:scale-105 active:scale-95'
+                    }`}
+                  >
+                    {actionState['transport'] === 'loading' ? 'Connecting to Tracker...' : actionState['transport'] || 'Download Flight Itinerary'}
+                  </button>
+                </div>
+              ) : activeMagicLink === 'contracts' ? (
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
+                  <div className="w-20 h-20 mx-auto bg-slate-500/20 rounded-full flex items-center justify-center mb-6">
+                    <Scale size={40} className="text-slate-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Legal Vault</h3>
+                  <p className="text-gray-300 mb-8">Securely view the syndicated ownership agreement and bill of sale. Protected by end-to-end encryption.</p>
+                  <button 
+                    onClick={() => handleActionClick('contracts', 'Contract Downloaded ✅')}
+                    disabled={!!actionState['contracts']}
+                    className={`w-full py-4 text-white rounded-xl font-bold shadow-lg transition-all ${
+                      actionState['contracts'] === 'loading' ? 'bg-gray-600' : 
+                      actionState['contracts'] ? 'bg-slate-700' : 'bg-slate-600 hover:bg-slate-500 hover:scale-105 active:scale-95'
+                    }`}
+                  >
+                    {actionState['contracts'] === 'loading' ? 'Decrypting Legal Docs...' : actionState['contracts'] || 'Unlock Contracts'}
                   </button>
                 </div>
               ) : null}
