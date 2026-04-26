@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createHorse } from '@/app/actions/horse'
 import dynamic from 'next/dynamic'
@@ -13,6 +13,15 @@ export default function NewHorsePage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [category, setCategory] = useState<string>('sales')
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const cat = searchParams.get('category')
+    if (cat === 'sales' || cat === 'investment') {
+      setCategory(cat)
+    }
+  }, [])
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -79,7 +88,7 @@ export default function NewHorsePage() {
 
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Horse Category *</label>
-              <select required name="category" id="category" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
+              <select required value={category} onChange={(e) => setCategory(e.target.value)} name="category" id="category" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
                 <option value="sales">Sales Horse (Public Inventory)</option>
                 <option value="investment">Investment Horse (Private Portfolio)</option>
               </select>
