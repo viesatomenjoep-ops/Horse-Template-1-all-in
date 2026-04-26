@@ -47,7 +47,7 @@ export async function getInvestmentHorses() {
 export async function getHorse(id: string) {
   const supabase = createPublicClient()
   
-  // Try with media first
+  // Try with all relations first
   const { data: horse, error } = await supabase
     .from('horses')
     .select('*, horse_media(*), horse_results(*)')
@@ -55,10 +55,11 @@ export async function getHorse(id: string) {
     .single()
   
   if (error) {
-     // Fallback if the media relation fails for ANY reason
-     const fallback = await supabase.from('horses').select('*, horse_results(*)').eq('id', id).single()
+     console.error("Relation fetch failed, falling back to basic horse fetch:", error)
+     // Fallback to basic fetch without relations if tables don't exist
+     const fallback = await supabase.from('horses').select('*').eq('id', id).single()
      if (fallback.error) throw new Error(fallback.error.message)
-     return { ...fallback.data, media: [] }
+     return { ...fallback.data, media: [], horse_results: [] }
   }
 
   if (!horse) throw new Error("Horse not found")
