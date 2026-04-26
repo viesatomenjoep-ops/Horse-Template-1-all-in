@@ -12,16 +12,18 @@ export default async function AdminHorsesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Horses Inventory</h1>
-        <div className="flex gap-3">
-          <Link href="/admin/horses/new?category=sales" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors text-sm font-medium">
-            <Plus size={16} />
-            Add Sales Horse
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 dark:text-white">Horses Inventory</h1>
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+          <Link href="/admin/horses/new?category=sales" className="flex-1 sm:flex-none flex justify-center items-center gap-1 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors text-xs sm:text-sm font-medium">
+            <Plus size={14} className="sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Add Sales Horse</span>
+            <span className="sm:hidden">Sales</span>
           </Link>
-          <Link href="/admin/horses/new?category=investment" className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-md hover:bg-primary transition-colors text-sm font-medium">
-            <Plus size={16} />
-            Add Investment Horse
+          <Link href="/admin/horses/new?category=investment" className="flex-1 sm:flex-none flex justify-center items-center gap-1 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-accent text-white rounded-md hover:bg-primary transition-colors text-xs sm:text-sm font-medium">
+            <Plus size={14} className="sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Add Investment Horse</span>
+            <span className="sm:hidden">Investment</span>
           </Link>
         </div>
       </div>
