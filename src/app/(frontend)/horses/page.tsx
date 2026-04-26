@@ -4,10 +4,12 @@ import Link from 'next/link'
 export default async function CollectionPage() {
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
   let horses = [];
+  let errorMsg = null;
   try {
     horses = await getPublicHorses() || [];
-  } catch (error) {
-    console.error("Supabase not configured yet. Using placeholder data.");
+  } catch (error: any) {
+    console.error("Supabase error:", error);
+    errorMsg = error.message;
   }
 
   return (
@@ -19,9 +21,14 @@ export default async function CollectionPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-        {horses.length === 0 ? (
+        {errorMsg ? (
+          <div className="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-xl">
+            <p className="font-bold">Database Error:</p>
+            <p>{errorMsg}</p>
+          </div>
+        ) : horses.length === 0 ? (
           <div className="col-span-full py-12 text-center text-gray-500">
-            No horses available at the moment, or database is not yet connected.
+            No horses available at the moment.
           </div>
         ) : (
           horses.map((horse: any) => (
