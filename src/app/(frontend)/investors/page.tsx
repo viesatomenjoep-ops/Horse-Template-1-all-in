@@ -35,9 +35,9 @@ export default async function InvestorsPage() {
     <div className="bg-white dark:bg-gray-900 min-h-screen pt-24 pb-20">
       
       {/* Hero Section */}
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <span className="text-accent uppercase tracking-[0.3em] font-bold text-sm mb-4 block mt-8">Exclusive Opportunity</span>
+          <span className="text-accent uppercase tracking-[0.3em] font-bold text-sm mb-2 block">Exclusive Opportunity</span>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-primary dark:text-white mb-6 leading-tight">
             {title}
           </h1>
