@@ -15,6 +15,8 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
   const [socialText, setSocialText] = useState('')
   const [whatsappLanguage, setWhatsappLanguage] = useState('EN')
   const [aiQuery, setAiQuery] = useState('')
+  const [paymentAmount, setPaymentAmount] = useState('')
+  const [paymentCurrency, setPaymentCurrency] = useState('EUR')
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
@@ -155,9 +157,22 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               {renderHorseSelector()}
               <button onClick={() => generateLink('/syndicate/[id]')} className="w-full py-2 bg-indigo-600 text-white rounded-md font-bold text-sm">Generate Syndicate Link</button>
             </Card>
-            <Card icon={CreditCard} title="Secure Payment Link" desc="Generate a Stripe checkout link for deposits or final payments." colorClass="bg-blue-100 text-blue-600">
+            <Card icon={CreditCard} title="WISE Payment Link" desc="Generate an international wire transfer instruction via WISE for deposits." colorClass="bg-[#9fe870] text-[#163300]">
               {renderHorseSelector()}
-              <button onClick={() => generateLink('/pay/[token]')} className="w-full py-2 bg-blue-600 text-white rounded-md font-bold text-sm">Generate Payment Link</button>
+              <div className="flex gap-2 mb-3">
+                <select className="w-1/3 text-sm rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" value={paymentCurrency} onChange={(e) => setPaymentCurrency(e.target.value)}>
+                  <option value="EUR">EUR</option>
+                  <option value="USD">USD</option>
+                  <option value="GBP">GBP</option>
+                </select>
+                <input type="number" placeholder="Amount (e.g. 5000)" className="w-2/3 text-sm rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)} />
+              </div>
+              <button onClick={() => {
+                if (!selectedHorseId) return alert('Select a horse first')
+                if (!paymentAmount) return alert('Enter an amount')
+                const token = Math.random().toString(36).substring(2, 15)
+                setGeneratedLink(`https://www.equivestworldwide.com/pay/${token}?horse=${selectedHorseId}&amount=${paymentAmount}&currency=${paymentCurrency}`)
+              }} className="w-full py-2 bg-[#163300] text-[#9fe870] rounded-md font-bold text-sm">Generate WISE Link</button>
             </Card>
             <Card icon={PenTool} title="Digital E-Sign Contract" desc="Send the Equivest Bill of Sale for digital smartphone signature." colorClass="bg-rose-100 text-rose-600">
               {renderHorseSelector()}

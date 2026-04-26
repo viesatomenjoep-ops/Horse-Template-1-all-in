@@ -1,77 +1,124 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import { ShieldCheck, CreditCard, Apple, Lock } from 'lucide-react'
+import { ShieldCheck, ArrowRight, Building, Globe, Copy, CheckCircle } from 'lucide-react'
+import { getHorse } from '@/app/actions/horse'
 
 export const metadata = {
-  title: 'Secure Payment | Equivest',
+  title: 'Secure Wire Transfer | Equivest',
   robots: 'noindex, nofollow'
 }
 
-export default async function PaymentPage(props: { params: Promise<{ token: string }> }) {
+export default async function PaymentPage(props: { 
+  params: Promise<{ token: string }>,
+  searchParams: Promise<{ horse?: string, amount?: string, currency?: string }>
+}) {
   const params = await props.params
+  const searchParams = await props.searchParams
   
-  // In a real app, look up the payment intent via token
-  // For the demo, we mock it based on token length
   if (!params.token || params.token.length < 5) notFound()
 
-  const amount = "€5,000.00"
-  const description = "Deposit & Reservation Fee"
-  const ref = "INV-" + params.token.substring(0, 6).toUpperCase()
+  let horseName = "Equivest Asset"
+  if (searchParams.horse) {
+    try {
+      const h = await getHorse(searchParams.horse)
+      if (h) horseName = h.name
+    } catch(e) {}
+  }
+
+  const amount = searchParams.amount ? parseFloat(searchParams.amount).toLocaleString() : "0.00"
+  const currency = searchParams.currency || "EUR"
+  const ref = "EQV-" + params.token.substring(0, 6).toUpperCase()
+
+  // Fake WISE details
+  const wiseDetails = {
+    accountName: "Equivest Portfolio Management B.V.",
+    iban: "BE68 3000 1234 5678",
+    bic: "TWISEBE1",
+    bankName: "WISE Europe SA",
+    bankAddress: "Avenue Louise 54, 1050 Brussels, Belgium"
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen pt-24 pb-20 font-sans">
-      <div className="max-w-xl mx-auto px-4">
+      <div className="max-w-2xl mx-auto px-4">
         
         <div className="text-center mb-8">
           <Image src="/logo.png" alt="Equivest" width={60} height={60} className="mx-auto mb-4" />
-          <h1 className="text-2xl font-serif font-bold text-primary">Equivest Portfolio Management</h1>
-          <p className="text-gray-500 text-sm mt-1">Secure Digital Checkout</p>
+          <h1 className="text-2xl font-serif font-bold text-primary">Secure Wire Transfer</h1>
+          <p className="text-gray-500 text-sm mt-1 flex items-center justify-center gap-1">
+            <Globe size={14} /> International Payment Instructions
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-          <div className="bg-gray-50 p-8 border-b border-gray-100">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-gray-500 uppercase tracking-wider text-xs font-bold">Amount Due</span>
-              <span className="text-gray-500 text-xs">Ref: {ref}</span>
+          {/* Header */}
+          <div className="bg-[#9fe870] p-8 border-b border-[#8ae053] flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+              <span className="text-[#163300] uppercase tracking-wider text-xs font-bold block mb-1">Amount Due</span>
+              <p className="text-5xl font-serif font-bold text-[#163300]">{currency} {amount}</p>
             </div>
-            <p className="text-5xl font-serif font-bold text-gray-900">{amount}</p>
-            <p className="text-sm text-gray-600 mt-2">{description}</p>
+            <div className="bg-[#163300] text-white px-4 py-2 rounded-lg text-sm text-center">
+              <span className="block text-white/70 text-xs mb-1">Payment Reference</span>
+              <span className="font-mono font-bold tracking-widest">{ref}</span>
+            </div>
           </div>
 
           <div className="p-8">
-            <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <CreditCard size={20} className="text-accent" /> Payment Method
-            </h3>
-
-            <div className="space-y-3 mb-8">
-              {/* Fake Apple Pay Button */}
-              <button className="w-full flex items-center justify-center gap-2 py-4 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors font-medium">
-                Pay with <Apple size={20} className="mb-1" /> Pay
-              </button>
-              
-              <div className="relative flex py-4 items-center">
-                <div className="flex-grow border-t border-gray-200"></div>
-                <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">or pay with card</span>
-                <div className="flex-grow border-t border-gray-200"></div>
+            <div className="mb-8">
+              <h3 className="font-bold text-gray-900 mb-2">Transaction Details</h3>
+              <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                <span className="text-gray-500 text-sm">Asset / Horse</span>
+                <span className="font-bold text-gray-900">{horseName}</span>
               </div>
-
-              {/* Fake Card Form */}
-              <div className="space-y-4">
-                <input type="text" placeholder="Card Information" className="w-full p-4 rounded-lg border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent outline-none" />
-                <div className="grid grid-cols-2 gap-4">
-                  <input type="text" placeholder="MM / YY" className="w-full p-4 rounded-lg border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent outline-none" />
-                  <input type="text" placeholder="CVC" className="w-full p-4 rounded-lg border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent outline-none" />
-                </div>
-                <input type="text" placeholder="Cardholder Name" className="w-full p-4 rounded-lg border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent outline-none" />
+              <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                <span className="text-gray-500 text-sm">Beneficiary</span>
+                <span className="font-bold text-gray-900">{wiseDetails.accountName}</span>
               </div>
             </div>
 
-            <button onClick={() => alert('Demo: Payment successful!')} className="w-full flex justify-center items-center gap-2 py-4 bg-primary text-white rounded-lg font-bold hover:bg-secondary transition-colors shadow-md">
-              <Lock size={18} /> Pay {amount}
-            </button>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-8 relative">
+              <div className="absolute top-4 right-4 text-[#9fe870] bg-[#163300] px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
+                Powered by WISE
+              </div>
+              
+              <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <Building size={20} className="text-[#163300]" /> Bank Transfer Details
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <span className="block text-xs uppercase tracking-wider text-gray-500 font-bold mb-1">IBAN / Account Number</span>
+                  <div className="bg-white p-3 border border-gray-200 rounded-md font-mono text-gray-900 font-bold flex justify-between items-center">
+                    {wiseDetails.iban}
+                  </div>
+                </div>
+                
+                <div>
+                  <span className="block text-xs uppercase tracking-wider text-gray-500 font-bold mb-1">BIC / SWIFT Code</span>
+                  <div className="bg-white p-3 border border-gray-200 rounded-md font-mono text-gray-900 font-bold flex justify-between items-center">
+                    {wiseDetails.bic}
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <span className="block text-xs uppercase tracking-wider text-gray-500 font-bold mb-1">Bank Name & Address</span>
+                  <p className="text-sm text-gray-700 bg-white p-3 border border-gray-200 rounded-md">
+                    <strong>{wiseDetails.bankName}</strong><br/>
+                    {wiseDetails.bankAddress}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 text-blue-800 text-sm p-4 rounded-lg flex items-start gap-3 mb-6">
+              <ShieldCheck className="flex-shrink-0 mt-0.5" size={18} />
+              <p>
+                <strong>Important:</strong> You must include the Payment Reference <strong>{ref}</strong> in your wire transfer notes to ensure immediate allocation to your account.
+              </p>
+            </div>
             
             <p className="text-center text-xs text-gray-400 mt-6 flex justify-center items-center gap-1">
-              <ShieldCheck size={14} /> Secured by Stripe. 256-bit encryption.
+              Secure international transfers via WISE Institutional.
             </p>
           </div>
         </div>
