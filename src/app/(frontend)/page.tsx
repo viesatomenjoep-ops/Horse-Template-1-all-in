@@ -66,9 +66,6 @@ export default function Home() {
       {/* Explore the Sport Portfolio */}
       <PortfolioSlideshowPreview />
 
-      {/* References Section */}
-      <ReferencesPreview />
-
       {/* Want to Invest CTA */}
       <section className="py-32 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>
@@ -97,6 +94,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* References Section */}
+      <ReferencesPreview />
 
       {/* Latest News Section */}
       <LatestNewsPreview />
