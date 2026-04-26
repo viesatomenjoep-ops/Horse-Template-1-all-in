@@ -47,8 +47,17 @@ export default function AdminReferences() {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Instagram References</h1>
+        <a 
+          href="https://www.instagram.com/nomoregrayarea36/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-all shadow-md hover:shadow-lg text-sm"
+        >
+          <Camera size={18} />
+          Go to my Instagram
+        </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
