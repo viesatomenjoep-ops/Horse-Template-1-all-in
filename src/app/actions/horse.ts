@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { createPublicClient } from '@/lib/supabase/public'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 
 export async function getHorses() {
   const supabase = createPublicClient()
@@ -14,8 +15,11 @@ export async function getHorses() {
 export async function getPublicHorses() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
+  
+  const cookieStore = await cookies()
+  const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
 
-  if (user) {
+  if (user || isInvestor) {
     // If logged in (investor/admin), show ALL horses on the public page too
     const { data, error } = await supabase.from('horses').select('*').order('created_at', { ascending: false })
     if (error) throw new Error(error.message)
