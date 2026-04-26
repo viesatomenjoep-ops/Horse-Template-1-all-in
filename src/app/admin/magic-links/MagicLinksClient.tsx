@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Clock, EyeOff, FileSignature, Share2, Search, CheckCircle, Copy, ShieldCheck, MessageCircle, Languages, Calculator, GitCompare, Lock, BarChart3, PieChart, CreditCard, PenTool, UploadCloud, Calendar as CalendarIcon, Mail } from 'lucide-react'
+import { Clock, EyeOff, FileSignature, Share2, Search, CheckCircle, Copy, ShieldCheck, MessageCircle, Languages, Calculator, GitCompare, Lock, BarChart3, PieChart, CreditCard, PenTool, UploadCloud, Calendar as CalendarIcon, Mail, Plane, Stethoscope, Stamp, Timer, Video, Sparkles } from 'lucide-react'
 
 export default function MagicLinksClient({ horses }: { horses: any[] }) {
   const [activeTab, setActiveTab] = useState<'sales' | 'finance' | 'ops' | 'internal'>('sales')
@@ -14,6 +14,7 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
   const [socialHorseId, setSocialHorseId] = useState('')
   const [socialText, setSocialText] = useState('')
   const [whatsappLanguage, setWhatsappLanguage] = useState('EN')
+  const [aiQuery, setAiQuery] = useState('')
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
@@ -59,6 +60,16 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
       ? `Hoi! Ik wilde je dit paard even laten zien: *${h.name}*\n\n🔹 *Niveau:* ${h.experience_level}\n🔹 *Prijs:* ${h.price_category}\n\nBekijk de video direct via:\nhttps://www.equivestworldwide.com/vip/${h.id}?token=preview\n\nLaat me weten wat je ervan vindt!`
       : `Hi! Take a look at this exceptional asset: *${h.name}*\n\n🔹 *Level:* ${h.experience_level}\n🔹 *Price:* ${h.price_category}\n\nView the video directly via:\nhttps://www.equivestworldwide.com/vip/${h.id}?token=preview\n\nLet me know your thoughts!`
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank')
+  }
+
+  const handleAiMatch = () => {
+    if (!aiQuery) return alert('Enter a search prompt first')
+    // Dummy AI Match logic: select first 2 horses
+    if (horses.length >= 2) {
+      setGeneratedLink(`https://www.equivestworldwide.com/compare/${horses[0].id},${horses[1].id}`)
+    } else {
+      alert('Not enough horses in DB')
+    }
   }
 
   const HorseSelector = () => (
@@ -110,9 +121,9 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               <HorseSelector />
               <button onClick={generateProposalLink} className="w-full py-2 bg-blue-600 text-white rounded-md font-bold text-sm">Generate Proposal</button>
             </Card>
-            <Card icon={Calculator} title="ROI Calculator" desc="Interactive calculator showing projected returns for a specific horse." colorClass="bg-emerald-100 text-emerald-600">
+            <Card icon={Timer} title="Flash Sale (Off-Market)" desc="Generates a 48H self-destructing page with a special price to create FOMO." colorClass="bg-red-100 text-red-600">
               <HorseSelector />
-              <button onClick={() => generateLink('/roi-calculator/[id]')} className="w-full py-2 bg-emerald-600 text-white rounded-md font-bold text-sm">Generate ROI Link</button>
+              <button onClick={() => generateLink('/flash-sale/[id]')} className="w-full py-2 bg-red-600 text-white rounded-md font-bold text-sm animate-pulse">Generate Flash Sale Link</button>
             </Card>
             <Card icon={GitCompare} title="Side-by-Side Matchmaker" desc="Select 2-3 horses for a side-by-side comparison page." colorClass="bg-orange-100 text-orange-600">
               <div className="h-24 overflow-y-auto border border-gray-200 rounded-md p-2 mb-3">
@@ -122,9 +133,17 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               </div>
               <button onClick={generateCompareLink} className="w-full py-2 bg-orange-500 text-white rounded-md font-bold text-sm">Generate Comparison</button>
             </Card>
+            <Card icon={Calculator} title="ROI Calculator" desc="Interactive calculator showing projected returns for a specific horse." colorClass="bg-emerald-100 text-emerald-600">
+              <HorseSelector />
+              <button onClick={() => generateLink('/roi-calculator/[id]')} className="w-full py-2 bg-emerald-600 text-white rounded-md font-bold text-sm">Generate ROI Link</button>
+            </Card>
             <Card icon={BarChart3} title="Investor Analytics" desc="Private dashboard for current owners to view live traffic & interest." colorClass="bg-teal-100 text-teal-600">
               <HorseSelector />
               <button onClick={() => generateLink('/analytics/[id]?token=[token]')} className="w-full py-2 bg-teal-600 text-white rounded-md font-bold text-sm">Generate Stats Link</button>
+            </Card>
+            <Card icon={Video} title="Training Portal" desc="After-sales link where owners can see training progress and videos." colorClass="bg-indigo-100 text-indigo-600">
+              <HorseSelector />
+              <button onClick={() => generateLink('/training-portal/[id]')} className="w-full py-2 bg-indigo-600 text-white rounded-md font-bold text-sm">Generate Portal Link</button>
             </Card>
           </>
         )}
@@ -143,6 +162,10 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               <HorseSelector />
               <button onClick={() => generateLink('/sign/[id]')} className="w-full py-2 bg-rose-600 text-white rounded-md font-bold text-sm">Generate E-Sign Link</button>
             </Card>
+            <Card icon={Stamp} title="Valuation Certificate" desc="Formal web-certificate of valuation and health for insurance agents." colorClass="bg-yellow-100 text-yellow-600">
+              <HorseSelector />
+              <button onClick={() => generateLink('/certificate/[id]')} className="w-full py-2 bg-yellow-500 text-white rounded-md font-bold text-sm">Generate Certificate</button>
+            </Card>
           </>
         )}
 
@@ -160,6 +183,14 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               <HorseSelector />
               <button onClick={() => generateLink('/reserve/[id]')} className="w-full py-2 bg-red-600 text-white rounded-md font-bold text-sm">Generate Reserve Link</button>
             </Card>
+            <Card icon={Plane} title="Global Transport Calculator" desc="Let international clients estimate shipping/quarantine costs instantly." colorClass="bg-slate-100 text-slate-600">
+              <HorseSelector />
+              <button onClick={() => generateLink('/transport/[id]')} className="w-full py-2 bg-slate-600 text-white rounded-md font-bold text-sm">Generate Transport Link</button>
+            </Card>
+            <Card icon={Stethoscope} title="Virtual Vet Opinion" desc="Strictly medical link where US vets can view X-Rays and upload findings." colorClass="bg-emerald-100 text-emerald-600">
+              <HorseSelector />
+              <button onClick={() => generateLink('/vet-opinion/[id]')} className="w-full py-2 bg-emerald-600 text-white rounded-md font-bold text-sm">Generate Vet Link</button>
+            </Card>
           </>
         )}
 
@@ -176,6 +207,10 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               </div>
               <button onClick={generateWhatsappPitch} className="w-full py-2 bg-[#25D366] text-white rounded-md font-bold text-sm flex justify-center items-center gap-2"><MessageCircle size={18} /> Open in WhatsApp</button>
             </Card>
+            <Card icon={Sparkles} title="AI Matchmaker (Database Scan)" desc="Type what the client wants, AI scans the database and makes a custom link." colorClass="bg-fuchsia-100 text-fuchsia-600">
+              <textarea placeholder="e.g. Find me a Chacco-Blue mare for around 100k..." rows={2} className="w-full text-sm rounded-md border-gray-300 mb-3" value={aiQuery} onChange={(e) => setAiQuery(e.target.value)} />
+              <button onClick={handleAiMatch} className="w-full py-2 bg-fuchsia-600 text-white rounded-md font-bold text-sm flex justify-center items-center gap-2"><Sparkles size={16} /> Run AI Scan</button>
+            </Card>
             <Card icon={Mail} title="1-Click Newsletter Builder" desc="Select horses in the Matchmaker tool first, then generate HTML for Mailchimp." colorClass="bg-yellow-100 text-yellow-600">
               <button onClick={generateNewsletter} className="w-full py-2 bg-yellow-500 text-white rounded-md font-bold text-sm mb-3">Generate HTML Newsletter</button>
               {socialText && (
@@ -184,10 +219,6 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
                   <button onClick={() => handleCopy(socialText)} className="mt-2 w-full py-2 bg-gray-100 text-gray-800 rounded-md font-bold text-sm">Copy Code</button>
                 </div>
               )}
-            </Card>
-            <Card icon={Languages} title="Auto-Translate & Rewrite" desc="Translates and rewrites text into perfect Equestrian Jargon (Phase 2)." colorClass="bg-fuchsia-100 text-fuchsia-600">
-              <textarea placeholder="Plak hier je tekst..." rows={2} className="w-full text-sm rounded-md border-gray-300 mb-3" />
-              <button className="w-full py-2 bg-fuchsia-600 text-white rounded-md font-bold text-sm">Translate to EN, DE, ES</button>
             </Card>
           </>
         )}
