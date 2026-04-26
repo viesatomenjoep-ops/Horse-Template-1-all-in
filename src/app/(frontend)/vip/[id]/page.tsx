@@ -26,16 +26,19 @@ export default async function VIPAccessPage(props: { params: Promise<{ id: strin
   if (!horse) notFound()
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans pb-20">
-      <div className="bg-primary text-white py-4 px-6 flex justify-between items-center shadow-md sticky top-0 z-50">
-        <div className="flex items-center gap-4">
-          <Link href={`/horses/${horse.id}`} className="text-white/70 hover:text-white transition-colors">
-            <ArrowLeft size={20} />
+    <div className="bg-[#f8f9fa] min-h-screen font-sans pb-20">
+      <div className="bg-primary text-white py-4 px-4 sm:px-8 flex justify-between items-center shadow-lg relative z-50">
+        <div className="flex items-center gap-6">
+          <Link 
+            href={`/horses/${horse.id}`} 
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white font-bold tracking-widest uppercase text-xs transition-all shadow-md"
+          >
+            <ArrowLeft size={16} /> Back to Horse
           </Link>
-          <h1 className="font-serif font-bold text-xl">Equivest VIP Data Room</h1>
+          <h1 className="font-serif font-bold text-lg sm:text-xl hidden sm:block">Equivest VIP Data Room</h1>
         </div>
-        <div className="flex items-center gap-2 bg-red-500/20 text-red-100 px-3 py-1 rounded-full text-xs font-bold border border-red-500/30">
-          <ShieldAlert size={14} /> Link Expires in 24h
+        <div className="flex items-center gap-2 bg-red-500/20 text-red-100 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs font-bold border border-red-500/30">
+          <ShieldAlert size={14} /> <span className="hidden sm:inline">Link Expires in 24h</span><span className="sm:hidden">24h</span>
         </div>
       </div>
 

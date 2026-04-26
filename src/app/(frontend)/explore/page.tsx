@@ -83,29 +83,7 @@ export default function ExploreToolsPage() {
 
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen pb-20">
-      
-      {/* Hero */}
-      <div className="relative pt-32 pb-28 px-4 text-center overflow-hidden flex flex-col items-center justify-center min-h-[40vh]">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        >
-          <source src="https://cdn.pixabay.com/video/2021/08/13/84920-588320496_large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/90 via-[#0A192F]/60 to-[#0A192F] dark:from-[#0A192F]/95 dark:via-[#0A192F]/80 dark:to-[#0A192F]"></div>
-        
-        <div className="relative z-10 w-full max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-6 animate-fade-in tracking-tight drop-shadow-2xl">Client Explore Hub</h1>
-          <p className="text-white/90 max-w-2xl mx-auto text-xl mb-8 drop-shadow-lg font-medium leading-relaxed">
-            Experience the cutting-edge tools that power Equivest Worldwide. From highly secure Magic Link previews to AI-powered authenticity scanning.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 space-y-12 z-10 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 space-y-12 z-10 relative">
 
         {/* TOOL 1: Magic Links Demo */}
         <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">

@@ -20,8 +20,8 @@ export default async function ReferencesPage() {
   }
 
   return (
-    <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
-      <div className="text-center space-y-8 mb-16">
+    <div className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+      <div className="text-center space-y-6 mb-8">
         <h1 className="text-4xl sm:text-5xl font-serif font-light text-primary dark:text-white">
           Our <span className="font-semibold italic text-accent">References</span>
         </h1>
