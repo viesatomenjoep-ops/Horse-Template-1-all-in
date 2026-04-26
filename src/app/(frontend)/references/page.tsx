@@ -7,7 +7,7 @@ export const metadata = {
   description: 'See the success stories of horses sourced and sold by Equivest and stay updated with our latest news.',
 }
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export default async function ReferencesPage() {
   const references = await getReferences()

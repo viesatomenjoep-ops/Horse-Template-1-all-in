@@ -3,7 +3,7 @@ export const metadata = {
   description: 'Learn more about our passion for elite sport horses and our global network.',
 }
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 import { getTeamMembers } from '@/app/actions/team'
 import { getPageContent } from '@/app/actions/pages'

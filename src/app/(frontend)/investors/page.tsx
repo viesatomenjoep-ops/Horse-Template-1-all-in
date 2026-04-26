@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { getPageContent } from '@/app/actions/pages'
 import RoiCalculatorTabs from '@/components/roi/RoiCalculatorTabs'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Invest in Showjumpers | Equivest Worldwide',
