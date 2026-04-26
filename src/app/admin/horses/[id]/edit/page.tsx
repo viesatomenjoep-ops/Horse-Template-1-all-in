@@ -188,6 +188,21 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
               <textarea name="description" defaultValue={horse.description || ''} id="description" rows={4} className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
             </div>
 
+            {/* Investment Data */}
+            <div className="col-span-2 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-medium text-accent dark:text-accent mb-4">Investment Data & ROI</h3>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="col-span-2 sm:col-span-1">
+                  <label htmlFor="estimated_roi" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Estimated ROI / Profit</label>
+                  <input type="text" name="estimated_roi" id="estimated_roi" defaultValue={horse.estimated_roi || ''} placeholder="e.g. 15-20% within 12 months" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm" />
+                </div>
+                <div className="col-span-2">
+                  <label htmlFor="investment_rationale" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Why invest in this horse?</label>
+                  <textarea name="investment_rationale" id="investment_rationale" defaultValue={horse.investment_rationale || ''} rows={3} placeholder="Explain the potential, training timeline, and financial strategy..." className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm" />
+                </div>
+              </div>
+            </div>
+
             {/* Documents & Links Section */}
             <div className="col-span-2 pt-6 border-t border-gray-200 dark:border-gray-700">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Documents & Links</h3>

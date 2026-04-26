@@ -1,8 +1,11 @@
 import { getHorse } from '@/app/actions/horse'
-import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon, Video, FileCheck, Stethoscope } from 'lucide-react'
+import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon, Video, FileCheck, Stethoscope, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ViewTracker from '@/components/frontend/ViewTracker'
+
+import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase/server'
 
 export default async function HorseDetailPage(props: {
   params: Promise<{ id: string }>
@@ -17,6 +20,12 @@ export default async function HorseDetailPage(props: {
   }
 
   if (!horse) notFound()
+
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  const cookieStore = await cookies()
+  const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
+  const canSeeROI = user || isInvestor
 
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen">
@@ -88,6 +97,34 @@ export default async function HorseDetailPage(props: {
                 </div>
               </div>
             </div>
+
+            {/* Investor ROI Section */}
+            {canSeeROI && (horse.estimated_roi || horse.investment_rationale) && (
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/10 border-2 border-green-500/30 rounded-2xl p-8 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-green-500/10 rounded-full blur-3xl"></div>
+                <h2 className="text-2xl font-serif font-bold text-green-800 dark:text-green-400 mb-6 flex items-center">
+                  <TrendingUp className="mr-3 text-green-600 dark:text-green-500" /> Investment Prospect
+                </h2>
+                
+                <div className="space-y-6">
+                  {horse.estimated_roi && (
+                    <div className="bg-white/60 dark:bg-gray-900/50 rounded-xl p-4 border border-green-500/20">
+                      <span className="text-sm font-bold text-green-700 dark:text-green-500 uppercase tracking-widest block mb-1">Estimated ROI</span>
+                      <span className="text-2xl font-bold text-gray-900 dark:text-white">{horse.estimated_roi}</span>
+                    </div>
+                  )}
+                  
+                  {horse.investment_rationale && (
+                    <div>
+                      <span className="text-sm font-bold text-green-700 dark:text-green-500 uppercase tracking-widest block mb-2">Why this horse?</span>
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                        {horse.investment_rationale}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Documents & Links */}
             <div>

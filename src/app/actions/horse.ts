@@ -93,6 +93,8 @@ export async function createHorse(formData: FormData) {
     link_fei: formData.get('link_fei') as string || null,
     link_horsetelex: formData.get('link_horsetelex') as string || null,
     link_video: formData.get('link_video') as string || null,
+    investment_rationale: formData.get('investment_rationale') as string || null,
+    estimated_roi: formData.get('estimated_roi') as string || null,
   }
 
   const { data, error } = await supabase.from('horses').insert([rawData]).select().single()
@@ -144,6 +146,8 @@ export async function updateHorse(id: string, formData: FormData) {
     link_fei: formData.get('link_fei') as string || null,
     link_horsetelex: formData.get('link_horsetelex') as string || null,
     link_video: formData.get('link_video') as string || null,
+    investment_rationale: formData.get('investment_rationale') as string || null,
+    estimated_roi: formData.get('estimated_roi') as string || null,
   }
 
   const coverImageUrl = formData.get('cover_image_url') as string
