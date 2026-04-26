@@ -69,7 +69,7 @@ export default async function HorseDetailPage(props: {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'EUR',
-      price: horse.price_category === 'Price on Request' ? '0' : horse.price_category.replace(/[^0-9]/g, '000'),
+      price: (horse.price_category && horse.price_category !== 'Price on Request') ? horse.price_category.replace(/[^0-9]/g, '000') : '0',
       availability: horse.status === 'Available' ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       url: `https://www.equivestworldwide.com/horses/${horse.id}`
     }
@@ -85,9 +85,9 @@ export default async function HorseDetailPage(props: {
       {/* Hero Cover Image */}
       <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh]">
         <img 
-          src={horse.cover_image_url || 'https://via.placeholder.com/1920x1080?text=No+Image'} 
+          src={horse.cover_image_url || '/logo.png'} 
           alt={horse.name}
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full ${horse.cover_image_url ? 'object-cover' : 'object-contain p-20 opacity-30'}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent" />
         

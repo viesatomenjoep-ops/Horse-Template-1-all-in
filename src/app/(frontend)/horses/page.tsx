@@ -111,14 +111,14 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
             <div key={horse.id} className="group relative">
               <div className="min-h-80 aspect-square w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center">
                 <img
-                  src={horse.cover_image_url || 'https://via.placeholder.com/600x400?text=No+Image'}
+                  src={horse.cover_image_url || '/logo.png'}
                   alt={horse.name}
-                  className="absolute inset-0 h-full w-full object-cover blur-xl opacity-40 scale-110"
+                  className={`absolute inset-0 h-full w-full ${horse.cover_image_url ? 'object-cover blur-xl opacity-40 scale-110' : 'object-contain opacity-10 p-10'}`}
                 />
                 <img
-                  src={horse.cover_image_url || 'https://via.placeholder.com/600x400?text=No+Image'}
+                  src={horse.cover_image_url || '/logo.png'}
                   alt={horse.name}
-                  className="relative h-full w-full object-contain group-hover:scale-105 transition-transform duration-500 z-10"
+                  className={`relative h-full w-full ${horse.cover_image_url ? 'object-contain' : 'object-contain p-12'} group-hover:scale-105 transition-transform duration-500 z-10`}
                 />
               </div>
               <div className="mt-4 flex justify-between">

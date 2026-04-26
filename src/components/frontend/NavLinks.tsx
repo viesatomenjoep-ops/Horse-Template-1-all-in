@@ -7,6 +7,7 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
   const pathname = usePathname()
 
   const links = [
+    { href: '/explore', label: 'Explore Tools' },
     { href: '/about', label: 'About Us' },
     { href: '/horses', label: 'Portfolio' },
     { href: '/references', label: 'References' },

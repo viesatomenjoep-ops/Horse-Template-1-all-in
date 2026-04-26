@@ -11,7 +11,7 @@ export const metadata = {
 export default async function CertificatePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
   let horse = null
-  
+
   try {
     horse = await getHorse(params.id)
   } catch (e) {
@@ -21,12 +21,12 @@ export default async function CertificatePage(props: { params: Promise<{ id: str
   if (!horse) notFound()
 
   const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-  const certNumber = `EQV-${new Date().getFullYear()}-${params.id.substring(0,6).toUpperCase()}`
+  const certNumber = `EQV-${new Date().getFullYear()}-${params.id.substring(0, 6).toUpperCase()}`
 
   return (
     <div className="bg-gray-200 min-h-screen py-12 px-4 print:bg-white print:py-0">
       <div className="max-w-4xl mx-auto">
-        
+
         <div className="flex justify-end mb-4 print:hidden">
           <button className="flex items-center gap-2 px-4 py-2 bg-white text-gray-800 rounded shadow hover:bg-gray-50 transition-colors font-bold text-sm">
             <Printer size={16} /> Print / Save as PDF
@@ -35,7 +35,7 @@ export default async function CertificatePage(props: { params: Promise<{ id: str
 
         {/* Certificate Paper */}
         <div className="bg-white p-12 md:p-20 shadow-2xl relative border border-gray-300 print:shadow-none print:border-none">
-          
+
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
             <ShieldCheck size={400} />
