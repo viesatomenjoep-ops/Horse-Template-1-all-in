@@ -3,9 +3,31 @@ import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon,
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ViewTracker from '@/components/frontend/ViewTracker'
+import { Metadata } from 'next'
 
 import { cookies } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
+
+export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const params = await props.params
+  try {
+    const horse = await getHorse(params.id)
+    if (!horse) return { title: 'Horse Not Found | Equivest' }
+    
+    const desc = horse.description ? horse.description.substring(0, 150) + '...' : `Elite ${horse.discipline} available at Equivest. View pedigree, videos, and investment details.`
+    return {
+      title: `${horse.name} | Premium ${horse.discipline} | Equivest`,
+      description: desc,
+      openGraph: {
+        title: `${horse.name} | Premium ${horse.discipline}`,
+        description: desc,
+        images: horse.cover_image_url ? [horse.cover_image_url] : [],
+      }
+    }
+  } catch (e) {
+    return { title: 'Equivest | Premium Sport Horses' }
+  }
+}
 
 export default async function HorseDetailPage(props: {
   params: Promise<{ id: string }>
@@ -34,8 +56,31 @@ export default async function HorseDetailPage(props: {
     // Fallback safely to false
   }
 
+  const schemaJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: horse.name,
+    image: horse.cover_image_url ? [horse.cover_image_url] : [],
+    description: horse.description || `Elite ${horse.discipline} available at Equivest.`,
+    brand: {
+      '@type': 'Brand',
+      name: 'Equivest'
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'EUR',
+      price: horse.price_category === 'Price on Request' ? '0' : horse.price_category.replace(/[^0-9]/g, '000'),
+      availability: horse.status === 'Available' ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      url: `https://www.equivestworldwide.com/horses/${horse.id}`
+    }
+  }
+
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
+      />
       <ViewTracker horseId={horse.id} />
       {/* Hero Cover Image */}
       <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh]">
