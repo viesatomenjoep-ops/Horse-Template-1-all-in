@@ -5,10 +5,18 @@ import { updatePageContent } from '@/app/actions/pages'
 import CloudinaryUploader from '@/components/admin/CloudinaryUploader'
 import { Plus, Trash2, ArrowUp, ArrowDown, Save, Loader2, Image as ImageIcon, Type, Heading } from 'lucide-react'
 
-export default function PageBuilderClient({ initialData }: { initialData: any }) {
-  const [title, setTitle] = useState(initialData.title || '')
-  const [heroImage, setHeroImage] = useState(initialData.hero_image || '')
-  const [blocks, setBlocks] = useState<any[]>(initialData.content_blocks || [])
+export default function PageBuilderClient({ 
+  initialData, 
+  pageSlug, 
+  pageTitle 
+}: { 
+  initialData: any, 
+  pageSlug: string, 
+  pageTitle: string 
+}) {
+  const [title, setTitle] = useState(initialData?.title || '')
+  const [heroImage, setHeroImage] = useState(initialData?.hero_image || '')
+  const [blocks, setBlocks] = useState<any[]>(initialData?.content_blocks || [])
   const [loading, setLoading] = useState(false)
 
   const handleAddBlock = (type: string) => {
@@ -41,7 +49,7 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
   const handleSave = async () => {
     setLoading(true)
     try {
-      const res = await updatePageContent('investors', {
+      const res = await updatePageContent(pageSlug, {
         title,
         hero_image: heroImage,
         content_blocks: blocks
@@ -62,8 +70,8 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
     <div className="p-6 max-w-4xl mx-auto space-y-8 pb-24">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Pagina Bewerken: Investors</h1>
-          <p className="text-gray-500">Pas teksten, plaatjes en groottes aan voor de investeringspagina.</p>
+          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Pagina Bewerken: {pageTitle}</h1>
+          <p className="text-gray-500">Pas teksten, plaatjes en groottes aan voor de {pageTitle.toLowerCase()} pagina.</p>
         </div>
         <button 
           onClick={handleSave} 
@@ -313,7 +321,9 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
           </button>
         </div>
       </div>
-      <p className="text-center text-sm text-gray-500">Let op: De ROI Calculator staat standaard vast onderaan de "Want to invest" pagina.</p>
+      {pageSlug === 'investors' && (
+        <p className="text-center text-sm text-gray-500">Let op: De ROI Calculator staat standaard vast onderaan de "Want to invest" pagina.</p>
+      )}
     </div>
   )
 }

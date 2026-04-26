@@ -17,10 +17,15 @@ export default async function AdminTeamPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Team Members</h1>
-        <Link href="/admin/team/new" className="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:w-auto transition-colors">
-          <Plus className="-ml-1 mr-2 h-5 w-5" />
-          Add Team Member
-        </Link>
+        <div className="flex gap-3">
+          <Link href="/admin/pages/about" className="inline-flex items-center justify-center rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:w-auto transition-colors">
+            Edit "About" Texts
+          </Link>
+          <Link href="/admin/team/new" className="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:w-auto transition-colors">
+            <Plus className="-ml-1 mr-2 h-5 w-5" />
+            Add Team Member
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
