@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Lock } from 'lucide-react'
 import { getPageContent } from '@/app/actions/pages'
 import RoiCalculatorTabs from '@/components/roi/RoiCalculatorTabs'
 
@@ -68,7 +68,22 @@ export default async function InvestorsPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 space-y-12">
         {content_blocks.map((block: any, idx: number) => {
           if (block.type === 'heading') {
-            return <h2 key={block.id || idx} className={`${block.size || 'text-4xl'} font-serif font-bold text-primary dark:text-white pt-8`}>{block.content}</h2>
+            return (
+              <div key={block.id || idx}>
+                <h2 className={`${block.size || 'text-4xl'} font-serif font-bold text-primary dark:text-white pt-8`}>{block.content}</h2>
+                {block.content.includes('Why Invest in Sporthorses') && (
+                  <div className="mt-8 mb-4">
+                    <a 
+                      href="mailto:invest@equivestworldwide.com?subject=Private%20Portfolio%20Access%20Request&body=Hi%20Equivest%20Team,%0A%0AI%20would%20like%20to%20become%20an%20investor%20and%20request%20private%20access%20credentials%20to%20view%20the%20portfolio.%0A%0AKind%20regards,"
+                      className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
+                    >
+                      <Lock size={18} /> Become an Investor <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                    </a>
+                    <p className="text-xs text-gray-500 mt-4 font-bold uppercase tracking-widest">Login credentials for private access will be sent via email.</p>
+                  </div>
+                )}
+              </div>
+            )
           }
           if (block.type === 'text') {
             return <p key={block.id || idx} className={`${block.size || 'text-base'} text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap`}>{block.content}</p>

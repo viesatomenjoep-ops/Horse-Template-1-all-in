@@ -12,20 +12,17 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
   // Use only horses that have a main image, limit to 6 for the slideshow
   let displayHorses = horses.filter(h => h.main_image_url).slice(0, 6)
 
-  // FALLBACK if DB fails or empty
   if (displayHorses.length === 0) {
-    displayHorses = [
-      {
-        id: 'dummy',
-        name: 'Quel Honneur vh Distelhof Z',
-        main_image_url: '/wellington_showjumper.png',
-        category: 'Jumper',
-        status: 'Available',
-        age: 8,
-        gender: 'Gelding',
-        price_range: 'Premium'
-      }
-    ];
+    return (
+      <section className="py-32 bg-[#050B14] relative overflow-hidden flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight mb-4">
+            Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
+          </h2>
+          <p className="text-gray-400">Our public portfolio is currently being updated. Check back soon for new premium assets.</p>
+        </div>
+      </section>
+    )
   }
 
   const nextSlide = () => {

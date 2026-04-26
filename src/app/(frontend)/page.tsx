@@ -99,14 +99,14 @@ export default function Home() {
 }
 
 import { getNewsArticles } from '@/app/actions/news'
-import { getHorses } from '@/app/actions/horse'
+import { getPublicHorses } from '@/app/actions/horse'
 import { getReferences } from '@/app/actions/reference'
 import HorseSlideshow from '@/components/frontend/HorseSlideshow'
 
 async function PortfolioSlideshowPreview() {
   let horses = [];
   try {
-    horses = await getHorses() || [];
+    horses = await getPublicHorses() || [];
   } catch (e) {
     console.error(e);
   }
