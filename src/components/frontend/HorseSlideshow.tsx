@@ -13,18 +13,38 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
   let displayHorses = horses.filter(h => h.main_image_url).slice(0, 6)
 
   if (displayHorses.length === 0) {
-    return (
-      <section className="py-32 bg-[#050B14] relative overflow-hidden flex items-center justify-center">
-        <div className="text-center">
-          <Link href="/horses" className="inline-block group">
-            <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight mb-4 group-hover:opacity-80 transition-opacity flex items-center gap-3">
-              Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
-            </h2>
-          </Link>
-          <p className="text-gray-400">Our public portfolio is currently being updated. Check back soon for new premium assets.</p>
-        </div>
-      </section>
-    )
+    displayHorses = [
+      {
+        id: 'dummy1',
+        name: 'Equivest Elite',
+        main_image_url: '/portfolio_ai_1.png',
+        status: 'Available',
+        category: 'Grand Prix Prospect',
+        age: 7,
+        gender: 'Stallion',
+        price_range: 'On Request'
+      },
+      {
+        id: 'dummy2',
+        name: 'Equivest Champion',
+        main_image_url: '/portfolio_ai_2.png',
+        status: 'Available',
+        category: '1.60m Talent',
+        age: 9,
+        gender: 'Gelding',
+        price_range: 'On Request'
+      },
+      {
+        id: 'dummy3',
+        name: 'Equivest Star',
+        main_image_url: '/portfolio_ai_3.png',
+        status: 'Available',
+        category: 'Hunter Prospect',
+        age: 6,
+        gender: 'Mare',
+        price_range: 'On Request'
+      }
+    ]
   }
 
   const nextSlide = () => {
