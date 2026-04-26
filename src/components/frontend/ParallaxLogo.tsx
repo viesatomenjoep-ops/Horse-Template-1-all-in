@@ -23,15 +23,15 @@ export default function ParallaxLogo() {
 
   // Calculate the parallax effect. 
   // We want it to move down as the user scrolls down.
-  // We fade it out so it disappears after a certain point.
+  // We fade it out slowly so it disappears right before hitting the slider.
   const translateY = scrollY * 0.8 // Moves down at 80% of scroll speed
-  const opacity = Math.max(0, 0.8 - (scrollY / 600))
+  const opacity = Math.max(0, 1.0 - (scrollY / 1200))
 
   if (opacity === 0) return null
 
   return (
     <div 
-      className="relative z-20 flex flex-col items-center justify-end mt-12 md:mt-auto pb-8 md:pb-12 pointer-events-none"
+      className="relative z-20 flex flex-col items-center justify-center mt-8 md:mt-12 pointer-events-none"
       style={{ 
         transform: `translateY(${translateY}px)`,
         opacity: opacity 
