@@ -50,7 +50,7 @@ export default async function CollectionPage() {
             <div className="mt-2">
               <Link href="/login" className="relative group inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-bold rounded-md text-white bg-accent hover:bg-primary shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all overflow-hidden">
                 <span className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                <span className="relative z-10">Login as an investor to see inventory</span>
+                <span className="relative z-10">Log in to explore tailored investment opportunities</span>
               </Link>
             </div>
           )}
