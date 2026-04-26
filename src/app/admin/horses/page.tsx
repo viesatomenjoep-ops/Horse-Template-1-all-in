@@ -38,8 +38,8 @@ export default async function AdminHorsesPage() {
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <Plus size={32} className="text-primary" />
           </div>
-          <h3 className="text-lg font-bold text-primary">Nieuw Sales Paard</h3>
-          <p className="text-sm text-gray-500 text-center mt-2">Publieke voorraad</p>
+          <h3 className="text-lg font-bold text-primary">New Sales Horse</h3>
+          <p className="text-sm text-gray-500 text-center mt-2">Public inventory</p>
         </Link>
 
         {/* ADD INVESTMENT HORSE CARD */}
@@ -50,14 +50,14 @@ export default async function AdminHorsesPage() {
           <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <Plus size={32} className="text-accent" />
           </div>
-          <h3 className="text-lg font-bold text-accent text-center">Nieuw Investment Paard</h3>
+          <h3 className="text-lg font-bold text-accent text-center">New Investment Horse</h3>
           <p className="text-sm text-gray-500 text-center mt-2">Private portfolio</p>
         </Link>
 
         {/* HORSE CARDS */}
         {horses.length === 0 ? (
           <div className="col-span-full bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center text-gray-500">
-            Nog geen paarden gevonden. Klik op een knop om te beginnen.
+            No horses found. Click a button to begin.
           </div>
         ) : (
           horses.map((horse: any) => (
@@ -73,7 +73,7 @@ export default async function AdminHorsesPage() {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={horse.cover_image_url} alt={horse.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">Geen foto</div>
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">No image</div>
                   )}
                   <div className="absolute bottom-3 right-3">
                     <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/90 text-gray-900 shadow-sm backdrop-blur-sm">
@@ -94,7 +94,7 @@ export default async function AdminHorsesPage() {
                     href={`/admin/horses/${horse.id}/edit`} 
                     className="flex-1 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 rounded-xl text-center transition-colors text-sm"
                   >
-                    Bewerken
+                    Edit
                   </Link>
                   <form action={async () => {
                     'use server';
@@ -102,7 +102,7 @@ export default async function AdminHorsesPage() {
                     await deleteHorse(horse.id);
                   }} className="flex-none">
                     <button type="submit" className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm">
-                      Verwijder
+                      Delete
                     </button>
                   </form>
                 </div>
