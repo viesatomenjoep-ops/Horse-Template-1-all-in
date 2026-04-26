@@ -7,10 +7,46 @@ export default async function AdminOverview() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-2">
         <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">Dashboard Overview</h1>
       </div>
+
+      {/* Quick Navigation Categories */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <Link href="/admin/horses" className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 hover:border-primary/50 hover:shadow-lg rounded-2xl p-6 flex flex-col items-center justify-center transition-all group">
+          <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <Database size={24} className="text-primary" />
+          </div>
+          <h2 className="font-bold text-gray-900 dark:text-white text-center">Horses</h2>
+          <p className="text-xs text-gray-500 mt-1">Manage portfolio</p>
+        </Link>
+        
+        <Link href="/admin/pages" className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/20 hover:border-blue-500/50 hover:shadow-lg rounded-2xl p-6 flex flex-col items-center justify-center transition-all group">
+          <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <FileText size={24} className="text-blue-600 dark:text-blue-400" />
+          </div>
+          <h2 className="font-bold text-gray-900 dark:text-white text-center">Website content</h2>
+          <p className="text-xs text-gray-500 mt-1">Edit pages</p>
+        </Link>
+
+        <Link href="/admin/references" className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 border border-purple-500/20 hover:border-purple-500/50 hover:shadow-lg rounded-2xl p-6 flex flex-col items-center justify-center transition-all group">
+          <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <TrendingUp size={24} className="text-purple-600 dark:text-purple-400" />
+          </div>
+          <h2 className="font-bold text-gray-900 dark:text-white text-center">References</h2>
+          <p className="text-xs text-gray-500 mt-1">Client reviews</p>
+        </Link>
+
+        <Link href="/admin/quotes" className="bg-gradient-to-br from-yellow-500/10 to-yellow-500/5 border border-yellow-500/20 hover:border-yellow-500/50 hover:shadow-lg rounded-2xl p-6 flex flex-col items-center justify-center transition-all group">
+          <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <CalendarIcon size={24} className="text-yellow-600 dark:text-yellow-400" />
+          </div>
+          <h2 className="font-bold text-gray-900 dark:text-white text-center">Quotes & Orders</h2>
+          <p className="text-xs text-gray-500 mt-1">Sales tracking</p>
+        </Link>
+      </div>
       
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Live Statistics</h2>
       {/* Stat Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         

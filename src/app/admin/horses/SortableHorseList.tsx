@@ -164,11 +164,17 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
                             >
                               Edit
                             </Link>
-                            <form action={deleteHorse.bind(null, horse.id)} className="flex-none">
-                              <button type="submit" className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm">
-                                Delete
-                              </button>
-                            </form>
+                            <button 
+                              type="button" 
+                              onClick={async () => {
+                                if (confirm('Are you sure you want to delete this horse?')) {
+                                  await deleteHorse(horse.id)
+                                }
+                              }}
+                              className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm flex-none"
+                            >
+                              Delete
+                            </button>
                           </div>
                         </div>
                       </div>
