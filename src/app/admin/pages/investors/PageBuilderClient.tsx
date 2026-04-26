@@ -117,7 +117,12 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
               <span className="font-bold text-sm uppercase tracking-wider text-accent flex items-center gap-2">
                 {block.type === 'heading' && <><Heading size={16} /> <span>Koptekst</span></>}
                 {block.type === 'text' && <><Type size={16} /> <span>Alinea (Lappen tekst)</span></>}
+                {block.type === 'quote' && <><Type size={16} /> <span>Grote Quote / Citaat</span></>}
+                {block.type === 'bullet-list' && <><Type size={16} /> <span>Opsomming (Bullet points)</span></>}
+                {block.type === 'cta' && <><Type size={16} /> <span>Knop (Call to Action)</span></>}
+                {block.type === 'divider' && <><Type size={16} /> <span>Scheidingslijn (Divider)</span></>}
                 {block.type === 'image' && <><ImageIcon size={16} /> <span>Afbeelding</span></>}
+                {block.type === 'image-text' && <><ImageIcon size={16} /> <span>Tekst + Foto Sectie</span></>}
               </span>
               <button onClick={() => handleRemoveBlock(index)} className="text-red-500 hover:text-red-700 p-1"><Trash2 size={18} /></button>
             </div>
@@ -154,6 +159,62 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
                   <option value="text-lg">Iets Groter</option>
                   <option value="text-xl">Groot & Opvallend</option>
                 </select>
+              </div>
+            )}
+
+            {block.type === 'quote' && (
+              <div className="space-y-3">
+                <textarea 
+                  rows={3} 
+                  value={block.content} 
+                  onChange={(e) => updateBlock(index, 'content', e.target.value)} 
+                  placeholder="Typ hier de grote, opvallende quote..."
+                  className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent text-xl italic font-serif"
+                />
+              </div>
+            )}
+
+            {block.type === 'bullet-list' && (
+              <div className="space-y-3">
+                <label className="block text-sm text-gray-500">Zet elk item op een nieuwe regel. Start eventueel met een streepje (-).</label>
+                <textarea 
+                  rows={6} 
+                  value={block.content} 
+                  onChange={(e) => updateBlock(index, 'content', e.target.value)} 
+                  placeholder="- Waardebehoud door hoge kwaliteit\n- Wereldwijd bereik via ons netwerk\n- Exclusieve events voor investeerders"
+                  className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent font-mono"
+                />
+              </div>
+            )}
+
+            {block.type === 'cta' && (
+              <div className="space-y-3 flex gap-4">
+                <div className="flex-1">
+                  <label className="block text-sm font-bold mb-1">Knop Tekst</label>
+                  <input 
+                    type="text" 
+                    value={block.content} 
+                    onChange={(e) => updateBlock(index, 'content', e.target.value)} 
+                    placeholder="Bv: Request Investment Deck"
+                    className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-sm font-bold mb-1">Link URL</label>
+                  <input 
+                    type="text" 
+                    value={block.image_url || ''} 
+                    onChange={(e) => updateBlock(index, 'image_url', e.target.value)} 
+                    placeholder="Bv: /contact of /investors/portfolio"
+                    className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
+                  />
+                </div>
+              </div>
+            )}
+
+            {block.type === 'divider' && (
+              <div className="py-4 text-center text-gray-400">
+                --- Scheidingslijn (Zichtbaar op de website) ---
               </div>
             )}
 
@@ -223,18 +284,32 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
 
         <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
           <button onClick={() => handleAddBlock('heading')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <Heading size={16} className="mr-2" /> Koptekst Toevoegen
+            <Heading size={16} className="mr-2" /> Koptekst
           </button>
           <button onClick={() => handleAddBlock('text')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <Type size={16} className="mr-2" /> Tekst Toevoegen
+            <Type size={16} className="mr-2" /> Tekst
+          </button>
+          <button onClick={() => handleAddBlock('bullet-list')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
+            <Type size={16} className="mr-2" /> Opsomming (Bullets)
+          </button>
+          <button onClick={() => handleAddBlock('quote')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
+            <Type size={16} className="mr-2" /> Grote Quote
+          </button>
+          <button onClick={() => {
+            setBlocks([...blocks, { id: Date.now().toString(), type: 'cta', content: 'Lees meer', image_url: '/' }])
+          }} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
+            <ArrowUp size={16} className="mr-2" /> Knop / Link
+          </button>
+          <button onClick={() => handleAddBlock('divider')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
+            --- Scheidingslijn
           </button>
           <button onClick={() => handleAddBlock('image')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <ImageIcon size={16} className="mr-2" /> Losse Afbeelding Toevoegen
+            <ImageIcon size={16} className="mr-2" /> Losse Foto
           </button>
           <button onClick={() => {
             setBlocks([...blocks, { id: Date.now().toString(), type: 'image-text', content: '', image_url: '', size: 'image-right' }])
           }} className="flex items-center px-4 py-2 bg-accent/10 text-accent hover:bg-accent/20 rounded-md font-medium text-sm border border-accent/20">
-            <ImageIcon size={16} className="mr-2" /> Sectie (Tekst + Foto) Toevoegen
+            <ImageIcon size={16} className="mr-2" /> Sectie (Tekst + Foto)
           </button>
         </div>
       </div>

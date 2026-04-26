@@ -63,6 +63,35 @@ export default async function InvestorsPage() {
           if (block.type === 'text') {
             return <p key={block.id || idx} className={`${block.size || 'text-base'} text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap`}>{block.content}</p>
           }
+          if (block.type === 'quote') {
+            return (
+              <blockquote key={block.id || idx} className="border-l-4 border-accent pl-6 py-4 my-8 text-xl md:text-2xl italic font-serif text-gray-700 dark:text-gray-300 bg-accent/5 rounded-r-lg">
+                "{block.content}"
+              </blockquote>
+            )
+          }
+          if (block.type === 'bullet-list') {
+            const items = block.content.split('\n').filter((item: string) => item.trim() !== '')
+            return (
+              <ul key={block.id || idx} className="list-disc list-inside space-y-3 my-6 text-gray-600 dark:text-gray-300 text-lg">
+                {items.map((item: string, i: number) => (
+                  <li key={i} className="leading-relaxed">{item.replace(/^- /, '')}</li>
+                ))}
+              </ul>
+            )
+          }
+          if (block.type === 'cta') {
+            return (
+              <div key={block.id || idx} className="my-8 flex justify-start">
+                <Link href={block.image_url || '/contact'} className="px-8 py-4 bg-accent text-white font-bold rounded-full hover:bg-primary transition-colors shadow-md">
+                  {block.content || 'Neem Contact Op'}
+                </Link>
+              </div>
+            )
+          }
+          if (block.type === 'divider') {
+            return <hr key={block.id || idx} className="my-16 border-t-2 border-gray-100 dark:border-gray-800" />
+          }
           if (block.type === 'image') {
             return (
               <div key={block.id || idx} className="relative w-full rounded-xl overflow-hidden my-8 shadow-lg bg-gray-50 dark:bg-gray-800">
