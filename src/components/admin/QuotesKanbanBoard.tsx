@@ -6,10 +6,10 @@ import Link from 'next/link'
 import { FileText, GripVertical } from 'lucide-react'
 
 const COLUMNS = [
-  { id: 'draft', title: 'Concept', color: 'bg-gray-100 border-gray-200' },
-  { id: 'sent', title: 'Verzonden', color: 'bg-blue-50 border-blue-200' },
-  { id: 'accepted', title: 'Geaccepteerd', color: 'bg-emerald-50 border-emerald-200' },
-  { id: 'paid', title: 'Betaald', color: 'bg-green-100 border-green-300' }
+  { id: 'draft', title: 'Draft', color: 'bg-gray-100 border-gray-200' },
+  { id: 'sent', title: 'Sent', color: 'bg-blue-50 border-blue-200' },
+  { id: 'accepted', title: 'Accepted', color: 'bg-emerald-50 border-emerald-200' },
+  { id: 'paid', title: 'Paid', color: 'bg-green-100 border-green-300' }
 ]
 
 export default function QuotesKanbanBoard({ initialQuotes }: { initialQuotes: any[] }) {
@@ -45,8 +45,7 @@ export default function QuotesKanbanBoard({ initialQuotes }: { initialQuotes: an
     } catch (err) {
       console.error(err)
       // Revert on error
-      setQuotes(initialQuotes)
-      alert("Fout bij updaten status")
+      alert("Error updating status")
     }
     
     setDraggedQuoteId(null)
@@ -82,7 +81,7 @@ export default function QuotesKanbanBoard({ initialQuotes }: { initialQuotes: an
                   </div>
                   <div className="flex justify-between items-start mb-2 pr-6">
                     <span className={`px-2 py-0.5 text-xs font-bold rounded-full uppercase ${quote.type === 'order' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
-                      {quote.type === 'order' ? 'ORDER' : 'OFFERTE'}
+                      {quote.type === 'order' ? 'ORDER' : 'QUOTE'}
                     </span>
                     <span className="text-xs text-gray-500 font-medium">{quote.quote_number}</span>
                   </div>
@@ -93,7 +92,7 @@ export default function QuotesKanbanBoard({ initialQuotes }: { initialQuotes: an
                     <span className="font-bold text-gray-900">€ {Number(quote.total_amount).toFixed(2)}</span>
                     <div className="flex gap-2">
                       <Link href={`/admin/quotes/${quote.id}/edit`} className="text-xs text-gray-500 hover:text-primary hover:underline flex items-center gap-1">
-                        Aanpassen
+                        Edit
                       </Link>
                       <Link href={`/admin/quotes/${quote.id}`} className="text-xs text-primary hover:underline flex items-center gap-1">
                         <FileText size={12} /> Details

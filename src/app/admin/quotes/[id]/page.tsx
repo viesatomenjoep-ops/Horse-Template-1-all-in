@@ -59,23 +59,60 @@ export default function QuoteDetailPage() {
     setSending(false)
   }
 
+  const [docLang, setDocLang] = useState('EN')
+
+  const t = {
+    EN: {
+      order: 'ORDER', quote: 'QUOTE', number: 'Number:', date: 'Date:', valid: 'Valid until:',
+      from: 'From', to: 'To', desc: 'Description', qty: 'Qty', price: 'Unit Price', total: 'Total',
+      subtotal: 'Subtotal', tax: 'VAT', notes: 'Notes'
+    },
+    NL: {
+      order: 'ORDER', quote: 'OFFERTE', number: 'Nummer:', date: 'Datum:', valid: 'Geldig tot:',
+      from: 'Van', to: 'Aan', desc: 'Omschrijving', qty: 'Aantal', price: 'Stukprijs', total: 'Totaal',
+      subtotal: 'Subtotaal', tax: 'BTW', notes: 'Opmerkingen'
+    },
+    DE: {
+      order: 'BESTELLUNG', quote: 'ANGEBOT', number: 'Nummer:', date: 'Datum:', valid: 'Gültig bis:',
+      from: 'Von', to: 'An', desc: 'Beschreibung', qty: 'Menge', price: 'Einzelpreis', total: 'Gesamt',
+      subtotal: 'Zwischensumme', tax: 'MwSt.', notes: 'Anmerkungen'
+    },
+    ES: {
+      order: 'PEDIDO', quote: 'PRESUPUESTO', number: 'Número:', date: 'Fecha:', valid: 'Válido hasta:',
+      from: 'De', to: 'Para', desc: 'Descripción', qty: 'Cant', price: 'Precio unitario', total: 'Total',
+      subtotal: 'Subtotal', tax: 'IVA', notes: 'Notas'
+    }
+  } as any
+
+  const l = t[docLang]
+
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6 print:p-0 print:max-w-none">
 
       {/* Action Bar (Hidden when printing) */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 print:hidden">
         <Link href="/admin/quotes" className="flex items-center text-gray-500 hover:text-primary transition-colors">
-          <ArrowLeft size={20} className="mr-2" /> Terug naar overzicht
+          <ArrowLeft size={20} className="mr-2" /> Back to overview
         </Link>
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-3 flex-wrap items-center">
+          <select 
+            value={docLang} 
+            onChange={(e) => setDocLang(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md text-sm font-bold bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+          >
+            <option value="EN">🇺🇸 English</option>
+            <option value="NL">🇳🇱 Dutch</option>
+            <option value="DE">🇩🇪 German</option>
+            <option value="ES">🇪🇸 Spanish</option>
+          </select>
           <Link href={`/admin/quotes/${quote.id}/edit`} className="flex items-center px-4 py-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-md hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition-colors">
-            <Edit size={18} className="mr-2" /> Bewerken
+            <Edit size={18} className="mr-2" /> Edit
           </Link>
           <button onClick={handlePrint} className="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-            <Printer size={18} className="mr-2" /> Print / PDF Opslaan
+            <Printer size={18} className="mr-2" /> Print / PDF
           </button>
           <button onClick={() => setShowEmailDialog(true)} className="flex items-center px-4 py-2 bg-accent text-white rounded-md hover:bg-primary transition-colors">
-            <Send size={18} className="mr-2" /> Verstuur per E-mail
+            <Send size={18} className="mr-2" /> Email Client
           </button>
         </div>
       </div>
@@ -86,14 +123,14 @@ export default function QuoteDetailPage() {
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
-                <Mail className="mr-2" /> E-mail Versturen
+                <Mail className="mr-2" /> Send Email
               </h3>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Deze offerte wordt verzonden naar <strong>{quote.client_email}</strong> vanuit jouw e-mailadres (tomjo118735@gmail.com).
+              This document will be sent to <strong>{quote.client_email}</strong> from your email (tomjo118735@gmail.com).
             </p>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Google App-wachtwoord</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Google App Password</label>
               <input
                 type="password"
                 placeholder="abcd efgh ijkl mnop"
@@ -101,12 +138,12 @@ export default function QuoteDetailPage() {
                 onChange={(e) => setEmailPass(e.target.value)}
                 className="w-full p-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-accent outline-none"
               />
-              <p className="text-xs text-gray-500 mt-1">Plak hier de 16-letterige code uit je Google Account.</p>
+              <p className="text-xs text-gray-500 mt-1">Paste your 16-letter code from your Google Account.</p>
             </div>
             <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-              <button onClick={() => setShowEmailDialog(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Annuleren</button>
+              <button onClick={() => setShowEmailDialog(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">Cancel</button>
               <button onClick={handleSendEmail} disabled={sending} className="px-4 py-2 bg-accent text-white rounded-md disabled:opacity-50">
-                {sending ? 'Verzenden...' : 'Verstuur E-mail'}
+                {sending ? 'Sending...' : 'Send Email'}
               </button>
             </div>
           </div>
@@ -124,24 +161,23 @@ export default function QuoteDetailPage() {
           </div>
           <div className="text-right text-sm text-gray-600 space-y-1">
             <h2 className="text-3xl font-serif font-bold text-accent mb-4 uppercase">
-              {quote.type === 'order' ? 'ORDER' : 'OFFERTE'}
+              {quote.type === 'order' ? l.order : l.quote}
             </h2>
-            <p><strong>Nummer:</strong> {quote.quote_number}</p>
-            <p><strong>Datum:</strong> {new Date(quote.date).toLocaleDateString('nl-NL')}</p>
-            {quote.valid_until && <p><strong>Geldig tot:</strong> {new Date(quote.valid_until).toLocaleDateString('nl-NL')}</p>}
+            <p><strong>{l.number}</strong> {quote.quote_number}</p>
+            <p><strong>{l.date}</strong> {new Date(quote.date).toLocaleDateString()}</p>
+            {quote.valid_until && <p><strong>{l.valid}</strong> {new Date(quote.valid_until).toLocaleDateString()}</p>}
           </div>
         </div>
 
         {/* Addresses */}
         <div className="flex justify-between mt-10 text-sm">
           <div className="space-y-1 text-gray-600">
-            <h3 className="font-bold text-primary text-base mb-2">Van</h3>
+            <h3 className="font-bold text-primary text-base mb-2">{l.from}</h3>
             <p>Equivest Worldwide</p>
             <p>tomjo118735@gmail.com</p>
-            {/* Add actual company address here if known */}
           </div>
           <div className="space-y-1 text-gray-600 text-right sm:text-left sm:w-1/3">
-            <h3 className="font-bold text-primary text-base mb-2">Aan</h3>
+            <h3 className="font-bold text-primary text-base mb-2">{l.to}</h3>
             <p className="font-medium text-gray-900">{quote.client_name}</p>
             {quote.client_company && <p>{quote.client_company}</p>}
             {quote.client_address && <p>{quote.client_address}</p>}
@@ -154,10 +190,10 @@ export default function QuoteDetailPage() {
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b-2 border-primary text-primary">
-                <th className="py-3 font-bold">Omschrijving</th>
-                <th className="py-3 font-bold text-center w-24">Aantal</th>
-                <th className="py-3 font-bold text-right w-32">Stukprijs</th>
-                <th className="py-3 font-bold text-right w-32">Totaal</th>
+                <th className="py-3 font-bold">{l.desc}</th>
+                <th className="py-3 font-bold text-center w-24">{l.qty}</th>
+                <th className="py-3 font-bold text-right w-32">{l.price}</th>
+                <th className="py-3 font-bold text-right w-32">{l.total}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 text-gray-700">
@@ -177,15 +213,15 @@ export default function QuoteDetailPage() {
         <div className="mt-8 flex justify-end">
           <div className="w-64 space-y-3 text-sm">
             <div className="flex justify-between text-gray-600">
-              <span>Subtotaal</span>
+              <span>{l.subtotal}</span>
               <span>€ {Number(quote.subtotal).toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-gray-600">
-              <span>BTW ({quote.tax_rate}%)</span>
+              <span>{l.tax} ({quote.tax_rate}%)</span>
               <span>€ {Number(quote.tax_amount).toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-lg font-bold text-primary border-t-2 border-primary pt-2">
-              <span>Totaal</span>
+              <span>{l.total}</span>
               <span>€ {Number(quote.total_amount).toFixed(2)}</span>
             </div>
           </div>
@@ -194,7 +230,7 @@ export default function QuoteDetailPage() {
         {/* Notes */}
         {quote.notes && (
           <div className="mt-16 text-sm text-gray-600">
-            <h4 className="font-bold text-primary mb-1">Opmerkingen</h4>
+            <h4 className="font-bold text-primary mb-1">{l.notes}</h4>
             <p className="whitespace-pre-wrap">{quote.notes}</p>
           </div>
         )}

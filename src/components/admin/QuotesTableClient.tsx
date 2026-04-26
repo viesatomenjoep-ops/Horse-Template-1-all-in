@@ -26,13 +26,13 @@ export default function QuotesTableClient({ quotes }: { quotes: any[] }) {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <Search className="h-5 w-5 text-gray-400" />
           </div>
-          <input
-            type="text"
-            className="block w-full pl-10 pr-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg leading-5 bg-white dark:bg-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-all"
-            placeholder="Zoek op factuurnummer, klantnaam of bedrag..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+            <input
+              type="text"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg leading-5 bg-white dark:bg-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-all"
+              placeholder="Search by invoice number, client name, or amount..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
         </div>
       </div>
 
@@ -40,13 +40,13 @@ export default function QuotesTableClient({ quotes }: { quotes: any[] }) {
         <table className="w-full text-left">
           <thead className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
             <tr>
-              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Nummer</th>
+              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Number</th>
               <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Type</th>
-              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Klant</th>
-              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Datum</th>
-              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Bedrag</th>
+              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Client</th>
+              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Date</th>
+              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Amount</th>
               <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300">Status</th>
-              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300 text-right">Actie</th>
+              <th className="px-6 py-4 font-semibold text-gray-600 dark:text-gray-300 text-right">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -57,7 +57,7 @@ export default function QuotesTableClient({ quotes }: { quotes: any[] }) {
                   <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold uppercase tracking-wider ${
                     quote.type === 'order' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
                   }`}>
-                    {quote.type === 'order' ? 'ORDER' : 'OFFERTE'}
+                    {quote.type === 'order' ? 'ORDER' : 'QUOTE'}
                   </span>
                 </td>
                 <td className="px-6 py-4">
@@ -86,13 +86,13 @@ export default function QuotesTableClient({ quotes }: { quotes: any[] }) {
                       href={`/admin/quotes/${quote.id}/edit`}
                       className="inline-flex items-center px-3 py-1.5 text-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
-                      Aanpassen
+                      Edit
                     </Link>
                     <Link 
                       href={`/admin/quotes/${quote.id}`}
                       className="inline-flex items-center px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                     >
-                      Bekijk
+                      View
                     </Link>
                   </div>
                 </td>
@@ -101,7 +101,7 @@ export default function QuotesTableClient({ quotes }: { quotes: any[] }) {
             {filteredQuotes.length === 0 && (
               <tr>
                 <td colSpan={7} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
-                  {searchTerm ? 'Geen resultaten gevonden voor je zoekopdracht.' : 'Nog geen offertes of orders aangemaakt.'}
+                  {searchTerm ? 'No results found for your search.' : 'No quotes or orders created yet.'}
                 </td>
               </tr>
             )}
