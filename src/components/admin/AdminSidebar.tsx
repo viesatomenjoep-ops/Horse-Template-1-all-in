@@ -45,8 +45,8 @@ export default function AdminSidebar() {
 
   // Filter items based on permissions
   const navItems = allNavItems.filter(item => {
-    // Overview is always visible if they have CMS access
-    if (item.id === 'overview') return true
+    // Overview and LinkedIn are always visible if they have CMS access
+    if (item.id === 'overview' || item.id === 'linkedin') return true
     
     // Superadmin sees everything
     if (userRole?.role === 'superadmin') return true
