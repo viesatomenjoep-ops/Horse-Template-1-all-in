@@ -21,11 +21,18 @@ export default async function HorseDetailPage(props: {
 
   if (!horse) notFound()
 
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  const cookieStore = await cookies()
-  const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
-  const canSeeROI = user || isInvestor
+  let canSeeROI = false
+
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    const cookieStore = await cookies()
+    const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
+    canSeeROI = !!user || isInvestor
+  } catch (err) {
+    console.error("Auth check failed on horse detail:", err)
+    // Fallback safely to false
+  }
 
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen">
