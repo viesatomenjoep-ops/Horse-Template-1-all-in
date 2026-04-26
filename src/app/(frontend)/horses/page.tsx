@@ -125,7 +125,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
                 <div>
                   <h3 className="text-lg text-primary font-serif font-semibold">
                     <Link href={`/horses/${horse.id}`}>
-                      <span aria-hidden="true" className="absolute inset-0" />
+                      <span aria-hidden="true" className="absolute inset-0 z-20" />
                       {horse.name}
                     </Link>
                   </h3>

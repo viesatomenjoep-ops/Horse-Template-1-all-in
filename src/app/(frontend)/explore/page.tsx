@@ -157,18 +157,35 @@ export default function ExploreToolsPage() {
                 <Lock size={16} className="text-gray-400 mt-auto" />
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Viewer Panel */}
-            <div className="bg-gray-900 rounded-3xl relative p-8 md:p-16 flex items-center justify-center overflow-hidden min-h-[450px] shadow-inner border border-gray-800">
-              <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        {/* Modal Viewer Panel */}
+        {activeMagicLink && (
+          <div className="fixed inset-0 z-[100] flex flex-col bg-gray-900/95 backdrop-blur-md animate-fade-in">
+            <div className="flex justify-between items-center p-6 border-b border-white/10">
+              <h3 className="text-white font-serif font-bold text-xl">Secure Vault</h3>
+              <button 
+                onClick={() => {
+                  setActiveMagicLink(null)
+                  setActionState({})
+                }}
+                className="bg-white/10 hover:bg-white/20 text-white rounded-full px-6 py-2 font-bold transition-colors"
+              >
+                Close / Terug
+              </button>
+            </div>
+            
+            <div className="flex-1 flex items-center justify-center p-4 relative overflow-y-auto">
+              <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
               
               {magicLinkLoading ? (
-                 <div className="relative z-10 text-center animate-pulse">
+                 <div className="relative z-10 text-center animate-pulse mt-[-10vh]">
                     <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
                     <p className="text-accent font-bold tracking-widest uppercase text-lg">Decrypting Secure Vault...</p>
                  </div>
               ) : activeMagicLink === 'video' ? (
-                 <div className="relative z-10 w-full max-w-3xl bg-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in">
+                 <div className="relative z-10 w-full max-w-4xl bg-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in mt-[-5vh]">
                     <div className="aspect-video bg-gray-800 flex flex-col items-center justify-center relative group cursor-pointer">
                       <PlayCircle size={80} className="text-white/80 group-hover:text-accent group-hover:scale-110 transition-all mb-4" />
                       <p className="text-white/60 font-medium">Click to Play 4K Video Stream</p>
@@ -180,7 +197,7 @@ export default function ExploreToolsPage() {
                     </div>
                  </div>
               ) : activeMagicLink === 'vet' ? (
-                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in">
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
                   <div className="w-20 h-20 mx-auto bg-green-500/20 rounded-full flex items-center justify-center mb-6">
                     <ShieldCheck size={40} className="text-green-400" />
                   </div>
@@ -198,7 +215,7 @@ export default function ExploreToolsPage() {
                   </button>
                 </div>
               ) : activeMagicLink === 'live_cam' ? (
-                 <div className="relative z-10 w-full max-w-3xl bg-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in">
+                 <div className="relative z-10 w-full max-w-4xl bg-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in mt-[-5vh]">
                     <div className="aspect-video bg-gray-800 relative cursor-pointer overflow-hidden group">
                       <img src="https://images.unsplash.com/photo-1598974357801-cbca100e65d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Stable" className="object-cover w-full h-full opacity-60 group-hover:opacity-80 transition-opacity" />
                       <div className="absolute top-6 left-6 flex items-center bg-black/80 px-4 py-2 rounded-full border border-white/10">
@@ -211,7 +228,7 @@ export default function ExploreToolsPage() {
                     </div>
                  </div>
               ) : activeMagicLink === 'results' ? (
-                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl animate-fade-in">
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl animate-fade-in mt-[-5vh]">
                   <div className="flex items-center mb-8 pb-6 border-b border-white/10">
                     <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mr-6">
                       <Trophy size={28} className="text-purple-400" />
@@ -242,7 +259,7 @@ export default function ExploreToolsPage() {
                   </button>
                 </div>
               ) : activeMagicLink === 'syndicate' ? (
-                 <div className="relative z-10 w-full max-w-md bg-gradient-to-br from-emerald-900/50 to-gray-900 border border-emerald-500/30 rounded-3xl p-8 shadow-2xl animate-fade-in">
+                 <div className="relative z-10 w-full max-w-md bg-gradient-to-br from-emerald-900/50 to-gray-900 border border-emerald-500/30 rounded-3xl p-8 shadow-2xl animate-fade-in mt-[-5vh]">
                   <h3 className="text-2xl font-bold text-white mb-3 flex items-center">
                     <TrendingUp className="text-emerald-400 mr-3" size={28} />
                     Prospectus Unlocked
@@ -273,7 +290,7 @@ export default function ExploreToolsPage() {
                   </button>
                 </div>
               ) : activeMagicLink === 'pedigree' ? (
-                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in">
+                 <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
                   <div className="w-20 h-20 mx-auto bg-orange-500/20 rounded-full flex items-center justify-center mb-6">
                     <Dna size={40} className="text-orange-400" />
                   </div>
@@ -290,16 +307,10 @@ export default function ExploreToolsPage() {
                     {actionState['pedigree'] === 'loading' ? 'Loading Database...' : actionState['pedigree'] || 'View Interactive Family Tree'}
                   </button>
                 </div>
-              ) : (
-                <div className="relative z-10 w-full max-w-md bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-12 text-center shadow-2xl">
-                  <div className="w-24 h-24 mx-auto bg-gray-500/10 rounded-full flex items-center justify-center mb-6">
-                    <Lock size={40} className="text-gray-500" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-300 mb-3">Vault Locked</h3>
-                  <p className="text-gray-500">Select a magic link above to simulate unlocking the vault features.</p>
-                </div>
-              )}
+              ) : null}
             </div>
+          </div>
+        )}
           </div>
         </div>
 
