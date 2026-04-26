@@ -37,6 +37,19 @@ export default function ExploreToolsPage() {
   }
 
   return (
+  // Magic Link State
+  const [activeMagicLink, setActiveMagicLink] = useState<string | null>(null)
+  const [magicLinkLoading, setMagicLinkLoading] = useState(false)
+
+  const handleMagicLinkClick = (type: string) => {
+    setMagicLinkLoading(true)
+    setTimeout(() => {
+      setMagicLinkLoading(false)
+      setActiveMagicLink(type)
+    }, 1200)
+  }
+
+  return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen pb-20">
       
       {/* Hero */}
@@ -62,7 +75,10 @@ export default function ExploreToolsPage() {
               </p>
               
               <div className="space-y-4">
-                <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-accent transition-colors cursor-pointer group flex items-center justify-between">
+                <div 
+                  onClick={() => handleMagicLinkClick('video')}
+                  className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-accent transition-colors cursor-pointer group flex items-center justify-between"
+                >
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent/20 transition-colors">
                       <PlayCircle size={20} className="text-accent" />
@@ -75,7 +91,10 @@ export default function ExploreToolsPage() {
                   <Lock size={16} className="text-gray-400" />
                 </div>
 
-                <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-green-500 transition-colors cursor-pointer group flex items-center justify-between">
+                <div 
+                  onClick={() => handleMagicLinkClick('vet')}
+                  className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-green-500 transition-colors cursor-pointer group flex items-center justify-between"
+                >
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center mr-4 group-hover:bg-green-500/20 transition-colors">
                       <ShieldCheck size={20} className="text-green-600 dark:text-green-400" />
@@ -92,16 +111,40 @@ export default function ExploreToolsPage() {
             <div className="md:w-1/2 bg-gray-900 relative p-8 md:p-12 flex items-center justify-center overflow-hidden">
               <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
               
-              <div className="relative z-10 w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center shadow-2xl">
-                <div className="w-16 h-16 mx-auto bg-accent/20 rounded-full flex items-center justify-center mb-4">
-                  <Lock size={24} className="text-accent" />
+              {magicLinkLoading ? (
+                 <div className="relative z-10 text-center animate-pulse">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-accent font-bold tracking-widest uppercase text-sm">Decrypting Secure Vault...</p>
+                 </div>
+              ) : activeMagicLink === 'video' ? (
+                 <div className="relative z-10 w-full bg-black border border-white/20 rounded-2xl overflow-hidden shadow-2xl animate-fade-in">
+                    <div className="aspect-video bg-gray-800 flex items-center justify-center relative group cursor-pointer">
+                      <PlayCircle size={64} className="text-white/80 group-hover:text-accent group-hover:scale-110 transition-all" />
+                      <div className="absolute bottom-4 left-4">
+                         <p className="text-white font-bold text-sm bg-black/50 px-2 py-1 rounded">Quel Honneur vh Distelhof Z - 4K Video</p>
+                      </div>
+                    </div>
+                 </div>
+              ) : activeMagicLink === 'vet' ? (
+                 <div className="relative z-10 w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center shadow-2xl animate-fade-in">
+                  <div className="w-16 h-16 mx-auto bg-green-500/20 rounded-full flex items-center justify-center mb-4">
+                    <ShieldCheck size={24} className="text-green-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Secure PDF Unlocked</h3>
+                  <p className="text-gray-300 text-sm mb-6">Confidential Vet Check & X-Ray files are ready for download.</p>
+                  <button className="w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold shadow-lg transition-transform hover:scale-105 active:scale-95">
+                    Download Documents
+                  </button>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Access Granted</h3>
-                <p className="text-gray-300 text-sm mb-6">Your magic link has been verified successfully.</p>
-                <button className="w-full py-3 bg-accent hover:bg-accent/90 text-white rounded-lg font-bold shadow-lg transition-transform hover:scale-105 active:scale-95">
-                  Enter Secure Room
-                </button>
-              </div>
+              ) : (
+                <div className="relative z-10 w-full max-w-sm bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center shadow-2xl">
+                  <div className="w-16 h-16 mx-auto bg-gray-500/20 rounded-full flex items-center justify-center mb-4">
+                    <Lock size={24} className="text-gray-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-300 mb-2">Vault Locked</h3>
+                  <p className="text-gray-500 text-sm mb-6">Click a magic link on the left to simulate unlocking the vault.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

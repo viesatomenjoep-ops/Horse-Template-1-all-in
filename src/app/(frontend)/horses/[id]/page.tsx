@@ -116,22 +116,22 @@ export default async function HorseDetailPage(props: {
               <div className="flex flex-col items-start gap-2">
                 <Calendar className="text-accent w-6 h-6" />
                 <span className="text-xs uppercase tracking-widest text-gray-500">Birth Year</span>
-                <span className="font-medium text-lg text-primary dark:text-white">{horse.birth_year}</span>
+                <span className="font-medium text-lg text-primary dark:text-white">{horse?.birth_year || '-'}</span>
               </div>
               <div className="flex flex-col items-start gap-2">
                 <Shield className="text-accent w-6 h-6" />
                 <span className="text-xs uppercase tracking-widest text-gray-500">Gender</span>
-                <span className="font-medium text-lg text-primary dark:text-white">{horse.gender}</span>
+                <span className="font-medium text-lg text-primary dark:text-white">{horse?.gender || '-'}</span>
               </div>
               <div className="flex flex-col items-start gap-2">
                 <Ruler className="text-accent w-6 h-6" />
                 <span className="text-xs uppercase tracking-widest text-gray-500">Height</span>
-                <span className="font-medium text-lg text-primary dark:text-white">{horse.height_cm ? `${horse.height_cm} cm` : 'TBD'}</span>
+                <span className="font-medium text-lg text-primary dark:text-white">{horse?.height_cm ? `${horse.height_cm} cm` : 'TBD'}</span>
               </div>
               <div className="flex flex-col items-start gap-2">
                 <Trophy className="text-accent w-6 h-6" />
                 <span className="text-xs uppercase tracking-widest text-gray-500">Level</span>
-                <span className="font-medium text-lg text-primary dark:text-white">{horse.experience_level || '-'}</span>
+                <span className="font-medium text-lg text-primary dark:text-white">{horse?.experience_level || '-'}</span>
               </div>
             </div>
 
@@ -141,17 +141,17 @@ export default async function HorseDetailPage(props: {
               <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
                 <div className="w-1/2 border-r border-gray-200 dark:border-gray-700 pr-6">
                   <span className="text-sm text-gray-500 uppercase tracking-widest block mb-1">Sire</span>
-                  <span className="text-xl font-medium text-primary dark:text-white">{horse.sire || 'Unknown'}</span>
+                  <span className="text-xl font-medium text-primary dark:text-white">{horse?.sire || 'Unknown'}</span>
                 </div>
                 <div className="w-1/2 pl-6">
                   <span className="text-sm text-gray-500 uppercase tracking-widest block mb-1">Dam Sire</span>
-                  <span className="text-xl font-medium text-primary dark:text-white">{horse.dam_sire || 'Unknown'}</span>
+                  <span className="text-xl font-medium text-primary dark:text-white">{horse?.dam_sire || 'Unknown'}</span>
                 </div>
               </div>
             </div>
 
             {/* Investor ROI Section */}
-            {canSeeROI && (horse.estimated_roi || horse.investment_rationale) && (
+            {canSeeROI && (horse?.estimated_roi || horse?.investment_rationale) && (
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/10 border-2 border-green-500/30 rounded-2xl p-8 shadow-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-green-500/10 rounded-full blur-3xl"></div>
                 <h2 className="text-2xl font-serif font-bold text-green-800 dark:text-green-400 mb-6 flex items-center">
@@ -187,7 +187,7 @@ export default async function HorseDetailPage(props: {
                   <Stethoscope className="w-8 h-8 text-accent mr-4" />
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">Vet Check / Keuring</span>
-                    {horse.doc_vet_check ? (
+                    {horse?.doc_vet_check ? (
                       <a href={horse.doc_vet_check} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Document</a>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
@@ -200,7 +200,7 @@ export default async function HorseDetailPage(props: {
                   <FileText className="w-8 h-8 text-accent mr-4" />
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">X-Rays</span>
-                    {horse.doc_xrays ? (
+                    {horse?.doc_xrays ? (
                       <a href={horse.doc_xrays} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Document</a>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
@@ -213,7 +213,7 @@ export default async function HorseDetailPage(props: {
                   <FileCheck className="w-8 h-8 text-accent mr-4" />
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">Passport Scan</span>
-                    {horse.doc_passport ? (
+                    {horse?.doc_passport ? (
                       <a href={horse.doc_passport} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Document</a>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
@@ -226,7 +226,7 @@ export default async function HorseDetailPage(props: {
                   <LinkIcon className="w-8 h-8 text-accent mr-4" />
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">FEI / Lifescore</span>
-                    {horse.link_fei ? (
+                    {horse?.link_fei ? (
                       <a href={horse.link_fei} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Profile</a>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
@@ -239,7 +239,7 @@ export default async function HorseDetailPage(props: {
                   <LinkIcon className="w-8 h-8 text-accent mr-4" />
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">HorseTelex</span>
-                    {horse.link_horsetelex ? (
+                    {horse?.link_horsetelex ? (
                       <a href={horse.link_horsetelex} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">View Pedigree</a>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
@@ -252,7 +252,7 @@ export default async function HorseDetailPage(props: {
                   <Video className="w-8 h-8 text-accent mr-4" />
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">Video</span>
-                    {horse.link_video ? (
+                    {horse?.link_video ? (
                       <a href={horse.link_video} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">Watch Video</a>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
@@ -263,7 +263,7 @@ export default async function HorseDetailPage(props: {
             </div>
 
             {/* Competition Results */}
-            {horse.horse_results && horse.horse_results.length > 0 && (
+            {horse?.horse_results && Array.isArray(horse.horse_results) && horse.horse_results.length > 0 && (
               <div>
                 <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-6 flex items-center">
                   <Trophy className="mr-3 text-accent" /> Competition Results
@@ -284,11 +284,11 @@ export default async function HorseDetailPage(props: {
                         {horse.horse_results.map((r: any) => (
                           <tr key={r.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                             <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100 font-medium">
-                              {new Date(r.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                              {r.date ? new Date(r.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '-'}
                             </td>
-                            <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{r.event_name}</td>
-                            <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{r.level}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-accent font-bold">{r.result}</td>
+                            <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{r.event_name || '-'}</td>
+                            <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{r.level || '-'}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-accent font-bold">{r.result || '-'}</td>
                             <td className="px-6 py-4 text-center">
                               {r.video_url ? (
                                 <a href={r.video_url} target="_blank" rel="noopener noreferrer" className="inline-flex p-2 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition-colors" title="Watch Video">
@@ -308,7 +308,7 @@ export default async function HorseDetailPage(props: {
             )}
 
             {/* Description */}
-            {horse.description && (
+            {horse?.description && typeof horse.description === 'string' && (
               <div>
                 <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-6">About {horse.name}</h2>
                 <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
@@ -320,11 +320,11 @@ export default async function HorseDetailPage(props: {
             )}
             
             {/* Future Media Gallery placeholder */}
-            {horse.media && horse.media.length > 0 && (
+            {(horse?.media || horse?.horse_media) && Array.isArray(horse.media || horse.horse_media) && (horse.media || horse.horse_media).length > 0 && (
               <div>
                 <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-6">Gallery</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {horse.media.map((item: any) => (
+                  {(horse.media || horse.horse_media).map((item: any) => (
                     <div key={item.id} className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden bg-gray-100">
                       {item.type === 'image' ? (
                         <img src={item.url} alt="Gallery item" className="object-cover w-full h-full" />
@@ -343,26 +343,26 @@ export default async function HorseDetailPage(props: {
             <div className="sticky top-32 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
               <div className="mb-8">
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${
-                  horse.status === 'Available' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                  horse.status === 'Sold' ? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300' :
+                  horse?.status === 'Available' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
+                  horse?.status === 'Sold' ? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300' :
                   'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
                 }`}>
-                  {horse.status}
+                  {horse?.status || 'Unknown'}
                 </span>
                 
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">Price Category</h3>
-                <p className="text-3xl font-serif font-bold text-primary dark:text-white">{horse.price_category}</p>
+                <p className="text-3xl font-serif font-bold text-primary dark:text-white">{horse?.price_category || 'Price on Request'}</p>
               </div>
 
               <div className="space-y-4">
                 <Link 
-                  href={`/contact?horse=${horse.id}`} 
+                  href={`/contact?horse=${horse?.id}`} 
                   className={`w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-lg text-base font-medium text-white transition-all duration-300 ${
-                    horse.status === 'Available' ? 'bg-primary hover:bg-secondary shadow-md hover:shadow-lg' : 'bg-gray-400 cursor-not-allowed opacity-70'
+                    horse?.status === 'Available' ? 'bg-primary hover:bg-secondary shadow-md hover:shadow-lg' : 'bg-gray-400 cursor-not-allowed opacity-70'
                   }`}
-                  aria-disabled={horse.status !== 'Available'}
+                  aria-disabled={horse?.status !== 'Available'}
                 >
-                  {horse.status === 'Available' ? `Inquire about ${horse.name}` : 'Not Available'}
+                  {horse?.status === 'Available' ? `Inquire about ${horse.name}` : 'Not Available'}
                 </Link>
                 <p className="text-center text-xs text-gray-500">
                   Serious inquiries only. Vetting and trials available upon request.
