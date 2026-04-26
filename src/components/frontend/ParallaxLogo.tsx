@@ -31,7 +31,7 @@ export default function ParallaxLogo() {
 
   return (
     <div 
-      className="relative z-20 flex flex-col items-center justify-center mt-8 md:mt-12 pointer-events-none"
+      className="relative z-20 flex flex-col items-center justify-center mt-2 md:mt-4 pointer-events-none"
       style={{ 
         transform: `translateY(${translateY}px)`,
         opacity: opacity 
