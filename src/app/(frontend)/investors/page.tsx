@@ -46,11 +46,21 @@ export default async function InvestorsPage() {
       
       {/* Hero Section */}
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 flex flex-col items-center">
           <span className="text-accent uppercase tracking-[0.3em] font-bold text-sm mb-2 block">Exclusive Opportunity</span>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-primary dark:text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-primary dark:text-white mb-8 leading-tight">
             {title}
           </h1>
+          
+          <div className="mb-10">
+            <a 
+              href="mailto:invest@equivestworldwide.com?subject=Private%20Portfolio%20Access%20Request&body=Hi%20Equivest%20Team,%0A%0AI%20would%20like%20to%20become%20an%20investor%20and%20request%20private%20access%20credentials%20to%20view%20the%20portfolio.%0A%0AKind%20regards,"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
+            >
+              <Lock size={18} /> Become an Investor <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+            </a>
+            <p className="text-xs text-gray-500 mt-4 font-bold uppercase tracking-widest">Login credentials for private access will be sent via email.</p>
+          </div>
         </div>
         <div className="relative w-full rounded-2xl overflow-hidden shadow-xl bg-gray-100 dark:bg-gray-800">
           <Image 
@@ -71,17 +81,6 @@ export default async function InvestorsPage() {
             return (
               <div key={block.id || idx}>
                 <h2 className={`${block.size || 'text-4xl'} font-serif font-bold text-primary dark:text-white pt-8`}>{block.content}</h2>
-                {block.content.includes('Why Invest in Sporthorses') && (
-                  <div className="mt-8 mb-4">
-                    <a 
-                      href="mailto:invest@equivestworldwide.com?subject=Private%20Portfolio%20Access%20Request&body=Hi%20Equivest%20Team,%0A%0AI%20would%20like%20to%20become%20an%20investor%20and%20request%20private%20access%20credentials%20to%20view%20the%20portfolio.%0A%0AKind%20regards,"
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
-                    >
-                      <Lock size={18} /> Become an Investor <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-                    </a>
-                    <p className="text-xs text-gray-500 mt-4 font-bold uppercase tracking-widest">Login credentials for private access will be sent via email.</p>
-                  </div>
-                )}
               </div>
             )
           }
