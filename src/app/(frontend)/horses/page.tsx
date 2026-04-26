@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { ShieldCheck, Eye, ArrowRight } from 'lucide-react'
 import { Reveal, StaggerContainer, StaggerItem, HoverCard } from '@/components/animations/MotionComponents'
+import { logoutAction } from '@/app/actions/auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,9 +30,16 @@ export default async function CollectionPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-primary dark:text-white">The Collection</h1>
               {isLoggedIn ? (
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 text-sm font-bold border border-green-200 dark:border-green-800/30 shadow-sm animate-fade-in">
-                  <ShieldCheck size={16} className="mr-2" />
-                  Investor Access: Full Collection Unlocked
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 text-sm font-bold border border-green-200 dark:border-green-800/30 shadow-sm animate-fade-in">
+                    <ShieldCheck size={16} className="mr-2" />
+                    Investor Access: Full Collection Unlocked
+                  </div>
+                  <form action={logoutAction}>
+                    <button type="submit" className="text-sm font-bold text-accent hover:text-primary transition-colors underline decoration-2 underline-offset-4">
+                      Logout as an investor
+                    </button>
+                  </form>
                 </div>
               ) : (
                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-sm font-medium border border-gray-200 dark:border-gray-700 shadow-sm">
