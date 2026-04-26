@@ -139,14 +139,34 @@ export default async function AboutPage() {
               );
             })}
           </div>
-          <div className="h-64 sm:h-[500px] w-full relative mt-16 bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
-            <Image 
-              src={hero_image || "/wellington_showjumper.png"} 
-              alt={title || "About image"} 
-              fill 
-              className="object-cover"
-              priority
-            />
+          {/* Media Blocks */}
+          <div className="grid grid-cols-1 gap-8 mt-16">
+            {hero_image && (
+              <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
+                {hero_image.toLowerCase().endsWith('.mp4') || hero_image.toLowerCase().endsWith('.webm') || hero_image.toLowerCase().endsWith('.mov') ? (
+                  <video src={hero_image} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                ) : (
+                  <Image src={hero_image} alt="Hero Media 1" fill className="object-cover" priority />
+                )}
+              </div>
+            )}
+            
+            {pageData.hero_image_2 && (
+              <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
+                {pageData.hero_image_2.toLowerCase().endsWith('.mp4') || pageData.hero_image_2.toLowerCase().endsWith('.webm') || pageData.hero_image_2.toLowerCase().endsWith('.mov') ? (
+                  <video src={pageData.hero_image_2} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                ) : (
+                  <Image src={pageData.hero_image_2} alt="Hero Media 2" fill className="object-cover" priority />
+                )}
+              </div>
+            )}
+            
+            {/* Fallback if both are empty */}
+            {!hero_image && !pageData.hero_image_2 && (
+              <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
+                <Image src="/wellington_showjumper.png" alt="About image" fill className="object-cover" priority />
+              </div>
+            )}
           </div>
         </div>
       </div>
