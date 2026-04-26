@@ -16,9 +16,11 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
     return (
       <section className="py-32 bg-[#050B14] relative overflow-hidden flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight mb-4">
-            Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
-          </h2>
+          <Link href="/horses" className="inline-block group">
+            <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight mb-4 group-hover:opacity-80 transition-opacity flex items-center gap-3">
+              Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
+            </h2>
+          </Link>
           <p className="text-gray-400">Our public portfolio is currently being updated. Check back soon for new premium assets.</p>
         </div>
       </section>
@@ -46,9 +48,11 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
               <span className="text-accent uppercase tracking-[0.2em] text-xs font-bold">Premium Assets</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight">
-              Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
-            </h2>
+            <Link href="/horses" className="inline-block group">
+              <h2 className="text-4xl md:text-5xl font-serif text-white tracking-tight group-hover:opacity-80 transition-opacity flex items-center gap-3">
+                Explore the <span className="italic text-accent font-light">Sport Portfolio</span>
+              </h2>
+            </Link>
           </div>
           
           <div className="flex items-center gap-4">
