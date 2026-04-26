@@ -72,7 +72,8 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
     }
   }
 
-  const HorseSelector = () => (
+  // Helper to render the select dropdown without unmounting
+  const renderHorseSelector = () => (
     <select className="w-full text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white mb-3" value={selectedHorseId} onChange={(e) => setSelectedHorseId(e.target.value)}>
       <option value="">Select a horse...</option>
       {horses.map(h => <option key={h.id} value={h.id}>{h.name}</option>)}
@@ -109,20 +110,20 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
         {activeTab === 'sales' && (
           <>
             <Card icon={Clock} title="24H VIP Access" desc="Bypass the login wall for exactly 24 hours. Perfect for quick investor previews." colorClass="bg-purple-100 text-purple-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/vip/[id]?token=[token]')} className="w-full py-2 bg-purple-600 text-white rounded-md font-bold text-sm">Generate VIP Link</button>
             </Card>
             <Card icon={EyeOff} title="Blind Link" desc="White-label link for agents. Hides name, pedigree, and branding." colorClass="bg-gray-100 text-gray-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/blind-portfolio/[id]')} className="w-full py-2 bg-gray-800 text-white rounded-md font-bold text-sm">Generate Blind Link</button>
             </Card>
             <Card icon={FileSignature} title="Custom Proposal" desc="Create a personalized pitch page dedicated to a specific client." colorClass="bg-blue-100 text-blue-600">
               <input type="text" placeholder="Client Name" className="w-full text-sm rounded-md border-gray-300 mb-3" value={clientName} onChange={(e) => setClientName(e.target.value)} />
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={generateProposalLink} className="w-full py-2 bg-blue-600 text-white rounded-md font-bold text-sm">Generate Proposal</button>
             </Card>
             <Card icon={Timer} title="Flash Sale (Off-Market)" desc="Generates a 48H self-destructing page with a special price to create FOMO." colorClass="bg-red-100 text-red-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/flash-sale/[id]')} className="w-full py-2 bg-red-600 text-white rounded-md font-bold text-sm animate-pulse">Generate Flash Sale Link</button>
             </Card>
             <Card icon={GitCompare} title="Side-by-Side Matchmaker" desc="Select 2-3 horses for a side-by-side comparison page." colorClass="bg-orange-100 text-orange-600">
@@ -134,15 +135,15 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
               <button onClick={generateCompareLink} className="w-full py-2 bg-orange-500 text-white rounded-md font-bold text-sm">Generate Comparison</button>
             </Card>
             <Card icon={Calculator} title="ROI Calculator" desc="Interactive calculator showing projected returns for a specific horse." colorClass="bg-emerald-100 text-emerald-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/roi-calculator/[id]')} className="w-full py-2 bg-emerald-600 text-white rounded-md font-bold text-sm">Generate ROI Link</button>
             </Card>
             <Card icon={BarChart3} title="Investor Analytics" desc="Private dashboard for current owners to view live traffic & interest." colorClass="bg-teal-100 text-teal-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/analytics/[id]?token=[token]')} className="w-full py-2 bg-teal-600 text-white rounded-md font-bold text-sm">Generate Stats Link</button>
             </Card>
             <Card icon={Video} title="Training Portal" desc="After-sales link where owners can see training progress and videos." colorClass="bg-indigo-100 text-indigo-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/training-portal/[id]')} className="w-full py-2 bg-indigo-600 text-white rounded-md font-bold text-sm">Generate Portal Link</button>
             </Card>
           </>
@@ -151,19 +152,19 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
         {activeTab === 'finance' && (
           <>
             <Card icon={PieChart} title="Syndicate Offering" desc="Fractional ownership page to raise capital from multiple investors." colorClass="bg-indigo-100 text-indigo-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/syndicate/[id]')} className="w-full py-2 bg-indigo-600 text-white rounded-md font-bold text-sm">Generate Syndicate Link</button>
             </Card>
             <Card icon={CreditCard} title="Secure Payment Link" desc="Generate a Stripe checkout link for deposits or final payments." colorClass="bg-blue-100 text-blue-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/pay/[token]')} className="w-full py-2 bg-blue-600 text-white rounded-md font-bold text-sm">Generate Payment Link</button>
             </Card>
             <Card icon={PenTool} title="Digital E-Sign Contract" desc="Send the Equivest Bill of Sale for digital smartphone signature." colorClass="bg-rose-100 text-rose-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/sign/[id]')} className="w-full py-2 bg-rose-600 text-white rounded-md font-bold text-sm">Generate E-Sign Link</button>
             </Card>
             <Card icon={Stamp} title="Valuation Certificate" desc="Formal web-certificate of valuation and health for insurance agents." colorClass="bg-yellow-100 text-yellow-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/certificate/[id]')} className="w-full py-2 bg-yellow-500 text-white rounded-md font-bold text-sm">Generate Certificate</button>
             </Card>
           </>
@@ -172,23 +173,23 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
         {activeTab === 'ops' && (
           <>
             <Card icon={UploadCloud} title="Secure Document Drop" desc="Send a link to vets/owners to securely upload heavy 4K videos or X-Rays." colorClass="bg-cyan-100 text-cyan-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/drop/[id]')} className="w-full py-2 bg-cyan-600 text-white rounded-md font-bold text-sm">Generate Drop Link</button>
             </Card>
             <Card icon={CalendarIcon} title="Live Try-Out Booking" desc="Let clients book a viewing/try-out session directly in your calendar." colorClass="bg-amber-100 text-amber-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/book-visit/[id]')} className="w-full py-2 bg-amber-500 text-white rounded-md font-bold text-sm">Generate Booking Link</button>
             </Card>
             <Card icon={Lock} title="Reserve & PPE Request" desc="Allow clients to digitally reserve a horse for 48H and request a Vet Check." colorClass="bg-red-100 text-red-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/reserve/[id]')} className="w-full py-2 bg-red-600 text-white rounded-md font-bold text-sm">Generate Reserve Link</button>
             </Card>
             <Card icon={Plane} title="Global Transport Calculator" desc="Let international clients estimate shipping/quarantine costs instantly." colorClass="bg-slate-100 text-slate-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/transport/[id]')} className="w-full py-2 bg-slate-600 text-white rounded-md font-bold text-sm">Generate Transport Link</button>
             </Card>
             <Card icon={Stethoscope} title="Virtual Vet Opinion" desc="Strictly medical link where US vets can view X-Rays and upload findings." colorClass="bg-emerald-100 text-emerald-600">
-              <HorseSelector />
+              {renderHorseSelector()}
               <button onClick={() => generateLink('/vet-opinion/[id]')} className="w-full py-2 bg-emerald-600 text-white rounded-md font-bold text-sm">Generate Vet Link</button>
             </Card>
           </>
