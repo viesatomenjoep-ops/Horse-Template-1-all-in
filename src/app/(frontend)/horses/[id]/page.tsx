@@ -91,10 +91,14 @@ export default async function HorseDetailPage(props: {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent" />
         
-        <div className="absolute top-8 left-4 sm:left-8 z-10">
-          <Link href="/horses" className="inline-flex items-center gap-2 text-white/90 hover:text-white hover:underline decoration-accent underline-offset-4 transition-all drop-shadow-md font-medium text-sm">
-            <ArrowLeft size={18} />
-            Back to Collection
+        {/* Back Button */}
+        <div className="absolute top-0 left-0 w-full z-10 px-4 pt-8">
+          <Link 
+            href="/horses"
+            className="inline-flex items-center text-white/90 hover:text-white transition-colors group px-4 py-3 md:px-0 md:py-0 text-lg md:text-base font-medium rounded-xl hover:bg-white/10 md:hover:bg-transparent"
+          >
+            <ArrowLeft className="mr-3 w-6 h-6 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
+            Back to the collection
           </Link>
         </div>
 

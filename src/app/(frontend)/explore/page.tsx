@@ -47,18 +47,62 @@ export default function ExploreToolsPage() {
     setActionState(prev => ({ ...prev, [type]: 'loading' }))
     setTimeout(() => {
       setActionState(prev => ({ ...prev, [type]: successMessage }))
-    }, 1000)
+      
+      try {
+        // Trigger actual downloads or actions to make the simulation feel real
+        if (type === 'vet' || type === 'syndicate') {
+          const text = `EQUIVEST WORLDWIDE - SECURE DOCUMENT VAULT\n==========================================\n\nDocument: ${type === 'vet' ? 'Confidential Veterinary Report & X-Rays Summary' : 'Syndicate Valuation & ROI Prospectus'}\nDate Generated: ${new Date().toLocaleString()}\nSecurity Token: EQV-${Math.random().toString(36).substring(2, 10).toUpperCase()}\n\nThis is a securely generated document demonstrating the Equivest Magic Link capabilities. All data is encrypted and watermarked.\n\n© 2026 Equivest Portfolio Management`;
+          const blob = new Blob([text], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Equivest_${type.toUpperCase()}_Document.txt`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } else if (type === 'results') {
+          const csv = `Event,Date,Result,Prize Money,Horse\nCSI2* Wellington,2026-02-12,1st Place,€25000,Quel Honneur vh Distelhof Z\nCSI3* Aachen,2025-06-22,Clear Round,€5000,Quel Honneur vh Distelhof Z`;
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Equivest_FEI_History.csv`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } else if (type === 'pedigree') {
+          window.open('https://www.horsetelex.com/horses/pedigree/2192131/quel-honneur-vh-distelhof-z', '_blank');
+        }
+      } catch (err) {
+        console.error("Action simulation failed", err);
+      }
+    }, 1500)
   }
 
   return (
     <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen pb-20">
       
       {/* Hero */}
-      <div className="bg-primary pt-24 pb-20 px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 animate-fade-in">Client Explore Hub</h1>
-        <p className="text-primary-foreground/80 max-w-2xl mx-auto text-lg mb-8">
-          Experience the cutting-edge tools that power Equivest Worldwide. From highly secure Magic Link previews to AI-powered authenticity scanning.
-        </p>
+      <div className="relative pt-32 pb-28 px-4 text-center overflow-hidden flex flex-col items-center justify-center min-h-[40vh]">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        >
+          <source src="https://cdn.pixabay.com/video/2021/08/13/84920-588320496_large.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/90 via-[#0A192F]/60 to-[#0A192F] dark:from-[#0A192F]/95 dark:via-[#0A192F]/80 dark:to-[#0A192F]"></div>
+        
+        <div className="relative z-10 w-full max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-6 animate-fade-in tracking-tight drop-shadow-2xl">Client Explore Hub</h1>
+          <p className="text-white/90 max-w-2xl mx-auto text-xl mb-8 drop-shadow-lg font-medium leading-relaxed">
+            Experience the cutting-edge tools that power Equivest Worldwide. From highly secure Magic Link previews to AI-powered authenticity scanning.
+          </p>
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 space-y-12 z-10 relative">
@@ -163,17 +207,8 @@ export default function ExploreToolsPage() {
         {/* Modal Viewer Panel */}
         {activeMagicLink && (
           <div className="fixed inset-0 z-[100] flex flex-col bg-gray-900/95 backdrop-blur-md animate-fade-in">
-            <div className="flex justify-between items-center p-6 border-b border-white/10">
-              <h3 className="text-white font-serif font-bold text-xl">Secure Vault</h3>
-              <button 
-                onClick={() => {
-                  setActiveMagicLink(null)
-                  setActionState({})
-                }}
-                className="bg-white/10 hover:bg-white/20 text-white rounded-full px-6 py-2 font-bold transition-colors"
-              >
-                Close / Terug
-              </button>
+            <div className="flex justify-center items-center p-6 border-b border-white/10">
+              <h3 className="text-white font-serif font-bold text-2xl tracking-wider">Equivest Secure Vault</h3>
             </div>
             
             <div className="flex-1 flex items-center justify-center p-4 relative overflow-y-auto">
@@ -308,6 +343,25 @@ export default function ExploreToolsPage() {
                   </button>
                 </div>
               ) : null}
+            </div>
+
+            {/* Prominent Go Back Button */}
+            <div className="p-8 border-t border-white/10 flex justify-center bg-gray-900/50">
+              <button
+                onClick={() => {
+                  setActiveMagicLink(null)
+                  setActionState({})
+                }}
+                className="group flex items-center justify-center gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-8 py-4 font-bold transition-all shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] hover:scale-105 w-full max-w-md"
+              >
+                <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
+                  <span className="text-white text-lg leading-none mt-[-2px]">&times;</span>
+                </div>
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-lg">Go Back</span>
+                  <span className="text-xs text-gray-500 font-medium tracking-wide uppercase">Terug / Volver / Zurück</span>
+                </div>
+              </button>
             </div>
           </div>
         )}
