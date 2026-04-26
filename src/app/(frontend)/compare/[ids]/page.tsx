@@ -5,6 +5,8 @@ import { Check, Trophy, Ruler, Calendar, Shield, Activity } from 'lucide-react'
 
 export const metadata = {
   title: 'Compare Horses | Equivest',
+}
+
 export default async function ComparePage(props: { params: Promise<{ ids: string }> }) {
   const params = await props.params
   const decodedIds = decodeURIComponent(params.ids)
