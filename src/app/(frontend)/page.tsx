@@ -53,12 +53,29 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-end opacity-70 mt-12 md:mt-auto pb-4 md:pb-8">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-3 block">
+        <div className="relative z-10 flex flex-col items-center justify-end opacity-80 mt-12 md:mt-auto pb-8 md:pb-12">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-4 block">
             Scroll to explore
           </span>
-          <div className="w-[2px] h-24 md:h-32 bg-white/20 relative overflow-hidden rounded-full mb-[-2rem] md:mb-[-4rem]">
-            <div className="w-full h-1/4 bg-white/90 shadow-[0_0_10px_rgba(255,255,255,1)] absolute top-0 left-0 rounded-full animate-[mouse-scroll_2s_ease-in-out_infinite]"></div>
+          <div className="flex flex-col items-center animate-bounce">
+            <Image 
+              src="/logo.png" 
+              alt="Scroll down" 
+              width={40} 
+              height={40} 
+              className="opacity-80 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] mb-2 mix-blend-screen"
+            />
+            <svg 
+              className="w-5 h-5 text-white/80" 
+              fill="none" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth="2" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
           </div>
         </div>
       </section>
