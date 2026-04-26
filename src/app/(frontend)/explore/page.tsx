@@ -311,8 +311,6 @@ export default function ExploreToolsPage() {
             </div>
           </div>
         )}
-          </div>
-        </div>
 
         {/* TOOL 2: Passport Authenticity Scanner */}
         <div className="bg-primary rounded-3xl shadow-2xl overflow-hidden relative border border-white/10">
