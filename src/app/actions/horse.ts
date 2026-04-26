@@ -24,7 +24,8 @@ export async function getInvestmentHorses() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error("Unauthorized: Only for private investors")
 
-  const { data, error } = await supabase.from('horses').select('*').eq('category', 'investment').order('created_at', { ascending: false })
+  // Investors can see ALL horses (both sales and investment)
+  const { data, error } = await supabase.from('horses').select('*').order('created_at', { ascending: false })
   if (error) throw new Error(error.message)
   return data
 }
