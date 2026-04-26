@@ -35,7 +35,7 @@ export default async function AdminOverview() {
             </div>
             <div className="ml-5 w-0 flex-1">
               <dl>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-green-600 transition-colors">Bezoeken & Afspraken</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-green-600 transition-colors">Visits & Appointments</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalAppointments}</dd>
               </dl>
             </div>
@@ -49,7 +49,7 @@ export default async function AdminOverview() {
             </div>
             <div className="ml-5 w-0 flex-1">
               <dl>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-yellow-600 transition-colors">Offertes & Orders</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate group-hover:text-yellow-600 transition-colors">Quotes & Orders</dt>
                 <dd className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalQuotes}</dd>
               </dl>
             </div>
@@ -78,24 +78,24 @@ export default async function AdminOverview() {
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl shadow-lg border border-gray-700 overflow-hidden mb-8">
         <div className="px-6 py-5 border-b border-gray-700/50 flex justify-between items-center">
           <h3 className="text-lg font-bold text-white flex items-center">
-            <TrendingUp className="mr-2 text-primary" /> Financieel Overzicht (Voorraad)
+            <TrendingUp className="mr-2 text-primary" /> Financial Overview (Inventory)
           </h3>
         </div>
         <div className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-700/50">
           <div className="flex flex-col items-center sm:items-start pt-4 sm:pt-0">
-            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Totale Inkoopwaarde</span>
+            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Total Purchase Value</span>
             <span className="text-3xl font-bold text-white mt-2">
               {new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(stats.inventoryCost)}
             </span>
           </div>
           <div className="flex flex-col items-center sm:items-start pt-4 sm:pt-0 sm:pl-6">
-            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Totale Verkoopwaarde</span>
+            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Total Sales Value</span>
             <span className="text-3xl font-bold text-white mt-2">
               {new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(stats.inventoryValue)}
             </span>
           </div>
           <div className="flex flex-col items-center sm:items-start pt-4 sm:pt-0 sm:pl-6">
-            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Potentiële Winst</span>
+            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Potential Profit</span>
             <span className={`text-3xl font-bold mt-2 ${stats.inventoryProfit >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               {new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(stats.inventoryProfit)}
             </span>
@@ -107,12 +107,12 @@ export default async function AdminOverview() {
       <div className="mt-8 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-sm overflow-hidden">
         <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center">
-            <Eye className="mr-2 text-accent" /> Meest Bekeken Paarden (Analytics)
+            <Eye className="mr-2 text-accent" /> Most Viewed Horses (Analytics)
           </h3>
         </div>
         <div className="p-6">
           {stats.topHorses.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">Nog geen data beschikbaar. Bezoek een paard op de website om views te meten.</p>
+            <p className="text-gray-500 text-center py-4">No data available yet. Visit a horse on the website to track views.</p>
           ) : (
             <div className="space-y-6">
               {stats.topHorses.map((horse: any, index: number) => {

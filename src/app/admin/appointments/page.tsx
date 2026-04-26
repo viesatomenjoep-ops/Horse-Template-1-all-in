@@ -33,8 +33,8 @@ export default function AppointmentsAdminPage() {
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Bezoeken & Afspraken</h1>
-        <p className="text-gray-500 mt-1">Beheer aanvragen voor bezichtigingen en bezoeken via de website.</p>
+        <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Visits & Appointments</h1>
+        <p className="text-gray-500 mt-1">Manage requests for viewings and visits from the website.</p>
       </div>
 
       {loading ? (

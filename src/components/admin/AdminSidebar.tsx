@@ -31,11 +31,11 @@ export default function AdminSidebar() {
     { id: 'overview', href: '/admin', icon: LayoutDashboard, label: 'Overview' },
     { id: 'horses', href: '/admin/horses', icon: Database, label: 'Horses' },
     { id: 'pages', href: '/admin/pages/investors', icon: Globe, label: 'Website Content' },
-    { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Bezoeken (Nieuw)' },
+    { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Visits (New)' },
     { id: 'references', href: '/admin/references', icon: Camera, label: 'References' },
-    { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Voorraad' },
-    { id: 'quotes', href: '/admin/quotes', icon: FileText, label: 'Offertes & Orders' },
-    { id: 'crm', href: '/admin/crm', icon: Users, label: 'Klanten (CRM)' },
+    { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Inventory' },
+    { id: 'quotes', href: '/admin/quotes', icon: FileText, label: 'Quotes & Orders' },
+    { id: 'crm', href: '/admin/crm', icon: Users, label: 'Customers (CRM)' },
     { id: 'staff', href: '/admin/staff', icon: Users, label: 'Staff & Time' },
     { id: 'team', href: '/admin/team', icon: UserCircle, label: 'Team' },
     { id: 'news', href: '/admin/news', icon: Newspaper, label: 'News' },
@@ -140,12 +140,12 @@ export default function AdminSidebar() {
           <div className="mt-8 border-t border-gray-100 dark:border-gray-700 pt-6 space-y-3">
              <Link href="/" className="flex items-center justify-center gap-2 p-4 w-full rounded-2xl bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700 transition-colors active:bg-gray-100">
                <Globe size={20} />
-               Naar Website
+               Go to Website
              </Link>
              <form action={logout}>
                <button type="submit" className="flex items-center justify-center gap-2 p-4 w-full rounded-2xl bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 font-bold border border-red-100 dark:border-red-800/30 transition-colors active:bg-red-100">
                  <LogOut size={20} />
-                 Uitloggen
+                 Logout
                </button>
              </form>
           </div>
@@ -182,12 +182,12 @@ export default function AdminSidebar() {
           <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
             <Link href="/" className="flex w-full items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800/50 rounded-xl font-medium transition-colors">
               <Globe size={20} />
-              Naar Website
+              Go to Website
             </Link>
             <form action={logout}>
               <button type="submit" className="flex w-full items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 rounded-xl font-medium transition-colors">
                 <LogOut size={20} />
-                Uitloggen
+                Logout
               </button>
             </form>
           </div>

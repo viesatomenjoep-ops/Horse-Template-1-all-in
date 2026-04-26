@@ -27,7 +27,7 @@ export default async function InventoryPage() {
       
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-serif text-primary dark:text-white">Voorraadbeheer</h1>
+          <h1 className="text-3xl font-serif text-primary dark:text-white">Inventory Management</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">Beheer voer, supplementen en materialen.</p>
         </div>
         <div className="flex items-center gap-4">
@@ -48,7 +48,7 @@ export default async function InventoryPage() {
       {items.length === 0 ? (
         <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center shadow-sm border border-gray-100 dark:border-gray-700">
           <PackageSearch className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">Geen voorraad gevonden</h3>
+          <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">No inventory found</h3>
           <p className="mt-2 text-gray-500">Begin met het toevoegen van je eerste product.</p>
         </div>
       ) : (

@@ -2,14 +2,19 @@
 
 import { useState } from 'react'
 import { createLead } from '@/app/actions/lead'
-import { Loader2, Mail, MapPin, Phone } from 'lucide-react'
+import { createAppointment } from '@/app/actions/appointments'
+import { Loader2, Mail, MapPin, Phone, Calendar, Clock, User, CheckCircle } from 'lucide-react'
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const [bookingLoading, setBookingLoading] = useState(false)
+  const [bookingSuccess, setBookingSuccess] = useState(false)
+  const [bookingError, setBookingError] = useState<string | null>(null)
+
+  async function handleContactSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsSubmitting(true)
     setError(null)
@@ -28,6 +33,21 @@ export default function ContactPage() {
     }
   }
 
+  const handleBookingSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setBookingLoading(true)
+    setBookingError(null)
+    try {
+      const formData = new FormData(e.currentTarget)
+      await createAppointment(formData)
+      setBookingSuccess(true)
+    } catch (err: any) {
+      console.error(err)
+      setBookingError("Something went wrong. Please try again later.")
+    }
+    setBookingLoading(false)
+  }
+
   return (
     <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
       <div className="text-center space-y-8 mb-16">
@@ -39,7 +59,7 @@ export default function ContactPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
         {/* Contact Info */}
         <div className="space-y-10">
           <div>
@@ -65,7 +85,6 @@ export default function ContactPage() {
               </a>
               <a href="https://www.instagram.com/nomoregrayarea36" target="_blank" rel="noopener noreferrer" className="flex items-start group">
                 <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-accent group-hover:text-white transition-colors text-accent">
-                   {/* Fallback to MapPin if Instagram icon is not imported, but let's use a simple SVG or generic icon */}
                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </div>
                 <div>
@@ -113,7 +132,7 @@ export default function ContactPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleContactSubmit} className="space-y-6">
             <div>
               <label htmlFor="client_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Name *</label>
               <input required type="text" name="client_name" id="client_name" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm" />
@@ -147,6 +166,126 @@ export default function ContactPage() {
               )}
             </button>
           </form>
+        </div>
+      </div>
+
+      {/* Plan a Visit Section */}
+      <div className="border-t border-gray-200 dark:border-gray-800 pt-24" id="plan-visit">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary dark:text-white tracking-tight mb-4">
+            Plan a Visit
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+            Would you like to visit us to view our horses or discuss investment opportunities? Fill out the form below and we will schedule an appointment.
+          </p>
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-12 items-start">
+          <div className="w-full lg:w-1/3 space-y-8">
+            <div className="bg-primary text-white p-8 rounded-2xl shadow-lg relative overflow-hidden">
+              <div className="absolute -right-10 -bottom-10 opacity-10">
+                <Calendar size={150} />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Opening Hours</h3>
+              <ul className="space-y-2 text-primary-content/80">
+                <li className="flex justify-between"><span>Mon - Fri:</span> <span>09:00 - 17:00</span></li>
+                <li className="flex justify-between"><span>Saturday:</span> <span>10:00 - 14:00</span></li>
+                <li className="flex justify-between"><span>Sunday:</span> <span>Closed</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-2/3 bg-white dark:bg-gray-800 p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+            {bookingSuccess ? (
+              <div className="text-center py-8">
+                <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle size={40} className="text-green-600 dark:text-green-400" />
+                </div>
+                <h3 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">Visit Requested!</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-8">
+                  Thank you for your request. We have received it successfully and will contact you shortly to confirm the appointment.
+                </p>
+                <button 
+                  onClick={() => setBookingSuccess(false)} 
+                  className="px-6 py-3 bg-accent text-white font-bold uppercase tracking-wider text-sm rounded-md hover:bg-primary transition-colors"
+                >
+                  New Appointment
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleBookingSubmit} className="space-y-6">
+                {bookingError && (
+                  <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm border border-red-100 dark:border-red-800">
+                    {bookingError}
+                  </div>
+                )}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
+                      <User size={16} className="mr-2 text-accent" /> Name *
+                    </label>
+                    <input required name="clientName" type="text" placeholder="Full name" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
+                      <Mail size={16} className="mr-2 text-accent" /> Email *
+                    </label>
+                    <input required name="clientEmail" type="email" placeholder="your@email.com" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
+                      <Phone size={16} className="mr-2 text-accent" /> Phone
+                    </label>
+                    <input name="clientPhone" type="tel" placeholder="+1 234 567 8900" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <div className="space-y-2">
+                    <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
+                      <Calendar size={16} className="mr-2 text-accent" /> Preferred Date *
+                    </label>
+                    <input required name="appointmentDate" type="date" min={new Date().toISOString().split('T')[0]} className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all text-gray-900 dark:text-gray-100" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
+                      <Clock size={16} className="mr-2 text-accent" /> Time *
+                    </label>
+                    <select required name="appointmentTime" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all text-gray-900 dark:text-gray-100 appearance-none">
+                      <option value="">Select a time</option>
+                      <option value="09:00 - 10:00">09:00 - 10:00</option>
+                      <option value="10:00 - 11:00">10:00 - 11:00</option>
+                      <option value="11:00 - 12:00">11:00 - 12:00</option>
+                      <option value="13:00 - 14:00">13:00 - 14:00</option>
+                      <option value="14:00 - 15:00">14:00 - 15:00</option>
+                      <option value="15:00 - 16:00">15:00 - 16:00</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="space-y-2 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
+                    What would you like to visit us for? (Optional)
+                  </label>
+                  <textarea name="notes" rows={4} placeholder="e.g., viewing a specific horse, discussing an investment..." className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={bookingLoading}
+                  className="w-full py-4 bg-accent text-white font-bold text-lg rounded-xl hover:bg-primary transition-all disabled:opacity-50 disabled:scale-100 active:scale-[0.98] shadow-lg shadow-accent/30"
+                >
+                  {bookingLoading ? 'Submitting...' : 'Confirm Visit Request'}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </div>
