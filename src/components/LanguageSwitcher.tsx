@@ -16,18 +16,24 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Read the googtrans cookie to find the current language
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift();
-    }
-    
-    const googtrans = getCookie('googtrans');
-    if (googtrans) {
-      const match = googtrans.match(/\/([a-z]{2})$/i)
-      if (match && match[1]) {
-        setCurrentLang(match[1])
+    // Read from localStorage first for maximum reliability
+    const savedLang = localStorage.getItem('equivest_lang');
+    if (savedLang) {
+      setCurrentLang(savedLang);
+    } else {
+      // Read the googtrans cookie as fallback
+      const getCookie = (name: string) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift();
+      }
+      
+      const googtrans = getCookie('googtrans');
+      if (googtrans) {
+        const match = googtrans.match(/\/([a-z]{2})$/i)
+        if (match && match[1]) {
+          setCurrentLang(match[1])
+        }
       }
     }
     
@@ -50,6 +56,11 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
     const host = window.location.hostname;
     const baseHost = host.replace(/^www\./, '');
 
+    // Save reliably
+    localStorage.setItem('equivest_lang', code);
+    setCurrentLang(code);
+    setIsOpen(false);
+
     if (code === 'nl') {
       // Clear the cookie to revert to original
       document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
@@ -64,8 +75,6 @@ export default function LanguageSwitcher({ expandDirection = 'down' }: { expandD
     if (select) {
       select.value = code;
       select.dispatchEvent(new Event('change'));
-      setCurrentLang(code);
-      setIsOpen(false);
     } else {
       // Fallback: set the cookie aggressively and reload
       document.cookie = `googtrans=/nl/${code}; path=/;`;

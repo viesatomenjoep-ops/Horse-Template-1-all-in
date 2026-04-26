@@ -175,6 +175,47 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
                 />
               </div>
             )}
+            {block.type === 'image-text' && (
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <div className="flex-1 space-y-3">
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Tekst (links/rechts)</label>
+                    <textarea 
+                      rows={6} 
+                      value={block.content} 
+                      onChange={(e) => updateBlock(index, 'content', e.target.value)} 
+                      placeholder="Typ hier de tekst voor dit gedeelte..."
+                      className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
+                    />
+                    <div className="flex gap-2 items-center">
+                      <label className="text-sm">Afbeelding positie:</label>
+                      <select value={block.size || 'image-right'} onChange={(e) => updateBlock(index, 'size', e.target.value)} className="p-1 border rounded-md text-sm">
+                        <option value="image-left">Afbeelding Links, Tekst Rechts</option>
+                        <option value="image-right">Tekst Links, Afbeelding Rechts</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="w-1/3 space-y-3 border-l pl-4">
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Afbeelding</label>
+                    {block.image_url ? (
+                      <div className="w-full relative rounded-md overflow-hidden bg-gray-100">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={block.image_url} alt="Block" className="w-full h-auto object-contain" />
+                      </div>
+                    ) : (
+                      <div className="w-full h-24 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-xs text-center p-2">
+                        Geen afbeelding
+                      </div>
+                    )}
+                    <CloudinaryUploader 
+                      onUploadSuccess={(url) => updateBlock(index, 'image_url', url)} 
+                      label="Upload Foto"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ))}
 
@@ -188,7 +229,12 @@ export default function PageBuilderClient({ initialData }: { initialData: any })
             <Type size={16} className="mr-2" /> Tekst Toevoegen
           </button>
           <button onClick={() => handleAddBlock('image')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <ImageIcon size={16} className="mr-2" /> Afbeelding Toevoegen
+            <ImageIcon size={16} className="mr-2" /> Losse Afbeelding Toevoegen
+          </button>
+          <button onClick={() => {
+            setBlocks([...blocks, { id: Date.now().toString(), type: 'image-text', content: '', image_url: '', size: 'image-right' }])
+          }} className="flex items-center px-4 py-2 bg-accent/10 text-accent hover:bg-accent/20 rounded-md font-medium text-sm border border-accent/20">
+            <ImageIcon size={16} className="mr-2" /> Sectie (Tekst + Foto) Toevoegen
           </button>
         </div>
       </div>

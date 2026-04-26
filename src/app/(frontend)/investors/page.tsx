@@ -70,6 +70,23 @@ export default async function InvestorsPage() {
               </div>
             )
           }
+          if (block.type === 'image-text') {
+            const isImageLeft = block.size === 'image-left'
+            return (
+              <div key={block.id || idx} className={`flex flex-col ${isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center my-12`}>
+                {block.image_url && (
+                  <div className="w-full md:w-1/2 relative rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-gray-800">
+                    <Image src={block.image_url} alt="Section Image" width={800} height={600} className="w-full h-auto object-contain" />
+                  </div>
+                )}
+                <div className={`w-full ${block.image_url ? 'md:w-1/2' : ''}`}>
+                  <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                    {block.content}
+                  </p>
+                </div>
+              </div>
+            )
+          }
           return null
         })}
       </div>
