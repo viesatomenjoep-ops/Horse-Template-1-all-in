@@ -1,5 +1,5 @@
 import { getDashboardStats } from '@/app/actions/analytics'
-import { Eye, Database, Calendar as CalendarIcon, FileText, TrendingUp } from 'lucide-react'
+import { Eye, Database, Calendar as CalendarIcon, FileText, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function AdminOverview() {
@@ -12,7 +12,7 @@ export default async function AdminOverview() {
       </div>
 
       {/* Quick Navigation Categories */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
         <Link href="/admin/horses" className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 hover:border-primary/50 hover:shadow-lg rounded-2xl p-6 flex flex-col items-center justify-center transition-all group">
           <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
             <Database size={24} className="text-primary" />
@@ -43,6 +43,14 @@ export default async function AdminOverview() {
           </div>
           <h2 className="font-bold text-gray-900 dark:text-white text-center">Quotes & Orders</h2>
           <p className="text-xs text-gray-500 mt-1">Sales tracking</p>
+        </Link>
+
+        <Link href="/admin/team" className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 hover:border-emerald-500/50 hover:shadow-lg rounded-2xl p-6 flex flex-col items-center justify-center transition-all group">
+          <div className="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <Users size={24} className="text-emerald-600 dark:text-emerald-400" />
+          </div>
+          <h2 className="font-bold text-gray-900 dark:text-white text-center">Team</h2>
+          <p className="text-xs text-gray-500 mt-1">Manage staff</p>
         </Link>
       </div>
       
