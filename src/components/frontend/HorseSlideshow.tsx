@@ -10,9 +10,23 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Use only horses that have a main image, limit to 6 for the slideshow
-  const displayHorses = horses.filter(h => h.main_image_url).slice(0, 6)
+  let displayHorses = horses.filter(h => h.main_image_url).slice(0, 6)
 
-  if (displayHorses.length === 0) return null;
+  // FALLBACK if DB fails or empty
+  if (displayHorses.length === 0) {
+    displayHorses = [
+      {
+        id: 'dummy',
+        name: 'Quel Honneur vh Distelhof Z',
+        main_image_url: '/wellington_showjumper.png',
+        category: 'Jumper',
+        status: 'Available',
+        age: 8,
+        gender: 'Gelding',
+        price_range: 'Premium'
+      }
+    ];
+  }
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % displayHorses.length)

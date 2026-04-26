@@ -121,7 +121,22 @@ async function ReferencesPreview() {
     console.error(e);
   }
 
-  if (references.length === 0) return null;
+  if (references.length === 0) {
+    references = [
+      {
+        id: 'dummy1',
+        horse_name: 'Chimi',
+        image_url: '/chimi.jpg',
+        sold_to_country: 'United States'
+      },
+      {
+        id: 'dummy2',
+        horse_name: 'Wellington Champion',
+        image_url: '/wellington_showjumper.png',
+        sold_to_country: 'Belgium'
+      }
+    ];
+  }
 
   return (
     <section className="py-24 bg-white dark:bg-[#0a0a0a]">
