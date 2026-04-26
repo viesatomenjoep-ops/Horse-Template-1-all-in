@@ -59,12 +59,16 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sticky top-0 z-40">
+      <div className="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sticky top-0 z-40 shadow-sm">
         <div className="flex items-center gap-2">
           <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain animate-[spin_20s_linear_infinite]" />
-          <span className="text-lg font-serif font-semibold text-primary dark:text-white">Equivest CMS</span>
+          <span className="text-lg font-serif font-semibold text-primary dark:text-white">CMS</span>
         </div>
         <div className="flex items-center gap-4">
+          <Link href="/" title="Go to Website" className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white flex items-center gap-1 text-sm font-bold">
+            <Globe size={20} />
+            <span className="hidden xs:inline">Website</span>
+          </Link>
           <LanguageSwitcher expandDirection="left" />
           <button onClick={() => setIsOpen(true)} className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white">
             <Menu size={24} />
@@ -83,13 +87,13 @@ export default function AdminSidebar() {
       {/* Sidebar */}
       <aside className={`
         fixed inset-y-0 left-0 z-50 w-full md:w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col
-        transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-screen md:sticky md:top-0
+        transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-screen md:sticky md:top-0 shadow-lg md:shadow-none
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3 md:hidden">
             <Image src="/logo.png" alt="Equivest Logo" width={32} height={32} className="w-8 h-8 object-contain animate-[spin_20s_linear_infinite]" />
-            <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS</span>
+            <span className="text-xl font-serif font-semibold text-primary dark:text-white">CMS Menu</span>
           </div>
           <div className="hidden md:flex items-center gap-3">
             <Image src="/logo.png" alt="Equivest Logo" width={40} height={40} className="w-10 h-10 object-contain animate-[spin_20s_linear_infinite]" />
@@ -105,6 +109,12 @@ export default function AdminSidebar() {
         
         {/* MOBILE APP-STYLE GRID MENU */}
         <div className="flex-1 overflow-y-auto px-4 py-6 md:hidden pb-32">
+          {/* Top Button on Mobile */}
+          <Link href="/" className="flex items-center justify-center gap-2 mb-6 p-4 w-full rounded-2xl bg-primary text-white font-bold shadow-md transition-colors active:scale-95">
+            <Globe size={20} />
+            Go to Website
+          </Link>
+
           <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 ml-1">Menu</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {navItems.map((item) => {
