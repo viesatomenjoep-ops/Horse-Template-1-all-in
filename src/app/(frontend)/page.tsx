@@ -6,9 +6,9 @@ export const dynamic = 'force-dynamic'
 
 export default function Home() {
   return (
-    <main className="flex-1">
+    <main className="flex-1 bg-[#fdfbf7] dark:bg-[#0a0a0a] overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-between text-white pt-24 pb-6">
+      <section className="relative min-h-[95vh] flex flex-col items-center justify-between text-white pt-24 pb-32">
         <div className="absolute inset-0 opacity-90 overflow-hidden">
           {/* Note: The user needs to add chimi.jpg to the public directory */}
           <Image
@@ -18,7 +18,7 @@ export default function Home() {
             priority
             className="object-cover object-top"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/40 to-primary/95"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/40 to-[#fdfbf7] dark:to-[#0a0a0a]"></div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6 md:space-y-8 w-full mt-4 md:mt-[2vh] mb-auto">
@@ -66,31 +66,39 @@ export default function Home() {
       {/* Explore the Sport Portfolio */}
       <PortfolioSlideshowPreview />
 
-      {/* Want to Invest CTA */}
-      <section className="py-32 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-transparent"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-6xl font-serif text-white mb-6">Want to <span className="text-accent italic">Invest?</span></h2>
-            <p className="text-xl text-white/80 mb-10 leading-relaxed">
-              Join Equivest Worldwide and become part of an exclusive network of investors acquiring elite equestrian talent. Our proven track record and data-driven approach maximize both sport success and financial returns.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 items-center">
-              <a 
-                href="mailto:invest@equivestworldwide.com?subject=Private%20Portfolio%20Access%20Request&body=Hi%20Equivest%20Team,%0A%0AI%20would%20like%20to%20become%20an%20investor%20and%20request%20private%20access%20credentials%20to%20view%20the%20portfolio.%0A%0AKind%20regards,"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
-              >
-                <Lock size={18} /> Become an Investor <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-              </a>
-              <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 font-bold uppercase tracking-widest rounded-full text-center hover:bg-white/10 transition-all backdrop-blur-sm">
-                Contact Us
-              </Link>
+      {/* Want to Invest CTA - Floating Card */}
+      <section className="py-20 relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-[3rem] shadow-2xl bg-primary transform hover:-translate-y-2 transition-transform duration-500">
+            <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/40"></div>
+            
+            <div className="relative z-10 p-12 md:p-20 lg:p-24 flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="max-w-2xl">
+                <h2 className="text-4xl md:text-6xl font-serif text-white mb-6">Want to <span className="text-accent italic">Invest?</span></h2>
+                <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed font-light">
+                  Join Equivest Worldwide and become part of an exclusive network of investors acquiring elite equestrian talent. Our proven track record and data-driven approach maximize both sport success and financial returns.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <a 
+                    href="mailto:invest@equivestworldwide.com?subject=Private%20Portfolio%20Access%20Request&body=Hi%20Equivest%20Team,%0A%0AI%20would%20like%20to%20become%20an%20investor%20and%20request%20private%20access%20credentials%20to%20view%20the%20portfolio.%0A%0AKind%20regards,"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
+                  >
+                    <Lock size={18} /> Become an Investor <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                  </a>
+                  <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 font-bold uppercase tracking-widest rounded-full text-center hover:bg-white/10 transition-all backdrop-blur-sm">
+                    Contact Us
+                  </Link>
+                </div>
+                <p className="text-xs text-white/40 mt-6 font-bold uppercase tracking-widest">
+                  Login credentials for private access will be sent via email.
+                </p>
+              </div>
+              <div className="hidden lg:block w-1/3 relative">
+                 <div className="absolute -inset-10 bg-accent/20 blur-[100px] rounded-full"></div>
+                 <Image src="/logo.png" alt="Equivest Shield" width={300} height={300} className="w-full h-auto object-contain opacity-80 mix-blend-screen drop-shadow-[0_0_50px_rgba(255,255,255,0.2)]" />
+              </div>
             </div>
-            <p className="text-xs text-white/50 mt-6 font-bold uppercase tracking-widest">
-              Login credentials for private access will be sent via email.
-            </p>
           </div>
         </div>
       </section>
@@ -152,7 +160,7 @@ async function ReferencesPreview() {
   }
 
   return (
-    <section className="py-24 bg-white dark:bg-[#0a0a0a]">
+    <section className="py-24 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Proven Success</span>
@@ -218,7 +226,9 @@ async function LatestNewsPreview() {
   if (articles.length === 0) return null;
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900/50">
+    <section className="py-20 bg-transparent relative z-10">
+      {/* Soft divider */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-800 to-transparent"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-end mb-12">
           <div>

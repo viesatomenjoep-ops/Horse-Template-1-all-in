@@ -56,11 +56,11 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
   }
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-[#0a0a0a] relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
+    <section className="pt-10 pb-20 relative z-20 -mt-20 md:-mt-32 w-full animate-fade-in-up">
+      {/* Background decorations - subtle glow */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 mb-8 md:mb-12">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3">
             <div className="inline-flex items-center space-x-2 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
