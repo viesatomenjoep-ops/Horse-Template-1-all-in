@@ -20,10 +20,6 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
   
   const isLoggedIn = !!user || isInvestor
 
-  if (!isLoggedIn) {
-    redirect('/investor-login')
-  }
-
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
   let horses = [];
   let errorMsg = null;
