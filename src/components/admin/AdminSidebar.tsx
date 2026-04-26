@@ -31,6 +31,7 @@ export default function AdminSidebar() {
     { id: 'overview', href: '/admin', icon: LayoutDashboard, label: 'Overview' },
     { id: 'horses', href: '/admin/horses', icon: Database, label: 'Horses' },
     { id: 'pages', href: '/admin/pages/investors', icon: Globe, label: 'Website Content' },
+    { id: 'pages', href: '/admin/pages/about', icon: Globe, label: 'Edit About Text' },
     { id: 'appointments', href: '/admin/appointments', icon: Calendar, label: 'Visits (New)' },
     { id: 'references', href: '/admin/references', icon: Camera, label: 'References' },
     { id: 'inventory', href: '/admin/inventory', icon: ClipboardList, label: 'Inventory' },
