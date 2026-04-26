@@ -37,7 +37,7 @@ export default function ParallaxLogo() {
         opacity: opacity 
       }}
     >
-      <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-4 block">
+      <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white mb-4 block drop-shadow-md">
         Scroll to explore
       </span>
       <div className="flex flex-col items-center animate-bounce">
@@ -46,7 +46,7 @@ export default function ParallaxLogo() {
           alt="Scroll down" 
           width={40} 
           height={40} 
-          className="drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] mb-2 mix-blend-screen"
+          className="brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] mb-2"
         />
         <svg 
           className="w-5 h-5 text-white/80" 
