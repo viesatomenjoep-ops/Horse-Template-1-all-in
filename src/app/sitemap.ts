@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.equivestworldwide.com'
@@ -52,21 +52,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic Horse pages
   try {
-    const supabase = await createClient()
-    const { data: horses } = await supabase
-      .from('horses')
-      .select('id, updated_at')
-      .eq('status', 'Available')
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey)
+      const { data: horses } = await supabase
+        .from('horses')
+        .select('id, updated_at')
+        .eq('status', 'Available')
 
-    if (horses) {
-      const horseRoutes: MetadataRoute.Sitemap = horses.map((horse) => ({
-        url: `${baseUrl}/horses/${horse.id}`,
-        lastModified: horse.updated_at ? new Date(horse.updated_at) : new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
-      }))
-      
-      return [...routes, ...horseRoutes]
+      if (horses) {
+        const horseRoutes: MetadataRoute.Sitemap = horses.map((horse) => ({
+          url: `${baseUrl}/horses/${horse.id}`,
+          lastModified: horse.updated_at ? new Date(horse.updated_at) : new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        }))
+        
+        return [...routes, ...horseRoutes]
+      }
     }
   } catch (err) {
     console.error("Failed to generate dynamic sitemap routes:", err)
