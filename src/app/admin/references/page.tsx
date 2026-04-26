@@ -1,14 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getReferences, addReference, deleteReference } from '@/app/actions/reference'
-import { Plus, Trash2, Camera } from 'lucide-react'
+import { getReferences, addReference, deleteReference, updateReference } from '@/app/actions/reference'
+import { Plus, Trash2, Camera, Edit2, X, Save } from 'lucide-react'
 
 export default function AdminReferences() {
   const [references, setReferences] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [editId, setEditId] = useState<string | null>(null)
 
   useEffect(() => {
     loadReferences()
@@ -36,6 +37,22 @@ export default function AdminReferences() {
       await loadReferences()
     }
     
+    setIsSubmitting(false)
+  }
+
+  const handleEdit = async (e: React.FormEvent<HTMLFormElement>, id: string) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    const formData = new FormData(e.currentTarget)
+    const res = await updateReference(id, formData)
+    
+    if (res.error) {
+      alert(res.error)
+    } else {
+      setEditId(null)
+      await loadReferences()
+    }
     setIsSubmitting(false)
   }
 
@@ -85,7 +102,7 @@ export default function AdminReferences() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Horse Name (Optional)</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Referentie tekst / Paard naam</label>
                 <input 
                   name="horse_name"
                   type="text" 
@@ -112,40 +129,74 @@ export default function AdminReferences() {
               <table className="w-full text-left">
                 <thead className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
                   <tr>
-                    <th className="p-4 font-semibold text-gray-900 dark:text-white">Preview</th>
-                    <th className="p-4 font-semibold text-gray-900 dark:text-white">Horse Name</th>
-                    <th className="p-4 font-semibold text-gray-900 dark:text-white">Added Date</th>
+                    <th className="p-4 font-semibold text-gray-900 dark:text-white">Preview / URL</th>
+                    <th className="p-4 font-semibold text-gray-900 dark:text-white">Referentie / Name</th>
                     <th className="p-4 font-semibold text-gray-900 dark:text-white text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   {isLoading ? (
-                    <tr><td colSpan={4} className="p-8 text-center text-gray-500">Loading references...</td></tr>
+                    <tr><td colSpan={3} className="p-8 text-center text-gray-500">Loading references...</td></tr>
                   ) : references.length === 0 ? (
-                    <tr><td colSpan={4} className="p-8 text-center text-gray-500">No references added yet.</td></tr>
+                    <tr><td colSpan={3} className="p-8 text-center text-gray-500">No references added yet.</td></tr>
                   ) : (
                     references.map((ref) => (
                       <tr key={ref.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <td className="p-4">
-                          <a href={ref.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm flex items-center gap-1">
-                            <Camera size={16} /> View Post
-                          </a>
-                        </td>
-                        <td className="p-4 font-medium text-gray-900 dark:text-white">
-                          {ref.horse_name || <span className="text-gray-400 italic">None</span>}
-                        </td>
-                        <td className="p-4 text-gray-500 dark:text-gray-400">
-                          {new Date(ref.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="p-4 text-right">
-                          <button 
-                            onClick={() => handleDelete(ref.id)}
-                            className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                            title="Delete Reference"
-                          >
-                            <Trash2 size={20} />
-                          </button>
-                        </td>
+                        {editId === ref.id ? (
+                          <td colSpan={3} className="p-4">
+                            <form onSubmit={(e) => handleEdit(e, ref.id)} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                              <input 
+                                name="url" 
+                                type="url" 
+                                defaultValue={ref.url} 
+                                required 
+                                className="flex-1 p-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+                              />
+                              <input 
+                                name="horse_name" 
+                                type="text" 
+                                defaultValue={ref.horse_name} 
+                                placeholder="Referentie tekst"
+                                className="flex-1 p-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+                              />
+                              <div className="flex gap-2">
+                                <button type="submit" disabled={isSubmitting} className="p-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 flex items-center justify-center">
+                                  <Save size={20} />
+                                </button>
+                                <button type="button" onClick={() => setEditId(null)} className="p-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 flex items-center justify-center">
+                                  <X size={20} />
+                                </button>
+                              </div>
+                            </form>
+                          </td>
+                        ) : (
+                          <>
+                            <td className="p-4">
+                              <a href={ref.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm flex items-center gap-1">
+                                <Camera size={16} /> View Post
+                              </a>
+                            </td>
+                            <td className="p-4 font-medium text-gray-900 dark:text-white">
+                              {ref.horse_name || <span className="text-gray-400 italic">None</span>}
+                            </td>
+                            <td className="p-4 text-right">
+                              <button 
+                                onClick={() => setEditId(ref.id)}
+                                className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors mr-2"
+                                title="Edit Reference"
+                              >
+                                <Edit2 size={20} />
+                              </button>
+                              <button 
+                                onClick={() => handleDelete(ref.id)}
+                                className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                title="Delete Reference"
+                              >
+                                <Trash2 size={20} />
+                              </button>
+                            </td>
+                          </>
+                        )}
                       </tr>
                     ))
                   )}

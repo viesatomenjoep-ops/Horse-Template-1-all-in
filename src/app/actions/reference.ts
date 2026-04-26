@@ -57,3 +57,28 @@ export async function deleteReference(id: string) {
   revalidatePath('/references')
   return { success: true }
 }
+
+export async function updateReference(id: string, formData: FormData) {
+  const supabase = await createClient()
+  const url = formData.get('url') as string
+  const horse_name = formData.get('horse_name') as string
+
+  if (!url) return { error: 'Instagram URL is required' }
+  if (!url.includes('instagram.com/')) return { error: 'Must be a valid Instagram URL' }
+
+  let cleanUrl = url.split('?')[0]
+  if (!cleanUrl.endsWith('/')) {
+    cleanUrl += '/'
+  }
+
+  const { error } = await supabase.from('instagram_references').update({
+    url: cleanUrl,
+    horse_name: horse_name || null
+  }).eq('id', id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/admin/references')
+  revalidatePath('/references')
+  return { success: true }
+}
