@@ -78,19 +78,21 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
             <Link href="/horses" className="hidden sm:flex items-center gap-3 px-6 py-3 bg-primary dark:bg-white text-white dark:text-primary rounded-full text-sm font-bold uppercase tracking-widest hover:scale-105 hover:shadow-lg transition-all group">
               View Portfolio <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <div className="flex gap-2">
-              <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all group backdrop-blur-sm">
-                <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
-              </button>
-              <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary transition-all group backdrop-blur-sm">
-                <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full overflow-hidden relative z-10 pb-12">
+      <div className="w-full overflow-hidden relative z-10 pb-12 group/slider">
+        {/* Navigation Buttons inside image area (top left) */}
+        <div className="absolute top-4 left-4 md:top-8 md:left-8 z-20 flex gap-2">
+          <button onClick={prevSlide} className="w-10 h-10 md:w-12 md:h-12 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all group">
+            <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
+          </button>
+          <button onClick={nextSlide} className="w-10 h-10 md:w-12 md:h-12 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all group">
+            <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+
         <div 
           className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
           style={{ transform: `translateX(-${currentIndex * (typeof window !== 'undefined' && window.innerWidth < 768 ? 100 : 33.333)}%)` }}
@@ -99,9 +101,9 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
             return (
               <div 
                 key={horse.id} 
-                className="min-w-full md:min-w-[33.333%] px-3 md:px-4 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                className="min-w-full md:min-w-[33.333%] px-3 md:px-4 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] relative"
               >
-                <Link href={`/horses/${horse.id}`} className="block group relative rounded-2xl overflow-hidden aspect-[4/5] w-full shadow-2xl bg-gray-900 border border-gray-200 dark:border-white/5">
+                <div className="block group relative rounded-2xl overflow-hidden aspect-[4/5] w-full shadow-2xl bg-gray-900 border border-gray-200 dark:border-white/5 cursor-default">
                   <Image
                     src={horse.main_image_url}
                     alt={horse.name}
@@ -127,7 +129,7 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </div>
               </div>
             );
           })}

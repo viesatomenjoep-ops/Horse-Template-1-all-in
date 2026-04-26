@@ -5,12 +5,10 @@ import { Check, Trophy, Ruler, Calendar, Shield, Activity } from 'lucide-react'
 
 export const metadata = {
   title: 'Compare Horses | Equivest',
-  robots: 'noindex, nofollow'
-}
-
 export default async function ComparePage(props: { params: Promise<{ ids: string }> }) {
   const params = await props.params
-  const ids = params.ids.split(',')
+  const decodedIds = decodeURIComponent(params.ids)
+  const ids = decodedIds.split(',')
   
   if (ids.length < 2 || ids.length > 3) notFound()
 

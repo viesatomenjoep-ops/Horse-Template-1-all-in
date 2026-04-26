@@ -35,15 +35,17 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const getBaseUrl = () => typeof window !== 'undefined' ? window.location.origin : 'https://www.equivestworldwide.com'
+
   const generateLink = (path: string) => {
     if (!selectedHorseId) return alert('Select a horse first')
     const token = Math.random().toString(36).substring(2, 15)
-    setGeneratedLink(`https://www.equivestworldwide.com${path.replace('[id]', selectedHorseId).replace('[token]', token)}`)
+    setGeneratedLink(`${getBaseUrl()}${path.replace('[id]', selectedHorseId).replace('[token]', token)}`)
   }
 
   const generateCompareLink = () => {
     if (selectedHorsesForCompare.length < 2) return alert('Select at least 2 horses')
-    setGeneratedLink(`https://www.equivestworldwide.com/compare/${selectedHorsesForCompare.join(',')}`)
+    setGeneratedLink(`${getBaseUrl()}/compare/${selectedHorsesForCompare.join(',')}`)
   }
 
   const handleCompareSelect = (id: string) => {
@@ -54,7 +56,7 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
   const generateProposalLink = () => {
     if (!clientName || !selectedHorseId) return alert('Enter client name and select a horse')
     const slug = clientName.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-    setGeneratedLink(`https://www.equivestworldwide.com/proposal/${slug}?horses=${selectedHorseId}`)
+    setGeneratedLink(`${getBaseUrl()}/proposal/${slug}?horses=${selectedHorseId}`)
   }
 
   const generateNewsletter = () => {
@@ -79,7 +81,7 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
     if (!aiQuery) return alert('Enter a search prompt first')
     // Dummy AI Match logic: select first 2 horses
     if (horses.length >= 2) {
-      setGeneratedLink(`https://www.equivestworldwide.com/compare/${horses[0].id},${horses[1].id}`)
+      setGeneratedLink(`${getBaseUrl()}/compare/${horses[0].id},${horses[1].id}`)
     } else {
       alert('Not enough horses in DB')
     }
