@@ -32,7 +32,7 @@ export default async function InvestorsPage() {
   const { title, hero_image, content_blocks } = pageData
 
   return (
-    <div className="bg-white dark:bg-gray-900 min-h-screen pt-24 pb-20">
+    <div className="bg-white dark:bg-gray-900 min-h-screen pt-6 pb-20">
       
       {/* Hero Section */}
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

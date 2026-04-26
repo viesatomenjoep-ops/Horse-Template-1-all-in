@@ -17,7 +17,7 @@ export default async function AboutPage() {
   }
 
   return (
-    <div className="pt-16 pb-16 min-h-screen">
+    <div className="pt-6 pb-16 min-h-screen">
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-24">
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <h1 className="text-4xl sm:text-5xl font-serif font-light text-primary dark:text-white">
