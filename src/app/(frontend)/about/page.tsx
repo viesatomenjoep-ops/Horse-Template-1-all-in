@@ -13,7 +13,46 @@ import Link from 'next/link'
 export default async function AboutPage() {
   let team = [];
   try {
-    team = await getTeamMembers() || [];
+    const rawTeam = await getTeamMembers() || [];
+    team = [...rawTeam];
+    
+    // Hardcode overrides for Tom van Biene and Tyler Petrie
+    let tom = team.find((m: any) => m.name.toLowerCase().includes('tom'));
+    let tyler = team.find((m: any) => m.name.toLowerCase().includes('tyler'));
+    
+    const tomBio = "As the Head of IT and Lead Developer at Equivest, Tom van Biene brings over 5 years of specialized experience in designing, hosting, and managing high-end CMS and website infrastructures. He has successfully automated the entire digital ecosystem—ranging from intricate inventory management to dynamic scheduling systems. His architectural vision ensures that the platform is robust, extremely fast, and secure.\n\nNL: Als Head of IT en Lead Developer bij Equivest heeft Tom ruim 5 jaar ervaring in het ontwerpen, hosten en beheren van premium websites en CMS-systemen. Hij heeft het volledige digitale ecosysteem geautomatiseerd, van voorraadbeheer tot roosters.\n\nDE: Als Head of IT und Lead Developer verfügt Tom über mehr als 5 Jahre Erfahrung in der Entwicklung und dem Hosting von Premium-Websites. Er hat das gesamte digitale Ökosystem automatisiert.\n\nES: Como Head of IT y Lead Developer, Tom aporta más de 5 años de experiencia en el diseño y alojamiento de sitios web premium y sistemas CMS. Ha automatizado todo el ecosistema digital.";
+    
+    if (tom) {
+      tom.role = 'Head of IT & Lead Developer';
+      tom.bio = tomBio;
+      tom.sort_order = -10;
+    } else {
+      tom = {
+        id: 'tom-override',
+        name: 'Tom van Biene',
+        role: 'Head of IT & Lead Developer',
+        bio: tomBio,
+        image_url: null,
+        sort_order: -10
+      };
+      team.push(tom);
+    }
+    
+    if (tyler) {
+      tyler.sort_order = -9;
+    } else {
+      tyler = {
+        id: 'tyler-override',
+        name: 'Tyler Petrie',
+        role: 'Director',
+        bio: 'Managing global operations and high-end investments.',
+        image_url: null,
+        sort_order: -9
+      };
+      team.push(tyler);
+    }
+    
+    team.sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0));
   } catch (error) {
     console.error("Error fetching team members:", error);
   }
@@ -43,31 +82,61 @@ export default async function AboutPage() {
           </h1>
           <h2 className="text-2xl font-serif text-secondary dark:text-gray-300">About Equivest</h2>
           <div className="space-y-6 text-xl md:text-2xl text-gray-800 dark:text-gray-300 font-medium leading-relaxed text-center sm:text-left">
-            {content_blocks.map((block: any) => {
-              if (block.type === 'text') return <p key={block.id} className={block.size || 'text-xl'}>{block.content}</p>
-              if (block.type === 'heading') return <h3 key={block.id} className={`${block.size || 'text-2xl'} font-bold mt-8 mb-4`}>{block.content}</h3>
-              if (block.type === 'quote') return <blockquote key={block.id} className="text-2xl italic font-serif border-l-4 border-accent pl-6 my-8">{block.content}</blockquote>
-              if (block.type === 'bullet-list') return (
-                <ul key={block.id} className="list-disc pl-6 space-y-2 mt-4 mb-8">
+            {content_blocks.map((block: any, index: number) => {
+              const isFinancialReturn = block.type === 'text' && block.content.toLowerCase().includes('financial return');
+              
+              let BlockComponent = null;
+              if (block.type === 'text') BlockComponent = <p className={block.size || 'text-xl'}>{block.content}</p>;
+              else if (block.type === 'heading') BlockComponent = <h3 className={`${block.size || 'text-2xl'} font-bold mt-8 mb-4`}>{block.content}</h3>;
+              else if (block.type === 'quote') BlockComponent = <blockquote className="text-2xl italic font-serif border-l-4 border-accent pl-6 my-8">{block.content}</blockquote>;
+              else if (block.type === 'bullet-list') BlockComponent = (
+                <ul className="list-disc pl-6 space-y-2 mt-4 mb-8">
                   {block.content.split('\n').filter((item: string) => item.trim() !== '').map((item: string, i: number) => (
                     <li key={i} className="text-gray-700 dark:text-gray-300">{item.replace(/^- /, '')}</li>
                   ))}
                 </ul>
-              )
-              if (block.type === 'cta') return (
-                <div key={block.id} className="mt-8 mb-4">
+              );
+              else if (block.type === 'cta') BlockComponent = (
+                <div className="mt-8 mb-4">
                   <Link href={block.image_url || '/'} className="inline-block bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-secondary transition-colors">
                     {block.content}
                   </Link>
                 </div>
-              )
-              if (block.type === 'divider') return <div key={block.id} className="w-24 h-1 bg-accent mx-auto my-12" />
-              if (block.type === 'image') return (
-                <div key={block.id} className="w-full relative rounded-2xl overflow-hidden shadow-lg my-8">
+              );
+              else if (block.type === 'divider') BlockComponent = <div className="w-24 h-1 bg-accent mx-auto my-12" />;
+              else if (block.type === 'image') BlockComponent = (
+                <div className="w-full relative rounded-2xl overflow-hidden shadow-lg my-8">
                   <Image src={block.content} alt="Image content" width={1200} height={800} className="w-full h-auto object-cover" />
                 </div>
-              )
-              return null
+              );
+
+              return (
+                <div key={block.id || index}>
+                  {BlockComponent}
+                  {isFinancialReturn && (
+                    <div className="w-full relative mt-16 mb-12 rounded-3xl overflow-hidden shadow-2xl aspect-video bg-gray-900 border border-white/10 group">
+                      <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000"
+                      >
+                        <source src="https://cdn.pixabay.com/video/2021/08/13/84920-588320496_large.mp4" type="video/mp4" />
+                      </video>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F]/80 via-[#0A192F]/20 to-transparent"></div>
+                      <div className="absolute bottom-8 left-8">
+                        <div className="inline-block bg-accent text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+                          Premium Investment
+                        </div>
+                        <div className="text-white font-serif italic text-2xl md:text-3xl drop-shadow-md">
+                          1.60m Grand Prix Prospect
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
             })}
           </div>
           <div className="h-64 sm:h-[500px] w-full relative mt-16 bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
