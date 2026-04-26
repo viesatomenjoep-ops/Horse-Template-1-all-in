@@ -1,6 +1,7 @@
 import { getHorses } from '@/app/actions/horse'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
+import SortableHorseList from './SortableHorseList'
 
 export default async function AdminHorsesPage() {
   let horses = [];
@@ -28,89 +29,7 @@ export default async function AdminHorsesPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        
-        {/* ADD SALES HORSE CARD */}
-        <Link 
-          href="/admin/horses/new?category=sales" 
-          className="bg-primary/5 hover:bg-primary/10 border-2 border-dashed border-primary/30 hover:border-primary/50 rounded-2xl flex flex-col items-center justify-center p-8 transition-all duration-200 min-h-[250px] group"
-        >
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <Plus size={32} className="text-primary" />
-          </div>
-          <h3 className="text-lg font-bold text-primary">New Sales Horse</h3>
-          <p className="text-sm text-gray-500 text-center mt-2">Public inventory</p>
-        </Link>
-
-        {/* ADD INVESTMENT HORSE CARD */}
-        <Link 
-          href="/admin/horses/new?category=investment" 
-          className="bg-accent/5 hover:bg-accent/10 border-2 border-dashed border-accent/30 hover:border-accent/50 rounded-2xl flex flex-col items-center justify-center p-8 transition-all duration-200 min-h-[250px] group"
-        >
-          <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <Plus size={32} className="text-accent" />
-          </div>
-          <h3 className="text-lg font-bold text-accent text-center">New Investment Horse</h3>
-          <p className="text-sm text-gray-500 text-center mt-2">Private portfolio</p>
-        </Link>
-
-        {/* HORSE CARDS */}
-        {horses.length === 0 ? (
-          <div className="col-span-full bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center text-gray-500">
-            No horses found. Click a button to begin.
-          </div>
-        ) : (
-          horses.map((horse: any) => (
-            <div key={horse.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition-all flex flex-col relative">
-              {/* Category Badge */}
-              <div className={`absolute top-0 left-0 right-0 z-10 py-1 text-center text-xs font-bold text-white shadow-sm ${horse.category === 'investment' ? 'bg-accent' : 'bg-primary'}`}>
-                {horse.category === 'investment' ? 'INVESTMENT HORSE' : 'SALES HORSE'}
-              </div>
-              
-              <Link href={`/admin/horses/${horse.id}/edit`} className="block group">
-                <div className="relative h-48 bg-gray-100 dark:bg-gray-900 mt-6 overflow-hidden">
-                  {horse.cover_image_url ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={horse.cover_image_url} alt={horse.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">No image</div>
-                  )}
-                  <div className="absolute bottom-3 right-3">
-                    <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/90 text-gray-900 shadow-sm backdrop-blur-sm">
-                      {horse.status}
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="p-5 pb-0 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition-colors">{horse.name}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{horse.discipline} • {horse.birth_year}</p>
-                </div>
-              </Link>
-              
-              <div className="p-5 pt-0 mt-auto flex flex-col">
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
-                  <Link 
-                    href={`/admin/horses/${horse.id}/edit`} 
-                    className="flex-1 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 rounded-xl text-center transition-colors text-sm"
-                  >
-                    Edit
-                  </Link>
-                  <form action={async () => {
-                    'use server';
-                    const { deleteHorse } = await import('@/app/actions/horse');
-                    await deleteHorse(horse.id);
-                  }} className="flex-none">
-                    <button type="submit" className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm">
-                      Delete
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      <SortableHorseList initialHorses={horses} />
     </div>
   )
 }

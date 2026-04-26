@@ -173,3 +173,26 @@ export async function deleteHorse(id: string) {
   
   return { success: true }
 }
+
+export async function updateHorseOrder(horseIds: string[]) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Unauthorized' }
+
+  // We hack the order by updating the created_at timestamp
+  // because we couldn't add a sort_order column to the database.
+  // The first item gets the newest date, the next gets 1 second older, etc.
+  const now = new Date().getTime()
+
+  // Unfortunately Supabase JS client doesn't have a bulk update by default easily,
+  // so we just do them one by one. There shouldn't be too many horses.
+  for (let i = 0; i < horseIds.length; i++) {
+    const newDate = new Date(now - i * 1000).toISOString()
+    await supabase.from('horses').update({ created_at: newDate }).eq('id', horseIds[i])
+  }
+
+  revalidatePath('/admin/horses')
+  revalidatePath('/horses')
+  
+  return { success: true }
+}
