@@ -27,6 +27,7 @@ export default function CloudinaryUploader({ onUploadSuccess, label = "Upload Im
   return (
     <CldUploadWidget 
       uploadPreset={preset}
+      options={{ resourceType: 'auto', maxFileSize: 500000000, clientAllowedFormats: ['png', 'jpeg', 'jpg', 'pdf', 'mp4', 'mov', 'webm'] }}
       onError={(err: any) => {
         console.error("Cloudinary upload error:", err)
         setError("Failed to upload image. Please check your Cloudinary settings.")

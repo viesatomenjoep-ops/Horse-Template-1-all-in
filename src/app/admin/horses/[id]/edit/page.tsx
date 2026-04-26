@@ -222,8 +222,14 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
 
                 {/* Video */}
                 <div className="col-span-2 sm:col-span-1">
-                  <label htmlFor="link_video" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Video Link (e.g. YouTube/Vimeo)</label>
-                  <input type="url" name="link_video" id="link_video" defaultValue={horse.link_video || ''} placeholder="https://..." className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+                  <label htmlFor="link_video" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Video Link (e.g. YouTube/Vimeo) OR Upload</label>
+                  <div className="mt-1 flex flex-col gap-2">
+                    <input type="url" name="link_video" id="link_video" defaultValue={horse.link_video || ''} placeholder="https://..." className="block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+                    <CloudinaryUploader onUploadSuccess={(url) => {
+                      const input = document.getElementById('link_video') as HTMLInputElement;
+                      if(input) input.value = url;
+                    }} label="Upload Video File" />
+                  </div>
                   <p className="text-xs text-gray-500 mt-1">Leave blank if pending</p>
                 </div>
 
