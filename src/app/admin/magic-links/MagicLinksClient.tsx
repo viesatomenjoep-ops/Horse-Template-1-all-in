@@ -3,6 +3,17 @@
 import { useState } from 'react'
 import { Clock, EyeOff, FileSignature, Share2, Search, CheckCircle, Copy, ShieldCheck, MessageCircle, Languages, Calculator, GitCompare, Lock, BarChart3, PieChart, CreditCard, PenTool, UploadCloud, Calendar as CalendarIcon, Mail, Plane, Stethoscope, Stamp, Timer, Video, Sparkles } from 'lucide-react'
 
+const Card = ({ icon: Icon, title, desc, children, colorClass }: any) => (
+  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col">
+    <div className="flex items-center gap-3 mb-4">
+      <div className={`p-3 rounded-lg ${colorClass}`}><Icon size={24} /></div>
+      <h3 className="font-bold text-lg dark:text-white">{title}</h3>
+    </div>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-1">{desc}</p>
+    <div>{children}</div>
+  </div>
+)
+
 export default function MagicLinksClient({ horses }: { horses: any[] }) {
   const [activeTab, setActiveTab] = useState<'sales' | 'finance' | 'ops' | 'internal'>('sales')
   
@@ -82,16 +93,7 @@ export default function MagicLinksClient({ horses }: { horses: any[] }) {
     </select>
   )
 
-  const Card = ({ icon: Icon, title, desc, children, colorClass }: any) => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col">
-      <div className="flex items-center gap-3 mb-4">
-        <div className={`p-3 rounded-lg ${colorClass}`}><Icon size={24} /></div>
-        <h3 className="font-bold text-lg dark:text-white">{title}</h3>
-      </div>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 flex-1">{desc}</p>
-      <div>{children}</div>
-    </div>
-  )
+  // Card component was moved outside to prevent unmounting/losing focus
 
   return (
     <div className="space-y-6">
