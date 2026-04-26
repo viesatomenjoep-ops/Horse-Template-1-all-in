@@ -67,25 +67,29 @@ export default async function AdminHorsesPage() {
                 {horse.category === 'investment' ? 'INVESTMENT HORSE' : 'SALES HORSE'}
               </div>
               
-              <div className="relative h-48 bg-gray-100 dark:bg-gray-900 mt-6">
-                {horse.cover_image_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={horse.cover_image_url} alt={horse.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400">Geen foto</div>
-                )}
-                <div className="absolute bottom-3 right-3">
-                  <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/90 text-gray-900 shadow-sm backdrop-blur-sm">
-                    {horse.status}
-                  </span>
+              <Link href={`/admin/horses/${horse.id}/edit`} className="block group">
+                <div className="relative h-48 bg-gray-100 dark:bg-gray-900 mt-6 overflow-hidden">
+                  {horse.cover_image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={horse.cover_image_url} alt={horse.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">Geen foto</div>
+                  )}
+                  <div className="absolute bottom-3 right-3">
+                    <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/90 text-gray-900 shadow-sm backdrop-blur-sm">
+                      {horse.status}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="p-5 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{horse.name}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{horse.discipline} • {horse.birth_year}</p>
                 
-                <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
+                <div className="p-5 pb-0 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-primary transition-colors">{horse.name}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{horse.discipline} • {horse.birth_year}</p>
+                </div>
+              </Link>
+              
+              <div className="p-5 pt-0 mt-auto flex flex-col">
+                <div className="pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
                   <Link 
                     href={`/admin/horses/${horse.id}/edit`} 
                     className="flex-1 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 rounded-xl text-center transition-colors text-sm"
