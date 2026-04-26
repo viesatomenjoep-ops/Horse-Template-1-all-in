@@ -53,38 +53,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-end opacity-80 mt-12 md:mt-auto pb-8 md:pb-12">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70 mb-4 block">
-            Scroll to explore
-          </span>
-          <div className="flex flex-col items-center animate-bounce">
-            <Image 
-              src="/logo.png" 
-              alt="Scroll down" 
-              width={40} 
-              height={40} 
-              className="opacity-80 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] mb-2 mix-blend-screen"
-            />
-            <svg 
-              className="w-5 h-5 text-white/80" 
-              fill="none" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth="2" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-          </div>
-        </div>
+        <ScrollLogo />
       </section>
 
       {/* Explore the Sport Portfolio */}
       <PortfolioSlideshowPreview />
 
       {/* Want to Invest CTA - Floating Card */}
-      <section className="pt-20 pb-10 relative z-20">
+      <section className="pt-8 pb-10 relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[3rem] shadow-2xl bg-primary transform hover:-translate-y-2 transition-transform duration-500">
             <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>

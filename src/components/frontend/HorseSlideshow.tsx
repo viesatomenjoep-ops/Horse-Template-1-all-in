@@ -56,7 +56,7 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
   }
 
   return (
-    <section className="pt-10 pb-20 relative z-20 -mt-20 md:-mt-32 w-full animate-fade-in-up">
+    <section className="pt-10 pb-0 relative z-20 -mt-20 md:-mt-32 w-full animate-fade-in-up">
       {/* Background decorations - subtle glow */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
       
