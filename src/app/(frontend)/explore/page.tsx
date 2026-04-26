@@ -99,7 +99,7 @@ export default function ExploreToolsPage() {
 
           <div className="p-8 md:p-12 bg-gray-50 dark:bg-gray-800/50">
             {/* Grid of Tools */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
               
               {/* 1. Secure Video Room */}
               <div 
@@ -153,18 +153,7 @@ export default function ExploreToolsPage() {
                 <Lock size={16} className="text-gray-400 mt-auto" />
               </div>
 
-              {/* 5. Syndicate Prospectus */}
-              <div 
-                onClick={() => handleMagicLinkClick('syndicate')}
-                className={`p-6 rounded-2xl border transition-all cursor-pointer group flex flex-col items-center text-center ${activeMagicLink === 'syndicate' ? 'border-emerald-500 bg-emerald-500/10 scale-105 shadow-lg' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-xl'}`}
-              >
-                <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
-                  <TrendingUp size={28} className="text-emerald-600 dark:text-emerald-400" />
-                </div>
-                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Valuation</h4>
-                <p className="text-xs text-gray-500 mb-4 flex-grow">Syndicate ROI</p>
-                <Lock size={16} className="text-gray-400 mt-auto" />
-              </div>
+
 
               {/* 6. DNA & Pedigree */}
               <div 
@@ -271,37 +260,7 @@ export default function ExploreToolsPage() {
                     {actionState['results'] === 'loading' ? 'Exporting...' : actionState['results'] || 'Export Full Analytics'}
                   </button>
                 </div>
-              ) : activeMagicLink === 'syndicate' ? (
-                 <div className="relative z-10 w-full max-w-md bg-gradient-to-br from-emerald-900/50 to-gray-900 border border-emerald-500/30 rounded-3xl p-8 shadow-2xl animate-fade-in mt-[-5vh]">
-                  <h3 className="text-2xl font-bold text-white mb-3 flex items-center">
-                    <TrendingUp className="text-emerald-400 mr-3" size={28} />
-                    Prospectus Unlocked
-                  </h3>
-                  <p className="text-gray-300 mb-8 leading-relaxed">Syndicate valuation, structured equity breakdown, and projected 5-year ROI matrix.</p>
-                  
-                  <div className="bg-black/50 p-6 rounded-2xl mb-8 border border-emerald-500/20">
-                    <div className="flex justify-between items-end mb-4">
-                      <span className="text-gray-400 text-sm uppercase tracking-wider">Est. Portfolio Value</span>
-                      <span className="text-emerald-400 font-bold text-3xl">€1.2M</span>
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-2">
-                      <div className="bg-emerald-500 h-2 rounded-full w-[75%] relative">
-                        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow"></div>
-                      </div>
-                    </div>
-                  </div>
 
-                  <button 
-                    onClick={() => handleActionClick('syndicate', 'Prospectus PDF Downloaded ✅')}
-                    disabled={!!actionState['syndicate']}
-                    className={`w-full py-4 text-white rounded-xl font-bold shadow-lg transition-all ${
-                      actionState['syndicate'] === 'loading' ? 'bg-gray-600' : 
-                      actionState['syndicate'] ? 'bg-emerald-700' : 'bg-emerald-600 hover:bg-emerald-500 hover:scale-105 active:scale-95'
-                    }`}
-                  >
-                    {actionState['syndicate'] === 'loading' ? 'Generating PDF...' : actionState['syndicate'] || 'Download Prospectus PDF'}
-                  </button>
-                </div>
               ) : activeMagicLink === 'pedigree' ? (
                  <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center shadow-2xl animate-fade-in mt-[-5vh]">
                   <div className="w-20 h-20 mx-auto bg-orange-500/20 rounded-full flex items-center justify-center mb-6">
