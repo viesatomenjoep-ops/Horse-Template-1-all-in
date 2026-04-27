@@ -131,7 +131,7 @@ export default function ContactPage() {
                     <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
                       <Phone size={16} className="mr-2 text-accent" /> Phone
                     </label>
-                    <input name="clientPhone" type="tel" placeholder="+1 234 567 8900" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
+                    <input name="clientPhone" type="tel" placeholder="+32 470 76 06 59" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
                   </div>
                 </div>
 
