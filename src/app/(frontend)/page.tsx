@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Trophy, ArrowRight, Lock } from "lucide-react";
 import ParallaxLogo from "@/components/frontend/ParallaxLogo";
+import PartnerSlider from "@/components/frontend/PartnerSlider";
 
 export const dynamic = 'force-dynamic'
 
@@ -57,6 +58,9 @@ export default function Home() {
 
           <ParallaxLogo />
         </section>
+
+        {/* Supported By Slider */}
+        <PartnerSlider />
 
         {/* Explore the Sport Portfolio */}
         <PortfolioSlideshowPreview />
