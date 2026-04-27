@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Trophy, Briefcase, Eye, ChevronDown, Wand, PlayCircle, Lock, ShieldCheck, Camera, Dna, BrainCircuit, FileCheck, Activity, Plane, Scale } from "lucide-react";
+import PartnerSlider from "@/components/frontend/PartnerSlider";
 
 export default function InstagramClient() {
   // Magic Link State
@@ -69,6 +70,11 @@ export default function InstagramClient() {
           </div>
         </div>
       </section>
+
+      {/* Supported By Slider */}
+      <div className="mb-10">
+        <PartnerSlider />
+      </div>
 
       {/* 2. Primary Possibilities */}
       <div className="relative z-20 -mt-10 px-4 md:px-6 space-y-6 pb-16 max-w-2xl mx-auto">
