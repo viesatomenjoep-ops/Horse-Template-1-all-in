@@ -60,7 +60,9 @@ export default function Home() {
         </section>
 
         {/* Supported By Slider */}
-        <PartnerSlider />
+        <div className="relative z-30 -mt-16 md:-mt-24 pb-12 md:pb-20">
+          <PartnerSlider />
+        </div>
 
         {/* Explore the Sport Portfolio */}
         <PortfolioSlideshowPreview />

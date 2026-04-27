@@ -69,11 +69,11 @@
 }
 
 @utility animate-marquee {
-  animation: marquee 15s linear infinite;
+  animation: marquee 35s linear infinite;
 }
 
 @utility animate-marquee2 {
-  animation: marquee2 15s linear infinite;
+  animation: marquee2 35s linear infinite;
 }
 /* Google Translate Overrides - BULLETPROOF HIDING */
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,

@@ -72,7 +72,7 @@ export default function InstagramClient() {
       </section>
 
       {/* Supported By Slider */}
-      <div className="mb-10">
+      <div className="relative z-30 -mt-8 pb-12">
         <PartnerSlider />
       </div>
 
