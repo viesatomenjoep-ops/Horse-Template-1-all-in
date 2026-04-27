@@ -1,3 +1,12 @@
+Logout
+About Us
+Portfolio
+References
+ROI
+News
+Plan a Visit
+Contact
+
 'use client'
 
 import { useEffect } from 'react'

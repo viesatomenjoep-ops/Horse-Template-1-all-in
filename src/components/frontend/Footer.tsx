@@ -2,8 +2,8 @@ import Image from 'next/image';
 import ScrollLogo from './ScrollLogo';
 
 export default function Footer() {
-  const whatsappNumber = "+115613010984";
-  const email = "equivestbv@gmail.com";
+  const whatsappNumber = "0032470760659";
+  const email = "info@equivest.com";
 
   return (
     <>
@@ -25,7 +25,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto mb-8">
             <a 
-              href={`https://wa.me/15613010984`} 
+              href={`https://wa.me/32470760659`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="group flex flex-col items-center p-6 md:p-8 bg-white/5 border border-white/10 hover:border-accent-light hover:bg-white/10 transition-all duration-500 shadow-xl"
@@ -38,7 +38,7 @@ export default function Footer() {
                  </svg>
               </div>
               <span className="text-white text-lg md:text-xl font-serif mb-1">Chat via WhatsApp</span>
-              <span className="text-accent-light text-xs md:text-sm font-bold uppercase tracking-widest">+1 (561) 301-0984</span>
+              <span className="text-accent-light text-xs md:text-sm font-bold uppercase tracking-widest">0032 470 76 06 59</span>
             </a>
 
             <a 

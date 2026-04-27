@@ -1,28 +1,30 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
-  --color-primary: #111111; /* Deep Navy to Equivest Dark */
-  --color-secondary: #3A3A3A; /* Slate Grey to Equivest Grey */
-  --color-accent: #08704D; /* Gold to Equivest Green */
-  --color-accent-light: #E0E0E0; /* Soft Gold to Equivest Light Grey */
-  --color-silver: #FAFAFA; /* Silver Accent to Equivest BG Subtle */
-  
+
+  --color-primary: #111111;
+  /* Deep Navy to Equivest Dark */
+  --color-secondary: #3A3A3A;
+  /* Slate Grey to Equivest Grey */
+  --color-accent: #08704D;
+  /* Gold to Equivest Green */
+  --color-accent-light: #E0E0E0;
+  /* Soft Gold to Equivest Light Grey */
+  --color-silver: #FAFAFA;
+  /* Silver Accent to Equivest BG Subtle */
+
   --font-sans: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-quicksand), ui-serif, Georgia, serif;
-  
-  --animate-shimmer: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  100% { transform: translateX(200%); }
 }
 
 :root {
-  --background: #fdfdfd; /* Crisp white/off-white */
-  --foreground: #111111; /* Deep dark text */
+  --background: #fdfdfd;
+  /* Crisp white/off-white */
+  --foreground: #111111;
+  /* Deep dark text */
 }
 
 /* Dark mode disabled to force pure white theme everywhere */
@@ -34,15 +36,29 @@
     font-family: var(--font-sans);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif);
   }
 }
 
 @keyframes mouse-scroll {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(6px); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
 }
+
+Dan kan je die schuifbalk ook naar links laten gaan aan de voorkant van de website in plaats van naar boven of naar onder.
 
 /* Google Translate Overrides - BULLETPROOF HIDING */
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
@@ -56,7 +72,7 @@
   opacity: 0 !important;
 }
 
-.skiptranslate > iframe.skiptranslate {
+.skiptranslate>iframe.skiptranslate {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
