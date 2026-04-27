@@ -82,67 +82,77 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
         </div>
       </div>
 
-      <div className="w-full overflow-hidden relative z-10 pb-12 group/slider">
-        {/* Navigation Buttons inside image area (top left) */}
-        <div className="absolute top-4 left-4 md:top-8 md:left-8 z-20 flex gap-2">
-          <button onClick={prevSlide} className="w-10 h-10 md:w-12 md:h-12 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all group">
-            <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
-          </button>
-          <button onClick={nextSlide} className="w-10 h-10 md:w-12 md:h-12 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all group">
-            <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-12 group/slider">
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border border-gray-200 dark:border-white/5">
+          {/* Navigation Buttons vertically centered inside the image */}
+          <div className="absolute inset-y-0 left-4 md:left-8 z-20 flex items-center">
+            <button onClick={prevSlide} className="w-12 h-12 md:w-16 md:h-16 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all group opacity-0 group-hover/slider:opacity-100 focus:opacity-100">
+              <ChevronLeft size={32} className="group-hover:-translate-x-1 transition-transform" />
+            </button>
+          </div>
+          <div className="absolute inset-y-0 right-4 md:right-8 z-20 flex items-center">
+            <button onClick={nextSlide} className="w-12 h-12 md:w-16 md:h-16 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all group opacity-0 group-hover/slider:opacity-100 focus:opacity-100">
+              <ChevronRight size={32} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
 
-        <div 
-          className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-          style={{ transform: `translateX(-${currentIndex * (typeof window !== 'undefined' && window.innerWidth < 768 ? 100 : 33.333)}%)` }}
-        >
-          {displayHorses.map((horse, index) => {
-            return (
-              <div 
-                key={horse.id} 
-                className="min-w-full md:min-w-[33.333%] px-3 md:px-4 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] relative"
-              >
-                <div className="block group relative rounded-2xl overflow-hidden aspect-[4/5] w-full shadow-2xl bg-gray-900 border border-gray-200 dark:border-white/5 cursor-default">
-                  <Image
-                    src={horse.main_image_url}
-                    alt={horse.name}
-                    fill
-                    className="object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
-                  
-                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end transform transition-transform duration-500">
-                    <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                      <div className="flex flex-wrap items-center gap-2 mb-3">
-                        {horse.status === 'Available' && (
-                          <span className="bg-emerald-500 text-white px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg">Available</span>
-                        )}
-                        <span className="bg-white/20 backdrop-blur-md text-white px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">{horse.category}</span>
-                      </div>
-                      
-                      <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 group-hover:text-accent transition-colors duration-300 drop-shadow-lg">{horse.name}</h3>
-                      
-                      <div className="flex items-center gap-4 text-white/80 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="flex items-center gap-1.5"><Activity size={14} /> <span>{horse.age} yrs</span></div>
-                        <div className="flex items-center gap-1.5"><Euro size={14} /> <span className="uppercase">{horse.price_range || 'On Request'}</span></div>
+          <div 
+            className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] w-full"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {displayHorses.map((horse, index) => {
+              return (
+                <div 
+                  key={horse.id} 
+                  className="min-w-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] relative"
+                >
+                  <div className="block group relative w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] cursor-default">
+                    <Image
+                      src={horse.main_image_url}
+                      alt={horse.name}
+                      fill
+                      className="object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                    />
+                    {/* Gradient overlays for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent opacity-60"></div>
+                    
+                    <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end transform transition-transform duration-500">
+                      <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out max-w-3xl">
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                          {horse.status === 'Available' && (
+                            <span className="bg-emerald-500 text-white px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">Available</span>
+                          )}
+                          <span className="bg-white/20 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">{horse.category}</span>
+                        </div>
+                        
+                        <h3 className="text-4xl md:text-6xl font-serif text-white mb-4 group-hover:text-accent-light transition-colors duration-300 drop-shadow-lg leading-tight">{horse.name}</h3>
+                        
+                        <div className="flex flex-wrap items-center gap-6 text-white/90 text-sm md:text-base font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <div className="flex items-center gap-2 bg-black/30 px-4 py-2 rounded-lg backdrop-blur-sm"><Activity size={18} className="text-accent-light" /> <span>{horse.age} yrs</span></div>
+                          <div className="flex items-center gap-2 bg-black/30 px-4 py-2 rounded-lg backdrop-blur-sm"><Euro size={18} className="text-accent-light" /> <span className="uppercase">{horse.price_range || 'On Request'}</span></div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-      
-      {/* Progress Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-accent transition-all duration-500 ease-out"
-            style={{ width: `${((currentIndex + 1) / displayHorses.length) * 100}%` }}
-          />
+        
+        {/* Progress Dots inside the slider area at the bottom */}
+        <div className="absolute bottom-16 left-0 right-0 flex justify-center gap-3 z-20">
+          {displayHorses.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? 'bg-accent w-8' : 'bg-white/50 hover:bg-white'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
