@@ -106,18 +106,26 @@ export default function HorseSlideshow({ horses }: { horses: any[] }) {
                   key={horse.id} 
                   className="min-w-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] relative"
                 >
-                  <div className="block group relative w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] cursor-default">
+                  <div className="block group relative w-full aspect-square sm:aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9] cursor-default bg-black">
+                    {/* Blurred background image to fill the empty space */}
+                    <Image
+                      src={horse.main_image_url}
+                      alt={`${horse.name} background`}
+                      fill
+                      className="object-cover opacity-40 blur-2xl scale-110"
+                    />
+                    {/* Actual image, fully visible and contained */}
                     <Image
                       src={horse.main_image_url}
                       alt={horse.name}
                       fill
-                      className="object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                      className="object-contain transition-transform duration-[1.5s] group-hover:scale-105 z-10"
                     />
                     {/* Gradient overlays for text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent opacity-60"></div>
+                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"></div>
+                    <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-transparent to-transparent opacity-60 pointer-events-none"></div>
                     
-                    <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end transform transition-transform duration-500">
+                    <div className="absolute inset-0 z-20 p-8 md:p-16 flex flex-col justify-end transform transition-transform duration-500">
                       <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out max-w-3xl">
                         <div className="flex flex-wrap items-center gap-3 mb-4">
                           {horse.status === 'Available' && (
