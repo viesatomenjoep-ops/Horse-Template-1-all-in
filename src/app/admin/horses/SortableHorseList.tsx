@@ -168,7 +168,12 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
                               type="button" 
                               onClick={async () => {
                                 if (confirm('Are you sure you want to delete this horse?')) {
-                                  await deleteHorse(horse.id)
+                                  const res = await deleteHorse(horse.id)
+                                  if (res?.success) {
+                                    setHorses(prev => prev.filter(h => h.id !== horse.id))
+                                  } else if (res?.error) {
+                                    alert(`Kon paard niet verwijderen: ${res.error}`)
+                                  }
                                 }
                               }}
                               className="px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 font-medium rounded-xl transition-colors text-sm flex-none"
