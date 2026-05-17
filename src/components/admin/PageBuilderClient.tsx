@@ -105,13 +105,16 @@ export default function PageBuilderClient({
         <div>
           <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Hero Media (Foto / Video) 1</label>
           {heroImage && (
-            <div className="w-full h-40 relative rounded-md overflow-hidden mb-4">
+            <div className="w-full h-40 relative rounded-md overflow-hidden mb-4 group">
               {heroImage.endsWith('.mp4') || heroImage.endsWith('.mov') || heroImage.endsWith('.webm') ? (
                 <video src={heroImage} className="w-full h-full object-cover" controls />
               ) : (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img src={heroImage} alt="Hero 1" className="w-full h-full object-cover" />
               )}
+              <button onClick={() => setHeroImage('')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder media">
+                <Trash2 size={16} />
+              </button>
             </div>
           )}
           <CloudinaryUploader 
@@ -122,13 +125,16 @@ export default function PageBuilderClient({
         <div>
           <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Hero Media (Foto / Video) 2</label>
           {heroImage2 && (
-            <div className="w-full h-40 relative rounded-md overflow-hidden mb-4">
+            <div className="w-full h-40 relative rounded-md overflow-hidden mb-4 group">
               {heroImage2.endsWith('.mp4') || heroImage2.endsWith('.mov') || heroImage2.endsWith('.webm') ? (
                 <video src={heroImage2} className="w-full h-full object-cover" controls />
               ) : (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img src={heroImage2} alt="Hero 2" className="w-full h-full object-cover" />
               )}
+              <button onClick={() => setHeroImage2('')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder media">
+                <Trash2 size={16} />
+              </button>
             </div>
           )}
           <CloudinaryUploader 
@@ -258,9 +264,12 @@ export default function PageBuilderClient({
             {block.type === 'image' && (
               <div className="space-y-3">
                 {block.content ? (
-                  <div className="w-full relative rounded-md overflow-hidden bg-gray-100">
+                  <div className="w-full relative rounded-md overflow-hidden bg-gray-100 group">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={block.content} alt="Block" className="w-full h-auto object-contain" />
+                    <button onClick={() => updateBlock(index, 'content', '')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder foto">
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 ) : (
                   <div className="w-full h-24 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-500">
@@ -297,9 +306,12 @@ export default function PageBuilderClient({
                   <div className="w-1/3 space-y-3 border-l pl-4">
                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Afbeelding</label>
                     {block.image_url ? (
-                      <div className="w-full relative rounded-md overflow-hidden bg-gray-100">
+                      <div className="w-full relative rounded-md overflow-hidden bg-gray-100 group">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={block.image_url} alt="Block" className="w-full h-auto object-contain" />
+                        <button onClick={() => updateBlock(index, 'image_url', '')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder foto">
+                          <Trash2 size={16} />
+                        </button>
                       </div>
                     ) : (
                       <div className="w-full h-24 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-xs text-center p-2">
