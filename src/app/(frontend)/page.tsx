@@ -64,8 +64,7 @@ export default function Home() {
           <PartnerSlider />
         </div>
 
-        {/* Explore the Sport Portfolio */}
-        <PortfolioSlideshowPreview />
+
       </div>
 
       {/* Want to Invest CTA - Floating Card */}
@@ -119,15 +118,7 @@ import { getPublicHorses } from '@/app/actions/horse'
 import { getReferences } from '@/app/actions/reference'
 import HorseSlideshow from '@/components/frontend/HorseSlideshow'
 
-async function PortfolioSlideshowPreview() {
-  let horses = [];
-  try {
-    horses = await getPublicHorses() || [];
-  } catch (e) {
-    console.error(e);
-  }
-  return <HorseSlideshow horses={horses} />;
-}
+
 
 async function ReferencesPreview() {
   let references = [];
