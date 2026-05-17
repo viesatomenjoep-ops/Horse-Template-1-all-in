@@ -182,6 +182,11 @@ export async function deleteHorse(id: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'You must be logged in to delete a horse.' }
   
+  // Handmatig gerelateerde data verwijderen om foreign key constraints te voorkomen
+  await supabase.from('horse_media').delete().eq('horse_id', id)
+  await supabase.from('horse_results').delete().eq('horse_id', id)
+  await supabase.from('tasks').delete().eq('horse_id', id)
+  
   const { error } = await supabase.from('horses').delete().eq('id', id)
   
   if (error) return { error: error.message }
