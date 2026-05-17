@@ -72,6 +72,7 @@ export default async function AboutPage() {
   }
 
   const { title, hero_image, content_blocks } = pageData
+  const hero_image_2 = content_blocks?.find((b: any) => b.type === 'hero_image_2')?.content || null
 
   return (
     <div className="pt-6 pb-16 min-h-screen">
@@ -83,6 +84,7 @@ export default async function AboutPage() {
           <h2 className="text-2xl font-serif text-secondary dark:text-gray-300">About Equivest</h2>
           <div className="space-y-6 text-xl md:text-2xl text-gray-800 dark:text-gray-300 font-medium leading-relaxed text-center sm:text-left">
             {content_blocks.map((block: any, index: number) => {
+              if (block.type === 'hero_image_2') return null;
               const isFinancialReturn = block.type === 'text' && block.content.toLowerCase().includes('financial return');
               
               let BlockComponent = null;
@@ -151,18 +153,18 @@ export default async function AboutPage() {
               </div>
             )}
             
-            {pageData.hero_image_2 && (
+            {hero_image_2 && (
               <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
-                {pageData.hero_image_2.toLowerCase().endsWith('.mp4') || pageData.hero_image_2.toLowerCase().endsWith('.webm') || pageData.hero_image_2.toLowerCase().endsWith('.mov') ? (
-                  <video src={pageData.hero_image_2} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                {hero_image_2.toLowerCase().endsWith('.mp4') || hero_image_2.toLowerCase().endsWith('.webm') || hero_image_2.toLowerCase().endsWith('.mov') ? (
+                  <video src={hero_image_2} autoPlay loop muted playsInline className="w-full h-full object-cover" />
                 ) : (
-                  <Image src={pageData.hero_image_2} alt="Hero Media 2" fill className="object-cover" priority />
+                  <Image src={hero_image_2} alt="Hero Media 2" fill className="object-cover" priority />
                 )}
               </div>
             )}
             
             {/* Fallback if both are empty */}
-            {!hero_image && !pageData.hero_image_2 && (
+            {!hero_image && !hero_image_2 && (
               <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
                 <Image src="/wellington_showjumper.png" alt="About image" fill className="object-cover" priority />
               </div>
