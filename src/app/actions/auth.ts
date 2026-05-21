@@ -52,7 +52,7 @@ export async function investorLogin(formData: FormData) {
   // Clean up username for comparison
   const cleanUsername = rawUsername.toLowerCase().replace(/\s+/g, '')
 
-  if (cleanUsername === 'heather@equivestworldwide.com' && password === 'Chimilipsrolo11') {
+  if (cleanUsername === 'equivest11' && password === '1111') {
     const cookieStore = await cookies()
     cookieStore.set('investor_auth', 'true', { maxAge: 60 * 60 * 24 * 7 }) // 1 week
     revalidatePath('/', 'layout')
