@@ -89,7 +89,7 @@ export default function RoleManager() {
     }
   }
 
-  if (loading) return <div className="p-8 text-center">Laden...</div>
+  if (loading) return <div className="p-8 text-center">Loading...</div>
   if (error) return (
     <div className="bg-red-50 text-red-600 p-6 rounded-xl flex items-center gap-3">
       <ShieldAlert />

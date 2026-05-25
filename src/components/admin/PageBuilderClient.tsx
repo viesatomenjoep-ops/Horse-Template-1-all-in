@@ -63,13 +63,13 @@ export default function PageBuilderClient({
         content_blocks: filteredBlocks
       })
       if (res.error) {
-        alert('Fout bij opslaan: ' + res.error)
+        alert('Error saving: ' + res.error)
       } else {
-        alert('Pagina succesvol opgeslagen!')
+        alert('Page successfully saved!')
       }
     } catch (err: any) {
       console.error(err)
-      alert('Fout bij opslaan: ' + (err.message || 'Onbekende fout'))
+      alert('Error saving: ' + (err.message || 'Unknown error'))
     }
     setLoading(false)
   }
@@ -78,8 +78,8 @@ export default function PageBuilderClient({
     <div className="p-6 max-w-4xl mx-auto space-y-8 pb-24">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Pagina Bewerken: {pageTitle}</h1>
-          <p className="text-gray-500">Pas teksten, plaatjes en groottes aan voor de {pageTitle.toLowerCase()} pagina.</p>
+          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white">Edit Page: {pageTitle}</h1>
+          <p className="text-gray-500">Edit text, images, and sizes for the {pageTitle.toLowerCase()} page.</p>
         </div>
         <button 
           onClick={handleSave} 
@@ -87,14 +87,14 @@ export default function PageBuilderClient({
           className="flex items-center px-6 py-3 bg-accent text-white font-bold rounded-md hover:bg-primary transition-colors disabled:opacity-50"
         >
           {loading ? <Loader2 className="animate-spin mr-2" /> : <Save className="mr-2" />}
-          <span>Opslaan</span>
+          <span>Save</span>
         </button>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 space-y-6">
-        <h2 className="text-xl font-bold border-b pb-2">Hero Sectie (Bovenkant)</h2>
+        <h2 className="text-xl font-bold border-b pb-2">Hero Section (Top)</h2>
         <div>
-          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Grote Titel</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Main Title</label>
           <input 
             type="text" 
             value={title} 
@@ -132,7 +132,7 @@ export default function PageBuilderClient({
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img src={heroImage2} alt="Hero 2" className="w-full h-full object-cover" />
               )}
-              <button onClick={() => setHeroImage2('')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder media">
+              <button onClick={() => setHeroImage2('')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Remove media">
                 <Trash2 size={16} />
               </button>
             </div>
@@ -146,7 +146,7 @@ export default function PageBuilderClient({
 
       <div className="space-y-4">
         <h2 className="text-xl font-bold flex items-center justify-between">
-          <span>Pagina Inhoud (Blokken)</span>
+          <span>Page Content (Blocks)</span>
         </h2>
 
         {blocks.map((block, index) => (
@@ -158,14 +158,14 @@ export default function PageBuilderClient({
             
             <div className="flex justify-between items-start mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
               <span className="font-bold text-sm uppercase tracking-wider text-accent flex items-center gap-2">
-                {block.type === 'heading' && <><Heading size={16} /> <span>Koptekst</span></>}
-                {block.type === 'text' && <><Type size={16} /> <span>Alinea (Lappen tekst)</span></>}
-                {block.type === 'quote' && <><Type size={16} /> <span>Grote Quote / Citaat</span></>}
-                {block.type === 'bullet-list' && <><Type size={16} /> <span>Opsomming (Bullet points)</span></>}
-                {block.type === 'cta' && <><Type size={16} /> <span>Knop (Call to Action)</span></>}
-                {block.type === 'divider' && <><Type size={16} /> <span>Scheidingslijn (Divider)</span></>}
-                {block.type === 'image' && <><ImageIcon size={16} /> <span>Afbeelding</span></>}
-                {block.type === 'image-text' && <><ImageIcon size={16} /> <span>Tekst + Foto Sectie</span></>}
+                {block.type === 'heading' && <><Heading size={16} /> <span>Heading</span></>}
+                {block.type === 'text' && <><Type size={16} /> <span>Paragraph (Text)</span></>}
+                {block.type === 'quote' && <><Type size={16} /> <span>Large Quote</span></>}
+                {block.type === 'bullet-list' && <><Type size={16} /> <span>Bullet List</span></>}
+                {block.type === 'cta' && <><Type size={16} /> <span>Button (Call to Action)</span></>}
+                {block.type === 'divider' && <><Type size={16} /> <span>Divider</span></>}
+                {block.type === 'image' && <><ImageIcon size={16} /> <span>Image</span></>}
+                {block.type === 'image-text' && <><ImageIcon size={16} /> <span>Text + Image Section</span></>}
               </span>
               <button onClick={() => handleRemoveBlock(index)} className="text-red-500 hover:text-red-700 p-1"><Trash2 size={18} /></button>
             </div>
@@ -176,13 +176,13 @@ export default function PageBuilderClient({
                   type="text" 
                   value={block.content} 
                   onChange={(e) => updateBlock(index, 'content', e.target.value)} 
-                  placeholder="Koptekst..."
+                  placeholder="Heading..."
                   className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
                 />
                 <select value={block.size} onChange={(e) => updateBlock(index, 'size', e.target.value)} className="p-2 border rounded-md">
-                  <option value="text-2xl">Klein (H3)</option>
-                  <option value="text-3xl">Middel (H2)</option>
-                  <option value="text-5xl">Groot (H1)</option>
+                  <option value="text-2xl">Small (H3)</option>
+                  <option value="text-3xl">Medium (H2)</option>
+                  <option value="text-5xl">Large (H1)</option>
                 </select>
               </div>
             )}
@@ -193,14 +193,14 @@ export default function PageBuilderClient({
                   rows={5} 
                   value={block.content} 
                   onChange={(e) => updateBlock(index, 'content', e.target.value)} 
-                  placeholder="Typ hier de lappen tekst..."
+                  placeholder="Type paragraph text here..."
                   className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
                 />
                 <select value={block.size} onChange={(e) => updateBlock(index, 'size', e.target.value)} className="p-2 border rounded-md">
-                  <option value="text-sm">Klein</option>
-                  <option value="text-base">Normaal</option>
-                  <option value="text-lg">Iets Groter</option>
-                  <option value="text-xl">Groot & Opvallend</option>
+                  <option value="text-sm">Small</option>
+                  <option value="text-base">Normal</option>
+                  <option value="text-lg">Slightly Larger</option>
+                  <option value="text-xl">Large & Prominent</option>
                 </select>
               </div>
             )}
@@ -211,7 +211,7 @@ export default function PageBuilderClient({
                   rows={3} 
                   value={block.content} 
                   onChange={(e) => updateBlock(index, 'content', e.target.value)} 
-                  placeholder="Typ hier de grote, opvallende quote..."
+                  placeholder="Type large, prominent quote here..."
                   className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent text-xl italic font-serif"
                 />
               </div>
@@ -219,12 +219,12 @@ export default function PageBuilderClient({
 
             {block.type === 'bullet-list' && (
               <div className="space-y-3">
-                <label className="block text-sm text-gray-500">Zet elk item op een nieuwe regel. Start eventueel met een streepje (-).</label>
+                <label className="block text-sm text-gray-500">Put each item on a new line. Start with a dash (-) if desired.</label>
                 <textarea 
                   rows={6} 
                   value={block.content} 
                   onChange={(e) => updateBlock(index, 'content', e.target.value)} 
-                  placeholder="- Waardebehoud door hoge kwaliteit\n- Wereldwijd bereik via ons netwerk\n- Exclusieve events voor investeerders"
+                  placeholder="- Value retention through high quality\n- Global reach via our network\n- Exclusive events for investors"
                   className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent font-mono"
                 />
               </div>
@@ -233,12 +233,12 @@ export default function PageBuilderClient({
             {block.type === 'cta' && (
               <div className="space-y-3 flex gap-4">
                 <div className="flex-1">
-                  <label className="block text-sm font-bold mb-1">Knop Tekst</label>
+                  <label className="block text-sm font-bold mb-1">Button Text</label>
                   <input 
                     type="text" 
                     value={block.content} 
                     onChange={(e) => updateBlock(index, 'content', e.target.value)} 
-                    placeholder="Bv: Request Investment Deck"
+                    placeholder="E.g.: Request Investment Deck"
                     className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
                   />
                 </div>
@@ -257,7 +257,7 @@ export default function PageBuilderClient({
 
             {block.type === 'divider' && (
               <div className="py-4 text-center text-gray-400">
-                --- Scheidingslijn (Zichtbaar op de website) ---
+                --- Divider (Visible on website) ---
               </div>
             )}
 
@@ -267,18 +267,18 @@ export default function PageBuilderClient({
                   <div className="w-full relative rounded-md overflow-hidden bg-gray-100 group">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={block.content} alt="Block" className="w-full h-auto object-contain" />
-                    <button onClick={() => updateBlock(index, 'content', '')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder foto">
+                    <button onClick={() => updateBlock(index, 'content', '')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Remove photo">
                       <Trash2 size={16} />
                     </button>
                   </div>
                 ) : (
                   <div className="w-full h-24 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-500">
-                    Nog geen afbeelding geselecteerd
+                    No image selected yet
                   </div>
                 )}
                 <CloudinaryUploader 
                   onUploadSuccess={(url) => updateBlock(index, 'content', url)} 
-                  label="Upload Afbeelding"
+                  label="Upload Image"
                 />
               </div>
             )}
@@ -286,41 +286,41 @@ export default function PageBuilderClient({
               <div className="space-y-4">
                 <div className="flex gap-4">
                   <div className="flex-1 space-y-3">
-                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Tekst (links/rechts)</label>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Text (left/right)</label>
                     <textarea 
                       rows={6} 
                       value={block.content} 
                       onChange={(e) => updateBlock(index, 'content', e.target.value)} 
-                      placeholder="Typ hier de tekst voor dit gedeelte..."
+                      placeholder="Type text for this section here..."
                       className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md outline-none focus:border-accent"
                     />
                     <div className="flex gap-2 items-center">
-                      <label className="text-sm">Afbeelding positie:</label>
+                      <label className="text-sm">Image position:</label>
                       <select value={block.size || 'image-right'} onChange={(e) => updateBlock(index, 'size', e.target.value)} className="p-1 border rounded-md text-sm">
-                        <option value="image-left">Afbeelding Links, Tekst Rechts</option>
-                        <option value="image-right">Tekst Links, Afbeelding Rechts</option>
+                        <option value="image-left">Image Left, Text Right</option>
+                        <option value="image-right">Text Left, Image Right</option>
                       </select>
                     </div>
                   </div>
                   
                   <div className="w-1/3 space-y-3 border-l pl-4">
-                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Afbeelding</label>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Image</label>
                     {block.image_url ? (
                       <div className="w-full relative rounded-md overflow-hidden bg-gray-100 group">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={block.image_url} alt="Block" className="w-full h-auto object-contain" />
-                        <button onClick={() => updateBlock(index, 'image_url', '')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Verwijder foto">
+                        <button onClick={() => updateBlock(index, 'image_url', '')} className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-md" title="Remove photo">
                           <Trash2 size={16} />
                         </button>
                       </div>
                     ) : (
                       <div className="w-full h-24 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-xs text-center p-2">
-                        Geen afbeelding
+                        No image
                       </div>
                     )}
                     <CloudinaryUploader 
                       onUploadSuccess={(url) => updateBlock(index, 'image_url', url)} 
-                      label="Upload Foto"
+                      label="Upload Photo"
                     />
                   </div>
                 </div>
@@ -329,41 +329,41 @@ export default function PageBuilderClient({
           </div>
         ))}
 
-        {blocks.length === 0 && <div className="text-center p-10 text-gray-500">Nog geen blokken toegevoegd.</div>}
+        {blocks.length === 0 && <div className="text-center p-10 text-gray-500">No blocks added yet.</div>}
 
         <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
           <button onClick={() => handleAddBlock('heading')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <Heading size={16} className="mr-2" /> Koptekst
+            <Heading size={16} className="mr-2" /> Heading
           </button>
           <button onClick={() => handleAddBlock('text')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <Type size={16} className="mr-2" /> Tekst
+            <Type size={16} className="mr-2" /> Text
           </button>
           <button onClick={() => handleAddBlock('bullet-list')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <Type size={16} className="mr-2" /> Opsomming (Bullets)
+            <Type size={16} className="mr-2" /> Bullet List
           </button>
           <button onClick={() => handleAddBlock('quote')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <Type size={16} className="mr-2" /> Grote Quote
+            <Type size={16} className="mr-2" /> Large Quote
           </button>
           <button onClick={() => {
-            setBlocks([...blocks, { id: Date.now().toString(), type: 'cta', content: 'Lees meer', image_url: '/' }])
+            setBlocks([...blocks, { id: Date.now().toString(), type: 'cta', content: 'Read more', image_url: '/' }])
           }} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <ArrowUp size={16} className="mr-2" /> Knop / Link
+            <ArrowUp size={16} className="mr-2" /> Button / Link
           </button>
           <button onClick={() => handleAddBlock('divider')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            --- Scheidingslijn
+            --- Divider
           </button>
           <button onClick={() => handleAddBlock('image')} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium text-sm">
-            <ImageIcon size={16} className="mr-2" /> Losse Foto
+            <ImageIcon size={16} className="mr-2" /> Single Photo
           </button>
           <button onClick={() => {
             setBlocks([...blocks, { id: Date.now().toString(), type: 'image-text', content: '', image_url: '', size: 'image-right' }])
           }} className="flex items-center px-4 py-2 bg-accent/10 text-accent hover:bg-accent/20 rounded-md font-medium text-sm border border-accent/20">
-            <ImageIcon size={16} className="mr-2" /> Sectie (Tekst + Foto)
+            <ImageIcon size={16} className="mr-2" /> Section (Text + Photo)
           </button>
         </div>
       </div>
       {pageSlug === 'investors' && (
-        <p className="text-center text-sm text-gray-500">Let op: De ROI Calculator staat standaard vast onderaan de "Want to invest" pagina.</p>
+        <p className="text-center text-sm text-gray-500">Note: The ROI Calculator is fixed at the bottom of the "Want to invest" page by default.</p>
       )}
     </div>
   )

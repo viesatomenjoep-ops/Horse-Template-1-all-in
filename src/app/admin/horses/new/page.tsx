@@ -116,9 +116,9 @@ export default function NewHorsePage() {
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="discipline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Discipline / Category *</label>
               <select required name="discipline" id="discipline" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
-                <option value="Jumping horses">Jumping horses</option>
+                <option value="Showjumpers">Showjumpers</option>
                 <option value="Hunters">Hunters</option>
-                <option value="Equitation horses">Equitation horses</option>
+                <option value="Equitation">Equitation</option>
                 <option value="Ponies">Ponies</option>
               </select>
             </div>
@@ -129,22 +129,8 @@ export default function NewHorsePage() {
             </div>
 
             <div className="col-span-2 sm:col-span-1">
-              <label htmlFor="price_category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Price Category *</label>
-              <select required name="price_category" id="price_category" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
-                <option value="Price on Request">Price on Request</option>
-                <option value="€10k-25k">€10k-25k</option>
-                <option value="€25k-50k">€25k-50k</option>
-                <option value="€50k-100k">€50k-100k</option>
-              </select>
-            </div>
-
-            <div className="col-span-2 sm:col-span-1">
-              <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
-              <select name="status" id="status" className="mt-1 block w-full appearance-auto rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm">
-                <option value="Available">Available</option>
-                <option value="Under Offer / Vet Check">Under Offer / Vet Check</option>
-                <option value="Sold">Sold</option>
-              </select>
+              <label htmlFor="price_category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Exact Price (€) *</label>
+              <input required type="number" name="price_category" id="price_category" placeholder="e.g. 25000" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
             </div>
 
             <div className="col-span-2 sm:col-span-1">

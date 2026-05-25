@@ -54,11 +54,11 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
     return null
   }
 
-  const disciplines = ['All', 'Jumping horses', 'Hunters', 'Equitation horses', 'Ponies']
+  const disciplines = ['All', 'Hunters', 'Showjumpers', 'Equitation', 'Ponies']
 
   return (
     <div className="space-y-4">
-      {isSaving && <div className="text-sm text-green-600 animate-pulse font-medium">Volgorde wordt opgeslagen...</div>}
+      {isSaving && <div className="text-sm text-green-600 animate-pulse font-medium">Saving order...</div>}
       
       <div className="flex flex-wrap items-center gap-2 mb-6 bg-white dark:bg-gray-800 p-2 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
         <span className="text-sm font-semibold text-gray-500 ml-2 mr-2">Filter:</span>
@@ -144,11 +144,6 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-gray-400 pointer-events-none">No image</div>
                           )}
-                          <div className="absolute bottom-3 right-3">
-                            <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/90 text-gray-900 shadow-sm backdrop-blur-sm">
-                              {horse.status}
-                            </span>
-                          </div>
                         </div>
                         
                         <div className="p-5 pb-0 flex-1 flex flex-col">
@@ -172,7 +167,7 @@ export default function SortableHorseList({ initialHorses }: { initialHorses: an
                                   if (res?.success) {
                                     setHorses(prev => prev.filter(h => h.id !== horse.id))
                                   } else if (res?.error) {
-                                    alert(`Kon paard niet verwijderen: ${res.error}`)
+                                    alert(`Could not delete horse: ${res.error}`)
                                   }
                                 }
                               }}

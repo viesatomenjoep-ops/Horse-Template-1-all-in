@@ -41,7 +41,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
     ? horses 
     : horses.filter((h: any) => h.discipline === selectedDiscipline)
 
-  const disciplines = ['All', 'Jumping horses', 'Hunters', 'Equitation horses', 'Ponies']
+  const disciplines = ['All', 'Hunters', 'Showjumpers', 'Equitation', 'Ponies']
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -107,8 +107,10 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
             No horses found for this category.
           </div>
         ) : (
-          displayedHorses.map((horse: any) => (
-            <div key={horse.id} className="group relative">
+            <div key={horse.id} className="group relative flex flex-col">
+              <div className="mb-2">
+                 <span className="text-xs uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
+              </div>
               <div className="min-h-80 aspect-square w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center">
                 <img
                   src={horse.cover_image_url || '/logo.png'}
@@ -121,17 +123,19 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
                   className={`relative h-full w-full ${horse.cover_image_url ? 'object-contain' : 'object-contain p-12'} group-hover:scale-105 transition-transform duration-500 z-10`}
                 />
               </div>
-              <div className="mt-4 flex justify-between">
+              <div className="mt-4 flex justify-between items-start">
                 <div>
-                  <h3 className="text-lg text-primary font-serif font-semibold">
+                  <h3 className="text-xl text-primary font-serif font-semibold">
                     <Link href={`/horses/${horse.id}`}>
                       <span aria-hidden="true" className="absolute inset-0 z-20" />
                       {horse.name}
                     </Link>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">{horse.discipline} &bull; {horse.birth_year}</p>
+                  <p className="mt-1 text-sm text-gray-500">{horse.birth_year} &bull; {horse.gender}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{horse.price_category}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  {horse.price_category && !isNaN(Number(horse.price_category)) ? `€${Number(horse.price_category).toLocaleString()}` : horse.price_category}
+                </p>
               </div>
             </div>
           ))

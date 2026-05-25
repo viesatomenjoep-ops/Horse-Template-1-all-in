@@ -31,15 +31,15 @@ export default function BookingPage() {
           <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle size={40} className="text-green-600 dark:text-green-400" />
           </div>
-          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white mb-4">Bezoek Aangevraagd!</h1>
+          <h1 className="text-3xl font-serif font-bold text-primary dark:text-white mb-4">Visit Requested!</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-8">
-            Bedankt voor je aanvraag. We hebben je verzoek succesvol ontvangen en zullen zo snel mogelijk contact opnemen om de afspraak te bevestigen.
+            Thank you for your request. We have successfully received it and will contact you as soon as possible to confirm the appointment.
           </p>
           <button 
             onClick={() => setSuccess(false)} 
             className="px-6 py-3 bg-accent text-white font-bold uppercase tracking-wider text-sm rounded-md hover:bg-primary transition-colors w-full"
           >
-            Nieuwe Afspraak
+            New Appointment
           </button>
         </div>
       </div>
@@ -52,10 +52,10 @@ export default function BookingPage() {
         
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary dark:text-white tracking-tight mb-4">
-            Plan een Bezoek
+            Plan a Visit
           </h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-            Wil je langskomen om onze paarden te bezichtigen of investeringsmogelijkheden te bespreken? Vul het formulier in en we plannen direct iets in.
+            Would you like to visit us to view our horses or discuss investment opportunities? Fill in the form and we will schedule an appointment right away.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export default function BookingPage() {
           {/* Info Section */}
           <div className="w-full lg:w-1/3 space-y-8">
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-              <h3 className="text-xl font-bold text-primary dark:text-white mb-6">Contact & Locatie</h3>
+              <h3 className="text-xl font-bold text-primary dark:text-white mb-6">Contact & Location</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -74,7 +74,7 @@ export default function BookingPage() {
                   <div>
                     <h4 className="font-bold text-gray-900 dark:text-gray-100">Equivest Stables</h4>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                      Bezoek is uitsluitend op afspraak om de rust voor onze paarden te garanderen.
+                      Visits are strictly by appointment to guarantee peace and quiet for our horses.
                     </p>
                   </div>
                 </div>
@@ -94,11 +94,11 @@ export default function BookingPage() {
               <div className="absolute -right-10 -bottom-10 opacity-10">
                 <Calendar size={150} />
               </div>
-              <h3 className="text-xl font-bold mb-4">Openingstijden</h3>
+              <h3 className="text-xl font-bold mb-4">Opening Hours</h3>
               <ul className="space-y-2 text-primary-content/80">
-                <li className="flex justify-between"><span>Ma - Vr:</span> <span>09:00 - 17:00</span></li>
-                <li className="flex justify-between"><span>Zaterdag:</span> <span>10:00 - 14:00</span></li>
-                <li className="flex justify-between"><span>Zondag:</span> <span>Gesloten</span></li>
+                <li className="flex justify-between"><span>Mon - Fri:</span> <span>09:00 - 17:00</span></li>
+                <li className="flex justify-between"><span>Saturday:</span> <span>10:00 - 14:00</span></li>
+                <li className="flex justify-between"><span>Sunday:</span> <span>Closed</span></li>
               </ul>
             </div>
           </div>
@@ -116,23 +116,23 @@ export default function BookingPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
-                    <User size={16} className="mr-2 text-accent" /> Naam *
+                    <User size={16} className="mr-2 text-accent" /> Name *
                   </label>
-                  <input required name="clientName" type="text" placeholder="Volledige naam" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
+                  <input required name="clientName" type="text" placeholder="Full name" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
                 </div>
                 
                 <div className="space-y-2">
                   <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
                     <Mail size={16} className="mr-2 text-accent" /> E-mail *
                   </label>
-                  <input required name="clientEmail" type="email" placeholder="jouw@email.com" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
+                  <input required name="clientEmail" type="email" placeholder="your@email.com" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2 md:col-span-2">
                   <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
-                    <Phone size={16} className="mr-2 text-accent" /> Telefoon
+                    <Phone size={16} className="mr-2 text-accent" /> Phone
                   </label>
                   <input name="clientPhone" type="tel" placeholder="+31 6 12345678" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all" />
                 </div>
@@ -141,17 +141,17 @@ export default function BookingPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <div className="space-y-2">
                   <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
-                    <Calendar size={16} className="mr-2 text-accent" /> Voorkeursdatum *
+                    <Calendar size={16} className="mr-2 text-accent" /> Preferred Date *
                   </label>
                   <input required name="appointmentDate" type="date" min={new Date().toISOString().split('T')[0]} className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all text-gray-900 dark:text-gray-100" />
                 </div>
                 
                 <div className="space-y-2">
                   <label className="flex items-center text-sm font-bold text-gray-700 dark:text-gray-300">
-                    <Clock size={16} className="mr-2 text-accent" /> Tijdstip *
+                    <Clock size={16} className="mr-2 text-accent" /> Time *
                   </label>
                   <select required name="appointmentTime" className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all text-gray-900 dark:text-gray-100 appearance-none">
-                    <option value="">Kies een tijdstip</option>
+                    <option value="">Select a time</option>
                     <option value="09:00 - 10:00">09:00 - 10:00</option>
                     <option value="10:00 - 11:00">10:00 - 11:00</option>
                     <option value="11:00 - 12:00">11:00 - 12:00</option>
@@ -164,9 +164,9 @@ export default function BookingPage() {
 
               <div className="space-y-2 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
-                  Waarvoor wil je langskomen? (Optioneel)
+                  What would you like to visit for? (Optional)
                 </label>
-                <textarea name="notes" rows={4} placeholder="Bijv. bezichtiging van een specifiek paard, bespreken investering..." className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all resize-none"></textarea>
+                <textarea name="notes" rows={4} placeholder="E.g. viewing a specific horse, discussing investment..." className="w-full p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all resize-none"></textarea>
               </div>
 
               <button 
@@ -174,7 +174,7 @@ export default function BookingPage() {
                 disabled={loading}
                 className="w-full py-4 bg-accent text-white font-bold text-lg rounded-xl hover:bg-primary transition-all disabled:opacity-50 disabled:scale-100 active:scale-[0.98] shadow-lg shadow-accent/30"
               >
-                {loading ? 'Bezig met versturen...' : 'Bevestig Bezoek Aanvraag'}
+                {loading ? 'Sending...' : 'Confirm Visit Request'}
               </button>
             </form>
           </div>

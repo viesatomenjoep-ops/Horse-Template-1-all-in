@@ -16,6 +16,19 @@ export default async function AboutPage() {
     const rawTeam = await getTeamMembers() || [];
     team = [...rawTeam];
     
+    // Team member exact order
+    const orderedNames = ['heather', 'tyler', 'tom', 'kyara', 'aurélie', 'new team member', 'delphine', 'eveline'];
+    
+    // Add placeholder for the new girl
+    team.push({
+      id: 'new-girl-placeholder',
+      name: 'New Team Member',
+      role: 'TBD',
+      bio: '',
+      image_url: null,
+      sort_order: 0
+    });
+
     // Hardcode overrides for Tom van Biene and Tyler Petrie
     let tom = team.find((m: any) => m.name.toLowerCase().includes('tom'));
     let tyler = team.find((m: any) => m.name.toLowerCase().includes('tyler'));
@@ -25,34 +38,42 @@ export default async function AboutPage() {
     if (tom) {
       tom.role = 'Head of IT & Lead Developer';
       tom.bio = tomBio;
-      tom.sort_order = -10;
     } else {
       tom = {
         id: 'tom-override',
         name: 'Tom van Biene',
         role: 'Head of IT & Lead Developer',
         bio: tomBio,
-        image_url: null,
-        sort_order: -10
+        image_url: null
       };
       team.push(tom);
     }
     
-    if (tyler) {
-      tyler.sort_order = -9;
-    } else {
+    if (!tyler) {
       tyler = {
         id: 'tyler-override',
         name: 'Tyler Petrie',
         role: 'Director',
         bio: 'Managing global operations and high-end investments.',
-        image_url: null,
-        sort_order: -9
+        image_url: null
       };
       team.push(tyler);
     }
     
-    team.sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0));
+    // Custom sort based on the exact required order
+    team.sort((a: any, b: any) => {
+      const aName = a.name.toLowerCase();
+      const bName = b.name.toLowerCase();
+      
+      let aIndex = orderedNames.findIndex(n => aName.includes(n));
+      let bIndex = orderedNames.findIndex(n => bName.includes(n));
+      
+      // If not found in the exact list, put them at the end
+      if (aIndex === -1) aIndex = 999;
+      if (bIndex === -1) bIndex = 999;
+      
+      return aIndex - bIndex;
+    });
   } catch (error) {
     console.error("Error fetching team members:", error);
   }

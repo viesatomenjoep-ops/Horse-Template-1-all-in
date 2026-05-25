@@ -18,7 +18,7 @@ export default function PortfolioLogin() {
     if (res.success) {
       router.refresh()
     } else {
-      setError(res.error || 'Fout')
+      setError(res.error || 'Error')
     }
   }
 
@@ -37,7 +37,7 @@ export default function PortfolioLogin() {
             className="w-24 h-24 object-contain animate-[spin_8s_linear_infinite] mb-6 drop-shadow-md" 
           />
           <h2 className="text-2xl font-serif text-primary dark:text-white text-center tracking-wide">Private Collection Access</h2>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 text-center">Voer de toegangscode in om de exclusieve collectie te bekijken.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 text-center">Enter the access code to view the exclusive collection.</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -45,7 +45,7 @@ export default function PortfolioLogin() {
           <div>
             <input 
               type="text" 
-              placeholder="Gebruikersnaam" 
+              placeholder="Username" 
               required
               value={username}
               onChange={e => setUsername(e.target.value)}
@@ -55,7 +55,7 @@ export default function PortfolioLogin() {
           <div>
             <input 
               type="password" 
-              placeholder="Wachtwoord" 
+              placeholder="Password" 
               required
               value={password}
               onChange={e => setPassword(e.target.value)}
@@ -63,7 +63,7 @@ export default function PortfolioLogin() {
             />
           </div>
           <button type="submit" className="w-full py-4 bg-accent text-white font-bold rounded-xl hover:bg-primary transition-colors shadow-lg active:scale-95 duration-200 uppercase tracking-wider text-sm">
-            Inloggen
+            Login
           </button>
         </form>
       </div>

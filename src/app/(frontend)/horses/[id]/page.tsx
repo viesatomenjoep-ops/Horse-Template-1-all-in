@@ -83,33 +83,46 @@ export default async function HorseDetailPage(props: {
       />
       <ViewTracker horseId={horse.id} />
       {/* Hero Cover Image */}
-      <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh]">
+      <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh] bg-gray-100 dark:bg-gray-900 flex justify-center items-center overflow-hidden">
+        {/* Blurred Background to prevent empty space */}
+        {horse.cover_image_url && (
+          <img 
+            src={horse.cover_image_url} 
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+          />
+        )}
         <img 
           src={horse.cover_image_url || '/logo.png'} 
           alt={horse.name}
-          className={`absolute inset-0 w-full h-full ${horse.cover_image_url ? 'object-cover' : 'object-contain p-20 opacity-30'}`}
+          className={`relative z-10 w-full h-full ${horse.cover_image_url ? 'object-contain' : 'object-contain p-20 opacity-30'}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent" />
+        
+        {/* Gradient Overlay for Top Back Button */}
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/60 to-transparent z-20 pointer-events-none" />
         
         {/* Back Button */}
-        <div className="absolute top-0 left-0 w-full z-10 px-4 pt-8">
+        <div className="absolute top-0 left-0 w-full z-30 px-4 pt-8">
           <Link 
             href="/horses"
-            className="inline-flex items-center text-white/90 hover:text-white transition-colors group px-4 py-3 md:px-0 md:py-0 text-lg md:text-base font-medium rounded-xl hover:bg-white/10 md:hover:bg-transparent"
+            className="inline-flex items-center text-white hover:text-gray-200 transition-colors group px-4 py-2 md:px-0 md:py-0 text-lg md:text-base font-medium drop-shadow-md"
           >
             <ArrowLeft className="mr-3 w-6 h-6 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
             Back to the collection
           </Link>
         </div>
+      </div>
 
-        <div className="absolute bottom-0 left-0 w-full p-6 sm:p-12 lg:p-16 max-w-7xl mx-auto">
-          <h1 className="text-5xl sm:text-7xl font-serif font-bold text-white drop-shadow-lg mb-4">{horse.name}</h1>
-          <p className="text-xl sm:text-2xl text-accent font-light drop-shadow-md">{horse.discipline}</p>
+      {/* Horse Name and Title (Moved below image) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
+        <div className="border-b border-gray-200 dark:border-gray-800 pb-8">
+          <p className="text-accent font-bold uppercase tracking-widest text-sm mb-3">{horse.discipline}</p>
+          <h1 className="text-5xl sm:text-6xl font-serif font-bold text-gray-900 dark:text-white">{horse.name}</h1>
         </div>
       </div>
 
       {/* Content Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="lg:grid lg:grid-cols-3 lg:gap-12 xl:gap-16">
           
           {/* Main Details (Left/Middle) */}
@@ -315,10 +328,8 @@ export default async function HorseDetailPage(props: {
             {horse?.description && typeof horse.description === 'string' && (
               <div>
                 <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-6">About {horse.name}</h2>
-                <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                  {horse.description.split('\n').map((paragraph: string, idx: number) => (
-                    <p key={idx}>{paragraph}</p>
-                  ))}
+                <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+                  {horse.description}
                 </div>
               </div>
             )}
@@ -346,27 +357,18 @@ export default async function HorseDetailPage(props: {
           <div className="mt-12 lg:mt-0">
             <div className="sticky top-32 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
               <div className="mb-8">
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${
-                  horse?.status === 'Available' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                  horse?.status === 'Sold' ? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300' :
-                  'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
-                }`}>
-                  {horse?.status || 'Unknown'}
-                </span>
-                
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">Price Category</h3>
-                <p className="text-3xl font-serif font-bold text-primary dark:text-white">{horse?.price_category || 'Price on Request'}</p>
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">Price</h3>
+                <p className="text-3xl font-serif font-bold text-primary dark:text-white">
+                  {horse?.price_category && !isNaN(Number(horse.price_category)) ? `€${Number(horse.price_category).toLocaleString()}` : (horse?.price_category || 'Price on Request')}
+                </p>
               </div>
 
               <div className="space-y-4">
                 <Link 
                   href={`/contact?horse=${horse?.id}`} 
-                  className={`w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-lg text-base font-medium text-white transition-all duration-300 ${
-                    horse?.status === 'Available' ? 'bg-primary hover:bg-secondary shadow-md hover:shadow-lg' : 'bg-gray-400 cursor-not-allowed opacity-70'
-                  }`}
-                  aria-disabled={horse?.status !== 'Available'}
+                  className="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-lg text-base font-medium text-white transition-all duration-300 bg-primary hover:bg-secondary shadow-md hover:shadow-lg"
                 >
-                  {horse?.status === 'Available' ? `Inquire about ${horse.name}` : 'Not Available'}
+                  Inquire about {horse?.name}
                 </Link>
                 <p className="text-center text-xs text-gray-500">
                   Serious inquiries only. Vetting and trials available upon request.

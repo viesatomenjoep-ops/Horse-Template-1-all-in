@@ -100,7 +100,7 @@ export default function HorseResultsManager({ horseId }: { horseId: string }) {
       {loading ? (
         <p className="text-gray-500 text-sm">Laden...</p>
       ) : results.length === 0 ? (
-        <p className="text-gray-500 text-sm italic">Nog geen wedstrijdresultaten toegevoegd voor dit paard.</p>
+        <p className="text-gray-500 text-sm italic">No competition results added for this horse yet.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">

@@ -198,7 +198,7 @@ export default function NewQuotePage() {
     <Suspense fallback={
       <div className="flex justify-center items-center h-64 text-gray-500">
         <Loader2 className="animate-spin w-8 h-8 mr-2" />
-        Laden...
+        Loading...
       </div>
     }>
       <QuoteFormContent />

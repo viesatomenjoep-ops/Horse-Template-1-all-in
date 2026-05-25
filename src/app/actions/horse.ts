@@ -95,7 +95,6 @@ export async function createHorse(formData: FormData) {
     sire: formData.get('sire') as string,
     dam_sire: formData.get('dam_sire') as string,
     description: formData.get('description') as string,
-    status: formData.get('status') as string,
     cover_image_url: formData.get('cover_image_url') as string || null,
     doc_vet_check: formData.get('doc_vet_check') as string || null,
     doc_xrays: formData.get('doc_xrays') as string || null,
@@ -149,7 +148,6 @@ export async function updateHorse(id: string, formData: FormData) {
     sire: formData.get('sire') as string,
     dam_sire: formData.get('dam_sire') as string,
     description: formData.get('description') as string,
-    status: formData.get('status') as string,
     doc_vet_check: formData.get('doc_vet_check') as string || null,
     doc_xrays: formData.get('doc_xrays') as string || null,
     doc_passport: formData.get('doc_passport') as string || null,
@@ -182,7 +180,7 @@ export async function deleteHorse(id: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'You must be logged in to delete a horse.' }
   
-  // Handmatig gerelateerde data verwijderen om foreign key constraints te voorkomen
+  // Manually delete related data to prevent foreign key constraints
   await supabase.from('horse_media').delete().eq('horse_id', id)
   await supabase.from('horse_results').delete().eq('horse_id', id)
   await supabase.from('tasks').delete().eq('horse_id', id)

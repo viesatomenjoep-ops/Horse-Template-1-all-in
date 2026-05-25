@@ -27,8 +27,8 @@ export default function QuoteDetailPage() {
     fetchQuote()
   }, [id])
 
-  if (loading) return <div className="p-10 text-center">Laden...</div>
-  if (!data || !data.quote) return <div className="p-10 text-center text-red-500">Offerte niet gevonden.</div>
+  if (loading) return <div className="p-10 text-center">Loading...</div>
+  if (!data || !data.quote) return <div className="p-10 text-center text-red-500">Quote not found.</div>
 
   const { quote, items } = data
 

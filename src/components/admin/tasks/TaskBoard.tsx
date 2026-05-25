@@ -216,7 +216,7 @@ export default function TaskBoard({
             </div>
             <div className="space-y-4">
               {todoTasks.length === 0 ? (
-                <div className="text-center p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl text-gray-400 text-sm">Geen taken in to-do.</div>
+                <div className="text-center p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl text-gray-400 text-sm">No tasks in to-do.</div>
               ) : (
                 todoTasks.map(task => (
                   <TaskCard key={task.id} task={task} onChangeStatus={changeTaskStatus} horses={horses} staff={staff} />
@@ -235,7 +235,7 @@ export default function TaskBoard({
             </div>
             <div className="space-y-4">
               {inProgressTasks.length === 0 ? (
-                <div className="text-center p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl text-gray-400 text-sm">Geen actieve taken.</div>
+                <div className="text-center p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl text-gray-400 text-sm">No active tasks.</div>
               ) : (
                 inProgressTasks.map(task => (
                   <TaskCard key={task.id} task={task} onChangeStatus={changeTaskStatus} horses={horses} staff={staff} />
@@ -324,7 +324,7 @@ export default function TaskBoard({
                   onChange={e => setFormData({...formData, horse_id: e.target.value})}
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary outline-none"
                 >
-                  <option value="">-- Geen paard --</option>
+                  <option value="">-- No horse --</option>
                   {horses?.map(horse => (
                     <option key={horse.id} value={horse.id}>{horse.name}</option>
                   ))}
@@ -338,7 +338,7 @@ export default function TaskBoard({
                   onChange={e => setFormData({...formData, assigned_user_id: e.target.value})}
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary outline-none"
                 >
-                  <option value="">-- Iedereen (Geen Specifieke Persoon) --</option>
+                  <option value="">-- Everyone (No Specific Person) --</option>
                   {staff?.map(s => (
                     <option key={s.id} value={s.id}>{s.email}</option>
                   ))}
