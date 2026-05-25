@@ -107,6 +107,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
             No horses found for this category.
           </div>
         ) : (
+          displayedHorses.map((horse: any) => (
             <div key={horse.id} className="group relative flex flex-col">
               <div className="mb-2">
                  <span className="text-xs uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
