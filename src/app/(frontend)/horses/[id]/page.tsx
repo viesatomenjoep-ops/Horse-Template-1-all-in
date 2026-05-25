@@ -3,6 +3,7 @@ import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon,
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ViewTracker from '@/components/frontend/ViewTracker'
+import VideoModal from '@/components/frontend/VideoModal'
 import { Metadata } from 'next'
 
 import { cookies } from 'next/headers'
@@ -261,7 +262,9 @@ export default async function HorseDetailPage(props: {
                   <div className="flex flex-col">
                     <span className="font-medium text-primary dark:text-white">Video</span>
                     {horse?.link_video ? (
-                      <a href={horse.link_video} target="_blank" rel="noopener noreferrer" className="text-sm text-accent hover:underline">Watch Video</a>
+                      <VideoModal videoUrl={horse.link_video} title={`${horse.name} - General Video`} className="text-sm text-accent hover:underline text-left">
+                        Watch Video
+                      </VideoModal>
                     ) : (
                       <span className="text-sm text-gray-400">Pending</span>
                     )}
@@ -299,9 +302,9 @@ export default async function HorseDetailPage(props: {
                             <td className="px-6 py-4 whitespace-nowrap text-accent font-bold">{r.result || '-'}</td>
                             <td className="px-6 py-4 text-center">
                               {r.video_url ? (
-                                <a href={r.video_url} target="_blank" rel="noopener noreferrer" className="inline-flex p-2 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition-colors" title="Watch Video">
+                                <VideoModal videoUrl={r.video_url} title={`${horse.name} - ${r.event_name || 'Competition Video'}`} className="inline-flex p-2 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition-colors">
                                   <Video size={16} />
-                                </a>
+                                </VideoModal>
                               ) : (
                                 <span className="text-gray-400">-</span>
                               )}
