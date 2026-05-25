@@ -76,40 +76,31 @@ export default async function HorseDetailPage(props: {
   }
 
   return (
-    <div className="bg-gray-50 dark:bg-[#0A192F] min-h-screen">
+    <div className="bg-white dark:bg-[#0A192F] min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
       />
       <ViewTracker horseId={horse.id} />
-      {/* Hero Cover Image */}
-      <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh] bg-gray-100 dark:bg-gray-900 flex justify-center items-center overflow-hidden">
-        {/* Blurred Background to prevent empty space */}
-        {horse.cover_image_url && (
+      {/* Hero Cover Image in a Frame */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="relative w-full h-[50vh] min-h-[400px] lg:h-[70vh] bg-white dark:bg-gray-900 rounded-3xl flex justify-center items-center overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm">
           <img 
-            src={horse.cover_image_url} 
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+            src={horse.cover_image_url || '/logo.png'} 
+            alt={horse.name}
+            className={`relative z-10 w-full h-full ${horse.cover_image_url ? 'object-contain' : 'object-contain p-20 opacity-30'}`}
           />
-        )}
-        <img 
-          src={horse.cover_image_url || '/logo.png'} 
-          alt={horse.name}
-          className={`relative z-10 w-full h-full ${horse.cover_image_url ? 'object-contain' : 'object-contain p-20 opacity-30'}`}
-        />
-        
-        {/* Gradient Overlay for Top Back Button */}
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/60 to-transparent z-20 pointer-events-none" />
-        
-        {/* Back Button */}
-        <div className="absolute top-0 left-0 w-full z-30 px-4 pt-8">
-          <Link 
-            href="/horses"
-            className="inline-flex items-center text-white hover:text-gray-200 transition-colors group px-4 py-2 md:px-0 md:py-0 text-lg md:text-base font-medium drop-shadow-md"
-          >
-            <ArrowLeft className="mr-3 w-6 h-6 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
-            Back to the collection
-          </Link>
+          
+          {/* Back Button */}
+          <div className="absolute top-6 left-6 z-30">
+            <Link 
+              href="/horses"
+              className="inline-flex items-center px-5 py-2.5 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md text-gray-900 dark:text-white rounded-full hover:bg-white dark:hover:bg-gray-800 transition-colors shadow-sm font-medium text-sm border border-gray-200 dark:border-gray-700 group"
+            >
+              <ArrowLeft className="mr-2 w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Back to the collection
+            </Link>
+          </div>
         </div>
       </div>
 

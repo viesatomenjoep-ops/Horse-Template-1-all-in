@@ -20,10 +20,10 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  
+
   const cookieStore = await cookies()
   const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
-  
+
   const isLoggedIn = !!user || isInvestor
 
   // Try to fetch horses. If Supabase is not connected yet, we'll gracefully handle it.
@@ -37,8 +37,8 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
   }
 
   // Filter horses by discipline if selected
-  const displayedHorses = selectedDiscipline === 'All' 
-    ? horses 
+  const displayedHorses = selectedDiscipline === 'All'
+    ? horses
     : horses.filter((h: any) => h.discipline === selectedDiscipline)
 
   const disciplines = ['All', 'Hunters', 'Showjumpers', 'Equitation', 'Ponies']
@@ -73,14 +73,13 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
         {/* Category Selector */}
         <div className="flex flex-wrap items-center gap-2">
           {disciplines.map(disc => (
-            <Link 
-              key={disc} 
+            <Link
+              key={disc}
               href={disc === 'All' ? '/horses' : `/horses?discipline=${encodeURIComponent(disc)}`}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedDiscipline === disc 
-                  ? 'bg-primary text-white dark:bg-white dark:text-gray-900' 
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedDiscipline === disc
+                  ? 'bg-primary text-white dark:bg-white dark:text-gray-900'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
+                }`}
             >
               {disc}
             </Link>
@@ -110,7 +109,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
           displayedHorses.map((horse: any) => (
             <div key={horse.id} className="group relative flex flex-col">
               <div className="mb-2">
-                 <span className="text-xs uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
+                <span className="text-xs uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
               </div>
               <div className="min-h-80 aspect-square w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center">
                 <img
