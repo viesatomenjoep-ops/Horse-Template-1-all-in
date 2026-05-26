@@ -142,6 +142,43 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
         )}
       </div>
 
+      {/* Want to Invest CTA - Floating Card (Only visible to logged-in investors) */}
+      {isLoggedIn && (
+        <section className="pt-24 pb-10 relative z-20">
+          <div className="relative overflow-hidden rounded-[3rem] shadow-2xl bg-primary transform hover:-translate-y-2 transition-transform duration-500">
+            <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-20 bg-cover bg-center mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/40"></div>
+            
+            <div className="relative z-10 p-12 md:p-20 lg:p-24 flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="max-w-2xl">
+                <h2 className="text-4xl md:text-6xl font-serif text-white mb-6">Want to <span className="text-accent italic">Invest?</span></h2>
+                <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed font-light">
+                  Join Equivest Worldwide and become part of an exclusive network of investors acquiring elite equestrian talent. Our proven track record and data-driven approach maximize both sport success and financial returns.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <a 
+                    href="mailto:info@equivest.com?subject=Private%20Portfolio%20Access%20Request"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
+                  >
+                    <Lock size={18} /> Become an Investor
+                  </a>
+                  <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 font-bold uppercase tracking-widest rounded-full text-center hover:bg-white/10 transition-all backdrop-blur-sm">
+                    Contact Us
+                  </Link>
+                </div>
+                <p className="text-xs text-white/40 mt-6 font-bold uppercase tracking-widest">
+                  Login credentials for private access will be sent via email.
+                </p>
+              </div>
+              <div className="hidden lg:block w-1/3 relative">
+                 <div className="absolute -inset-10 bg-accent/20 blur-[100px] rounded-full"></div>
+                 <img src="/logo.png" alt="Equivest Shield" className="w-full h-auto object-contain opacity-80 mix-blend-screen drop-shadow-[0_0_50px_rgba(255,255,255,0.2)]" />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* SEO Section */}
       <div className="mt-24 pt-12 border-t border-gray-200 dark:border-gray-800">
         <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">Invest in Premium Sport Horses</h2>

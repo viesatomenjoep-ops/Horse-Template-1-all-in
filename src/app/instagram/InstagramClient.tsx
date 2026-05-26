@@ -186,7 +186,7 @@ export default function InstagramClient() {
             </div>
             
             <div className="mt-4 text-center">
-               <Link href="/explore" className="text-xs font-bold text-gray-400 uppercase tracking-widest hover:text-accent transition-colors flex items-center justify-center gap-1">
+               <Link href="/investors" className="text-xs font-bold text-gray-400 uppercase tracking-widest hover:text-accent transition-colors flex items-center justify-center gap-1">
                  View all 10 tools <ArrowRight size={12} />
                </Link>
             </div>

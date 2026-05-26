@@ -35,6 +35,14 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
           </Link>
         ))}
 
+        <Link 
+          onClick={() => setIsOpen?.(false)} 
+          href={lastLink.href} 
+          className={`text-xl font-serif font-bold transition-colors uppercase ${isActive(lastLink.href) ? 'text-accent' : 'text-primary hover:text-accent'}`}
+        >
+          {lastLink.label}
+        </Link>
+
         {user ? (
           <>
             <Link onClick={() => setIsOpen?.(false)} href="/admin" className="text-xl font-serif font-bold text-accent hover:text-primary transition-colors uppercase">
@@ -51,14 +59,6 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
             Log In
           </Link>
         )}
-        
-        <Link 
-          onClick={() => setIsOpen?.(false)} 
-          href={lastLink.href} 
-          className={`text-xl font-serif font-bold transition-colors uppercase ${isActive(lastLink.href) ? 'text-accent' : 'text-primary hover:text-accent'}`}
-        >
-          {lastLink.label}
-        </Link>
       </>
     )
   }
@@ -75,6 +75,13 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
         </Link>
       ))}
 
+      <Link 
+        href={lastLink.href} 
+        className={`text-[11px] xl:text-sm font-bold uppercase tracking-wider transition-colors py-2 whitespace-nowrap ${isActive(lastLink.href) ? 'text-accent' : 'text-primary hover:text-accent'}`}
+      >
+        {lastLink.label}
+      </Link>
+
       {user ? (
         <form action={logoutAction}>
           <button type="submit" className="text-[11px] xl:text-sm font-bold uppercase tracking-wider text-accent hover:text-primary transition-colors py-2 whitespace-nowrap">
@@ -86,13 +93,6 @@ export default function NavLinks({ user, isMobile = false, setIsOpen, logoutActi
           Log In
         </Link>
       )}
-      
-      <Link 
-        href={lastLink.href} 
-        className={`text-[11px] xl:text-sm font-bold uppercase tracking-wider transition-colors py-2 whitespace-nowrap ${isActive(lastLink.href) ? 'text-accent' : 'text-primary hover:text-accent'}`}
-      >
-        {lastLink.label}
-      </Link>
     </>
   )
 }

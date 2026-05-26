@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Wand, TrendingUp, ShieldCheck, PlayCircle, Lock, ArrowRight, Search, Camera, Trophy, Dna, Calendar, FileText, CheckCircle2, Activity, FileCheck, CalendarDays, Plane, Scale, BrainCircuit } from 'lucide-react'
 import Link from 'next/link'
 
-export default function ExploreToolsPage() {
+export default function ExploreTools() {
   // Passport Scanner State
   const [passportNum, setPassportNum] = useState('')
   const [isScanning, setIsScanning] = useState(false)

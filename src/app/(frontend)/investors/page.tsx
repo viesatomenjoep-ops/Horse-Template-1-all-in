@@ -3,6 +3,10 @@ import Link from 'next/link'
 import { ArrowRight, Lock } from 'lucide-react'
 import { getPageContent } from '@/app/actions/pages'
 import RoiCalculatorTabs from '@/components/roi/RoiCalculatorTabs'
+import ExploreTools from '@/components/frontend/ExploreTools'
+import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,6 +16,14 @@ export const metadata = {
 }
 
 export default async function InvestorsPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  const cookieStore = await cookies()
+  const isInvestor = cookieStore.get('investor_auth')?.value === 'true'
+
+  if (!user && !isInvestor) {
+    redirect('/investor-login')
+  }
   let pageData = await getPageContent('investors')
 
   // Default hardcoded layout if database is empty/not setup
@@ -174,6 +186,11 @@ export default async function InvestorsPage() {
           </div>
           <RoiCalculatorTabs lang="en" />
         </div>
+      </div>
+
+      {/* Explore Tools / Digital Ecosystem */}
+      <div className="border-t border-gray-100 dark:border-gray-800 pt-10">
+         <ExploreTools />
       </div>
 
     </div>
