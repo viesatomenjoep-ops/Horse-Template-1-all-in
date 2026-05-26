@@ -87,7 +87,7 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
       {/* Expandable Body */}
       <div className={`overflow-hidden transition-all duration-500 ease-in-out ${open ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-8 pb-8 space-y-8 border-t border-gray-100 dark:border-gray-700 pt-6">
-          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{intro}</p>
+          <p className="text-gray-700 dark:text-gray-300 text-xl md:text-2xl font-serif leading-relaxed">{intro}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {items.map((item, i) => (
@@ -96,14 +96,14 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
                   {item.icon}
                 </div>
                 <div>
-                  <p className="font-bold text-primary dark:text-white text-base mb-1">{item.label}</p>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                  <p className="font-bold text-primary dark:text-white text-lg mb-1">{item.label}</p>
+                  <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <p className="text-base text-gray-500 dark:text-gray-400 italic border-l-4 border-accent pl-5 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 italic border-l-4 border-accent pl-6 py-2 leading-relaxed font-serif">
             {footnote}
           </p>
         </div>
