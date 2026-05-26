@@ -48,9 +48,9 @@ function PhotoCard({ src, alt, delay }: { src: string; alt: string; delay: numbe
 
 export default function PhotoGallery() {
   return (
-    <section className="py-20 bg-[#fdfbf7] dark:bg-[#0a0a0a]">
+    <section className="py-10 bg-[#fdfbf7] dark:bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
+        <div className="text-center mb-10">
           <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-3">Our Portfolio in Action</span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white">
             Excellence <span className="italic text-accent">in Motion</span>

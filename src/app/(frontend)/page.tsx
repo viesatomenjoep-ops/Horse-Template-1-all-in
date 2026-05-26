@@ -68,17 +68,17 @@ export default function Home() {
       </div>
 
       {/* WHO WE ARE & OUR MISSION */}
-      <section className="py-24 bg-[#fdfbf7] dark:bg-[#0a0a0a]">
+      <section className="pt-16 pb-10 bg-[#fdfbf7] dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Section label */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Who We Are &amp; Our Mission</span>
             <div className="w-16 h-px bg-accent mx-auto"></div>
           </div>
 
           {/* Two-column layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
 
             {/* Column 1 — Eye for Quality */}
             <div className="space-y-6">
@@ -118,7 +118,7 @@ export default function Home() {
       <PhotoOrbit />
 
       {/* Care & Nutrition Section — full width */}
-      <section className="bg-[#fdfbf7] dark:bg-[#0a0a0a] pb-20">
+      <section className="bg-[#fdfbf7] dark:bg-[#0a0a0a] pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CareAccordions />
         </div>
