@@ -4,6 +4,7 @@ import { Trophy, ArrowRight, Lock } from "lucide-react";
 import ParallaxLogo from "@/components/frontend/ParallaxLogo";
 import PartnerSlider from "@/components/frontend/PartnerSlider";
 import CareAccordions from "@/components/frontend/CareAccordions";
+import PhotoOrbit from "@/components/frontend/PhotoOrbit";
 
 export const dynamic = 'force-dynamic'
 
@@ -81,12 +82,6 @@ export default function Home() {
 
             {/* Column 1 — Eye for Quality */}
             <div className="space-y-6">
-              {/* Col 1 image — watermark blurred top-left */}
-              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-lg">
-                <img src="/homepage1.jpg" alt="Equivest showjumper in action" className="w-full h-full object-cover" />
-                {/* Blur watermark in top-left corner */}
-                <div className="absolute top-0 left-0 w-24 h-14 backdrop-blur-md bg-white/10 rounded-br-xl" />
-              </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white leading-tight">
                 A Rare Eye for Exceptional Quality
               </h2>
@@ -103,12 +98,6 @@ export default function Home() {
 
             {/* Column 2 — Proven Results */}
             <div className="space-y-6">
-              {/* Col 2 image — watermark blurred bottom-left */}
-              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-lg">
-                <img src="/homepage2.jpg" alt="Equivest horse jumping" className="w-full h-full object-cover" />
-                {/* Blur watermark in bottom-left corner */}
-                <div className="absolute bottom-0 left-0 w-36 h-16 backdrop-blur-md bg-white/10 rounded-tr-xl" />
-              </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white leading-tight">
                 Proven Results Through Superior Care
               </h2>
@@ -124,6 +113,9 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* Photo Orbit — scroll-driven orbital gallery */}
+      <PhotoOrbit />
 
       {/* Care & Nutrition Section — full width */}
       <section className="bg-[#fdfbf7] dark:bg-[#0a0a0a] pb-20">
