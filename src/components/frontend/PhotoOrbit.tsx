@@ -3,10 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 const photos = [
-  { src: '/homepage1.jpg', alt: 'Equivest showjumper at Paso Robles' },
-  { src: '/homepage2.jpg', alt: 'Equivest competition FarmVet Classic' },
-  { src: '/homepage3.jpg', alt: 'Equivest Sky Partners competition' },
   { src: '/homepage4.jpg', alt: 'Equivest Kubota Defenders competition' },
+  { src: '/homepage5.jpg', alt: 'Equivest showjumper' },
 ]
 
 function PhotoCard({ src, alt, delay }: { src: string; alt: string; delay: number }) {
