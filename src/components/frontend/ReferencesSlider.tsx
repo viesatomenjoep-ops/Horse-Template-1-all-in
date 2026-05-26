@@ -108,7 +108,13 @@ function ReferenceCard({ ref }: { ref: Reference }) {
 
       {/* Embed / Visual Area — uniform height */}
       <div className="relative w-full overflow-hidden bg-gray-100 dark:bg-gray-800" style={{ height: '320px' }}>
-        {ref.url ? (
+        {ref.image_url ? (
+          <img 
+            src={ref.image_url} 
+            alt={ref.horse_name || 'Equivest Reference'} 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        ) : ref.url ? (
           <>
             {/* Scaled iframe cropped into uniform frame */}
             <div
@@ -125,7 +131,7 @@ function ReferenceCard({ ref }: { ref: Reference }) {
                 style={{ width: '100%', height: '500px', border: 'none' }}
                 scrolling="no"
                 allow="encrypted-media"
-                loading="lazy"
+                loading="eager"
               />
             </div>
             {/* Bottom fade */}
