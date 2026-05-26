@@ -81,11 +81,11 @@ export default function Home() {
 
             {/* Column 1 — Eye for Quality */}
             <div className="space-y-6">
-              {/* Image placeholder — replace with real image later */}
-              <div className="w-full aspect-[4/3] rounded-2xl bg-gray-100 dark:bg-gray-800 overflow-hidden relative shadow-lg">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600 text-sm uppercase tracking-widest font-medium">
-                  Image coming soon
-                </div>
+              {/* Col 1 image — watermark blurred top-left */}
+              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-lg">
+                <img src="/homepage1.jpg" alt="Equivest showjumper in action" className="w-full h-full object-cover" />
+                {/* Blur watermark in top-left corner */}
+                <div className="absolute top-0 left-0 w-24 h-14 backdrop-blur-md bg-white/10 rounded-br-xl" />
               </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white leading-tight">
                 A Rare Eye for Exceptional Quality
@@ -103,11 +103,11 @@ export default function Home() {
 
             {/* Column 2 — Proven Results */}
             <div className="space-y-6">
-              {/* Image placeholder — replace with real image later */}
-              <div className="w-full aspect-[4/3] rounded-2xl bg-gray-100 dark:bg-gray-800 overflow-hidden relative shadow-lg">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600 text-sm uppercase tracking-widest font-medium">
-                  Image coming soon
-                </div>
+              {/* Col 2 image — watermark blurred bottom-left */}
+              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-lg">
+                <img src="/homepage2.jpg" alt="Equivest horse jumping" className="w-full h-full object-cover" />
+                {/* Blur watermark in bottom-left corner */}
+                <div className="absolute bottom-0 left-0 w-36 h-16 backdrop-blur-md bg-white/10 rounded-tr-xl" />
               </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white leading-tight">
                 Proven Results Through Superior Care
@@ -131,6 +131,15 @@ export default function Home() {
           <CareAccordions />
         </div>
       </section>
+
+      {/* Third photo accent strip */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+        <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden relative shadow-xl">
+          <img src="/homepage3.jpg" alt="Equivest horse competing" className="w-full h-full object-cover object-center" />
+          {/* Blur watermark bottom-left */}
+          <div className="absolute bottom-0 left-0 w-40 h-16 backdrop-blur-md bg-white/10 rounded-tr-xl" />
+        </div>
+      </div>
 
       {/* References Section */}
       <ReferencesPreview />
