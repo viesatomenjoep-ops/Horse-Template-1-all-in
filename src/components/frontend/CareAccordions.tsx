@@ -85,8 +85,9 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
       </button>
 
       {/* Expandable Body */}
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${open ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="px-8 pb-8 space-y-8 border-t border-gray-100 dark:border-gray-700 pt-6">
+      <div className={`grid transition-all duration-500 ease-in-out ${open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+        <div className="overflow-hidden">
+          <div className="px-8 pb-8 space-y-8 border-t border-gray-100 dark:border-gray-700 pt-6">
           <p className="text-gray-700 dark:text-gray-300 text-xl md:text-2xl font-serif leading-relaxed">{intro}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -106,6 +107,7 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
           <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 italic border-l-4 border-accent pl-6 py-2 leading-relaxed font-serif">
             {footnote}
           </p>
+        </div>
         </div>
       </div>
     </div>

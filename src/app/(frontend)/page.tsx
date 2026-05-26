@@ -127,6 +127,9 @@ export default function Home() {
       {/* References Section */}
       <ReferencesPreview />
 
+      {/* Live Showjumping News Feed */}
+      <WorldOfShowjumpingFeed />
+
       {/* Investment Inquiry CTA */}
       <section className="relative overflow-hidden bg-primary py-28">
         {/* Background texture */}
@@ -160,9 +163,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Live Showjumping News Feed */}
-      <WorldOfShowjumpingFeed />
 
     </main>
   );
@@ -250,9 +250,6 @@ async function WorldOfShowjumpingFeed() {
               Stay connected with the international equestrian circuit. Weekly live updates on competition results, industry news, and top-tier sport events.
             </p>
           </div>
-          <a href="https://www.worldofshowjumping.com/" target="_blank" rel="noopener noreferrer" className="hidden md:inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary dark:text-white hover:text-accent transition-colors mt-4 md:mt-0">
-            View WoSJ Website <ArrowRight size={16} />
-          </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -275,11 +272,6 @@ async function WorldOfShowjumpingFeed() {
           ))}
         </div>
         
-        <div className="mt-10 md:hidden text-center">
-          <a href="https://www.worldofshowjumping.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 border-2 border-primary dark:border-white text-primary dark:text-white font-bold uppercase tracking-widest text-sm rounded-full w-full">
-            View WoSJ Website
-          </a>
-        </div>
       </div>
     </section>
   )

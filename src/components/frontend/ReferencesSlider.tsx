@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Trophy, ArrowRight, ExternalLink } from 'lucide-react'
 
@@ -14,9 +14,30 @@ type Reference = {
 
 export default function ReferencesSlider({ references }: { references: Reference[] }) {
   const [isPaused, setIsPaused] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  // Use native scrolling interval so users can swipe
+  useEffect(() => {
+    if (isPaused) return
+    let animationFrameId: number
+    
+    const scroll = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft += 1 // adjust speed here
+        // If scrolled near the end, snap back to middle to simulate infinite loop
+        if (scrollRef.current.scrollLeft >= scrollRef.current.scrollWidth - scrollRef.current.clientWidth - 10) {
+          scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 3 // assuming 3 sets of items
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll)
+    }
+    
+    animationFrameId = requestAnimationFrame(scroll)
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [isPaused])
 
   // Duplicate items for seamless infinite loop
-  const items = [...references, ...references, ...references]
+  const items = [...references, ...references, ...references, ...references]
 
   return (
     <section className="py-20 overflow-hidden bg-[#fdfbf7] dark:bg-[#0a0a0a]">
@@ -37,20 +58,22 @@ export default function ReferencesSlider({ references }: { references: Reference
         className="relative w-full"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
       >
         {/* Fade masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
 
         <div
-          className="flex gap-5 w-max"
-          style={{
-            animation: `slide-references 60s linear infinite`,
-            animationPlayState: isPaused ? 'paused' : 'running',
-          }}
+          ref={scrollRef}
+          className="flex gap-5 w-full overflow-x-auto pb-6 hide-scrollbar snap-x cursor-grab active:cursor-grabbing"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {items.map((ref, idx) => (
-            <ReferenceCard key={`${ref.id}-${idx}`} ref={ref} />
+            <div key={`${ref.id}-${idx}`} className="snap-start shrink-0">
+              <ReferenceCard ref={ref} />
+            </div>
           ))}
         </div>
       </div>
@@ -64,13 +87,6 @@ export default function ReferencesSlider({ references }: { references: Reference
           View All References <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
         </Link>
       </div>
-
-      <style jsx global>{`
-        @keyframes slide-references {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(calc(-100% / 3)); }
-        }
-      `}</style>
     </section>
   )
 }
