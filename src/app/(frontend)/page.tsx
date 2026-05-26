@@ -124,15 +124,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Third photo accent strip */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
-        <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden relative shadow-xl">
-          <img src="/homepage3.jpg" alt="Equivest horse competing" className="w-full h-full object-cover object-center" />
-          {/* Blur watermark bottom-left */}
-          <div className="absolute bottom-0 left-0 w-40 h-16 backdrop-blur-md bg-white/10 rounded-tr-xl" />
-        </div>
-      </div>
-
       {/* References Section */}
       <ReferencesPreview />
 
