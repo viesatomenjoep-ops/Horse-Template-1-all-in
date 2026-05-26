@@ -136,6 +136,40 @@ export default function Home() {
       {/* References Section */}
       <ReferencesPreview />
 
+      {/* Investment Inquiry CTA */}
+      <section className="relative overflow-hidden bg-primary py-28">
+        {/* Background texture */}
+        <div className="absolute inset-0 bg-[url('/chimi.jpg')] opacity-10 bg-cover bg-center mix-blend-overlay pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/80 pointer-events-none" />
+        {/* Glow accent */}
+        <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-96 h-96 bg-accent/20 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-accent uppercase tracking-[0.35em] text-xs font-bold block mb-6">Private & Exclusive</span>
+          <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+            Connect with Our <span className="italic text-accent">Elite Network</span>
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed mb-12">
+            Ready to explore high-end investment opportunities in the world of showjumping? Our team is available for private consultations and personalized investment plans — tailored to your goals and passion for the sport.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/investors"
+              className="inline-flex items-center gap-3 px-10 py-4 bg-accent text-white font-bold uppercase tracking-widest text-sm rounded-full hover:bg-white hover:text-primary transition-all shadow-xl shadow-accent/30 group"
+            >
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              Investment Inquiry
+            </Link>
+            <Link
+              href="/contact#plan-visit"
+              className="inline-flex items-center gap-3 px-10 py-4 border-2 border-white/30 text-white font-bold uppercase tracking-widest text-sm rounded-full hover:bg-white/10 transition-all backdrop-blur-sm"
+            >
+              Plan to See the Horses
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Latest News Section */}
       <LatestNewsPreview />
     </main>
