@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { getHorse, updateHorse } from '@/app/actions/horse'
 import dynamic from 'next/dynamic'
@@ -18,6 +18,10 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
   const [isLoading, setIsLoading] = useState(true)
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [investIntro, setInvestIntro] = useState('')
+  const [investHighlights, setInvestHighlights] = useState('')
+  const [investRevenue, setInvestRevenue] = useState('')
+  const rationaleRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     async function loadHorse() {
@@ -26,6 +30,14 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
         const data = await getHorse(params.id)
         setHorse(data)
         setCoverImageUrl(data.cover_image_url)
+        // Parse structured investment_rationale
+        const raw = data.investment_rationale || ''
+        const introMatch = raw.match(/\[INTRO\]([\s\S]*?)(?=\[HIGHLIGHTS\]|\[REVENUE\]|$)/)
+        const hlMatch = raw.match(/\[HIGHLIGHTS\]([\s\S]*?)(?=\[INTRO\]|\[REVENUE\]|$)/)
+        const revMatch = raw.match(/\[REVENUE\]([\s\S]*?)(?=\[INTRO\]|\[HIGHLIGHTS\]|$)/)
+        setInvestIntro(introMatch ? introMatch[1].trim() : raw)
+        setInvestHighlights(hlMatch ? hlMatch[1].trim() : '')
+        setInvestRevenue(revMatch ? revMatch[1].trim() : '')
       } catch (err: any) {
         setError(err.message || 'Failed to load horse details')
       } finally {
@@ -41,6 +53,12 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
     setError(null)
 
     const formData = new FormData(event.currentTarget)
+    // Serialize structured investment fields
+    const parts = []
+    if (investIntro.trim()) parts.push(`[INTRO]\n${investIntro.trim()}`)
+    if (investHighlights.trim()) parts.push(`[HIGHLIGHTS]\n${investHighlights.trim()}`)
+    if (investRevenue.trim()) parts.push(`[REVENUE]\n${investRevenue.trim()}`)
+    formData.set('investment_rationale', parts.join('\n\n'))
     if (coverImageUrl) {
       formData.append('cover_image_url', coverImageUrl)
     }
@@ -176,15 +194,45 @@ export default function EditHorsePage(props: { params: Promise<{ id: string }> }
 
             {/* Investment Data */}
             <div className="col-span-2 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-accent dark:text-accent mb-4">Investment Data & ROI</h3>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div className="col-span-2 sm:col-span-1">
-                  <label htmlFor="estimated_roi" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Estimated ROI / Profit</label>
-                  <input type="text" name="estimated_roi" id="estimated_roi" defaultValue={horse.estimated_roi || ''} placeholder="e.g. 15-20% within 12 months" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm" />
+              <h3 className="text-lg font-medium text-accent dark:text-accent mb-1">Investment Data & ROI</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Fill in one or all sections — only completed sections will be shown to investors.</p>
+              <div className="grid grid-cols-1 gap-6">
+                <div className="col-span-1 sm:col-span-1">
+                  <label htmlFor="estimated_roi" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Estimated ROI</label>
+                  <input type="text" name="estimated_roi" id="estimated_roi" defaultValue={horse.estimated_roi || ''} placeholder="e.g. 35% within 12 months" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm" />
                 </div>
-                <div className="col-span-2">
-                  <label htmlFor="investment_rationale" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Why invest in this horse?</label>
-                  <textarea name="investment_rationale" id="investment_rationale" defaultValue={horse.investment_rationale || ''} rows={3} placeholder="Explain the potential, training timeline, and financial strategy..." className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm" />
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Why this horse? <span className="text-gray-400 font-normal">(Introduction paragraph)</span></label>
+                  <textarea
+                    rows={4}
+                    value={investIntro}
+                    onChange={e => setInvestIntro(e.target.value)}
+                    placeholder="Explain the overall investment case and what makes this horse unique..."
+                    className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Key Highlights <span className="text-gray-400 font-normal">(one per line — shown as ✓ bullets)</span></label>
+                  <textarea
+                    rows={5}
+                    value={investHighlights}
+                    onChange={e => setInvestHighlights(e.target.value)}
+                    placeholder={`Modern blood and athleticism\nElite hunter style and presence\nFuture amateur/junior appeal\nRarity of high-quality young hunter prospects`}
+                    className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm font-mono text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Revenue Pathways <span className="text-gray-400 font-normal">(one per line — shown as → list)</span></label>
+                  <textarea
+                    rows={4}
+                    value={investRevenue}
+                    onChange={e => setInvestRevenue(e.target.value)}
+                    placeholder={`Future sale\nPremium lease opportunities\nBreeding potential\nIncreased marketability through competition`}
+                    className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-accent focus:ring-accent sm:text-sm font-mono text-sm"
+                  />
                 </div>
               </div>
             </div>

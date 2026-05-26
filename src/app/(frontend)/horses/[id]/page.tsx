@@ -1,5 +1,5 @@
 import { getHorse } from '@/app/actions/horse'
-import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon, Video, FileCheck, Stethoscope, TrendingUp } from 'lucide-react'
+import { ArrowLeft, Ruler, Calendar, Shield, Trophy, FileText, Link as LinkIcon, Video, FileCheck, Stethoscope, TrendingUp, CheckCircle2, DollarSign, Sparkles, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ViewTracker from '@/components/frontend/ViewTracker'
@@ -161,30 +161,7 @@ export default async function HorseDetailPage(props: {
 
             {/* Investor ROI Section */}
             {canSeeROI && (horse?.estimated_roi || horse?.investment_rationale) && (
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/10 border-2 border-green-500/30 rounded-2xl p-8 shadow-sm relative overflow-hidden">
-                <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-green-500/10 rounded-full blur-3xl"></div>
-                <h2 className="text-2xl font-serif font-bold text-green-800 dark:text-green-400 mb-6 flex items-center">
-                  <TrendingUp className="mr-3 text-green-600 dark:text-green-500" /> Investment Prospect
-                </h2>
-                
-                <div className="space-y-6">
-                  {horse.estimated_roi && (
-                    <div className="bg-white/60 dark:bg-gray-900/50 rounded-xl p-4 border border-green-500/20">
-                      <span className="text-sm font-bold text-green-700 dark:text-green-500 uppercase tracking-widest block mb-1">Estimated ROI</span>
-                      <span className="text-2xl font-bold text-gray-900 dark:text-white">{horse.estimated_roi}</span>
-                    </div>
-                  )}
-                  
-                  {horse.investment_rationale && (
-                    <div>
-                      <span className="text-sm font-bold text-green-700 dark:text-green-500 uppercase tracking-widest block mb-2">Why this horse?</span>
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
-                        {horse.investment_rationale}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <InvestmentProspect roi={horse.estimated_roi} rationale={horse.investment_rationale} />
             )}
 
             {/* Documents & Links */}
@@ -371,6 +348,90 @@ export default async function HorseDetailPage(props: {
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+// ---------- Investment Prospect Component ----------
+
+function parseRationale(text: string) {
+  if (!text) return { intro: '', highlights: [] as string[], revenue: [] as string[] }
+  const introMatch = text.match(/\[INTRO\]([\s\S]*?)(?=\[HIGHLIGHTS\]|\[REVENUE\]|$)/)
+  const highlightsMatch = text.match(/\[HIGHLIGHTS\]([\s\S]*?)(?=\[INTRO\]|\[REVENUE\]|$)/)
+  const revenueMatch = text.match(/\[REVENUE\]([\s\S]*?)(?=\[INTRO\]|\[HIGHLIGHTS\]|$)/)
+  return {
+    intro: introMatch ? introMatch[1].trim() : text,
+    highlights: highlightsMatch ? highlightsMatch[1].trim().split('\n').filter(l => l.trim()) : [],
+    revenue: revenueMatch ? revenueMatch[1].trim().split('\n').filter(l => l.trim()) : [],
+  }
+}
+
+function InvestmentProspect({ roi, rationale }: { roi?: string | null; rationale?: string | null }) {
+  const { intro, highlights, revenue } = parseRationale(rationale || '')
+  const isStructured = highlights.length > 0 || revenue.length > 0
+
+  return (
+    <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/10 border-2 border-green-500/30 rounded-2xl p-8 shadow-sm relative overflow-hidden">
+      <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-green-500/10 rounded-full blur-3xl" />
+      <h2 className="text-2xl font-serif font-bold text-green-800 dark:text-green-400 mb-6 flex items-center gap-3">
+        <TrendingUp className="text-green-600 dark:text-green-500" /> Investment Prospect
+      </h2>
+
+      <div className="space-y-6">
+        {/* ROI Badge */}
+        {roi && (
+          <div className="inline-flex items-center gap-3 bg-white/70 dark:bg-gray-900/60 rounded-xl px-5 py-3 border border-green-500/20">
+            <DollarSign className="text-green-600 dark:text-green-400" size={20} />
+            <div>
+              <span className="text-xs font-bold text-green-700 dark:text-green-500 uppercase tracking-widest block">Estimated ROI</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">{roi}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Intro paragraph */}
+        {intro && (
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base">{intro}</p>
+        )}
+
+        {isStructured && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            {/* Key Highlights */}
+            {highlights.length > 0 && (
+              <div className="bg-white/60 dark:bg-gray-900/40 rounded-xl p-5 border border-green-500/20">
+                <h3 className="text-sm font-bold text-green-700 dark:text-green-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <Sparkles size={14} /> Key Highlights
+                </h3>
+                <ul className="space-y-2">
+                  {highlights.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                      <CheckCircle2 size={15} className="text-green-500 mt-0.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Revenue Pathways */}
+            {revenue.length > 0 && (
+              <div className="bg-white/60 dark:bg-gray-900/40 rounded-xl p-5 border border-green-500/20">
+                <h3 className="text-sm font-bold text-green-700 dark:text-green-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <DollarSign size={14} /> Revenue Pathways
+                </h3>
+                <ul className="space-y-2">
+                  {revenue.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                      <ArrowRight size={14} className="text-green-500 mt-0.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
