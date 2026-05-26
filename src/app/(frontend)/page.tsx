@@ -139,89 +139,29 @@ import { getNewsArticles } from '@/app/actions/news'
 import { getPublicHorses } from '@/app/actions/horse'
 import { getReferences } from '@/app/actions/reference'
 import HorseSlideshow from '@/components/frontend/HorseSlideshow'
+import ReferencesSlider from '@/components/frontend/ReferencesSlider'
 
 
 
 async function ReferencesPreview() {
-  let references = [];
+  let references: any[] = [];
   try {
     references = await getReferences() || [];
-    references = references.slice(0, 3); // Take top 3
   } catch (e) {
     console.error(e);
   }
 
   if (references.length === 0) {
     references = [
-      {
-        id: 'dummy1',
-        horse_name: 'Equivest Royal Flush',
-        image_url: '/success1.png',
-        sold_to_country: 'United States'
-      },
-      {
-        id: 'dummy2',
-        horse_name: 'Equivest Grand Prix',
-        image_url: '/success2.png',
-        sold_to_country: 'Germany'
-      },
-      {
-        id: 'dummy3',
-        horse_name: 'Equivest Platinum',
-        image_url: '/success3.png',
-        sold_to_country: 'United Arab Emirates'
-      }
+      { id: 'dummy1', horse_name: 'Equivest Royal Flush', url: null, sold_to_country: 'United States' },
+      { id: 'dummy2', horse_name: 'Equivest Grand Prix', url: null, sold_to_country: 'Germany' },
+      { id: 'dummy3', horse_name: 'Equivest Platinum', url: null, sold_to_country: 'United Arab Emirates' },
+      { id: 'dummy4', horse_name: 'Equivest Diamond Z', url: null, sold_to_country: 'Belgium' },
+      { id: 'dummy5', horse_name: 'Equivest Champion', url: null, sold_to_country: 'France' },
     ];
   }
 
-  return (
-    <section className="pt-10 pb-24 bg-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Proven Success</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-primary dark:text-white mb-6">
-            Global <span className="italic text-accent">References</span>
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-            From the European heartland to the most prestigious arenas in the world, our elite athletes consistently prove their immense value. Discover some of our proudest alumni who have achieved greatness on the global stage after joining the Equivest portfolio.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {references.map((ref: any) => (
-            <div key={ref.id} className="break-inside-avoid bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 transition-transform hover:-translate-y-1 duration-300 flex flex-col items-center">
-              {ref.horse_name && (
-                <div className="w-full bg-primary text-white p-4 text-center font-serif font-semibold">
-                  {ref.horse_name}
-                </div>
-              )}
-              <div className="w-full flex justify-center p-4">
-                {ref.url ? (
-                  <iframe 
-                    src={`${ref.url}embed`}
-                    className="w-full max-w-[400px] h-[500px]"
-                    frameBorder="0" 
-                    scrolling="no" 
-                    allowTransparency={true}
-                    allow="encrypted-media"
-                  ></iframe>
-                ) : (
-                  <div className="w-full h-[500px] bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-                    <Trophy className="text-gray-400 w-12 h-12" />
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-16 text-center">
-          <Link href="/references" className="inline-flex items-center gap-3 px-8 py-4 border border-gray-300 dark:border-gray-700 rounded-full text-primary dark:text-white font-bold uppercase tracking-widest hover:border-accent hover:text-accent transition-colors group">
-            View All References <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  )
+  return <ReferencesSlider references={references} />;
 }
 
 // Add a component at the bottom of the file to fetch and show news
