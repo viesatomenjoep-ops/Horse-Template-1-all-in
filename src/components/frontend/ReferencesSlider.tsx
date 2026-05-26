@@ -16,24 +16,29 @@ export default function ReferencesSlider({ references }: { references: Reference
   const [isPaused, setIsPaused] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
-  // Use native scrolling interval so users can swipe
+  // Use interval-based smooth scrolling to prevent conflicts with mobile momentum scrolling
   useEffect(() => {
     if (isPaused) return
-    let animationFrameId: number
     
-    const scroll = () => {
+    const id = setInterval(() => {
       if (scrollRef.current) {
-        scrollRef.current.scrollLeft += 1 // adjust speed here
-        // If scrolled near the end, snap back to middle to simulate infinite loop
-        if (scrollRef.current.scrollLeft >= scrollRef.current.scrollWidth - scrollRef.current.clientWidth - 10) {
-          scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 3 // assuming 3 sets of items
+        // Scroll by roughly one card width (260px card + 20px gap)
+        scrollRef.current.scrollBy({ left: 280, behavior: 'smooth' })
+        
+        // Loop back if near the end
+        if (scrollRef.current.scrollLeft >= scrollRef.current.scrollWidth - scrollRef.current.clientWidth - 100) {
+          // Temporarily disable smooth scroll to snap back invisibly
+          scrollRef.current.style.scrollBehavior = 'auto'
+          scrollRef.current.scrollLeft = 0
+          // Re-enable smooth scroll
+          setTimeout(() => {
+             if (scrollRef.current) scrollRef.current.style.scrollBehavior = 'smooth'
+          }, 50)
         }
       }
-      animationFrameId = requestAnimationFrame(scroll)
-    }
+    }, 3000)
     
-    animationFrameId = requestAnimationFrame(scroll)
-    return () => cancelAnimationFrame(animationFrameId)
+    return () => clearInterval(id)
   }, [isPaused])
 
   // Duplicate items for seamless infinite loop
@@ -59,7 +64,10 @@ export default function ReferencesSlider({ references }: { references: Reference
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
+        onTouchEnd={() => {
+          // Add a slight delay before resuming auto-scroll to allow mobile momentum scroll to finish
+          setTimeout(() => setIsPaused(false), 1500)
+        }}
       >
         {/* Fade masks */}
         <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
@@ -67,7 +75,7 @@ export default function ReferencesSlider({ references }: { references: Reference
 
         <div
           ref={scrollRef}
-          className="flex gap-5 w-full overflow-x-auto pb-6 hide-scrollbar snap-x cursor-grab active:cursor-grabbing"
+          className="flex gap-5 w-full overflow-x-auto pb-6 hide-scrollbar snap-x snap-mandatory cursor-grab active:cursor-grabbing scroll-smooth"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {items.map((ref, idx) => (
