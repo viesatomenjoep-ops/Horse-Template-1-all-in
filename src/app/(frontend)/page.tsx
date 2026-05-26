@@ -167,32 +167,29 @@ async function ReferencesPreview() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {references.map((ref: any) => (
-            <Link href="/references" key={ref.id} className="group cursor-pointer">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-xl">
-                {ref.image_url ? (
-                  <Image 
-                    src={ref.image_url} 
-                    alt={ref.horse_name} 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
-                  />
+            <div key={ref.id} className="break-inside-avoid bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 transition-transform hover:-translate-y-1 duration-300 flex flex-col items-center">
+              {ref.horse_name && (
+                <div className="w-full bg-primary text-white p-4 text-center font-serif font-semibold">
+                  {ref.horse_name}
+                </div>
+              )}
+              <div className="w-full flex justify-center p-4">
+                {ref.url ? (
+                  <iframe 
+                    src={`${ref.url}embed`}
+                    className="w-full max-w-[400px] h-[500px]"
+                    frameBorder="0" 
+                    scrolling="no" 
+                    allowTransparency={true}
+                    allow="encrypted-media"
+                  ></iframe>
                 ) : (
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                  <div className="w-full h-[500px] bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
                     <Trophy className="text-gray-400 w-12 h-12" />
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90"></div>
-                <div className="absolute bottom-0 left-0 w-full p-8 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="flex items-center gap-2 mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Trophy size={16} className="text-accent" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-accent">Top Performer</span>
-                  </div>
-                  <h3 className="text-3xl font-serif font-bold mb-2 group-hover:text-white transition-colors">{ref.horse_name}</h3>
-                  <div className="w-10 h-1 bg-accent mb-3"></div>
-                  <p className="text-sm text-white/80 uppercase tracking-widest font-medium">Exported to: {ref.sold_to_country}</p>
-                </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
         <div className="mt-16 text-center">

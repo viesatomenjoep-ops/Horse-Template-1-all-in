@@ -58,6 +58,43 @@ export default function CMSHubPage() {
             <Edit size={16} /> Bewerk About Teksten
           </Link>
         </div>
+        {/* Facilities Text */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-purple-100 text-purple-600 p-2 rounded-lg">
+              <FileText size={24} />
+            </div>
+            <h2 className="text-xl font-bold">Facilities</h2>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 h-10">
+            Beheer de secties, afbeeldingen en teksten voor de Facilities pagina.
+          </p>
+          <Link 
+            href="/admin/pages/facilities"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-gray-50 dark:bg-gray-700 hover:bg-primary hover:text-white text-primary font-bold rounded-xl transition-colors"
+          >
+            <Edit size={16} /> Bewerk Facilities
+          </Link>
+        </div>
+
+        {/* Services Text */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-orange-100 text-orange-600 p-2 rounded-lg">
+              <FileText size={24} />
+            </div>
+            <h2 className="text-xl font-bold">Services</h2>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 h-10">
+            Beheer de secties, afbeeldingen en teksten voor de Services pagina.
+          </p>
+          <Link 
+            href="/admin/pages/services"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-gray-50 dark:bg-gray-700 hover:bg-primary hover:text-white text-primary font-bold rounded-xl transition-colors"
+          >
+            <Edit size={16} /> Bewerk Services
+          </Link>
+        </div>
       </div>
     </div>
   )
