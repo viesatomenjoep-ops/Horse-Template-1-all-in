@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Trophy, ArrowRight, Lock } from "lucide-react";
 import ParallaxLogo from "@/components/frontend/ParallaxLogo";
 import PartnerSlider from "@/components/frontend/PartnerSlider";
+import CareAccordions from "@/components/frontend/CareAccordions";
 
 export const dynamic = 'force-dynamic'
 
@@ -117,11 +118,13 @@ export default function Home() {
               >
                 View Our References <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
+              <CareAccordions />
             </div>
 
           </div>
         </div>
       </section>
+
 
       {/* References Section */}
       <ReferencesPreview />
