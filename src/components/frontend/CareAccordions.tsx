@@ -117,7 +117,7 @@ function Accordion({
 
 export default function CareAccordions() {
   return (
-    <div className="space-y-3 mt-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
       <Accordion
         icon={<Leaf size={18} className="text-green-600" />}
         accentColor="bg-green-100 dark:bg-green-900/30"
