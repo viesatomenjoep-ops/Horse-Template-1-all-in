@@ -111,16 +111,11 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
               <div className="mb-2">
                 <span className="text-xs uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
               </div>
-              <div className="min-h-80 aspect-square w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center">
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative">
                 <img
                   src={horse.cover_image_url || '/logo.png'}
                   alt={horse.name}
-                  className={`absolute inset-0 h-full w-full ${horse.cover_image_url ? 'object-cover blur-xl opacity-40 scale-110' : 'object-contain opacity-10 p-10'}`}
-                />
-                <img
-                  src={horse.cover_image_url || '/logo.png'}
-                  alt={horse.name}
-                  className={`relative h-full w-full ${horse.cover_image_url ? 'object-contain' : 'object-contain p-12'} group-hover:scale-105 transition-transform duration-500 z-10`}
+                  className={`absolute inset-0 h-full w-full group-hover:scale-105 transition-transform duration-500 ${horse.cover_image_url ? 'object-cover' : 'object-contain p-10 opacity-20'}`}
                 />
               </div>
               <div className="mt-4 flex justify-between items-start">

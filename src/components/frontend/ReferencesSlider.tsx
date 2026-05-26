@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { Trophy, ArrowRight, Instagram } from 'lucide-react'
+import { Trophy, ArrowRight, ExternalLink } from 'lucide-react'
 
 type Reference = {
   id: string
@@ -126,7 +126,7 @@ function ReferenceCard({ ref }: { ref: Reference }) {
         )}
         {ref.url && (
           <span className="flex items-center gap-1.5 text-xs font-bold text-accent uppercase tracking-widest ml-auto">
-            <Instagram size={13} /> View on Instagram
+            <ExternalLink size={13} /> View on Instagram
           </span>
         )}
       </div>
