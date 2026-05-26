@@ -93,6 +93,12 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                 Equivest has guaranteed top-level sport and quality for over two decades. We are proud to belong to the top tier of American and Belgian trainers and traders. Over the years, we have developed a unique and rare instinct for selecting the perfect match. Whether it concerns talented showjumpers, stylish hunters, or reliable ponies: we know exactly what is needed and always hit the mark.
               </p>
+              <Link
+                href="/horses"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-full hover:bg-accent transition-colors shadow-lg group"
+              >
+                View Our Horses <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
 
             {/* Column 2 — Proven Results */}
@@ -112,12 +118,6 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                 Everything we have sold and trained over the past 20 years is built on this philosophy of uncompromising quality. Our proven track record speaks for itself. View our references and discover the successful combinations we have brought together worldwide.
               </p>
-              <Link
-                href="/references"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-full hover:bg-accent transition-colors shadow-lg group"
-              >
-                View Our References <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
             </div>
 
           </div>
