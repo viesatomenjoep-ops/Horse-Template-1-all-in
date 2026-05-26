@@ -118,13 +118,19 @@ export default function Home() {
               >
                 View Our References <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <CareAccordions />
             </div>
 
           </div>
         </div>
       </section>
 
+
+      {/* Care & Nutrition Section — full width */}
+      <section className="bg-[#fdfbf7] dark:bg-[#0a0a0a] pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <CareAccordions />
+        </div>
+      </section>
 
       {/* References Section */}
       <ReferencesPreview />
