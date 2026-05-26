@@ -28,30 +28,30 @@ export default function Home() {
             <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full mb-4">
               <span className="w-2 h-2 bg-accent-light rounded-full animate-pulse"></span>
               <span className="text-accent-light uppercase tracking-[0.3em] text-xs sm:text-sm md:text-base font-bold">
-                Invest in Elite Showjumpers
+                Equivest Worldwide
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-serif text-white leading-[1.1] tracking-tight">
-              High-yield returns from world-class <span className="text-accent-light italic">equestrian talent.</span>
+              Global Excellence in <span className="text-accent-light italic">Equestrian Sports.</span>
             </h1>
             
             <p className="text-xl md:text-2xl font-medium text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Securing high-yield returns through the acquisition of world-class equestrian talent.
+              Ranked among the absolute top of American and Belgian trainers and traders. For over 20 years, the premier destination for the most promising showjumpers, hunters, and ponies.
             </p>
             
             <div className="pt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/horses"
+                href="/references"
                 className="bg-accent text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-primary transition-all shadow-xl"
               >
-                View Portfolio
+                View Our References
               </Link>
               <Link
-                href="/services"
+                href="/horses"
                 className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-white/20 transition-all shadow-xl"
               >
-                Our Services
+                Discover Our Horses
               </Link>
             </div>
           </div>
@@ -63,11 +63,65 @@ export default function Home() {
         <div className="relative z-30 -mt-16 md:-mt-24 pb-12 md:pb-20">
           <PartnerSlider />
         </div>
-
-
       </div>
 
+      {/* WHO WE ARE & OUR MISSION */}
+      <section className="py-24 bg-[#fdfbf7] dark:bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+          {/* Section label */}
+          <div className="text-center mb-16">
+            <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold block mb-4">Who We Are &amp; Our Mission</span>
+            <div className="w-16 h-px bg-accent mx-auto"></div>
+          </div>
+
+          {/* Two-column layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+
+            {/* Column 1 — Eye for Quality */}
+            <div className="space-y-6">
+              {/* Image placeholder — replace with real image later */}
+              <div className="w-full aspect-[4/3] rounded-2xl bg-gray-100 dark:bg-gray-800 overflow-hidden relative shadow-lg">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600 text-sm uppercase tracking-widest font-medium">
+                  Image coming soon
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white leading-tight">
+                A Rare Eye for Exceptional Quality
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                Equivest has guaranteed top-level sport and quality for over two decades. We are proud to belong to the top tier of American and Belgian trainers and traders. Over the years, we have developed a unique and rare instinct for selecting the perfect match. Whether it concerns talented showjumpers, stylish hunters, or reliable ponies: we know exactly what is needed and always hit the mark.
+              </p>
+            </div>
+
+            {/* Column 2 — Proven Results */}
+            <div className="space-y-6">
+              {/* Image placeholder — replace with real image later */}
+              <div className="w-full aspect-[4/3] rounded-2xl bg-gray-100 dark:bg-gray-800 overflow-hidden relative shadow-lg">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600 text-sm uppercase tracking-widest font-medium">
+                  Image coming soon
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary dark:text-white leading-tight">
+                Proven Results Through Superior Care
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                Our mission is simple: we exclusively offer the most professional sport horses, paired with management of the highest conceivable level. A top sport horse only performs optimally with the right guidance. That is why all our horses receive the absolute best treatments, premium feed, and carefully tailored supplements.
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                Everything we have sold and trained over the past 20 years is built on this philosophy of uncompromising quality. Our proven track record speaks for itself. View our references and discover the successful combinations we have brought together worldwide.
+              </p>
+              <Link
+                href="/references"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-full hover:bg-accent transition-colors shadow-lg group"
+              >
+                View Our References <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       {/* References Section */}
       <ReferencesPreview />
