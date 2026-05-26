@@ -68,10 +68,10 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="w-full flex items-center justify-between gap-4 px-8 py-7 text-left hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-colors focus:outline-none"
+        className="w-full relative flex items-center justify-center gap-4 px-8 py-7 text-left hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-colors focus:outline-none"
       >
-        <div className="flex items-center gap-4">
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${iconBg}`}>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center ${iconBg}`}>
             {icon}
           </div>
           <div>
@@ -79,7 +79,7 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
             <h3 className="font-serif font-bold text-primary dark:text-white text-2xl leading-tight">{title}</h3>
           </div>
         </div>
-        <div className={`shrink-0 w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${open ? 'border-accent rotate-180' : 'border-gray-200 dark:border-gray-600'}`}>
+        <div className={`absolute right-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${open ? 'border-accent rotate-180' : 'border-gray-200 dark:border-gray-600'}`}>
           <ChevronDown size={20} className={open ? 'text-accent' : 'text-gray-400'} />
         </div>
       </button>
