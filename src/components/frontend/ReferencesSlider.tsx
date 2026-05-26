@@ -69,10 +69,6 @@ export default function ReferencesSlider({ references }: { references: Reference
           setTimeout(() => setIsPaused(false), 1500)
         }}
       >
-        {/* Fade masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#fdfbf7] dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-
         <div
           ref={scrollRef}
           className="flex gap-5 w-full overflow-x-auto pb-6 hide-scrollbar snap-x snap-mandatory cursor-grab active:cursor-grabbing scroll-smooth"
