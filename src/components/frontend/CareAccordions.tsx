@@ -1,4 +1,7 @@
-import { Leaf, Wheat, Sprout, FlaskConical, HeartPulse, BedDouble, Wind, Sparkles } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { ChevronDown, Leaf, Wheat, Sprout, FlaskConical, HeartPulse, BedDouble, Wind, Sparkles } from 'lucide-react'
 
 const feedItems = [
   {
@@ -57,42 +60,53 @@ type CareCardProps = {
 }
 
 function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: CareCardProps) {
+  const [open, setOpen] = useState(false)
+
   return (
     <div className="w-full bg-white dark:bg-gray-800 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-md overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center gap-4 px-8 py-7 border-b border-gray-100 dark:border-gray-700">
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${iconBg}`}>
-          {icon}
+      {/* Clickable Header */}
+      <button
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between gap-4 px-8 py-7 text-left hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-colors focus:outline-none"
+      >
+        <div className="flex items-center gap-4">
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${iconBg}`}>
+            {icon}
+          </div>
+          <div>
+            <span className="text-accent uppercase tracking-[0.25em] text-xs font-bold block mb-1">{tagline}</span>
+            <h3 className="font-serif font-bold text-primary dark:text-white text-2xl leading-tight">{title}</h3>
+          </div>
         </div>
-        <div>
-          <span className="text-accent uppercase tracking-[0.25em] text-xs font-bold block mb-1">{tagline}</span>
-          <h3 className="font-serif font-bold text-primary dark:text-white text-2xl leading-tight">{title}</h3>
+        <div className={`shrink-0 w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${open ? 'border-accent rotate-180' : 'border-gray-200 dark:border-gray-600'}`}>
+          <ChevronDown size={20} className={open ? 'text-accent' : 'text-gray-400'} />
         </div>
-      </div>
+      </button>
 
-      {/* Body */}
-      <div className="px-8 py-8 space-y-8">
-        <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{intro}</p>
+      {/* Expandable Body */}
+      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${open ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="px-8 pb-8 space-y-8 border-t border-gray-100 dark:border-gray-700 pt-6">
+          <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">{intro}</p>
 
-        {/* Items grid — 2 columns on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {items.map((item, i) => (
-            <div key={i} className="flex items-start gap-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-5">
-              <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shrink-0 shadow-sm">
-                {item.icon}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {items.map((item, i) => (
+              <div key={i} className="flex items-start gap-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-5">
+                <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shrink-0 shadow-sm">
+                  {item.icon}
+                </div>
+                <div>
+                  <p className="font-bold text-primary dark:text-white text-base mb-1">{item.label}</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-bold text-primary dark:text-white text-base mb-1">{item.label}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Footnote */}
-        <p className="text-base text-gray-500 dark:text-gray-400 italic border-l-4 border-accent pl-5 leading-relaxed">
-          {footnote}
-        </p>
+          <p className="text-base text-gray-500 dark:text-gray-400 italic border-l-4 border-accent pl-5 leading-relaxed">
+            {footnote}
+          </p>
+        </div>
       </div>
     </div>
   )
@@ -100,7 +114,7 @@ function CareCard({ icon, iconBg, tagline, title, intro, items, footnote }: Care
 
 export default function CareAccordions() {
   return (
-    <div className="flex flex-col gap-6 mt-8">
+    <div className="flex flex-col gap-4 mt-8">
       <CareCard
         icon={<Leaf size={22} className="text-green-600" />}
         iconBg="bg-green-100 dark:bg-green-900/30"
