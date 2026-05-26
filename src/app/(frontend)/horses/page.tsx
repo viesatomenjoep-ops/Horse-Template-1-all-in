@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
-import { ShieldCheck, Eye } from 'lucide-react'
+import { ShieldCheck, Eye, Lock } from 'lucide-react'
 import { logout } from '@/app/actions/auth'
 
 export const dynamic = 'force-dynamic'
