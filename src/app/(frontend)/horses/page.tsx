@@ -108,8 +108,8 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
         ) : (
           displayedHorses.map((horse: any) => (
             <div key={horse.id} className="group relative flex flex-col">
-              <div className="mb-2">
-                <span className="text-xs uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
+              <div className="mb-3">
+                <span className="text-sm md:text-base uppercase tracking-widest font-bold text-accent">{horse.discipline}</span>
               </div>
               <div className="aspect-[4/3] w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 relative">
                 <img
@@ -120,7 +120,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
               </div>
               <div className="mt-4 flex justify-between items-start">
                 <div>
-                  <h3 className="text-xl text-primary font-serif font-semibold">
+                  <h3 className="text-2xl text-primary font-serif font-bold">
                     <Link href={`/horses/${horse.id}`}>
                       <span aria-hidden="true" className="absolute inset-0 z-20" />
                       {horse.name}
@@ -128,7 +128,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{horse.birth_year} &bull; {horse.gender}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <p className="text-base font-semibold text-gray-900 dark:text-gray-100">
                   {horse.price_category && !isNaN(Number(horse.price_category)) ? `€${Number(horse.price_category).toLocaleString()}` : horse.price_category}
                 </p>
               </div>

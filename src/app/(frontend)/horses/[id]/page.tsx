@@ -112,8 +112,8 @@ export default async function HorseDetailPage(props: {
       {/* Horse Name and Title (Moved below image) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
         <div className="border-b border-gray-200 dark:border-gray-800 pb-8">
-          <p className="text-accent font-bold uppercase tracking-widest text-sm mb-3">{horse.discipline}</p>
-          <h1 className="text-5xl sm:text-6xl font-serif font-bold text-gray-900 dark:text-white">{horse.name}</h1>
+          <p className="text-accent font-bold uppercase tracking-widest text-lg md:text-xl mb-3">{horse.discipline}</p>
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white">{horse.name}</h1>
         </div>
       </div>
 
@@ -303,8 +303,8 @@ export default async function HorseDetailPage(props: {
             {horse?.description && typeof horse.description === 'string' && (
               <div>
                 <h2 className="text-2xl font-serif font-bold text-primary dark:text-white mb-6">About {horse.name}</h2>
-                <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
-                  {horse.description}
+                <div className="text-gray-600 dark:text-gray-300">
+                  {formatDescription(horse.description as string)}
                 </div>
               </div>
             )}
@@ -362,7 +362,33 @@ export default async function HorseDetailPage(props: {
   )
 }
 
-// ---------- Investment Prospect Component ----------
+// ---------- Helper & Sub-Components ----------
+
+function formatDescription(text: string) {
+  if (!text) return null;
+  // If user already put newlines, respect them but wrap in nicer paragraphs
+  if (text.includes('\n')) {
+    return text.split('\n').map((p, i) => (
+      p.trim() ? <p key={i} className="mb-6 leading-relaxed text-lg sm:text-xl">{p}</p> : <br key={i} />
+    ));
+  }
+  
+  // Otherwise, split by sentences and group into smaller paragraphs
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  const paragraphs = [];
+  let currentP = "";
+  for (let i = 0; i < sentences.length; i++) {
+    currentP += sentences[i] + " ";
+    if ((i + 1) % 3 === 0 || i === sentences.length - 1) {
+      paragraphs.push(currentP.trim());
+      currentP = "";
+    }
+  }
+  
+  return paragraphs.map((p, i) => (
+    <p key={i} className="mb-6 leading-relaxed text-lg sm:text-xl">{p}</p>
+  ));
+}
 
 function parseRationale(text: string) {
   if (!text) return { intro: '', highlights: [] as string[], revenue: [] as string[] }
