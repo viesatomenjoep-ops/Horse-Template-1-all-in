@@ -15,7 +15,7 @@ export default async function ServicesPage() {
   if (!pageData) {
     pageData = {
       title: 'Our Services',
-      hero_image: '/wellington_showjumper.png',
+      hero_image: '/services-hero.jpg',
       content_blocks: [
         { id: '1', type: 'text', content: 'We offer a comprehensive range of services tailored to meet the needs of elite sport horses and discerning riders. From expert training and coaching to high-end sales and investments, our experienced team is dedicated to achieving the highest standards of excellence in the equestrian world.', size: 'text-xl' }
       ]
@@ -94,7 +94,7 @@ export default async function ServicesPage() {
             {/* Fallback if both are empty */}
             {!hero_image && !hero_image_2 && (
               <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
-                <Image src="/wellington_showjumper.png" alt="Services image" fill className="object-cover" priority />
+                <Image src="/services-hero.jpg" alt="Services image" fill className="object-cover" priority />
               </div>
             )}
           </div>

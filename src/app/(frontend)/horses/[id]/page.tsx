@@ -57,6 +57,10 @@ export default async function HorseDetailPage(props: {
     // Fallback safely to false
   }
 
+  const rawPrice = horse.price_category || '';
+  const isPartial = rawPrice.includes('(Partial Ownership)');
+  const cleanPrice = rawPrice.replace(' (Partial Ownership)', '');
+
   const schemaJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -70,7 +74,7 @@ export default async function HorseDetailPage(props: {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'EUR',
-      price: (horse.price_category && horse.price_category !== 'Price on Request') ? horse.price_category.replace(/[^0-9]/g, '000') : '0',
+      price: (cleanPrice && cleanPrice !== 'Price on Request') ? cleanPrice.replace(/[^0-9]/g, '000') : '0',
       availability: horse.status === 'Available' ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       url: `https://www.equivestworldwide.com/horses/${horse.id}`
     }
@@ -330,8 +334,13 @@ export default async function HorseDetailPage(props: {
               <div className="mb-8">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">Price</h3>
                 <p className="text-3xl font-serif font-bold text-primary dark:text-white">
-                  {horse?.price_category && !isNaN(Number(horse.price_category)) ? `€${Number(horse.price_category).toLocaleString()}` : (horse?.price_category || 'Price on Request')}
+                  {cleanPrice && !isNaN(Number(cleanPrice)) ? `€${Number(cleanPrice).toLocaleString()}` : (cleanPrice || 'Price on Request')}
                 </p>
+                {isPartial && (
+                  <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-md text-sm font-semibold text-accent">
+                    <Sparkles size={14} /> Available for Partial Ownership
+                  </div>
+                )}
               </div>
 
               <div className="space-y-4">

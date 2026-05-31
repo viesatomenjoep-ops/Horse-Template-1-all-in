@@ -130,7 +130,14 @@ export default function NewHorsePage() {
 
             <div className="col-span-2 sm:col-span-1">
               <label htmlFor="price_category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Exact Price (€) *</label>
-              <input required type="number" name="price_category" id="price_category" placeholder="e.g. 25000" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+              <input required type="text" name="price_category" id="price_category" placeholder="e.g. 25000" className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-primary focus:ring-primary sm:text-sm" />
+              
+              <div className="mt-3 flex items-center">
+                <input type="checkbox" id="partial_ownership" name="partial_ownership" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700" />
+                <label htmlFor="partial_ownership" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                  Allow Partial Ownership / Partnership
+                </label>
+              </div>
             </div>
 
             <div className="col-span-2 sm:col-span-1">

@@ -86,7 +86,7 @@ export async function createHorse(formData: FormData) {
   const rawData = {
     name: formData.get('name') as string,
     category: formData.get('category') as string || 'sales',
-    price_category: formData.get('price_category') as string,
+    price_category: (formData.get('price_category') as string).replace(' (Partial Ownership)', '') + (formData.get('partial_ownership') === 'on' ? ' (Partial Ownership)' : ''),
     birth_year: parseInt(formData.get('birth_year') as string),
     gender: formData.get('gender') as string,
     height_cm: parseInt(formData.get('height_cm') as string) || null,
@@ -139,7 +139,7 @@ export async function updateHorse(id: string, formData: FormData) {
   const rawData: any = {
     name: formData.get('name') as string,
     category: formData.get('category') as string || 'sales',
-    price_category: formData.get('price_category') as string,
+    price_category: (formData.get('price_category') as string).replace(' (Partial Ownership)', '') + (formData.get('partial_ownership') === 'on' ? ' (Partial Ownership)' : ''),
     birth_year: parseInt(formData.get('birth_year') as string),
     gender: formData.get('gender') as string,
     height_cm: parseInt(formData.get('height_cm') as string) || null,

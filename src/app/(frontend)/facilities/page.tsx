@@ -17,7 +17,7 @@ export default async function FacilitiesPage() {
       title: 'Our Facilities',
       hero_image: '/wellington_showjumper.png',
       content_blocks: [
-        { id: '1', type: 'text', content: 'Our state-of-the-art facilities are designed to provide the highest level of care, training, and comfort for our elite sport horses. From expansive outdoor arenas to premium stabling, every detail has been carefully considered to ensure optimal performance and well-being.', size: 'text-xl' }
+        { id: '1', type: 'text', content: 'We are proudly based at the stunning APG Stables, providing an exceptional environment for our elite sport horses. From expansive outdoor arenas to premium stabling, this magnificent location offers everything needed to ensure the highest level of care, training, and comfort for our horses.', size: 'text-xl' }
       ]
     }
   }
@@ -32,7 +32,7 @@ export default async function FacilitiesPage() {
           <h1 className="text-4xl sm:text-5xl font-serif font-light text-primary dark:text-white">
             {title}
           </h1>
-          <h2 className="text-2xl font-serif text-secondary dark:text-gray-300">World-Class Accommodations</h2>
+          <h2 className="text-2xl font-serif text-secondary dark:text-gray-300">A Beautiful Location</h2>
           <div className="space-y-6 text-xl md:text-2xl text-gray-800 dark:text-gray-300 font-medium leading-relaxed text-center sm:text-left">
             {content_blocks.map((block: any, index: number) => {
               if (block.type === 'hero_image_2') return null;
