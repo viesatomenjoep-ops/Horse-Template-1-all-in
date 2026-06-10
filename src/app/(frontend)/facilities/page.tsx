@@ -15,7 +15,7 @@ export default async function FacilitiesPage() {
   if (!pageData) {
     pageData = {
       title: 'Our Facilities',
-      hero_image: '/wellington_showjumper.png',
+      hero_image: '/facilities_arena.jpg',
       content_blocks: [
         { id: '1', type: 'text', content: 'We are proudly based at the stunning APG Stables, providing an exceptional environment for our elite sport horses. From expansive outdoor arenas to premium stabling, this magnificent location offers everything needed to ensure the highest level of care, training, and comfort for our horses.', size: 'text-xl' }
       ]
@@ -94,7 +94,7 @@ export default async function FacilitiesPage() {
             {/* Fallback if both are empty */}
             {!hero_image && !hero_image_2 && (
               <div className="h-64 sm:h-[500px] w-full relative bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
-                <Image src="/wellington_showjumper.png" alt="Facilities image" fill className="object-cover" priority />
+                <Image src="/facilities_arena.jpg" alt="Facilities image" fill className="object-cover" priority />
               </div>
             )}
           </div>

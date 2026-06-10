@@ -9,7 +9,7 @@ export default async function AdminFacilitiesPage() {
   if (!data) {
     data = {
       title: 'Our Facilities',
-      hero_image: '/wellington_showjumper.png',
+      hero_image: '/facilities_arena.jpg',
       content_blocks: []
     }
   }
