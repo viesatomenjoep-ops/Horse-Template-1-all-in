@@ -152,7 +152,7 @@ export default async function CollectionPage(props: { searchParams: Promise<{ di
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                   <a 
-                    href="mailto:info@equivest.com?subject=Private%20Portfolio%20Access%20Request"
+                    href="mailto:equivestbv@gmail.com?subject=Private%20Portfolio%20Access%20Request"
                     className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent to-[#cca471] text-white font-bold uppercase tracking-widest text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(204,164,113,0.6)] transition-all shadow-xl group"
                   >
                     <Lock size={18} /> Get Investor Credentials
