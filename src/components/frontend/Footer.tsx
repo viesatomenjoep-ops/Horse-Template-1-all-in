@@ -3,7 +3,7 @@ import ScrollLogo from './ScrollLogo';
 
 export default function Footer() {
   const whatsappNumber = "0032470760659";
-  const email = "equivestbv@gmail.com";
+  const email = "info@equivest-worldwide.com";
 
   return (
     <>
