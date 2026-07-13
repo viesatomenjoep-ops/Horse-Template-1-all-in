@@ -96,7 +96,7 @@ export default function FlashSalePage() {
                 </p>
               </div>
 
-              <button onClick={() => window.location.href = `mailto:equivestbv@gmail.com?subject=Flash Sale Interest: ${horse.name}`} className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors flex justify-center items-center gap-2">
+              <button onClick={() => window.location.href = `mailto:Info@equivest-worldwide.com?subject=Flash Sale Interest: ${horse.name}`} className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors flex justify-center items-center gap-2">
                 Claim this Asset Now <ArrowRight size={18} />
               </button>
             </div>

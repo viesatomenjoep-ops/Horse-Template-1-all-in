@@ -3,7 +3,8 @@ import ScrollLogo from './ScrollLogo';
 
 export default function Footer() {
   const whatsappNumber = "0032470760659";
-  const email = "info@equivest-worldwide.com";
+  const infoEmail = "Info@equivest-worldwide.com";
+  const investmentsEmail = "Investments@equivest-worldwide.com";
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-8">
             <a 
               href={`https://wa.me/32470760659`} 
               target="_blank" 
@@ -42,7 +43,7 @@ export default function Footer() {
             </a>
 
             <a 
-              href={`mailto:${email}`} 
+              href={`mailto:${infoEmail}`} 
               className="group flex flex-col items-center p-6 md:p-8 bg-white/5 border border-white/10 hover:border-accent-light hover:bg-white/10 transition-all duration-500 shadow-xl"
             >
               <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-light/20 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform">
@@ -52,8 +53,23 @@ export default function Footer() {
                     <polyline points="3 7 12 13 21 7" />
                  </svg>
               </div>
-              <span className="text-white text-lg md:text-xl font-serif mb-1">Send an Email</span>
-              <span className="text-accent-light text-xs md:text-sm font-bold uppercase tracking-widest">{email}</span>
+              <span className="text-white text-lg md:text-xl font-serif mb-1">General Info</span>
+              <span className="text-accent-light text-xs md:text-sm font-bold uppercase tracking-widest break-all text-center">{infoEmail}</span>
+            </a>
+
+            <a 
+              href={`mailto:${investmentsEmail}`} 
+              className="group flex flex-col items-center p-6 md:p-8 bg-white/5 border border-white/10 hover:border-accent-light hover:bg-white/10 transition-all duration-500 shadow-xl"
+            >
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-light/20 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform">
+                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 md:w-6 md:h-6 text-accent-light" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <polyline points="3 7 12 13 21 7" />
+                 </svg>
+              </div>
+              <span className="text-white text-lg md:text-xl font-serif mb-1">Investments</span>
+              <span className="text-accent-light text-xs md:text-sm font-bold uppercase tracking-widest break-all text-center">{investmentsEmail}</span>
             </a>
 
             <a 
